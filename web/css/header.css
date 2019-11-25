@@ -1,0 +1,105 @@
+	header {
+		position: relative;
+    	width: 100%;
+    	height: 96px;
+    	vertical-align: middle;
+	}
+	header #top-header{
+    	height: 96px;
+    	width: 100%;
+		background: #211f22;
+		text-align: center;
+	}
+	header>#th1 {
+		width: inherit;
+		height: inherit;
+		text-align: center;
+	}
+	
+	header .container #left {
+		display: inline-block;
+		text-align: left;
+    	font-size: 13px;
+    	font-weight: bold;
+    	color: #a07f5c;
+	}
+	
+	header .container #login a {
+		display: inline;
+    	color: #a07f5c;
+    	margin: 10px;
+    	padding: 10px;
+    	text-decoration: none;
+    	
+	}
+	
+	header .container #login a:hover {
+		color: #211f22;
+   		background-color: #a07f5c;
+    	transition: 0.5s;
+    	text-decoration: none;
+	}
+	
+	@media(max-width:1920px){
+		.container>#th1 #left {
+			padding-right: 12%;
+		}
+		.container>#th1 #logo {
+			padding-right: 6%;
+			padding-left: 6%;
+		}
+		.container>#th1 #login {
+			padding-left: 12%;
+		}
+	}
+	
+	@media(max-width:1200px){
+		.container>#th1 #left {
+			padding-right: 8%;
+		}
+		.container>#th1 #logo {
+			padding-right: 4%;
+			padding-left: 4%;
+		}
+		.container>#th1 #login {
+			padding-left: 8%;
+		}
+	}
+	
+	@media(max-width:991px){
+		header>#th1 {
+			width: inherit;
+			height: inherit;
+			text-align: center;
+		}
+		.container>#th1 #left {
+			display: none;
+		}
+		.container>#th1 #logo {
+			padding-right: 9%;
+			padding-left: 9%;
+		}
+		.container>#th1 #login {
+			padding-left: 18%;
+		}
+		
+	}
+	@media(max-width:739px){
+		.container>#th1 #logo {
+			padding-right: 5%;
+			padding-left: 5%;
+		}
+		.container>#th1 #login {
+			padding-left: 10%;
+		}
+	}
+	
+	@media(max-width:567px){
+		.container>#th1 #logo {
+			padding-right: 1.5%;
+			padding-left: 1.5%;
+		}
+		.container>#th1 #login {
+			padding-left: 3%;
+		}
+	}
