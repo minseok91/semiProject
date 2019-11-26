@@ -19,7 +19,7 @@
 		margin-right: auto;
 	}
 	#container { 
-		width: 1600px;
+		width: 1600px; 
 		height: 100%;
 		border: solid 1px;
 		padding: 0;

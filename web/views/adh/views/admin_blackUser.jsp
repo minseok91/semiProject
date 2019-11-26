@@ -36,7 +36,7 @@
 						<td>블랙회원</td>
 						<td>010-2222-1919</td>
 						<td>충남 서산시</td>
-						<td>adh1234@naver.com</td>
+						<td>adh1234@naver.com</td> 
 						<td></td>
 					</tr>
 					

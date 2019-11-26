@@ -34,7 +34,7 @@
 				<li id="up"><a href="#">순수이익</a></li>
 			</ul> 
 		</div>
-	</div>
+	</div> 
 	<script type="text/javascript" src="script/header.js">
 		
 	</script>

@@ -124,7 +124,7 @@
 	</form>
 	<script type="text/javascript">
 		 function nextPage() {
-			loaction.href="";
+			loaction.href=""; 
 		}
 	</script>
 </body>
