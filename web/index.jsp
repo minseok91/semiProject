@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>LauXion</title>
-
+<!-- favicon불러오는 링크 -->
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 	<%@ include file="views/common/header.jsp" %>
