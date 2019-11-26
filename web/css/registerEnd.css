@@ -1,0 +1,28 @@
+#Register {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 600; 
+    width: 72.5%;
+    margin: 50px 0 20% 0;
+    border-bottom: 1px solid #3e2d1a;
+    padding-left: 15px;
+}
+
+#Register, #Register>#road, #Register>#arrow {
+    color: rgba(32, 45, 26, .45);
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 19px;
+}
+
+#Register>#road {
+    margin-left: 50%;
+}
+
+#Register>#road>.arrow {
+    padding: 0px 28px;
+}
+
+#Register, .road:nth-of-type(5), .arrow:nth-of-type(3) {
+    color: #3e2d1a;
+}
