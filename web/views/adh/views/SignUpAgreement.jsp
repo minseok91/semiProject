@@ -18,7 +18,7 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-	#container {
+	#container { 
 		width: 1600px;
 		height: 100%;
 		border: solid 1px;

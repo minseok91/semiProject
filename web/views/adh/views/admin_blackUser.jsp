@@ -47,7 +47,7 @@
 					<button><</button>
 					<button>o</button>
 					<button>></button>
-				</div>
+				</div> 
 			</div>
 		</div>
 	</div>

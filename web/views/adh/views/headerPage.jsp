@@ -30,9 +30,9 @@
 				<li id="up"><a href="admin_blackUser.jsp">블랙리스트</a></li>
 			</ul>
 			<ul id="revenueManagement">
-				<li id="up">기간별 매출</li>
-				<li id="up">순수이익</li>
-			</ul>
+				<li id="up"><a href="#">기간별 매출</a></li>
+				<li id="up"><a href="#">순수이익</a></li>
+			</ul> 
 		</div>
 	</div>
 	<script type="text/javascript" src="script/header.js">

@@ -57,7 +57,7 @@
 					</tr>
 					
 				</table>
-			</div>
+			</div> 
 			<div id="nextPage">
 				<div id="nextPageBox">
 					<button><</button>

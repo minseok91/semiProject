@@ -54,7 +54,7 @@
 						</div>
 						</div>
 					</td>
-					<td colspan="2">
+					<td colspan="2"> 
 						<div id="bbs">
 							<label>게시판 관리</label>
 						</div>
