@@ -65,14 +65,14 @@ input[type=submit] {
 
 .list {
 	position: relative;	
-	width: auto;
+	width: 800px;
 	left: 50%;
 	transform: translateX(-50%);
-	margin: 25px 125px;
 	text-align: center;
 }
 
 .list>table {
+	
 	border-collapse: separate;
 	border-spacing: 40px;
 }
