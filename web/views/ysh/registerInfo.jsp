@@ -39,7 +39,7 @@
                         <label>이름</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_NAME" id="userName">
+                        <input type="text" name="USER_NAME" id="userName" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -47,7 +47,7 @@
                         <label>아이디</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_ID" id="userId">
+                        <input type="text" name="USER_ID" id="userId" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -55,7 +55,7 @@
                         <label>비밀번호</label>
                     </td>
                     <td>
-                        <input type="password" name="USER_PWD" id="userPwd">
+                        <input type="password" name="USER_PWD" id="userPwd" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -63,7 +63,7 @@
                         <label>비밀번호 확인</label>
                     </td>
                     <td>
-                        <input type="password" id="pwdCheck">
+                        <input type="password" id="pwdCheck" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +71,7 @@
                         <label>휴대폰번호</label>
                     </td>
                     <td>
-                        <input type="tel" name="USER_PHONE" id="userPhone">
+                        <input type="tel" name="USER_PHONE" id="userPhone" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -79,7 +79,7 @@
                         <label>주소</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_ADDRESS" id="userAddr">
+                        <input type="text" name="USER_ADDRESS" id="userAddr" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -87,7 +87,7 @@
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="EMAIL" id="userEmail" size="9"> @
+                        <input type="text" name="EMAIL" id="userEmail" size="10"> @
                         <select>
                             <option value="">naver.com</option>
                             <option value="">google.com</option>
@@ -99,7 +99,7 @@
                         <label>이메일 인증번호</label>
                     </td>
                     <td>
-                        <input type="text" name="" id="emailCerti">
+                        <input type="text" name="" id="emailCerti" size="26">
                     </td>
                 </tr>
             </table>
@@ -109,6 +109,7 @@
             </div>
         </form>
     </section>
+    <br><br><br><br>
     <%@ include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -14,13 +14,16 @@
     transform: translateX(-50%);
     font-weight: 600; 
     width: 72.5%;
-    margin: 50px 0 0 1%;
+    margin-top: 50px;
+    padding-left: 1%;
+    padding-bottom: 0.3%;
+    border-bottom: 1px solid #3e2d1a;
 }
 
 #Register, #Register>#road, #Register>#arrow {
     color: rgba(32, 45, 26, .45);
     font-family: 'Nanum Myeongjo', serif;
-    font-size: 19px;
+    font-size: 17px;
 }
 
 #Register>#road {
@@ -42,9 +45,8 @@ form>table {
     transform: translateX(-50%);
     border-collapse: separate;
     border-spacing: 0 25px;
-    border-top: 1px solid #3e2d1a;
     border-bottom: 1px solid #3e2d1a;
-    padding: 60px 19%;
+    padding: 30px 19%;
 }
 
 td>input, select {
@@ -53,20 +55,28 @@ td>input, select {
 }
 
 label {
+    margin: 5px;
     font-family: sans-serif;
-    font-size: 18px;
+    font-size: 15px;
     margin-right: 25px;
 }
 
 td>input {
-    font-size: 30px;
+	font-family: sans-serif;
+	padding: 5px;
+    font-size: 20px;
 }
 
-select {
-    font-family: sans-serif;
-    font-size: 20px;
-    width: 162px;
-    height: 35px;
+td>select {
+	font-family: sans-serif;
+    font-size: 15px;
+    padding: 5px;
+    width: 125px;
+    height: 40px;
+}
+
+option {
+	font-family: sans-serif;
 }
 
 .end {
@@ -78,8 +88,8 @@ select {
 
 .end>input {
     border-radius: 3px;
-    font-size: 18px;
-    width: 120px;
+    font-size: 15px;
+    width: 110px;
     padding: 8px 0;
     margin: 20px 10px;
 }
