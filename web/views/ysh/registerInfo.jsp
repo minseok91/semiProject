@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/registerInfo.css">
-<title>Insert title here</title>
+<title>LauXion</title>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
