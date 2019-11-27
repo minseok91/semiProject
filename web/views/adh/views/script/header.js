@@ -1,7 +1,7 @@
 $(function(){
 			$(document).mouseover(function(e){
 				//		console.log(e.target.innerText);
-				if(e.target.innerText == "매출 관리" || e.target.innerText == "회원 정보"){
+				if( e.target.innerText == "회원 정보"){
 					if(e.target.innerText == "매출 관리"){
 						
 						$("#usermit > li").hide(0);
