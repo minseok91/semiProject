@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<style>
+<style> 
 	
 </style>
 <style type="text/css">
@@ -21,6 +21,7 @@
 		background: rgb(33, 31, 34);
 		width: 100%;
 		height: 200px;
+		
 	}
 	#header_bottom {
 		width: 100%;
@@ -96,7 +97,7 @@
 		<div id="header">
 		<div id="img_div">
 			<div>
-				<img alt="" src="image/loginimg.png" id="login_img" onclick="nextPage">
+				<img alt="" src="views/image/loginimg.png" id="login_img" onclick="nextPage">
 			</div>
 			
 		</div>
@@ -124,8 +125,16 @@
 	</form>
 	<script type="text/javascript">
 		 function nextPage() {
-			loaction.href=""; 
+			loaction.href="";
 		}
+	/* 	$(document).ready(function(){
+			console.log("안뇽");
+			$("#header_bottom").animate({height:'70'},1000);
+			$("#header_bottom > div").animate({height:'70'},1000);
+			$("input[type='text']").delay(2000).animate({width:'250px'},1000);
+			$("input[type='submit']").delay(2000).animate({width:'100px'},1000);
+			$("#login_div > input").delay(1000).animate({width:'107px'},1000);
+		}); */
 	</script>
 </body>
 </html>
