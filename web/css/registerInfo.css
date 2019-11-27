@@ -107,8 +107,7 @@ input[type=reset] {
 
 @media(min-width: 1600px) {
     #Register {
-        width: 62%;
-        margin: 50px 0;
+        width: 70%;
     }
 
     #Register>#road {
