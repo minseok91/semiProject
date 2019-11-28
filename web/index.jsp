@@ -11,9 +11,7 @@
 <body>
 	<%@ include file="views/common/header.jsp" %>
 	<%@ include file="views/common/nav.jsp" %>
-	<br><br><br><br><br>
-	<br><br><br><br><br>
-	<br><br><br><br><br>
+	<%@ include file="views/common/myPageMenubar.jsp" %>
 	<%@ include file="views/common/footer.jsp" %>
 </body>
 </html>
