@@ -5,9 +5,9 @@
 <head>
 <title></title>
 <meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.container {
-		width: 1080px;
 		margin: 0 auto;
 		padding-bottom: 10px;
 	}
@@ -15,6 +15,8 @@
 		width: 210px;
 		height: 1080px;
 		border-right: 2px solid black;
+		display: inline-block;
+		float: left;
 	}
 	.container>#myPageMenu>dl>dt {
 		font-size: 1.5em;
@@ -24,7 +26,6 @@
 	}
 	.container>#myPageMenu>dl>dd {
 		font-size: 15px;
-
 		margin-left: 20px;
 		margin-top: 7px;
 		margin-bottom: 7px;
@@ -35,10 +36,18 @@
 		padding-top: 7px;
 		padding-bottom: 7px;
 		color: #a07342;
+		margin-top: 0px;
 	}
+	
 	.container>#myPageMenu>dl>dd>a{
 		color: darkgray;
 		text-decoration: none;
+	}
+	.container>#myPageMenu>dl>dd>#selectMenu{
+		font-size: 1em;
+		font-weight: bold;
+		color: black;
+		text-decoration: underline;
 	}
 	.container>#myPageMenu>dl>dd>a:hover{
 		font-size: 1em;
@@ -46,6 +55,36 @@
 		color: black;
 		text-decoration: underline;
 	}
+	.container>.menuStatus{
+		width: 920px;
+		height: 110px;
+		display: inline-block;
+		margin-left: 10px;
+	}
+	.container>.menuStatus>.status1>h3{
+		margin-top:10px;
+	}
+	.container>.menuStatus>.status2{
+		width: 920px;
+		height: 54px;
+		background-color: lightgray;
+		vertical-align: middle;
+
+	}
+	.container>.menuStatus>.status2>p{
+		padding-top: 16px;
+		padding-left: 30px;
+		font-size: 17px;
+	}
+	.container>.contentArea{
+		width: 920px;
+		height: 970px;
+		border: 1px solid black;
+		display: inline-block;
+		margin-left: 10px;
+		
+	}
+	
 </style>
 </head>
 <body>
@@ -54,7 +93,7 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a href="">▶   위시리스트</a></dd>
+				<dd><a href="" id=selectMenu>▶   위시리스트</a></dd>
 				<dd><a href="">▶   입찰리스트</a></dd>
 				<dd><a href="">▶   낙찰리스트</a></dd>
 				
@@ -84,6 +123,17 @@
 				
 			</dl>
 		</div>  <!-- myPageMenu end -->
+		<div class="menuStatus">
+			<div class="status1">
+				<h3>&nbsp;&nbsp;<&nbsp;위시리스트 &nbsp;>&nbsp;</h3>
+			</div>  <!-- status1 end -->
+			<div class="status2">
+				<p>회원님께서 찜하신 상품 리스트를 볼 수 있는 공간입니다.</p>
+			</div>  <!-- status2 end -->
+		</div>  <!-- menuStatus end -->
+		<div class="contentArea">
+		
+		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
 </body>
 </html>
