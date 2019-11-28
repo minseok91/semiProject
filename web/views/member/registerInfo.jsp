@@ -32,7 +32,7 @@
             </span> 
         </div>
 
-        <form action="" method="post" onsubmit="return checkAll()">
+        <form action="<%= request.getContextPath() %>/insertMember.me" method="post" onsubmit="return checkAll()">
             <table>
                 <tr>
                     <td>

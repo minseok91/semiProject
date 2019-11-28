@@ -5,45 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="../css/semantic/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="../css/semantic/semantic.min.js"></script>
+
 </head>
 <style>
-	html, body {
-		padding:0;
-		margin:0;
-	}
-	#header{
-		background:black;
-		height:100px;
-		width:100%;
-	}
-	#header2{
-		background:rgb(159,115,70);
-		height:100px;
-		width:100%;
-	}
-	#footer{
-		position:absolute;
-	    bottom:0;
-	    width:100%;
-	    height:70px;   
-	    background:#000;
-	    
-	}
 	#main{
 		margin-top:100px;
 		text-align:center;
 		/* border:1px solid black; */
 		height:250px;
 		width:100%;
-	}
-	#head{
-		/*폰트*/
 	}
 	#contents{
 		/* border:1px solid blue; */
@@ -63,7 +33,7 @@
 	#login{
 		
 		float:left;
-		 /* border:1px solid blue;  */
+		border:1px solid blue;
 		height:200px;
 		width:50%;
 		display:inline-block;
@@ -150,12 +120,15 @@
 	}
 </style>
 <body>
-	<div id="main">
+	<%@ include file="../common/header.jsp" %>
+	<%@ include file="../common/nav.jsp" %>
+	<div class="container">
+		<div id="main">
 		<div id="contents">
 			<h5 style="float:left; margin-left:10px;">회원 로그인</h5>
 			<div id="loginbox">
 				<div id="login">
-					<form action="" method="post">
+					<form action="<%= request.getContextPath() %>/login.me" method="post">
 					<table id="table1"><!--  border="1"> -->
 						<tr> 
 							<td id="head">아이디</td>
@@ -175,24 +148,31 @@
 						<tr> 
 							<td>회원   아이디를   잊으셨나요?</td>
 							<td></td>
-							<td><button class="btn find">아이디 찾기</button></td>
+							<td><button class="btn find" onclick="findId()">아이디 찾기</button></td>
 						</tr>
 						<tr>
 							<td>비밀번호를  잊으셨나요?</td>
 							<td></td>
-							<td><button class="btn find">비밀번호 찾기</button></td>
+							<td><button class="btn find" onclick="findPassword()">비밀번호 찾기</button></td>
 						</tr>
 						<tr>
 							<td>아직  회원이  아니신가요?</td>
 							<td></td>
-							<td><button class="btn find">회원가입</button></td>
+							<td><button class="btn find" onclick="register()">회원가입</button></td>
 						</tr>
 					</table>
-				</div>
-			</div>
-		</div>
+					<script>
+						function findId(){};
+						function findPassword(){};
+						function register(){
+							location.href="<%= request.getContextPath()%>/views/member/registerAgreement.jsp";
+						};
+					</script>
+				</div>  <!-- #find end -->
+			</div>  <!-- #loginBox end -->
+		</div>  <!-- #contents end -->
+	</div>  <!-- #main end -->
 	</div>
-	
-	
+	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

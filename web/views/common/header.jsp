@@ -127,11 +127,11 @@
                 	100% Authenticity Guaranteed
             	</p>
 				<p id="logo" style="display: inline-block; margin-bottom: 10px;">
-					<a href="#"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
+					<a href="<%=request.getContextPath() %>"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
 				</p>
 				<p id="login" style="display: inline-block;">
-					<a href="">로그인</a>
-                	<a href="">회원가입</a>        	
+					<a href="<%= request.getContextPath() %>/views/member/login.jsp">로그인</a>
+                	<a href="<%= request.getContextPath() %>/views/member/registerAgreement.jsp">회원가입</a>        	
 				</p>
 			</div>  <!-- th1 end -->
 		</div>  <!-- container end -->
