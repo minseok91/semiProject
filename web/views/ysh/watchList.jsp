@@ -4,13 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="../../css/watchList.css">
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/watchList.css">
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
-	<section>
+	<section class="container">
 		<div class="head">
 			<span class="title">< 경매 진행중인 시계 상품 ></span> <span class="search">검색</span>
 			<span class="content">
@@ -30,7 +28,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -38,7 +36,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -46,7 +44,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -54,7 +52,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -62,7 +60,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -72,7 +70,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -80,7 +78,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -88,7 +86,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -96,7 +94,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -104,7 +102,7 @@
 					<td>
 						<div id="img">
                         	<div class="price">￦720,000</div>
-                            <img src="../../img/watch1.jpg" alt="" >
+                            <img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
                         </div>
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
@@ -113,6 +111,5 @@
 			</table>
 		</div> <!-- watchList End -->
 	</section>
-	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>
