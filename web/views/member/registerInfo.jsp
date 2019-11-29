@@ -48,6 +48,7 @@
                     </td>
                     <td>
                         <input type="text" name="USER_ID" id="userId" size="26">
+                        <input type="button" id="idCheck" value="중복확인">
                     </td>
                 </tr>
                 <tr>
