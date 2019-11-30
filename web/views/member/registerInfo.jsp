@@ -68,11 +68,25 @@
                     </td>
                 </tr>
                 <tr>
+                	<td><label>성별</label></td>
+                	<td>
+                		<span class="gender">
+                            <label for="male">남성</label>
+                            <input type="radio" name="gender" id="male" value="M">
+
+                            <label for="female">여성</label>
+                            <input type="radio" name="gender" id="female" value="F">
+                        </span>
+                	</td>
+                </tr>
+                <tr>
                     <td>
                         <label>휴대폰번호</label>
                     </td>
                     <td>
-                        <input type="tel" name="memberPhone" id="userPhone" size="26">
+                        <input type="tel" name="USER_PHONE1" id="userPhone1" size="3" maxlength="3">-
+                        <input type="tel" name="USER_PHONE2" id="userPhone2" size="5" maxlength="4">-
+                        <input type="tel" name="USER_PHONE3" id="userPhone3" size="5" maxlength="4">
                     </td>
                 </tr>
                 <tr>

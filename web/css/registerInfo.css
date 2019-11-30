@@ -88,6 +88,14 @@ option {
 	font-family: sans-serif;
 }
 
+.gender {
+	margin-left: 20px;
+}
+
+#male {
+	margin-right: 50px;
+}
+
 .end {
     position: relative;
     margin-bottom: 50px;
