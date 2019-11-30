@@ -132,12 +132,12 @@
 					<table id="table1"><!--  border="1"> -->
 						<tr> 
 							<td id="head">아이디</td>
-							<td><input type="text"></td>
+							<td><input type="text" name="memberId"></td>
 							<td rowspan="2" ><button class="btn login" type="submit">로그인</button></td>
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password"></td>
+							<td><input type="password" name="memberPwd"></td>
 						</tr>
 					</table>
 					</form>
