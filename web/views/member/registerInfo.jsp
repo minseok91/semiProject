@@ -72,10 +72,10 @@
                 	<td>
                 		<span class="gender">
                             <label for="male">남성</label>
-                            <input type="radio" name="gender" id="male">
+                            <input type="radio" name="gender" id="male" value="M">
 
                             <label for="female">여성</label>
-                            <input type="radio" name="gender" id="female">
+                            <input type="radio" name="gender" id="female" value="F">
                         </span>
                 	</td>
                 </tr>
