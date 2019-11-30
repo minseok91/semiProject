@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String msg = (String) request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,5 +11,6 @@
 </head>
 <body>
 <!-- 실패페이지 -->
+<h1 align="center"><%= msg %></h1>
 </body>
 </html>

@@ -24,7 +24,7 @@
 				<tr>
 					<td colspan="3">
 					<div id="sales">
-						<%@ include file="my.jsp" %>
+						<!-- <%@ include file="my.jsp" %> -->
 					</div>
 
 					</td>

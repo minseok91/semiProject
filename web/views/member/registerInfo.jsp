@@ -39,7 +39,7 @@
                         <label>이름</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_NAME" id="userName" size="26">
+                        <input type="text" name="memberName" id="userName" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -47,7 +47,7 @@
                         <label>아이디</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_ID" id="userId" size="26">
+                        <input type="text" name="memberId" id="userId" size="26">
                         <input type="button" id="idCheck" value="중복확인">
                     </td>
                 </tr>
@@ -56,7 +56,7 @@
                         <label>비밀번호</label>
                     </td>
                     <td>
-                        <input type="password" name="USER_PWD" id="userPwd" size="26">
+                        <input type="password" name="memberPwd" id="userPwd" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -94,7 +94,7 @@
                         <label>주소</label>
                     </td>
                     <td>
-                        <input type="text" name="USER_ADDRESS" id="userAddr" size="26">
+                        <input type="text" name="memberAddress" id="userAddr" size="26">
                     </td>
                 </tr>
                 <tr>
@@ -102,7 +102,7 @@
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="EMAIL" id="userEmail" size="10"> @
+                        <input type="text" name="memberEmail" id="userEmail" size="10"> @
                         <select>
                             <option value="">naver.com</option>
                             <option value="">google.com</option>

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
+<%
+	Member loginMember = (Member) session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -130,8 +133,14 @@
 					<a href="<%=request.getContextPath() %>"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
 				</p>
 				<p id="login" style="display: inline-block;">
+					<% if(loginMember == null) { %>
 					<a href="<%= request.getContextPath() %>/views/member/login.jsp">로그인</a>
-                	<a href="<%= request.getContextPath() %>/views/member/registerAgreement.jsp">회원가입</a>        	
+                	<a href="<%= request.getContextPath() %>/views/member/registerAgreement.jsp">회원가입</a> 
+					<% } else { %>
+					
+					<a href="<%= request.getContextPath() %>/logout.me">로그아웃</a>
+					<a href="#">마이페이지</a>
+					<% } %>       	
 				</p>
 			</div>  <!-- th1 end -->
 		</div>  <!-- container end -->
