@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
+<title>LauXion</title>
 <style>
 	html, body {
 		margin: 0;
