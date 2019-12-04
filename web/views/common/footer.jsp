@@ -40,7 +40,7 @@
 		paading: 6px 0px 0;
 	}
 
-	footer .container a, a:hover{
+	footer .container a{
 		font-size: 15px;
     	font-family: 'Nanum Myeongjo', serif;
     	color: #211f22;
