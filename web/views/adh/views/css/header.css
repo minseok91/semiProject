@@ -8,9 +8,12 @@
 		margin-left: auto;
 		margin-right: auto;
 		background: rgb(33, 31, 34);
-		width: 1000px;
+		width: 1080px;
 		height: 100%;
 		position: relative;
+	}
+		#bottom {
+		position: absolute;
 	}
 	#header_box > ul {
 		list-style: none;
@@ -29,7 +32,6 @@
 		padding-left:2%;
 		padding-right:1%;
 		color: #e2ceb8;
-		
 	}
 	#bottom {
 		width: 100%;
@@ -39,7 +41,7 @@
 	#bottom_box {
 		margin-left: auto;
 		margin-right: auto;
-		width: 1000px;
+		width: 1080px;
 		height: 100%;
 		background: rgb(160, 115, 66);
 	}
@@ -56,12 +58,12 @@
 		padding-top: 30px;
 		padding-right: 40px;
 	}
-	#revenueManagement {
+	#notice {
 		margin-bottom: 0;
 		margin-top: 0;
 		list-style: none;
 	}
-	#revenueManagement > li{
+	#notice > li{
 		float: left;
 		display: none;
 		color: rgb(33, 31, 34);
@@ -81,7 +83,7 @@
 	color: #e2ceb8;
 	text-decoration: underline;
 	}
-	#revenueManagement > li:hover {
+	#notice > li:hover {
 	color: #e2ceb8;
 	text-decoration: underline;
 	}

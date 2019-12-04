@@ -6,8 +6,8 @@ html, body {
 	height: 100%;
 }
 #container {
-	width: 1000px;
-	height: 900px;
+	width: 1080px;
+	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
 	
@@ -48,11 +48,12 @@ html, body {
 }
 th {
 	border-top: 1px solid;
-	background: rgb(33, 31, 34);
-	color: rgb(160, 115, 66);
+	background: #EAEAEA;
+	color: black;
+	border-top: 2px solid #CCCCCC;
 }
 th, td {
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #CCCCCC;
 	text-align: center;
 	padding-top: 5px;
 }
