@@ -91,6 +91,34 @@ public class MemberDao {
 		
 		return result;
 	}
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 4. 오후 9:33:05
+	 * @ModifyDate    : 2019. 12. 4. 오후 9:33:05
+	 * @Description   : 아이디 중복체크 메소드
+	 * @param con
+	 * @param memberId
+	 * @return
+	 */
+	public int idCheck(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
 	
 

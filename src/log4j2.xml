@@ -1,21 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+	<properties>
+         <property name="name">testLog</property>
+         <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5.5p | %-30.30C::%-30.30M:%-5.5L | %m%n</property>
+<!-- 
+It will look like that:
+2015-10-26 14:53:54.090 | WARN  | .pnpsecure.testLogger.MyLogger::log4j_v2                      :23    | 123
+-->
+        </properties>
+        
     <Appenders>
-        <File name="A1" fileName="LauXionLog.log" append="true">
-            <PatternLayout pattern="%t %-5p %c{2} - %m%n" />
-        </File>
-        <Console name="STDOUT" target="SYSTEM_OUT">
+        <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
         </Console>
+       
+     	<RollingFile name="file" fileName="C:/log/${name}.log"
+                         filePattern="C:/log/$${date:yyyy}/$${date:MM}/${name}_%d{yyyyMMddHH}.log">
+                <PatternLayout>
+                        <pattern>${pattern}</pattern>
+                </PatternLayout>
+                <Policies>
+                        <TimeBasedTriggeringPolicy /><!-- Rotated everyday -->
+                </Policies>
+        </RollingFile>
+        <!-- C:/log/testLog/${name}.log -->
     </Appenders>
-
+    
     <Loggers>
-        <Root level="debug">
-            <AppenderRef ref="STDOUT" />
-        </Root>
-
-        <Logger name="controller.Home" level="debug">
-            <AppenderRef ref="A1" />
+        <Logger name="egovframework" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
         </Logger>
+		  <!-- log SQL with timing information, post execution -->
+	    <logger name="jdbc.sqltiming" level="INFO" additivity="false">
+	        <appender-ref ref="console" />
+	    </logger>
+	    <logger name="org.springframework" level="INFO" additivity="false">
+	        <appender-ref ref="console" />
+	    </logger>
+	    <logger name="org.apache" level="ERROR" additivity="false">
+			<appender-ref ref="console" />
+			<AppenderRef ref="file" />
+		</logger>
+        <Root level="DEBUG">
+            <AppenderRef ref="console" />
+		    <AppenderRef ref="file" />
+        </Root>
     </Loggers>
 </Configuration>
+

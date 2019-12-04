@@ -5,149 +5,151 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/registerInfo.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>LauXion</title>
 <style type="text/css">
 	* {
-    padding: 0;
-    margin: 0;
-    vertical-align: middle;
-    white-space: nowrap;
-    font-family: 'Nanum Myeongjo', serif;
-}
+    	padding: 0;
+    	margin: 0;
+    	vertical-align: middle;
+    	white-space: nowrap;
+    	font-family: 'Nanum Myeongjo', serif;
+	}
 
-#Register {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    font-weight: 600; 
-    width: 72.5%;
-    margin-top: 50px;
-    padding-left: 1%;
-    padding-bottom: 0.3%;
-    border-bottom: 1px solid #3e2d1a;
-}
+	#Register {
+    	position: relative;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	font-weight: 600; 
+    	width: 72.5%;
+    	margin-top: 50px;
+    	padding-left: 1%;
+    	padding-bottom: 0.3%;
+    	border-bottom: 1px solid #3e2d1a;
+	}
 
-#Register, #Register>#road, #Register>#arrow {
-    color: rgba(32, 45, 26, .45);
-    font-family: 'Nanum Myeongjo', serif;
-    font-size: 17px;
-}
+	#Register, #Register>#road, #Register>#arrow {
+    	color: rgba(32, 45, 26, .45);
+    	font-family: 'Nanum Myeongjo', serif;
+    	font-size: 17px;
+	}
 
-#Register>#road {
-    margin-left: 55%;
-}
+	#Register>#road {
+    	margin-left: 55%;
+	}
 
-#Register>#road>.arrow {
-    padding: 0px 28px;
-}
+	#Register>#road>.arrow {
+    	padding: 0px 28px;
+	}
 
-#Register, .road:nth-of-type(3), .arrow     {
-    color: #3e2d1a;
-}
+	#Register, .road:nth-of-type(3), .arrow     {
+    	color: #3e2d1a;
+	}
 
 /* ���� �Է� */
-form>table {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    border-collapse: separate;
-    border-spacing: 0 25px;
-    border-bottom: 1px solid #3e2d1a;
-    padding: 30px 19%;
-}
+	form>table {
+    	position: relative;
+    	left: 50%;
+    	transform: translateX(-50%);
+    	border-collapse: separate;
+    	border-spacing: 0 25px;
+    	border-bottom: 1px solid #3e2d1a;
+    	padding: 30px 19%;
+	}
 
-td>input, select {
-    border: none;
-    box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
-}
+	td>input, select {
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
 
-label {
-    margin: 5px;
-    font-family: sans-serif;
-    font-size: 15px;
-    margin-right: 25px;
-}
+	label {
+    	margin: 5px;
+    	font-family: sans-serif;
+    	font-size: 15px;
+    	margin-right: 25px;
+	}
 
-td>input {
-	font-family: sans-serif;
-	padding: 5px;
-    font-size: 20px;
-}
+	td>input {
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 20px;
+	}
 
-#idCheck {
-	background: #a07342;
-	border-radius: 5px;
-	margin-left: 7px;
-	font-size: 13px;
-	padding: 7px;
-	color: #211f22;
-}
+	#idCheck {
+		background: #a07342;
+		border-radius: 5px;
+		margin-left: 7px;
+		font-size: 13px;
+		font-family: sans-serif;
+		padding: 7px;
+		color: #211f22;
+	}
 
-td>select {
-	font-family: sans-serif;
-    font-size: 15px;
-    padding: 5px;
-    width: 125px;
-    height: 40px;
-}
+	td>select {
+		font-family: sans-serif;
+   		font-size: 15px;
+    	padding: 5px;
+    	width: 125px;
+    	height: 40px;
+	}
 
-#userPhone1 {
-	width: 75px;
+	#userPhone1 {
+		width: 75px;
 	/* Chrome에서만 적용되는 select text-align: center */
-	text-align-last: center;
-}
+		text-align-last: center;
+	}
 
-option {
-	font-family: sans-serif;
-}
+	option {
+		font-family: sans-serif;
+	}
 
-.gender {
-	margin-left: 20px;
-}
+	.gender {
+		margin-left: 20px;
+	}
 
-#male {
-	margin-right: 50px;
-}
+	#male {
+		margin-right: 50px;
+	}
 
-.end {
-    position: relative;
-    margin-bottom: 50px;
-    float: right;
-    left: -13.4%;
-}
+	.end {
+    	position: relative;
+    	margin-bottom: 50px;
+    	float: right;
+    	left: -13.4%;
+	}
 
-.end>input {
-    border-radius: 3px;
-    font-size: 15px;
-    width: 110px;
-    padding: 8px 0;
-    margin: 20px 10px;
-}
+	.end>input {
+    	border-radius: 3px;
+    	font-size: 15px;
+    	width: 110px;
+    	padding: 8px 0;
+    	margin: 20px 10px;
+	}
 
-input[type=submit] {
-    color: #a07342;
-    border: 1px solid #a07342;
-    background-color: #211f24;
-}
+	input[type=submit] {
+    	color: #a07342;
+    	border: 1px solid #a07342;
+    	background-color: #211f24;
+	}
 
-input[type=reset] {
-    border: 1px solid #a07342;
-    background-color: #d9d9d9;
-}
+	input[type=reset] {
+    	border: 1px solid #a07342;
+    	background-color: #d9d9d9;
+	}
 
-@media(min-width: 1600px) {
-    #Register {
-        width: 70%;
-    }
+	@media(min-width: 1600px) {
+    	#Register {
+        	width: 70%;
+    	}
 
-    #Register>#road {
-        margin-left: 61.7%;
-    }
+    	#Register>#road {
+        	margin-left: 61.7%;
+    	}
 
-    #Register>#road>.arrow {
-        padding: 0px 28px;
-    }
-}
+    	#Register>#road>.arrow {
+        	padding: 0px 28px;
+    	}
+	}
 </style>
 </head>
 <body>
@@ -175,7 +177,7 @@ input[type=reset] {
             </span> 
         </div>
 
-        <form action="<%= request.getContextPath() %>/insertMember.me" method="post" onsubmit="return checkAll()">
+        <form action="<%= request.getContextPath() %>/insertMember.me" id="form1" method="post" onsubmit="return checkAll()">
             <table>
                 <tr>
                     <td>
@@ -191,7 +193,8 @@ input[type=reset] {
                     </td>
                     <td>
                         <input type="text" name="memberId" id="userId" size="26">
-                        <input type="button" id="idCheck" value="중복확인">
+                        <input type="button" id="idCheck" value="중복확인"/>
+                        <div id="result">중복확인 버튼을 눌러주세요.</div>
                     </td>
                 </tr>
                 <tr>
@@ -210,18 +213,7 @@ input[type=reset] {
                         <input type="password" id="pwdCheck" size="26">
                     </td>
                 </tr>
-                <tr>
-                	<td><label>성별</label></td>
-                	<td>
-                		<span class="gender">
-                            <label for="male">남성</label>
-                            <input type="radio" name="gender" id="male" value="M">
-
-                            <label for="female">여성</label>
-                            <input type="radio" name="gender" id="female" value="F">
-                        </span>
-                	</td>
-                </tr>
+                
                 <tr>
                     <td>
                         <label>휴대폰번호</label>
@@ -273,9 +265,36 @@ input[type=reset] {
                 <input type="reset" value="취소">
                 <input type="submit" value="가입하기">
             </div>
+            
         </form>
     </section>
     <br><br><br><br>
     <%@ include file="../common/footer.jsp" %>
+    <script>
+    	$("#idCheck").click(function(){
+    		var id = $("#userId").val();
+    		$.ajax({
+    			url: "<%= request.getContextPath() %>/idCheck.me",
+    			type: "post",
+    			data: {
+    				id:id
+    			},
+    			success: function(data){
+    				//console.log("ajax 테스트 성공");
+    				if(data === "true"){
+    					$("#result").text("사용 가능한 아이디입니다.").css({"color":"green"});
+    				} else if(data === "false"){
+    					$("#result").text("사용 할 수 없는 아이디입니다.").css({"color":"red"});
+    				}else{
+    					$("#result").text("다시 시도해주세요").css({"color":"red"});
+    				}
+    				
+    			},
+    			error: function(data){
+    				console.log("ajax 테스트 실패");
+    			}
+    		});
+    	});
+    </script>
 </body>
 </html>

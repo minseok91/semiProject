@@ -40,7 +40,20 @@
     	color: #a07f5c;
 	}
 	
-	header .container #login a {
+	.container>#th1 #left {
+		padding-right: 12%;
+	}
+	
+	.container>#th1 #logo {
+		padding-right: 6%;
+		padding-left: 6%;
+	}
+	
+	.container>#th1 #headerlogin {
+		padding-left: 12%;
+	}
+	
+	header .container #headerlogin a {
 		display: inline;
     	color: #a07f5c;
     	margin: 10px;
@@ -49,75 +62,11 @@
     	
 	}
 	
-	header .container #login a:hover {
+	header .container #headerlogin a:hover {
 		color: #211f22;
    		background-color: #a07f5c;
     	transition: 0.5s;
     	text-decoration: none;
-	}
-	
-	@media(max-width:1920px){
-		.container>#th1 #left {
-			padding-right: 12%;
-		}
-		.container>#th1 #logo {
-			padding-right: 6%;
-			padding-left: 6%;
-		}
-		.container>#th1 #login {
-			padding-left: 12%;
-		}
-	}
-	
-	@media(max-width:1200px){
-		.container>#th1 #left {
-			padding-right: 8%;
-		}
-		.container>#th1 #logo {
-			padding-right: 4%;
-			padding-left: 4%;
-		}
-		.container>#th1 #login {
-			padding-left: 8%;
-		}
-	}
-	
-	@media(max-width:991px){
-		header>#th1 {
-			width: inherit;
-			height: inherit;
-			text-align: center;
-		}
-		.container>#th1 #left {
-			display: none;
-		}
-		.container>#th1 #logo {
-			padding-right: 9%;
-			padding-left: 9%;
-		}
-		.container>#th1 #login {
-			padding-left: 18%;
-		}
-		
-	}
-	@media(max-width:739px){
-		.container>#th1 #logo {
-			padding-right: 5%;
-			padding-left: 5%;
-		}
-		.container>#th1 #login {
-			padding-left: 10%;
-		}
-	}
-	
-	@media(max-width:700px){
-		.container>#th1 #logo {
-			padding-right: 1.5%;
-			padding-left: 1.5%;
-		}
-		.container>#th1 #login {
-			padding-left: 3%;
-		}
 	}
 </style>
 </head>
@@ -132,7 +81,7 @@
 				<p id="logo" style="display: inline-block; margin-bottom: 10px;">
 					<a href="<%=request.getContextPath() %>"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
 				</p>
-				<p id="login" style="display: inline-block;">
+				<p id="headerlogin" style="display: inline-block;">
 					<% if(loginMember == null) { %>
 					<a href="<%= request.getContextPath() %>/views/member/login.jsp">로그인</a>
                 	<a href="<%= request.getContextPath() %>/views/member/registerAgreement.jsp">회원가입</a> 
