@@ -18,7 +18,7 @@
 				<li>물품 관리</li>
 				<li>경매 관리</li>
 				<li id="up">매출 관리</li>
-				<li><a href="admin_Notice.jsp">게시판 관리</a></li>
+				<li>게시판 관리</li>
 				<li>문의 및 신고</li>
 			</ul>
 		</div>
@@ -29,9 +29,9 @@
 				<li id="up"><a href="admin_userInformation.jsp">회원정보 관리</a></li>
 				<li id="up"><a href="admin_blackUser.jsp">블랙리스트</a></li>
 			</ul>
-			<ul id="revenueManagement">
-				<li id="up">기간별 매출</li>
-				<li id="up">순수이익</li>
+			<ul id="notice">
+				<li id="notice_li">게시판 관리</li>
+				<li id="FAQ">FAQ</li>
 			</ul>
 		</div>
 	</div>

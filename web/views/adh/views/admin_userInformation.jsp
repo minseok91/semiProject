@@ -67,5 +67,8 @@
 			</div>
 		</div>
 	</div>
+	<script tpye="text/javascript" src="script/admin_userInformation.js">
+		
+	</script>
 </body>
 </html>

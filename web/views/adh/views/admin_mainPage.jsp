@@ -6,6 +6,9 @@
 <meta content="text/html;">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/admin_mainPage.css">
+<style>
+
+</style>
 </head>
 <body>
 	<%@include file="headerPage.jsp"%>
@@ -24,7 +27,7 @@
 				<tr>
 					<td colspan="3">
 					<div id="sales">
-						<!-- <%@ include file="my.jsp" %> -->
+						<%@ include file="my.jsp" %>
 					</div>
 
 					</td>
