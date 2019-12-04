@@ -4,10 +4,9 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/admin_mainPage.css">
+<title>Insert title here</title>
 <style>
-
 </style>
 </head>
 <body>
