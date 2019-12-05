@@ -92,6 +92,23 @@
     color: #f00;
     font-weight: bold;
 }
+
+.contentArea {
+	position: relative;
+	width: 920px;
+	
+}
+
+.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>th {
+	border: 1px solid #d9d9d9;
+	padding: 5px;
+	font-size: 15px;
+	text-align: center;
+}
+
+.contentArea>table>tbody>tr>th  {
+	background: #f2f2f2;
+}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
