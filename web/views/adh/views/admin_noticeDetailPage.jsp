@@ -1,10 +1,10 @@
 <%--
 /**
  * <pre>
- * @Author      : 안동환
- * @CreateDate  : 2019. 12. 4. 오후 7:54:07
- * @ModifyDate  : 2019. 12. 4. 오후 7:54:07
- * @fileName    : admin_userDetailPage
+ * @Author      : fksua
+ * @CreateDate  : 2019. 12. 5. 오후 12:03:13
+ * @ModifyDate  : 2019. 12. 5. 오후 12:03:13
+ * @fileName    : 
  * @Description :
  * </pre>
  */
@@ -14,9 +14,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
-<link rel="stylesheet" type="text/css" href="css/admin_userDetailPage.css">
 <meta content="text/html;">
+<title>Insert title here</title>
 <style>
 	html, body {
 	padding: 0;
