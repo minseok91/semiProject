@@ -200,6 +200,7 @@
 		background: #f2f2f2;
 	}
 </style>
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
