@@ -7,6 +7,9 @@ import java.sql.Connection;
 import com.kh.lp.member.model.dao.MemberDao;
 import com.kh.lp.member.model.vo.Member;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class MemberService {
 
 	public Member loginCheck(Member requestMember) {
@@ -22,7 +25,13 @@ public class MemberService {
 		int result = new MemberDao().insertMember(con, requestMember);
 		
 		if(result > 0) {
-			commit(con);
+			int delResult = new MemberDao().deleteEmailCode(con, requestMember.getMemberId());
+			if(delResult > 0) {
+				log.debug(delResult);
+				commit(con);
+			}else {
+				rollBack(con);
+			}
 		}else {
 			rollBack(con);
 		}
@@ -33,6 +42,28 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		int result = new MemberDao().idCheck(con, memberId);
+		
+		close(con);
+		return result;
+	}
+
+	public String sendEmail(Member requestMember) {
+		Connection con = getConnection();
+		
+		String result = new MemberDao().sendEmail(con, requestMember);
+		
+		if(result != null) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		return result;
+		}
+
+	public int checkEmail(String code, String memberId) {
+		Connection con = getConnection();
+		int result = new MemberDao().checkEmail(con, code, memberId);
 		
 		close(con);
 		return result;
