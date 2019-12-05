@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/registerInfo.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>LauXion</title>
 <style type="text/css">
@@ -177,7 +177,7 @@
             </span> 
         </div>
 
-        <form action="<%= request.getContextPath() %>/insertMember.me" id="form1" method="post" onsubmit="return checkAll()">
+        <form action="" id="form1" method="post" onsubmit="return checkAll()">
             <table>
                 <tr>
                     <td>
@@ -194,6 +194,7 @@
                     <td>
                         <input type="text" name="memberId" id="userId" size="26">
                         <input type="button" id="idCheck" value="중복확인"/>
+                        <input type="hidden" id="resultCheck" value="false" />
                         <div id="result">중복확인 버튼을 눌러주세요.</div>
                     </td>
                 </tr>
@@ -219,14 +220,14 @@
                         <label>휴대폰번호</label>
                     </td>
                     <td>
-                        <select name="USER_PHONE" id="userPhone1">
+                        <select name="memberPhone1" id="userPhone1">
                             <option value="010">010</option>
                             <option value="011">011</option>
                             <option value="016">016</option>
                             <option value="019">019</option>
                         </select>-
-                        <input type="tel" name="USER_PHONE2" id="userPhone2" size="5" maxlength="4">-
-                        <input type="tel" name="USER_PHONE3" id="userPhone3" size="5" maxlength="4">
+                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4">-
+                        <input type="tel" name="memberPhone3" id="userPhone3" size="5" maxlength="4">
                     </td>
                 </tr>
                 <tr>
@@ -242,8 +243,8 @@
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="memberEmail" id="userEmail" size="10"> @
-                        <select>
+                        <input type="text" name="memberEmail1" id="userEmail" size="10"> @
+                        <select name="memberEmail2">
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
                             <option value="daum.net">daum.net</option>
@@ -263,7 +264,7 @@
             </table>
             <div class="end">
                 <input type="reset" value="취소">
-                <input type="submit" value="가입하기">
+                <input type="submit" id="registerBtn" value="가입하기">
             </div>
             
         </form>
@@ -273,28 +274,64 @@
     <script>
     	$("#idCheck").click(function(){
     		var id = $("#userId").val();
-    		$.ajax({
-    			url: "<%= request.getContextPath() %>/idCheck.me",
-    			type: "post",
-    			data: {
-    				id:id
-    			},
-    			success: function(data){
-    				//console.log("ajax 테스트 성공");
-    				if(data === "true"){
-    					$("#result").text("사용 가능한 아이디입니다.").css({"color":"green"});
-    				} else if(data === "false"){
-    					$("#result").text("사용 할 수 없는 아이디입니다.").css({"color":"red"});
-    				}else{
-    					$("#result").text("다시 시도해주세요").css({"color":"red"});
-    				}
-    				
-    			},
-    			error: function(data){
-    				console.log("ajax 테스트 실패");
-    			}
-    		});
+    		if(id === ""){
+    			alert("아이디를 입력해주세요!");
+    		} else {
+    			$.ajax({
+        			url: "<%= request.getContextPath() %>/idCheck.me",
+        			type: "post",
+        			data: {
+        				id:id
+        			},
+        			success: function(data){
+        				//console.log("ajax 테스트 성공");
+        				if(data === "true"){
+        					$("#result").text("사용 가능한 아이디입니다.").css({"color":"green"});
+        					$("#resultCheck").val("true");
+        					console.log($("#resultCheck").val());
+        				} else if(data === "false"){
+        					$("#result").text("사용 할 수 없는 아이디입니다.").css({"color":"red"});
+        					$("#resultCheck").val("false");
+        					console.log($("#resultCheck").val());
+        				}else{
+        					$("#result").text("다시 시도해주세요").css({"color":"red"});
+        					$("#resultCheck").val("false");
+        					console.log($("#resultCheck").val());
+        				}
+        				
+        			},
+        			error: function(data){
+        				console.log("ajax 테스트 실패");
+        			}
+        		});
+    		}
     	});
+    	
+    	function checkAll(){
+    		var memberName = $("#userName").val();
+    		if(memberName === ""){
+    			alert("이름을 확인해주세요!");
+    			return false;
+    		} else {
+    			var check = $("#resultCheck").val();
+    			if(check === "false"){
+    				alert("아이디를 확인해주세요");
+    				return false;
+    			} else {
+    				var pwd1 = $("#userPwd").val();
+    				var pwd2 = $("#pwdCheck").val();
+    				if(pwd1 === "" || pwd2 === ""){
+    					alert("비밀번호를 입력해주세요");
+    					return false;
+    				} else if(pwd1 !== pwd2){
+    					alert("비밀번호를 확인해주세요");
+    					return false;
+    				} else {
+    					$("#form1").attr("action","<%= request.getContextPath() %>/insertMember.me");
+    				}
+    			}
+    		}
+    	}
     </script>
 </body>
 </html>

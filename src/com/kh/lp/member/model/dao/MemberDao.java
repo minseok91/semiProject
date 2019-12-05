@@ -49,7 +49,6 @@ public class MemberDao {
 				loginMember.setMemberId(rset.getString("MEMBER_ID"));
 				loginMember.setMemberPwd(rset.getString("MEMBER_PWD"));
 				loginMember.setMemberName(rset.getString("MEMBER_NAME"));
-				loginMember.setMemberGender(rset.getString("MEMBER_GENDER"));
 				loginMember.setMemberPhone(rset.getString("MEMBER_PHONE"));
 				loginMember.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				loginMember.setMemberEmail(rset.getString("MEMBER_EMAIL"));
