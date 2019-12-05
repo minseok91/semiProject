@@ -23,9 +23,8 @@
 		margin-left: auto;
 		margin-right: auto;
 		padding: 0;
-		width: 1080px;
+		width: 800px;
 		height: 70px;
-		position: absolute;
 	}
 	#header_box > ul > li{
 		float: left;

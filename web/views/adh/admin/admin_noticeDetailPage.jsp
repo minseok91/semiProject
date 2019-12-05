@@ -15,6 +15,7 @@
 <html>
 <head>
 <meta content="text/html;">
+</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 <title>Insert title here</title>
 <style>
 	html, body {

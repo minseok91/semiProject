@@ -5,6 +5,7 @@
 <head>
 <meta content="text/html;">
 <link rel="stylesheet" type="text/css" href="css/admin_mainPage.css">
+</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 <title>Insert title here</title>
 <style>
 </style>

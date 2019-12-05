@@ -130,9 +130,10 @@ html, body {
 
 #search_Box td:nth-of-type(2) select{
 	margin-left: 8px;
-	width: 80px;
+	width: 100px;
 	height: 30px;
 	border-radius: 5px; 
+	text-align: center;
 }
 #idSearch {
 	width: 130px;

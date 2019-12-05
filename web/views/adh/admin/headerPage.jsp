@@ -7,6 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
 <link  rel="stylesheet" type="text/css" href="css/header.css">
+<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 </head>
 <body>
 	<div id="header">
