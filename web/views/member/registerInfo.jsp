@@ -1,3 +1,14 @@
+<%--
+/**
+ * <pre>
+ * @Author      : gurwns
+ * @CreateDate  : 2019. 11. 30. 오후 3:43:30
+ * @ModifyDate  : 2019. 11. 30. 오후 3:43:30
+ * @fileName    : registerInfo.jsp
+ * @Description : 회원가입 정보 입력 페이지
+ * </pre>
+ */
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -75,7 +86,7 @@
     	font-size: 20px;
 	}
 
-	#idCheck {
+	#idCheck, #emailSend, #emailCheck {
 		background: #a07342;
 		border-radius: 5px;
 		margin-left: 7px;
@@ -244,13 +255,14 @@
                     </td>
                     <td>
                         <input type="text" name="memberEmail1" id="userEmail" size="10"> @
-                        <select name="memberEmail2">
+                        <select name="memberEmail2" id="userEmail2">
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
                             <option value="daum.net">daum.net</option>
                             <option value="hanmail.net">hanmail.net</option>
                             <option value="nate.com">nate.com</option>
                         </select>
+                        <input type="button" id="emailSend" value="인증번호 전송"/>
                     </td>
                 </tr>
                 <tr>
@@ -259,6 +271,8 @@
                     </td>
                     <td>
                         <input type="text" name="" id="emailCerti" size="26">
+                        <input type="hidden" id="emailCheckResult" value="false"/>
+                        <input type="button" id="emailCheck" value="확인"/>
                     </td>
                 </tr>
             </table>
@@ -288,6 +302,8 @@
         				if(data === "true"){
         					$("#result").text("사용 가능한 아이디입니다.").css({"color":"green"});
         					$("#resultCheck").val("true");
+        					$("#userId").attr("readonly", true);
+        					$("#idCheck").val("확인완료").attr("disabled", true).css({"background":"lightgray", "color":"black"});
         					console.log($("#resultCheck").val());
         				} else if(data === "false"){
         					$("#result").text("사용 할 수 없는 아이디입니다.").css({"color":"red"});
@@ -327,11 +343,96 @@
     					alert("비밀번호를 확인해주세요");
     					return false;
     				} else {
-    					$("#form1").attr("action","<%= request.getContextPath() %>/insertMember.me");
+    					var phone1 = $("#userPhone1").val();
+    					var phone2 = $("#userPhone2").val();
+    					var phone3 = $("#userPhone3").val();
+    					
+    					if(phone1 === "" || phone2 === "" || phone3 === ""){
+    						alert("휴대폰 번호를 확인해주세요");
+    						return false;
+    					} else {
+    						var address = $("#userAddr").val();
+    						if(address === ""){
+    							alert("주소를 확인해주세요");
+    							return false;
+    						} else {
+    							var emailCheck = $("#emailCheckResult").val();
+    							if(emailCheck === "false") {
+    								alert("이메일을 확인해주시고 인증까지 해주세요");
+    								return false;
+    							} else {
+    								$("#form1").attr("action","<%= request.getContextPath() %>/insertMember.me");
+    							}
+    						}
+    					}
     				}
     			}
     		}
     	}
+    	
+    	$("#emailSend").click(function(){
+    		var memberEmail1 = $("#userEmail").val();
+    		var memberEmail2 = $("#userEmail2").val();
+    		var memberId = $("#userId").val();
+    		var idCheck = $("#resultCheck").val();
+    		if(memberEmail1 === ""){
+    			alert("이메일을 입력하세요");
+    		} else if(memberId === "" || idCheck === "false"){
+    			alert("아이디를 입력하세요");
+    		} else {
+    			$.ajax({
+    				url: "<%= request.getContextPath() %>/sendEmail.me",
+    				type: "post",
+    				data: {
+    					memberId: memberId,
+    					memberEmail1: memberEmail1,
+    					memberEmail2: memberEmail2
+    				},
+    				success: function(data){
+    					if(data === "true"){
+    						alert("이메일을 보냈습니다.");
+    						$("#userEmail").attr("disabled", true);
+    						$("#userEmail2").attr("disabled", true);
+    						$("#emailSend").val("전송완료").attr("disabled", true).css({"background":"lightgray", "color":"black"});
+    					}else if(data === "false"){
+    						alert("이메일을 못보냈습니다.");
+    					} else {
+    						alert("에러가 발생했습니다.");
+    					}
+    				},
+    				error: function(data){
+    					console.log("ajax 실패");
+    				}
+    			});
+    		}
+    	});
+    	
+    	$("#emailCheck").click(function(){
+    		var code = $("#emailCerti").val();
+    		var memberId = $("#userId").val();
+    		$.ajax({
+    			url: "<%= request.getContextPath() %>/checkEmailCode.me",
+    			type: "post",
+    			data: {
+    				id: memberId,
+    				code: code
+    			},
+    			success: function(data){
+    				if(data === "true"){
+    					$("#emailCerti").attr("disabled", true);
+    					$("#emailCheck").val("인증완료").attr("disabled", true).css({"background":"lightgray", "color":"black"});
+    					$("#emailCheckResult").val("true");
+    				} else if(data === "false"){
+    					alert("다시 확인하세요");
+    				} else {
+    					alert("알 수 없는 오류가 발생했습니다.");
+    				}
+    			},
+    			error: function(data){
+    				console.log(data);
+    			}
+    		});
+    	});
     </script>
 </body>
 </html>

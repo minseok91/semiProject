@@ -1,6 +1,6 @@
 package com.kh.lp.member.model.dao;
 
-import static com.kh.lp.common.JDBCTemplate.*;
+import static com.kh.lp.common.JDBCTemplate.close;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,8 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.Random;
 
 import com.kh.lp.member.model.vo.Member;
+import com.kh.lp.wrapper.SendEmailWrapper;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -30,6 +32,16 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 5. 오후 4:42:54
+	 * @ModifyDate    : 2019. 12. 5. 오후 4:42:54
+	 * @Description   : 로그인체크하고 MEMBER2 테이블을 조회하는 메소드
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
 	public Member loginCheck(Connection con, Member requestMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -67,6 +79,16 @@ public class MemberDao {
 		}
 		return loginMember;
 	}
+	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 5. 오후 4:42:32
+	 * @ModifyDate    : 2019. 12. 5. 오후 4:42:32
+	 * @Description   : 회원가입해서 MEMBER2 테이블에 저장하는 메소드
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
 	public int insertMember(Connection con, Member requestMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -90,6 +112,7 @@ public class MemberDao {
 		
 		return result;
 	}
+	
 	/**
 	 * @Author	      : gurwns
 	 * @CreateDate    : 2019. 12. 4. 오후 9:33:05
@@ -118,7 +141,105 @@ public class MemberDao {
 		}
 		return result;
 	}
-
 	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 5. 오후 4:41:57
+	 * @ModifyDate    : 2019. 12. 5. 오후 4:41:57
+	 * @Description   : 이메일 인증코드 보내고 EMAIL_CODE 테이블에 저장하는 메소드
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
+	public String sendEmail(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("sendEmail");
+		Random rnd = new Random();
+		String tempCode = new SendEmailWrapper().getSha512(String.valueOf((char) (rnd.nextInt(26)) + 97));
+		String emailCode = tempCode.substring(0, 10);
+		log.debug(tempCode);
+		log.debug(emailCode);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, requestMember.getMemberId());
+			pstmt.setString(2, requestMember.getMemberEmail());
+			pstmt.setString(3, emailCode);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		if(result > 0) {
+			return emailCode;
+		} else {
+			return null;
+		}
+	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 5. 오후 7:23:33
+	 * @ModifyDate    : 2019. 12. 5. 오후 7:23:33
+	 * @Description   : 이메일 인증코드 체크 메소드
+	 * @param con
+	 * @param code
+	 * @param memberId 
+	 * @return
+	 */
+	public int checkEmail(Connection con, String code, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, code);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			log.debug(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 5. 오후 7:41:28
+	 * @ModifyDate    : 2019. 12. 5. 오후 7:41:28
+	 * @Description   : 회원가입 성공 시 인증번호 삭제하는 메소드
+	 * @param con
+	 * @param memberId
+	 * @return
+	 */
+	public int deleteEmailCode(Connection con, String memberId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteEmailCode");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
