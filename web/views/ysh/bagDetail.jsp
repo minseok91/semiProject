@@ -1,3 +1,15 @@
+<%--
+/**
+ * <pre>
+ * @Author      : 양승현
+ * @CreateDate  : 2019. 12. 5. 오후 2:03:53
+ * @ModifyDate  : 2019. 12. 5. 오후 2:03:53
+ * @fileName    : dagDetail
+ * @Description : 가방상품의 상세정보페이지
+ * </pre>
+ */
+--%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -211,37 +223,37 @@
 				<span class="imgBox">
 					<div class="title">
 						<a id="wish" href="#">♡</a>
-						<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+						<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								</td>
 							</tr>
 						</table>
@@ -308,15 +320,15 @@
 							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
 						</tr>
 						<tr>
-							<td>시리얼 넘버</td>
+							<td>사이즈</td>
 							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
 						</tr>
 						<tr>
-							<td>오리지널 박스 유무</td>
+							<td>끈높이</td>
 							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
 						</tr>
 						<tr>
-							<td>케이스 크기</td>
+							<td>컬러</td>
 							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
 						</tr>
 						<tr>
@@ -324,7 +336,7 @@
 							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
 						</tr>
 						<tr>
-							<td>무브먼트 종류</td>
+							<td>북렛</td>
 							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
 						</tr>
 					</table>
