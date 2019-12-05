@@ -11,9 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.lp.member.model.service.MemberService;
 import com.kh.lp.member.model.vo.Member;
 
+import lombok.extern.log4j.Log4j2;
+
 /**
  * Servlet implementation class InsertMemberServlet
  */
+@Log4j2
 @WebServlet("/insertMember.me")
 public class InsertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +38,13 @@ public class InsertMemberServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
 		String memberName = request.getParameter("memberName");
-		String memberPhone = request.getParameter("memberPhone");
+		String memberPhone1 = request.getParameter("memberPhone1");
+		String memberPhone2 = request.getParameter("memberPhone2");
+		String memberPhone3 = request.getParameter("memberPhone3");
+		String memberPhone = memberPhone1 + "-" + memberPhone2 + "-" + memberPhone3;
+		String memberEmail1 = request.getParameter("memberEmail1");
+		String memberEmail2 = request.getParameter("memberEmail2");
+		String memberEmail = memberEmail1 + "@" + memberEmail2;
 		String memberAddress = request.getParameter("memberAddress");
 		
 		Member requestMember = new Member();
@@ -44,8 +53,9 @@ public class InsertMemberServlet extends HttpServlet {
 		requestMember.setMemberPwd(memberPwd);
 		requestMember.setMemberName(memberName);
 		requestMember.setMemberPhone(memberPhone);
+		requestMember.setMemberEmail(memberEmail);
 		requestMember.setMemberAddress(memberAddress);
-		
+		log.debug(requestMember);
 		int result = new MemberService().insertMember(requestMember);
 		
 		if(result > 0) {
