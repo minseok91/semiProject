@@ -2,9 +2,9 @@
 /**
  * <pre>
  * @Author      : 안동환
- * @CreateDate  : 2019. 12. 5. 오전 11:52:26
- * @ModifyDate  : 2019. 12. 5. 오전 11:52:26
- * @fileName    : 구매 이력 페이지
+ * @CreateDate  : 2019. 12. 5. 오후 4:07:15
+ * @ModifyDate  : 2019. 12. 5. 오후 4:07:15
+ * @fileName    : 전체 상품이력 목록 
  * @Description :
  * </pre>
  */
@@ -16,12 +16,9 @@
 <head>
 <meta content="text/html;">
 <title>Insert title here</title>
+<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 <style>
-	html, body {
-		padding: 0;
-		margin: 0;
-	}
-	html, body {
+html, body {
 	padding: 0;
 	margin: 0;
 	width: 100%;
@@ -49,7 +46,7 @@
 
 }
 #container_Box > div > p, h3 {
-	width: 120px;
+	width: 80px;
 	margin: 0;
 	float: left;
 	
@@ -110,10 +107,11 @@ th, td {
 </head>
 <body>
 	<%@ include file="headerPage.jsp" %>
+	
 	<div id="container">
 		<div id="container_Box">
 			<div>
-				<p>판매 상품 이력<h3>3권</h3>
+				<p>전체 회원<h3>4명</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -121,39 +119,39 @@ th, td {
 				<table id="table">
 					<tr>
 						<th>No.</th>
-						<th>상품종류</th>
-						<th>상품명</th>
-						<th>낙찰가</th>
-						<th>판매자</th>
-						<th>낙찰 날짜</th>
-						<th>구매 날짜</th>
+						<th>상품ID</th>
+						<th>판매자ID</th>
+						<th>감정가</th>
+						<th>감정상태</th>
+						<th>감정완료시간</th>
+						<th>감정시작시간</th>
 					</tr>
 					 <tr>
 						<td>1</td>
-						<td>시계</td>
-						<td>명품시계</td>
-						<td>32,000,000원</td>
-						<td>adh1234</td>
-						<td>2019-12-02</td>
-						<td>2019-12-04</td>
+						<td>kms1234</td>
+						<td>김민석</td>
+						<td>3,000,000원</td>
+						<td>진품</td>
+						<td>2019-12-05-12:20</td>
+						<td>2019-12-05-10:20</td>
 					</tr>
 					<tr>
 						<td>2</td>
-						<td>가방</td>
-						<td>구찌가방</td>
-						<td>4,000,000원</td>
-						<td>dksn213</td>
-						<td>2019-11-30</td>
-						<td>2019-12-01</td>
+						<td>kms1234</td>
+						<td>김민석</td>
+						<td>3,000,000원</td>
+						<td>진품</td>
+						<td>2019-12-05-12:20</td>
+						<td>2019-12-05-10:20</td>
 					</tr>
 					<tr>
 						<td>3</td>
-						<td>시계</td>
-						<td>샤넬 시계</td>
-						<td>6,000,000원</td>
-						<td>ahffk1234</td>
-						<td>2019-12-05</td>
-						<td>2019-12-06</td>
+						<td>kms1234</td>
+						<td>김민석</td>
+						<td>3,000,000원</td>
+						<td>진품</td>
+						<td>2019-12-05-12:20</td>
+						<td>2019-12-05-10:20</td>
 					</tr>
 					
 				</table>

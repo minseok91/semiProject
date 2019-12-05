@@ -123,7 +123,7 @@ th, td {
             margin: 15% auto; /* 15% from the top and centered */
             padding: 20px;
             border: 1px solid #888;
-            width: 40%; /* Could be more or less, depending on screen size */  
+            width: 22%; /* Could be more or less, depending on screen size */  
         }
 #infoBox {
 	width: 300px;
@@ -240,6 +240,12 @@ th, td {
 		})
 		$("#modalBoxOk").click(function(){
 			
+		})
+		$("span").mouseover(function(){
+			$("span").css({'cursor':'pointer'})
+		})
+		$("button").mouseover(function(){
+			$("button").css({'cursor':'pointer'})
 		})
 		
 	</script>
