@@ -131,6 +131,7 @@ td>.content {
 	
 </style>
 <title>LauXion</title>
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>

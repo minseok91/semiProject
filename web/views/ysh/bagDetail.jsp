@@ -17,6 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>LauXion</title>
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <style>
 	#container {
 		width: 1080px;
