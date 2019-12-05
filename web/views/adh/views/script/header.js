@@ -22,9 +22,15 @@ $(function(){
 		});
 	
 	$("#notice_li").click(function(){
-		location.href="admin_Notice.jsp";
+		location.href="admin_notice.jsp";
 	})
 	
 	$("#FAQ").click(function(){
 		location.href="admin_FAQ.jsp";
+	})
+	$("#inquiryAndReport").click(function(){
+		location.href="admin_inquiryAndReport.jsp";
+	})
+	$("#goods").click(function(){
+		location.href="admin_appraisalProducts.jsp";
 	})

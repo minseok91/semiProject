@@ -9,8 +9,8 @@
 </head>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	
-	<div id="container">
+	<form action="" method="post">
+		<div id="container">
 		<div id="container_Box">
 			<div>
 				<p>블랙 회원<h3>1명</h3>
@@ -51,5 +51,13 @@
 			</div>
 		</div>
 	</div>
+	</form>
+	<script>
+		$(document).click(function(e) {
+			if(e.target.tagName == "TD"){
+				location.href = "admin_userDetailPage.jsp"
+			}
+		})
+	</script>
 </body>
 </html>

@@ -93,7 +93,7 @@
 	</style>
 </head>
 <body>
-	<form action="views/admin_mainPage.jsp" method="post">
+	<form action="<%= request.getContentType() %>/login.mb" method="post">
 		<div id="header">
 		<div id="img_div">
 			<div>
@@ -123,18 +123,5 @@
 		</div>
 	</div>
 	</form>
-	<script type="text/javascript">
-		 function nextPage() {
-			loaction.href="";
-		}
-	/* 	$(document).ready(function(){
-			console.log("안뇽");
-			$("#header_bottom").animate({height:'70'},1000);
-			$("#header_bottom > div").animate({height:'70'},1000);
-			$("input[type='text']").delay(2000).animate({width:'250px'},1000);
-			$("input[type='submit']").delay(2000).animate({width:'100px'},1000);
-			$("#login_div > input").delay(1000).animate({width:'107px'},1000);
-		}); */
-	</script>
 </body>
 </html>

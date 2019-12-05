@@ -15,11 +15,11 @@
 				<li><a href="admin_mainPage.jsp">메인 화면</a></li>
 				<li>회사 관리</li>
 				<li id="up">회원 정보</li>
-				<li>물품 관리</li>
+				<li id="goods">상품 관리</li>
 				<li>경매 관리</li>
 				<li id="up">매출 관리</li>
 				<li>게시판 관리</li>
-				<li>문의 및 신고</li>
+				<li id="inquiryAndReport">문의 및 신고</li>
 			</ul>
 		</div>
 	</div>
