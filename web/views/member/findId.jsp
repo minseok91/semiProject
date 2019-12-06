@@ -15,61 +15,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LauXion</title>
+<!-- favicon불러오는 링크 -->
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 </head>
 <style>
-	#main{
-		text-align:center;
-		height:500px;
+	.container {
 		width: 1080px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top:100px;
-		margin-bottom: 100px;
+		margin: 0 auto;
+		padding: 6px 0px 0;
 	}
-	#contents{
-		height:500px;
-		width:700px;
-		display:inline-block;
+	.contents{
+		height:650px;
+		width:inherit;
 	}
-	#main>#contents>#findIdArea{
+	#findArea{
 		border-top:1px solid #211f22;
 		border-bottom:1px solid #211f22;
 		height:300px;
-		width:700px;
+		width:inherit;
 		display:inline-block;
-		
-	}
-	#main>#contents>#findIdArea>#form1{
-		margin-top: 30px;
 	}
 	
-
-	#main>#contents>#findIdArea>#form1>#table1{
-		font-size:14px;
-		width:500px;
+	#findTableArea{
 		border-collapse: separate;
-    	border-spacing: 0 10px;
-	}
-	
-	#main>#contents>#findIdArea>#form1>#table1>tbody>tr>td:first-child {
-		text-align:left;
-		padding-right:10px;
-	}
-	#main>#contents>#form1>#table1>tbody>tr>td:nth-child(2) {
-		text-align:left;
-		padding-right:10px;
-	}
-	
-	#main>#contents>#line{
-		opacity:0.1;
-		margin-top:10px;
-		margin-bottom:30px;
-		float:left;
-		height:170px;
- 		border:1px solid black; 
+    	border-spacing: 0 25px;
 	}
 	
 	td>input{
@@ -87,10 +59,13 @@
     	margin-right: 25px;
     	float: right;
 	}
-	.btn {
+	.btn{
 		border:1px solid #a07342;
 		background:#211f22;
 		color:#e2ceb8;
+		height:32px;
+		border-radius:5px;
+		font-size:11px;
 	}
 	.login{
 		width:70px;
@@ -98,43 +73,34 @@
 		border-radius:5px;
 		font-size:11px;
 	}
-	.find{
-		width:115px;
-		height:32px;
-		border-radius:5px;
-		float:right;
-		font-size:11px;
-	}
 </style>
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<div id="main">
-		<div id="contents">
+	<div class="container">
+		<div class="contents">
+		<br /><br /><br /><br />
 			<h3 style="float:left; margin-left:10px;">아이디 찾기</h3>
-			<div id="findIdArea" align="center">
-					<div id="form1">
-					<br /><h4 align="center">가입하신 회원의 이름과 이메일 주소를 입력해주세요</h4><br /><br />
-					<table id="table1" ><!--  border="1"> -->
-						<tr>
-							<td><label for="">이름 : </label></td>
-							<td><input type="text" id="memberName"/></td>
-						</tr>
-						<tr>
-							<td><label for="">이메일 : </label></td>
-							<td><input type="email" id="memberEmail"/></td>
-						</tr>
-					</table>
-					</div>
-				<div id="line"></div>  <!-- line end -->
-			</div>  <!-- findIdArea end -->
-			
-			<div>
-			<br />
-				<input type="button" value="찾기" class="btn find" onclick="findId()"/>
-			</div>
+			<div id="findArea">
+				<br /><h4 align="center">가입하신 회원의 이름과 이메일 주소를 입력해주세요</h4><br /><br />
+				<table id="findTableArea" align="center"><!--  border="1"> -->
+					<tr>
+						<td><label for="">이름 : </label></td>
+						<td><input type="text" id="memberName"/></td>
+					</tr>
+					<tr>
+						<td><label for="">이메일 : </label></td>
+						<td><input type="email" id="memberEmail"/></td>
+					</tr>
+				</table>
+			</div>  <!-- findArea end -->
+			<div id="btnArea" align="right">
+				<br />
+				<button type="button" class="btn" onclick="findId()">아이디 찾기</button>
+				<button type="button" class="btn" onclick="goHome()">메인으로 돌아가기</button>
+			</div>  <!-- btnArea end -->
 		</div>  <!-- contents end -->
-	</div>  <!-- main end -->
+	</div>  <!-- container end -->
 	<script>
 		function findId(){
 			var memberName = $("#memberName").val();
@@ -162,6 +128,10 @@
 					}
 				});
 			}
+		};
+		
+		function goHome(){
+			location.href="<%= request.getContextPath() %>/index.jsp";
 		};
 	</script>
 	<%@ include file="../common/footer.jsp" %>

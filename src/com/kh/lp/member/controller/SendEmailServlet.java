@@ -73,7 +73,7 @@ public class SendEmailServlet extends HttpServlet {
 			String toName = requestMember.getMemberId();
 			String toEmail = requestMember.getMemberEmail();
 			String mailTitle = "이메일 인증코드입니다.";
-			String mailContents = "인증코드 : " + result + "\n 1시간 이내로 인증완료하세요";
+			String mailContents = "인증코드 : " + result + "\n 10분 이내로 인증완료하세요";
 			String debugMode = "false";
 			String authMode = "true";
 			
