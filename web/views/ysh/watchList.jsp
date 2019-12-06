@@ -5,6 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <style>
+.container {
+		width: 1080px;
+		margin: 0 auto;
+		padding: 6px 0px 0;
+	}
+	.contents{
+		height:650px;
+		width:inherit;
+	}
 	.head {
     position: relative;
     width: 900px;
@@ -135,7 +144,8 @@ td>.content {
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<section class="container">
+	<div class="container">
+	<div class="contents">
 		<div class="head">
 			<span class="title">< 경매 진행중인 시계 상품 ></span> <span class="search">검색</span>
 			<span class="content">
@@ -237,7 +247,8 @@ td>.content {
 				</tr>
 			</table>
 		</div> <!-- watchList End -->
-	</section>
+		</div> <!-- contents End -->
+	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

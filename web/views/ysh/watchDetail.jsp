@@ -6,9 +6,14 @@
 <meta charset="UTF-8">
 <title>LauXion</title>
 <style>
-	#container {
+	.container {
 		width: 1080px;
-		margin: 75px auto;
+		margin: 0 auto;
+		padding: 6px 0px 0;
+	}
+	.contents{
+		height:650px;
+		width:inherit;
 	}
 	
 	#part1 {
@@ -206,7 +211,8 @@
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
 	<section>
-		<div id="container">
+		<div class="container">
+		<div class="contents">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
 			<span id="part1">
 				<span class="imgBox">
@@ -331,6 +337,7 @@
 					</table>
 				</div>
 			</div> <!-- part2 End -->
+			</div>
 		</div> <!-- container End -->
 	</section>
 	<%@ include file="../common/footer.jsp" %>

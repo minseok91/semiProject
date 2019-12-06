@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 6. 오후 2:29:54
- * @ModifyDate  : 2019. 12. 6. 오후 2:29:54
- * @fileName    : winningBid
- * @Description : 마이페이지의 낙찰리스트
+ * @CreateDate  : 2019. 12. 6. 오후 9:14:49
+ * @ModifyDate  : 2019. 12. 6. 오후 9:14:49
+ * @fileName    : sellDeli
+ * @Description : 마이페이지 - 구매상품 배송 조회(감정 상품 배송 조회와 통합할 예정)
  * </pre>
  */
 --%>
@@ -22,11 +22,11 @@
 }
 
 .contents{
-		height:650px;
-		width:inherit;
-	}
+	height:650px;
+	width:inherit;
+}
 
-.container>#myPageMenu {
+.container>.contents>#myPageMenu {
 	width: 210px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -34,14 +34,14 @@
 	float: left;
 }
 
-.container>#myPageMenu>dl>dt {
+#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-.container>#myPageMenu>dl>dd {
+#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -57,33 +57,33 @@
 	margin-top: 0px;
 }
 
-.container>#myPageMenu>dl>dd>a {
+#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
 
-.container>#myPageMenu>dl>dd>#selectMenu {
+#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>#myPageMenu>dl>dd>a:hover {
+#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>.menuStatus {
+.container>.contents>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
 
-.container>.menuStatus>.status2 {
+.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
@@ -137,7 +137,7 @@
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
 				<dd><a href="">▶   입찰리스트</a></dd>
-				<dd><a href="" id="selectMenu">▶   낙찰리스트</a></dd>
+				<dd><a href="">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a href="">▶  상품감정 신청</a></dd>
@@ -148,7 +148,7 @@
 				<dt>§  결제/배송조회</dt>
 				<dd><a href="">▶  결제 내역</a></dd>
 				<dd><a href="">▶  감정 상품 배송 조회</a></dd>
-				<dd><a href="">▶  구매 상품 배송 조회</a></dd>
+				<dd><a href="" id="selectMenu">▶  구매 상품 배송 조회</a></dd>
 				
 				<dt>§  메세지</dt>
 				<dd><a href="">▶  전체 메세지</a></dd>
@@ -177,36 +177,28 @@
 		<div class="contentArea">
 			<table>
 				<tr>
-					<th>경매번호</th>
+					<th>카테고리</th>
+					<th>상품번호</th>
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
-					<th>낙찰가</th>
-					<th>낙찰여부</th>
-					<th>결제 하기 남은 시간</th>
+					<th>배송상태</th>
+					<th>비고</th>
 				</tr>
 				<tr>
+					<td>구매배송</td>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">낙찰 실패</td>
+					<td>배송중</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td>유찰배송</td>
 					<td>2</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">낙찰 성공</td>
-					<td>23시간 35분 전</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>대기중</td>
+					<td>배송완료</td>
+					<td></td>
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->
