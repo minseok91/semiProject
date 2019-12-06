@@ -21,7 +21,12 @@
 	padding-bottom: 10px;
 }
 
-.container>#myPageMenu {
+.contents{
+	height:650px;
+	width:inherit;
+}
+
+.container>.contents>#myPageMenu {
 	width: 210px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -29,14 +34,14 @@
 	float: left;
 }
 
-.container>#myPageMenu>dl>dt {
+#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-.container>#myPageMenu>dl>dd {
+#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -52,33 +57,33 @@
 	margin-top: 0px;
 }
 
-.container>#myPageMenu>dl>dd>a {
+#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
 
-.container>#myPageMenu>dl>dd>#selectMenu {
+#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>#myPageMenu>dl>dd>a:hover {
+#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>.menuStatus {
+.container>.contents>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
 
-.container>.menuStatus>.status2 {
+.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
@@ -103,7 +108,7 @@
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
+	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
@@ -125,12 +130,13 @@
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="" id=selectMenu>▶   입찰리스트</a></dd>
+				<dd><a href="" id="selectMenu">▶   입찰리스트</a></dd>
 				<dd><a href="">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
@@ -204,6 +210,8 @@
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->
+		</div> <!-- contents End -->
 	</div> <!-- container End -->
+	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

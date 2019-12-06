@@ -19,9 +19,14 @@
 <title>LauXion</title>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <style>
-	#container {
+	.container {
 		width: 1080px;
 		margin: 75px auto;
+	}
+	
+	.contents{
+		height:650px;
+		width:inherit;
 	}
 	
 	#part1 {
@@ -70,17 +75,17 @@
     	height: 75px;
 	}
 	
-	.contents {
+	#contents {
 		width: 100%;
 		display: inline;
 		margin-left: 75px;
 	}
 	
-	.contents>#head {
+	#contents>#head {
 		border-bottom: 1px solid #3e2d1a;
 	}
 	
-	.contents>#head>label {
+	#contents>#head>label {
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 20px;
 		margin: 0;
@@ -217,8 +222,8 @@
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<section>
-		<div id="container">
+		<div class="container">
+		<div class="contents">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
 			<span id="part1">
 				<span class="imgBox">
@@ -260,7 +265,7 @@
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
-				<span class="contents">
+				<span id="contents">
 					<div id="head">
 						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
 						<label>판매자</label>
@@ -343,8 +348,8 @@
 					</table>
 				</div>
 			</div> <!-- part2 End -->
+			</div> <!-- contents End -->
 		</div> <!-- container End -->
-	</section>
 	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>
