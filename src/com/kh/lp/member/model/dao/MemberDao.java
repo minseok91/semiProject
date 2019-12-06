@@ -242,4 +242,37 @@ public class MemberDao {
 		}
 		return result;
 	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 6. 오전 3:57:14
+	 * @ModifyDate    : 2019. 12. 6. 오전 3:57:14
+	 * @Description   : 아이디 찾는 메소드
+	 * @param con
+	 * @param memberName
+	 * @param memberEmail
+	 * @return
+	 */
+	public String findId(Connection con, String memberName, String memberEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("findId");
+		String result = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, memberName);
+			pstmt.setString(2, memberEmail);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString("MEMBER_ID");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
 }

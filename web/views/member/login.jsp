@@ -141,7 +141,7 @@
 						<tr> 
 							<td>회원   아이디를   잊으셨나요?</td>
 							<td></td>
-							<td><button class="btn find">아이디 찾기</button></td>
+							<td><button class="btn find" onclick="findId()">아이디 찾기</button></td>
 						</tr>
 						<tr>
 							<td>비밀번호를  잊으셨나요?</td>
@@ -151,7 +151,7 @@
 						<tr>
 							<td>아직  회원이  아니신가요?</td>
 							<td></td>
-							<td><button class="btn find">회원가입</button></td>
+							<td><button class="btn find" onclick="register()">회원가입</button></td>
 						</tr>
 					</table>
 				</div>  <!-- find end -->
@@ -159,7 +159,9 @@
 		</div>  <!-- contents end -->
 	</div>  <!-- main end -->
 	<script>
-		function findId(){};
+		function findId(){
+			location.href="<%= request.getContextPath()%>/views/member/findId.jsp";
+		};
 		function findPassword(){};
 		function register(){
 			location.href="<%= request.getContextPath()%>/views/member/registerAgreement.jsp";
