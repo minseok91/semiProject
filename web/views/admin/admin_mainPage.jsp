@@ -4,10 +4,103 @@
 <html>
 <head>
 <meta content="text/html;">
-<link rel="stylesheet" type="text/css" href="css/admin_mainPage.css">
-</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="views/admin/image/loginimg(2).png">
+</head>
 <title>Insert title here</title>
 <style>
+html, body {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	height: 100%;
+}
+#container {
+	 width: 97%; 
+	height: 97%;
+}
+
+#container_box {
+	margin-top: 100px;
+	width: 1080px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#container_box>table {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	height: 80%;
+}
+#container_box > div {
+	color: rgb(33, 31, 34);
+}
+   td {
+	width: 25%;
+} 
+ tr:nth-child(1)  {
+	height: 0;
+}
+
+#sales {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(160, 115, 66);
+	border-radius: 5px; 
+}
+
+#mission {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(160, 115, 66);
+	border-radius: 5px; 
+}
+
+#question {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(160, 115, 66);
+	border-radius: 5px; 
+}
+#mission > div {
+	width: 100%;
+	height: 25px;
+}
+#mission > div:nth-child(2) {
+	padding-top: 10px;
+	width: 100%;
+	height: 90%;
+}
+#mission > div:nth-child(2) > ul {
+	padding-left: 0px;
+	list-style: none;
+}
+#mission > div:nth-child(2) > ul > li {
+	padding-top: 5px;
+	padding-left: 10px;
+}
+ ol > li {
+	padding-top: 5px;
+}
+#question > div {
+	width: 100%;
+	height: 25px;
+}
+#question > div > ul > li > button {
+	background: red;
+	color: #e2ceb8;
+	border: none;
+	border-radius: 5px; 
+	float: right;
+	margin-right: 50px;
+}
+
+#bbs {
+	width: 100%;
+	height: 100%;
+	border: 1px solid rgb(160, 115, 66);
+	border-radius: 5px; 
+}
 </style>
 </head>
 <body>
