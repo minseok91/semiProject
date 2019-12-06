@@ -18,7 +18,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LauXion</title>
+<!-- favicon불러오는 링크 -->
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <style>
 	.container {
 		width: 1080px;
@@ -28,7 +30,6 @@
 	.contents{
 		height:650px;
 		width:inherit;
-		display:inline-block;
 	}
 	.btn{
 		border:1px solid #a07342;

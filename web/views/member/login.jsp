@@ -146,7 +146,7 @@
 						<tr>
 							<td>비밀번호를  잊으셨나요?</td>
 							<td></td>
-							<td><button class="btn find">비밀번호 찾기</button></td>
+							<td><button class="btn find" onclick="findPwd()">비밀번호 찾기</button></td>
 						</tr>
 						<tr>
 							<td>아직  회원이  아니신가요?</td>
@@ -162,7 +162,9 @@
 		function findId(){
 			location.href="<%= request.getContextPath()%>/views/member/findId.jsp";
 		};
-		function findPassword(){};
+		function findPassword(){
+			location.href="<%= request.getContextPath() %>/views/member/findPwd.jsp";
+		};
 		function register(){
 			location.href="<%= request.getContextPath()%>/views/member/registerAgreement.jsp";
 		};
