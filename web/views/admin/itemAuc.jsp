@@ -50,7 +50,6 @@
 </style>
 </head>
 <body>
-<%@ include file="headerPage.jsp" %>
 	<div id="container">
 		<div id="container_Box">
 			<div>
@@ -138,7 +137,7 @@
 						<td>관리자</td>
 						<td>경매중</td>
 						<td>
-							<button class="detail">상세보기</button>
+							<button id="bidding" class="detail">상세보기</button>
 						</td>
 					</tr>
 					 <tr>
@@ -151,7 +150,7 @@
 						<td>관리자</td>
 						<td>경매완료(낙찰)</td>
 						<td>
-							<button class="detail">상세보기</button>
+							<button id="resultSuccess" class="detail">상세보기</button>
 						</td>
 					</tr>
 					 <tr>
@@ -164,7 +163,7 @@
 						<td>관리자</td>
 						<td>경매완료(유찰)</td>
 						<td>
-							<button class="detail">상세보기</button>
+							<button id="resultFail" class="detail">상세보기</button>
 						</td>
 					</tr>
 					 <tr>
@@ -177,7 +176,7 @@
 						<td>관리자</td>
 						<td>경매완료(재경매유찰)</td>
 						<td>
-							<button class="detail">상세보기</button>
+							<button id="allResult" class="detail">상세보기</button>
 						</td>
 					</tr>
 				</table>
@@ -235,7 +234,24 @@
             var name = "popup test";
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option); */
-		})	
+		})
+		
+		
+		$("#bidding").click(function(){
+			location.href="<%=request.getContextPath()%>/views/kms/AucBidding.jsp";
+		})
+		
+		$("#resultSuccess").click(function(){
+			location.href="<%=request.getContextPath()%>/views/kms/AucResultSuccess.jsp";
+		})
+		
+		$("#resultFail").click(function(){
+			location.href="<%=request.getContextPath()%>/views/kms/AucResultFail.jsp";
+		})
+		
+		$("#allResult").click(function(){
+			location.href="<%=request.getContextPath()%>/views/kms/AucAllResult.jsp";
+		})
 	})
 	
 	</script>

@@ -94,11 +94,11 @@
 	</style>
 </head>
 <body>
-	<form action="<%= request.getContentType() %>/login.mb" method="post">
+	<form action="<%=request.getContextPath()%>/views/admin/admin_mainPage.jsp" method="post">
 		<div id="header">
 		<div id="img_div">
 			<div>
-				<img alt="" src="views/image/loginimg.png" id="login_img" onclick="nextPage">
+				<img alt="" src="views/admin/image/loginimg.png" id="login_img" onclick="nextPage">
 			</div>
 			
 		</div>
