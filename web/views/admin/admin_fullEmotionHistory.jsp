@@ -24,37 +24,38 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
-#container {
+.container {
 	width: 1080px;
-	height: 800px;
+	
 	margin-left: auto;
 	margin-right: auto;
 	
 }
-#container_Box {
-	width: 100%;
-	height: 90%;
+.contents {
+	width: inherit;
+	height: 650px;
 	margin-top: 10%;
+	border: none;
 	border: 1px solid;
 	border-radius: 10px; 
 	
 }
-#container_Box > div:first-child {
+.contents > div:first-child {
 	width: 96%;
 	height: 25px;
 	padding: 20px;
 
 }
-#container_Box > div > p, h3 {
+.contents > div > p, h3 {
 	width: 80px;
 	margin: 0;
 	float: left;
 	
 }
-#container_Box > div > p {
+.contents > div > p {
 	padding-top: 1px;
 }
-#container_Box > div:nth-child(2) {
+.contents > div:nth-child(2) {
 	width: 95%;
 	height: 73.5%;
 	margin-top: 30px;
@@ -65,13 +66,13 @@ html, body {
 	width: 100%;	
 	border-collapse: collapse;
 }
-th {
+#table th {
 	border-top: 1px solid;
 	background: #EAEAEA;
 	color: black;
 	border-top: 2px solid #CCCCCC;
 }
-th, td {
+#table th, td {
 	border-bottom: 1px solid #CCCCCC;
 	text-align: center;
 	padding-top: 5px;
@@ -81,11 +82,11 @@ th, td {
 	height: 15%;
 } 
 #searchBox {
-	width: 250px;
+	width: 130px;
 	height: 25px;
 	float: right;
-	border: 1px solid rgb(160, 115, 66);
-	border-radius: 5px; 
+	border: none;
+	box-shadow: 1px 1px 1px 1px gray;
 }
 #sarchBoxBtn {
 	width: 65px;
@@ -108,8 +109,8 @@ th, td {
 <body>
 	<%@ include file="headerPage.jsp" %>
 	
-	<div id="container">
-		<div id="container_Box">
+	<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div>
 				<p>전체 회원<h3>4명</h3>
 				<button id="sarchBoxBtn">검색</button>

@@ -5,14 +5,98 @@
 <head>
 <meta content="text/html;">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/admin_blackUser.css">
 <link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 </head>
+<style>
+	html body {
+	margin: 0;
+	padding: 0;
+}
+.container {
+	width: 1080px;
+	
+	margin-left: auto;
+	margin-right: auto;
+	  
+}
+.contents {
+	width: 100%;
+	height: 650px;
+	margin-top: 10%;
+	border: 1px solid;
+	border-radius: 10px; 
+	
+}
+.contents > div:first-child {
+	width: 96%;
+	height: 25px;
+	padding: 20px;
+
+}
+.contents > div > p, h3 {
+	width: 80px;
+	margin: 0;
+	float: left;
+	
+}
+.contents > div > p {
+	padding-top: 1px;
+}
+.contents > div:nth-child(2) {
+	width: 95%;
+	height: 73.5%;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#table {
+	width: 100%;	
+	border-collapse: collapse;
+}
+#table  th {
+	border-top: 1px solid;
+	background: #EAEAEA;
+	color: black;
+	border-top: 2px solid #CCCCCC;
+}
+#table  th, td {
+	border-bottom: 1px solid #CCCCCC;
+	text-align: center;
+	padding-top: 5px;
+}
+#nextPage {
+	width: 100%;
+	height: 15%;
+} 
+#searchBox {
+	margin-top: 1px;
+	width: 130px;
+	height: 25px;
+	float: right;
+	border: none;
+	box-shadow: 1px 1px 1px 1px gray;
+}
+#sarchBoxBtn {
+	width: 65px;
+	height: 31px;
+	margin-left: 2%;
+	float: right;
+	background: rgb(33, 31, 34);
+	border: 2px solid rgb(160, 115, 66);
+	color: rgb(160, 115, 66);
+}
+#nextPageBox {
+	width: 83px;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
 <body>
 	<%@ include file="headerPage.jsp" %>
 	<form action="" method="post">
-		<div id="container">
-		<div id="container_Box">
+		<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div>
 				<p>블랙 회원<h3>1명</h3>
 				<button id="sarchBoxBtn">검색</button>
