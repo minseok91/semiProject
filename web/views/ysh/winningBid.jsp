@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 5. 오후 5:23:37
- * @ModifyDate  : 2019. 12. 5. 오후 5:23:37
- * @fileName    : biddingList
- * @Description : 마이페이지-입찰한 상품들을 보여주는 입찰리스트 페이지
+ * @CreateDate  : 2019. 12. 6. 오후 2:29:54
+ * @ModifyDate  : 2019. 12. 6. 오후 2:29:54
+ * @fileName    : 
+ * @Description :
  * </pre>
  */
 --%>
@@ -130,8 +130,8 @@
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="" id=selectMenu>▶   입찰리스트</a></dd>
-				<dd><a href="">▶   낙찰리스트</a></dd>
+				<dd><a href="">▶   입찰리스트</a></dd>
+				<dd><a href="" id=selectMenu>▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a href="">▶  상품감정 신청</a></dd>
@@ -174,33 +174,33 @@
 					<th>경매번호</th>
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
-					<th>현재 입찰가</th>
-					<th>내 입찰가</th>
-					<th>남은 시간</th>
+					<th>낙찰가</th>
+					<th>낙찰여부</th>
+					<th>결제 하기 남은 시간</th>
 				</tr>
 				<tr>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
 					<td>1,600,000</td>
-					<td>1,520,000</td>
+					<td>낙찰 실패</td>
 					<td>23시간 35분 전</td>
 				</tr>
 				<tr>
 					<td>2</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>1,600,000</td>
+					<td>낙찰 성공</td>
+					<td>23시간 35분 전</td>
 				</tr>
 				<tr>
 					<td>3</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>1,600,000</td>
+					<td>차순위 낙찰</td>
+					<td>23시간 35분 전</td>
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->

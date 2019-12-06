@@ -288,9 +288,12 @@
     <script>
     	$("#idCheck").click(function(){
     		var id = $("#userId").val();
+    		let regId = /^[a-z]+[a-z0-9]{5,19}$/g; // ID 정규식
     		if(id === ""){
     			alert("아이디를 입력해주세요!");
-    		} else {
+    		} else if(!regId.test($("input[name=memberId]").val())) {
+                alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+            } else {
     			$.ajax({
         			url: "<%= request.getContextPath() %>/idCheck.me",
         			type: "post",
@@ -324,7 +327,33 @@
     	});
     	
     	function checkAll(){
-    		var memberName = $("#userName").val();
+    		
+    		// 정규식
+    		let regId = /^[a-z]+[a-z0-9]{5,19}$/g;	 					// ID
+    		let regName  = /^[가-힣]{2,4}$/; 			 					// 이름
+    		let regPwd = /^[A-Za-z0-9]{6,12}$/; 	 					// 비밀번호
+    		let regPhone1 = /^[0-9]{3,4}$/; 		 					// 핸드폰번호 첫번째 -> 3글자도 존재
+    		let regPhone2 = /^[0-9]{4}$/;   		 					// 핸드폰번호 두번째 -> 반드시 4글자
+    		let regEmailHead = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])$/i; 	// email 앞부분
+    		
+    		// 바로가입하기 누를 시 걸림
+            if(!regName.test($("#userName").val())) {
+            	alert("이름을 잘못입력했습니다.");
+            	return false;
+            } else if(!regId.test($("input[name=memberId]").val())) {
+                alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
+            } else if(!regPwd.test($("input[name=memberPwd]").val())) {
+            	alert("비밀번호가 형식에 맞지않습니다.(영문자+숫자가 들어가는 6~20자)");
+            	return false;
+            } else if(!regPhone1.test($("input[name=memberPhone1]").val()) || !regPhone2.test($("input[name=memberPhone2]").val())) {
+            	alert("전화번호를 다시 확인해주세요.");
+            	return false;
+            } else if(!regEmailHead.test($("input[name=memberEmail1]").val())) {
+            	alert("이메일을 다시 확인해주세요.");
+            	return false;
+            }
+    		
+            var memberName = $("#userName").val();
     		if(memberName === ""){
     			alert("이름을 확인해주세요!");
     			return false;
@@ -379,7 +408,10 @@
     			alert("이메일을 입력하세요");
     		} else if(memberId === "" || idCheck === "false"){
     			alert("아이디를 입력하세요");
-    		} else {
+    		} else if(!regEmailHead.test($("input[name=memberEmail1]").val())) {
+            	alert("이메일을 다시 확인해주세요.");
+            	return false;
+            }  else {
     			$.ajax({
     				url: "<%= request.getContextPath() %>/sendEmail.me",
     				type: "post",
