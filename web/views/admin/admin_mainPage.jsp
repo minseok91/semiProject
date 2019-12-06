@@ -14,31 +14,31 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
-#container {
-	 width: 97%; 
-	height: 97%;
+.container {
+	 width: 1080px; 
 }
 
-#container_box {
+.contents{
 	margin-top: 100px;
 	width: 1080px;
+	height: 650px;
 	margin-left: auto;
 	margin-right: auto;
 }
 
-#container_box>table {
+#table {
 	margin-left: auto;
 	margin-right: auto;
 	width: 100%;
 	height: 80%;
 }
-#container_box > div {
+.contents> div {
 	color: rgb(33, 31, 34);
 }
-   td {
+#table td {
 	width: 25%;
 } 
- tr:nth-child(1)  {
+#table tr:nth-child(1)  {
 	height: 0;
 }
 
@@ -105,12 +105,12 @@ html, body {
 </head>
 <body>
 	<%@include file="headerPage.jsp"%>
-	<div id="container">
-		<div id="container_box">
+	<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div>
 				<h2>관리자 메인 화면</h2>
 			</div>
-			<table>
+			<table id="table">
 			<tr>
 				<td></td>
 				<td></td>

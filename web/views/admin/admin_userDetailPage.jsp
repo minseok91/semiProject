@@ -24,15 +24,14 @@
 	width: 100%;
 	height: 100%;
 }
-#container {
+.container {
 	width: 1080px;
-	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
-#container_Box {
+.contents {
 	width: 100%;
-	height: 90%;
+	height: 650px;
 	margin-top: 10%;
 	
 }
@@ -77,8 +76,8 @@ td:nth-of-type(2) {
 </head>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	<div id="container">
-		<div id="container_Box">
+	<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div id="infoBox">
 			<h3>김민석님의 회원정보</h3>
 				<table id="infoTable">

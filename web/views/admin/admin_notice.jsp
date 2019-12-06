@@ -15,27 +15,26 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
-#container {
+.container {
 	width: 1080px;
-	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
-#container_Box {
+.contents{
 	width: 100%;
-	height: 90%;
+	height: 650px;
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
 	
 }
-#container_Box > div:first-child {
+.contents> div:first-child {
 	width: 94%;
 	height: 120px;
 	margin: 0 auto;
 
 }
-#container_Box > div:first-child > div {
+.contents> div:first-child > div {
 	width: 100%;
 	height: 50px;
 
@@ -75,16 +74,16 @@ html, body {
 	border: 1px solid gray;
 }
 
-#container_Box > div > p, h3 {
+.contents> div > p, h3 {
 	width: 90px;
 	margin: 0;
 	float: left;
 	
 }
-#container_Box > div > p {
+.contents> div > p {
 	padding-top: 1px;
 }
-#container_Box > div:nth-child(2) {
+.contents> div:nth-child(2) {
 	width: 95%;
 	height: 73.5%;
 	margin-left: auto;
@@ -153,8 +152,8 @@ html, body {
 </style>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	<div id="container">
-		<div id="container_Box">
+	<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div>
 				<div>
 					<table id="search_Box">

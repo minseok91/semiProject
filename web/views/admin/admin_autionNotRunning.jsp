@@ -25,6 +25,10 @@
 		width: 1080px;
 		margin: 75px auto;
 	}
+	.contents {
+		height:650px;
+		width:inherit;
+	}
 	
 	#part1 {
 		display: flex;
@@ -266,11 +270,12 @@
 	<%@ include file="admin_autionNotRunning_Modal2.jsp" %>
 	<section>
 		<div id="container">
-			<!-- 사진, 상품명, 입찰가, 등록칸 -->
+			<div class="contents">
+				<!-- 사진, 상품명, 입찰가, 등록칸 -->
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<a id="wish" href="#">재경매</a>
+						<a id="wish" href="#">경매포기</a>
 						<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
 					</div>
 					<div id="detailImg">
@@ -359,6 +364,7 @@
 					</table>
 				</div>
 			</div> <!-- part2 End -->
+			</div>
 		</div> <!-- container End -->
 	</section>
 	<!-- The Modal -->

@@ -248,7 +248,7 @@
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<a id="wish" href="#">재경매</a>
+						<a id="wish" href="#">경매준비</a>
 						<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
 					</div>
 					<div id="detailImg">

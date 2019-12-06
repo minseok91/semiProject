@@ -28,13 +28,12 @@ html, body {
 }
 #container {
 	width: 1080px;
-	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
 }
 #container_Box {
 	width: 100%;
-	height: 90%;
+	height: 650px;
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 

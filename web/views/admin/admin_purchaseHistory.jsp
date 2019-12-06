@@ -19,46 +19,41 @@
 <title>Insert title here</title>
 <style>
 	html, body {
-		padding: 0;
-		margin: 0;
-	}
-	html, body {
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	height: 100%;
 }
-#container {
+.container {
 	width: 1080px;
-	height: 800px;
 	margin-left: auto;
 	margin-right: auto;
 	
 }
-#container_Box {
+.contents{
 	width: 100%;
-	height: 90%;
+	height: 650px;
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
 	
 }
-#container_Box > div:first-child {
+.contents> div:first-child {
 	width: 96%;
 	height: 25px;
 	padding: 20px;
 
 }
-#container_Box > div > p, h3 {
+.contents> div > p, h3 {
 	width: 120px;
 	margin: 0;
 	float: left;
 	
 }
-#container_Box > div > p {
+.contents> div > p {
 	padding-top: 1px;
 }
-#container_Box > div:nth-child(2) {
+.contents> div:nth-child(2) {
 	width: 95%;
 	height: 73.5%;
 	margin-top: 30px;
@@ -111,8 +106,8 @@ th, td {
 </head>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	<div id="container">
-		<div id="container_Box">
+	<div id="container" class="container">
+		<div id="contents" class="contents">
 			<div>
 				<p>판매 상품 이력<h3>3권</h3>
 				<button id="sarchBoxBtn">검색</button>
