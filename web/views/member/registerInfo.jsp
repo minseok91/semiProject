@@ -280,7 +280,6 @@
                 <input type="reset" value="취소">
                 <input type="submit" id="registerBtn" value="가입하기">
             </div>
-            
         </form>
     </section>
     <br><br><br><br>
@@ -332,40 +331,28 @@
     		let regId = /^[a-z]+[a-z0-9]{5,19}$/g;	 					// ID
     		let regName  = /^[가-힣]{2,4}$/; 			 					// 이름
     		let regPwd = /^[A-Za-z0-9]{6,12}$/; 	 					// 비밀번호
-    		let regPhone1 = /^[0-9]{3,4}$/; 		 					// 핸드폰번호 첫번째 -> 3글자도 존재
+    		let regPhone1 = /^[0-9]{3}$/; 		 					// 핸드폰번호 첫번째 -> 3글자도 존재
     		let regPhone2 = /^[0-9]{4}$/;   		 					// 핸드폰번호 두번째 -> 반드시 4글자
-    		let regEmailHead = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])$/i; 	// email 앞부분
+    		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
     		
     		// 바로가입하기 누를 시 걸림
-            if(!regName.test($("#userName").val())) {
-            	alert("이름을 잘못입력했습니다.");
-            	return false;
-            } else if(!regId.test($("input[name=memberId]").val())) {
-                alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
-            } else if(!regPwd.test($("input[name=memberPwd]").val())) {
-            	alert("비밀번호가 형식에 맞지않습니다.(영문자+숫자가 들어가는 6~20자)");
-            	return false;
-            } else if(!regPhone1.test($("input[name=memberPhone1]").val()) || !regPhone2.test($("input[name=memberPhone2]").val())) {
-            	alert("전화번호를 다시 확인해주세요.");
-            	return false;
-            } else if(!regEmailHead.test($("input[name=memberEmail1]").val())) {
-            	alert("이메일을 다시 확인해주세요.");
-            	return false;
-            }
+            
     		
             var memberName = $("#userName").val();
-    		if(memberName === ""){
+    		if(memberName === "" || !regName.test(memberName)){
     			alert("이름을 확인해주세요!");
     			return false;
     		} else {
     			var check = $("#resultCheck").val();
-    			if(check === "false"){
-    				alert("아이디를 확인해주세요");
+    			var memberId = $("#userId").val();
+    			if(!regId.test(memberId) || check === "false"){
+    				alert("아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.");
     				return false;
     			} else {
     				var pwd1 = $("#userPwd").val();
     				var pwd2 = $("#pwdCheck").val();
-    				if(pwd1 === "" || pwd2 === ""){
+    				if(!regPwd.test(pwd1) || pwd1 === "" || pwd2 === ""){
     					alert("비밀번호를 입력해주세요");
     					return false;
     				} else if(pwd1 !== pwd2){
@@ -376,7 +363,7 @@
     					var phone2 = $("#userPhone2").val();
     					var phone3 = $("#userPhone3").val();
     					
-    					if(phone1 === "" || phone2 === "" || phone3 === ""){
+    					if(!regPhone1.test(phone1) || !regPhone2.test(phone2) || !regPhone2.test(phone3) || phone1 === "" || phone2 === "" || phone3 === ""){
     						alert("휴대폰 번호를 확인해주세요");
     						return false;
     					} else {
@@ -402,16 +389,22 @@
     	$("#emailSend").click(function(){
     		var memberEmail1 = $("#userEmail").val();
     		var memberEmail2 = $("#userEmail2").val();
+    		var memberEmail = memberEmail1 + "@" + memberEmail2;
     		var memberId = $("#userId").val();
     		var idCheck = $("#resultCheck").val();
+    		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    		
     		if(memberEmail1 === ""){
     			alert("이메일을 입력하세요");
+    			return false;
     		} else if(memberId === "" || idCheck === "false"){
     			alert("아이디를 입력하세요");
-    		} else if(!regEmailHead.test($("input[name=memberEmail1]").val())) {
-            	alert("이메일을 다시 확인해주세요.");
-            	return false;
-            }  else {
+    			return false;
+    		} else if(!regEmail.test(memberEmail)) {
+    			console.log(!regEmail.test(memberEmail));
+    			console.log(memberEmail);
+    			alert("올바른 형식의 이메일을 작성해주세요");
+    		} else {
     			$.ajax({
     				url: "<%= request.getContextPath() %>/sendEmail.me",
     				type: "post",

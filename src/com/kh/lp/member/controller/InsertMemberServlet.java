@@ -44,7 +44,10 @@ public class InsertMemberServlet extends HttpServlet {
 		String memberPhone = memberPhone1 + "-" + memberPhone2 + "-" + memberPhone3;
 		String memberEmail1 = request.getParameter("memberEmail1");
 		String memberEmail2 = request.getParameter("memberEmail2");
+		log.debug(memberEmail1);
+		log.debug(memberEmail2);
 		String memberEmail = memberEmail1 + "@" + memberEmail2;
+		log.debug(memberEmail);
 		String memberAddress = request.getParameter("memberAddress");
 		
 		Member requestMember = new Member();

@@ -124,7 +124,12 @@
 								memberEmail: memberEmail
 							},
 							success: function(data){
-								console.log(data);
+								if(data === "false"){
+									alert("입력하신 회원의 정보가 존재하지 않습니다.");
+								} else {
+									location.href="<%= request.getContextPath() %>/views/member/checkPwdCode.jsp?memberId=" 
+											+ memberId + "&memberName=" + memberName + "&memberEmail=" + memberEmail;
+								}
 							},
 							error: function(data){
 								console.log("ajax실패");

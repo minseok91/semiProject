@@ -11,6 +11,11 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String memberId = request.getParameter("memberId");
+	String memberName = request.getParameter("memberName");
+	String memberEmail = request.getParameter("memberEmail");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +40,36 @@
 		width:inherit;
 		display:inline-block;
 	}
+	#checkTableArea{
+		border-collapse: separate;
+    	border-spacing: 0 25px;
+	}
+	td:nth-child(3){
+		width: 100px;
+	}
+	td>input{
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 20px;
+    	width: 300px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	label{
+		margin: 5px;
+    	font-family: sans-serif;
+    	font-size: 15px;
+    	margin-right: 25px;
+    	float: right;
+	}
+	.btn{
+		border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:32px;
+		border-radius:5px;
+		font-size:11px;
+	}
 </style>
 </head>
 <body>
@@ -42,17 +77,17 @@
 	<%@ include file="../common/nav.jsp" %>
 	<div class="container">
 		<div class="contents">
-			<br /><br /><br /><br />
-			<table id="findTableArea" align="center"><!--  border="1"> -->
+		<br /><br /><br /><br />
+			<form id="emailCheckArea" action="<%= request.getContextPath() %>/checkPwdCode.me" method="post">
+			<br /><h4 align="center">입력하신 이메일로 인증번호를 보냈습니다.</h4><br /><br />
+				<table id="checkTableArea" align="center"><!--  border="1"> -->
 				<tr>
-					<td><label for="">이름 : </label></td>
-					<td><input type="text" id="memberName"/></td>
-				</tr>
-				<tr>
-					<td><label for="">이메일 : </label></td>
-					<td><input type="email" id="memberEmail"/></td>
+					<td><label for="">인증번호 : </label></td>
+					<td><input type="text" id="memberEmail"/></td>
+					<td align="right"><button class="btn" type="submit">인증하기</button></td>
 				</tr>
 			</table>
+			</form>
 		</div>  <!-- contents end -->
 	</div>  <!-- container end -->
 	<%@ include file="../common/footer.jsp" %>
