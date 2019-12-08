@@ -325,8 +325,7 @@
     		}
     	});
     	
-    	function checkAll(){
-    		
+    	function checkAll(){   		
     		// 정규식
     		let regId = /^[a-z]+[a-z0-9]{5,19}$/g;	 					// ID
     		let regName  = /^[가-힣]{2,4}$/; 			 					// 이름
@@ -335,10 +334,6 @@
     		let regPhone2 = /^[0-9]{4}$/;   		 					// 핸드폰번호 두번째 -> 반드시 4글자
     		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
-    		
-    		// 바로가입하기 누를 시 걸림
-            
-    		
             var memberName = $("#userName").val();
     		if(memberName === "" || !regName.test(memberName)){
     			alert("이름을 확인해주세요!");
@@ -372,8 +367,13 @@
     							alert("주소를 확인해주세요");
     							return false;
     						} else {
+    							var memberEmail1 = $("#userEmail").val();
+    				    		var memberEmail2 = $("#userEmail2").val();
+    				    		var memberEmail = memberEmail1 + "@" + memberEmail2;
     							var emailCheck = $("#emailCheckResult").val();
-    							if(emailCheck === "false") {
+    							let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    							
+    							if(!regEmail.test(memberEmail) || emailCheck === "false") {
     								alert("이메일을 확인해주시고 인증까지 해주세요");
     								return false;
     							} else {
@@ -416,9 +416,11 @@
     				success: function(data){
     					if(data === "true"){
     						alert("이메일을 보냈습니다.");
-    						$("#userEmail").attr("disabled", true);
-    						$("#userEmail2").attr("disabled", true);
+    						$("#userEmail").attr("readonly", true);
+    						$("#userEmail2").attr("readonly", true);
     						$("#emailSend").val("전송완료").attr("disabled", true).css({"background":"lightgray", "color":"black"});
+    						$("#userEmail1").val(memberEmail1);
+    						$("#userEmail2").val(memberEmail2);
     					}else if(data === "false"){
     						alert("이메일을 못보냈습니다.");
     					} else {

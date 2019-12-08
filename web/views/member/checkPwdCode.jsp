@@ -11,11 +11,6 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String memberId = request.getParameter("memberId");
-	String memberName = request.getParameter("memberName");
-	String memberEmail = request.getParameter("memberEmail");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +18,7 @@
 <title>LauXion</title>
 <!-- favicon불러오는 링크 -->
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.container {
 		width: 1080px;
@@ -78,18 +74,43 @@
 	<div class="container">
 		<div class="contents">
 		<br /><br /><br /><br />
-			<form id="emailCheckArea" action="<%= request.getContextPath() %>/checkPwdCode.me" method="post">
+			<div id="emailCheckArea">
 			<br /><h4 align="center">입력하신 이메일로 인증번호를 보냈습니다.</h4><br /><br />
 				<table id="checkTableArea" align="center"><!--  border="1"> -->
 				<tr>
 					<td><label for="">인증번호 : </label></td>
-					<td><input type="text" id="memberEmail"/></td>
-					<td align="right"><button class="btn" type="submit">인증하기</button></td>
+					<td><input type="text" id="code" name="code"/></td>
+					<td align="right"><button class="btn" type="button" onclick="checkCode()">인증하기</button></td>
 				</tr>
 			</table>
-			</form>
+			</div>  <!-- emailCheckArea end -->
 		</div>  <!-- contents end -->
 	</div>  <!-- container end -->
 	<%@ include file="../common/footer.jsp" %>
+	<script>
+		function checkCode(){
+			var code = $("#code").val();
+			<%
+				String[] email = request.getParameter("memberEmail").split("@");
+			%>
+			$.ajax({
+				url: "<%= request.getContextPath() %>/checkPwdCode.me",
+				type: "post",
+				data:{
+					memberId: <%= (String) request.getParameter("memberId") %>,
+					memberName: <%= (String) request.getParameter("memberName") %>,
+					memberEmail1: <%= (String) email[0] %>,
+					memberEmail2: <%= (String) email[1] %>,
+					code: code
+				},
+				success: function(data){
+					console.log("ㅁㄴㅇ");
+				},
+				error: function(data){
+					console.log("ajax 실패");
+				}
+			});
+		}
+	</script>
 </body>
 </html>
