@@ -150,25 +150,35 @@
       <div class="modal-content">
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;">
-					<input type="radio" name="choose" id="accept" value="accept" checked>
+                <form action="<%=request.getContextPath() %>/insert.app" method="post">
+					<input type="radio" name="isGen" id="accept" value="Y" checked>
 					<label for="accept">진품</label>
-					<input type="radio" name="choose" id="reject" value="reject">
+					<input type="radio" name="isGen" id="reject" value="N">
 					<label for="reject">가품</label>
 					<div id="acpContent">
 						여기는 진품일 시에 넣는 공간
+						<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
+    					<!--이건 생성된거를  APP_RESULT_NO NUMBER, -->
+    					<!--브랜드  BRAND VARCHAR2(50), -->
+    					<!--모델네임 MODEL_NAME VARCHAR2(50), -->
+    					<!-- 가격 APP_PRICE NUMBER -->
+    					<input type="text" name="brand" placeholder="브랜드">
+    					<input type="text" name="model" placeholder="모델명">
+    					<input type="text" name="price" placeholder="가격">
 						<input type="text" id="acpName" value="">
 						<label>진품입니까?</label>
-						<input type="text" >
-						<button >입력하기</button>
+						
+						<input name="comment" type="text" >
+						<input type="submit" value="입력하기">
 					</div>
 					<div id="rejContent">
 						<input type="text" id="rejName" value="">
 						여기는 가품일 시에 넣는 공간
 						<label>가품입니까?</label>
-						<input type="text" >
-						<button >입력하기</button>
+						<input name="comment" type="text">
+						<input type="submit" value="입력하기">
 					</div>
-
+				</form>
 				</p>
                 <p><br /></p>
             <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
@@ -221,6 +231,14 @@
 				
 				$("#rejContent").show();
 				$("#acpContent").hide();
+			})
+			
+			$("#insertGen").click(function(){
+				location.href="<%=request.getContextPath()%>/insert.app";
+			})
+			
+			$("#insertFake").click(function(){
+				location.href="<%=request.getContextPath()%>/insert.app";
 			})
 		})
 	</script>
