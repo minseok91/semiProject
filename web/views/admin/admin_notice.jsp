@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.board.model.vo.*" %>
+<% ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list"); 
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int endPage = pi.getMaxPage();
+	int currentPage = pi.getCurrentPage();
+	int listCount = pi.getListCount();
+	int limit = pi.getLimit();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,22 +193,23 @@ html, body {
 			</div>
 			<div>
 			<div id="NoticeNumber">
-				<p>총 게시판 수 :</p><h4>4명</h4>
+				<p>총 게시판 글 :</p><h4><%= listCount %>개</h4>
+				<button id="insertBoard">글쓰기</button>
 			</div>
 				<table id="table">
 					<tr>
 						<th>No.</th>
-						<th>그룹명</th>
+						<th>제목</th>
 						<th>아이디</th>
 						<th>게시판명</th>
-						<th>목록보기</th>
+						<th>작성일</th>
 						<th>내용보기</th>
 						<th>글쓰기</th>
 						<th>답변쓰기</th>
 						<th>코멘트쓰기</th>
 						<th>기능</th>
 					</tr>
-					 <tr>
+					<!--  <tr>
 						<td>1</td>
 						<td>커뮤니티</td>
 						<td>adh5677</td>
@@ -243,24 +253,88 @@ html, body {
 							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
 						</td>
+					</tr> -->
+					<% for(Board b :list) { %>
+					<tr>
+						<td><%= b.getBid() %></td>
+						<td><%= b.getbTitle() %></td>
+						<td>여기는 작성자</td>
+						<td><%= b.getbCount() %></td>
+						<td><%= b.getbDate() %></td>
+						<td>전체</td>
+						<td>관리자</td>
+						<td>관리자</td>
+						<td>관리자</td>
+						<td>
+							<button id="updateBtn">수정</button>
+							<button id="deleteBtn">삭제</button>
+						</td>
 					</tr>
+			<% } %>
 					
 				</table>
 			</div>
-			<div id="nextPage">
+			<!-- <div id="nextPage">
 				<div id="nextPageBox">
 					<button><</button>
 					<button>o</button>
 					<button>></button>
 				</div>
-			</div>
+			</div> -->
+			 <div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button disabled><%=p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>
+				<% } %>
+			
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
+		</div>  <!--  pagingArea End game -->
 		</div>
 	</div>
 	<script>
-	$(document).click(function(e) {
+	<%-- $(document).click(function(e) {
 		if(e.target.tagName == "TD"){
-			location.href = "admin_noticeDetailPage.jsp"
+			var num = $(e.target).parent().children().eq(0).text();
+			console.log(num);
+			location.href = "<%= request.getContextPath()%>/selectOne.bo?BID=" + num;
+		} else if(e.target.tagName == "BUTTON"){
+			console.log("버튼 클릭")
+			var kind = $(e.target).text();
+			var target = $(e.target);
+			console.log("무슨 버튼 ?" + kind);
+			if(kind == "삭제"){
+				console.log("여긴 삭제라네 ");
+				var num = target.parent().parent().children().eq(0).text();
+				location.href = "<%=request.getContextPath()%>/delete.bo?num=" + num;
+			} else{
+				var num = target.parent().parent().children().eq(0).text();
+				console.log("여긴 수정이라네 ");
+				location.href = "" + num;
+			}
 		}
+	}) --%>
+	$(function(){
+		$("#insertBoard").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/insertNotice.jsp";
+		})
 	})
 	</script>
 </body>

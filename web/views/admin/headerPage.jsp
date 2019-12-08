@@ -157,7 +157,7 @@
 		location.href="<%= request.getContextPath()%>/views/admin/admin_mainPage.jsp";
 	})
 	$("#notice_li").click(function(){
-		location.href="<%= request.getContextPath()%>/views/admin/admin_notice.jsp";
+		location.href="<%= request.getContextPath()%>/selectAll.bo";
 	})
 	
 	$("#FAQ").click(function(){
