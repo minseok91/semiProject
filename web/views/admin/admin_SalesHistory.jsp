@@ -9,8 +9,20 @@
  * </pre>
  */
 --%>
+<%@page import="com.kh.lp.admin.member.model.vo.pageInfo,java.util.ArrayList
+,com.kh.lp.admin.member.model.vo.salesHistory"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<salesHistory> salesList = (ArrayList<salesHistory>)request.getAttribute("salesList");
+	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int listCount = pi.getListCount();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,25 +91,25 @@ th, td {
 	width: 100%;
 	height: 15%;
 } 
-#searchBox {
-	width: 250px;
-	height: 25px;
-	float: right;
-	border: 1px solid rgb(160, 115, 66);
-	border-radius: 5px; 
-}
 #sarchBoxBtn {
 	width: 65px;
 	height: 31px;
 	margin-left: 2%;
 	float: right;
 	background: rgb(33, 31, 34);
+	border: 2px solid rgb(160, 115, 66);
+	color: rgb(160, 115, 66);
+}
+#searchBox {
+	margin-top: 1px;
+	width: 130px;
+	height: 25px;
 	border: none;
-	color: #e2ceb8;
-	border-radius: 5px; 
+	box-shadow: 2px 2px 6px 1px gray;
+	float: right;
 }
 #nextPageBox {
-	width: 83px;
+	width: 80%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -109,7 +121,7 @@ th, td {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>판매 상품 이력<h3>3권</h3>
+				<p>판매 상품 이력<h3><%= salesList.size() %>권</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -124,41 +136,27 @@ th, td {
 						<th>낙찰 날짜</th>
 						<th>구매 날짜</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>시계</td>
-						<td>명품시계</td>
-						<td>32,000,000원</td>
-						<td>adh1234</td>
-						<td>2019-12-02</td>
-						<td>2019-12-04</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>가방</td>
-						<td>구찌가방</td>
-						<td>4,000,000원</td>
-						<td>dksn213</td>
-						<td>2019-11-30</td>
-						<td>2019-12-01</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>시계</td>
-						<td>샤넬 시계</td>
-						<td>6,000,000원</td>
-						<td>ahffk1234</td>
-						<td>2019-12-05</td>
-						<td>2019-12-06</td>
-					</tr>
+					<% for(int p=0; p<salesList.size(); p++) { %>
+						<tr>
+							<th><%= salesList.get(p).getRum()%></th>
+							<th><%= salesList.get(p).getTitle()%></th>
+							<th><%= salesList.get(p).getGoods_kinds()%></th><!-- 참고 바람 상품명이름을 이상하게 지음 -->
+							<th><%= salesList.get(p).getWinning_bid()%>원</th>
+							<th><%= salesList.get(p).getBuyer_no()%></th>
+							<th><%= salesList.get(p).getBid_date()%></th>
+							<th><%= salesList.get(p).getPurchase_date()%></th>
+						</tr>
+					<% } %>
 					
 				</table>
 			</div>
 			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
+				<div id="nextPageBox"align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/userSalesHistory.me?currentPage=1&userId=<%=request.getParameter("userId")%>'"><<</button>
+						<% for(int b=1; b<= maxPage; b++) { %>
+							<button onclick="location.href='<%=request.getContextPath()%>/userSalesHistory.me?currentPage=<%= b%>&userId=<%=request.getParameter("userId")%>'"><%= b %></button>
+						<% } %>
+					<button onclick="location.href='<%=request.getContextPath()%>/userSalesHistory.me?currentPage=<%= maxPage%>&userId=<%=request.getParameter("userId")%>'">>></button>
 				</div>
 			</div>
 		</div>

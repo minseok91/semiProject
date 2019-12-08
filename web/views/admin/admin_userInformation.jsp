@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*"
+    %>
+<%
+	ArrayList<Member> userList = (ArrayList<Member>)request.getAttribute("list");
+	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int ListCount = pi.getListCount();
+	int MaxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -69,25 +81,25 @@ html, body {
 	width: 100%;
 	height: 15%;
 } 
-#searchBox {
-	width: 250px;
-	height: 25px;
-	float: right;
-	border: 1px solid rgb(160, 115, 66);
-	border-radius: 5px; 
-}
 #sarchBoxBtn {
 	width: 65px;
 	height: 31px;
 	margin-left: 2%;
 	float: right;
 	background: rgb(33, 31, 34);
+	border: 2px solid rgb(160, 115, 66);
+	color: rgb(160, 115, 66);
+}
+#searchBox {
+	margin-top: 1px;
+	width: 130px;
+	height: 25px;
 	border: none;
-	color: #e2ceb8;
-	border-radius: 5px; 
+	box-shadow: 2px 2px 6px 1px gray;
+	float: right;
 }
 #nextPageBox {
-	width: 83px;
+	width: 80%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -99,7 +111,7 @@ html, body {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>전체 회원<h3>4명</h3>
+				<p>전체 회원<h3><%= userList.size() %>명</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -108,47 +120,30 @@ html, body {
 					<tr>
 						<th>No.</th>
 						<th>아이디</th>
-						<th>이름</th>
 						<th>등급</th>
 						<th>휴대폰번호</th>
 						<th>주소</th>
 						<th>이메일</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>kms1234</td>
-						<td>김민석</td>
-						<td>일반회원</td>
-						<td>010-5959-1919</td>
-						<td>경기도 성남시 어딘가</td>
-						<td>kms1234@naver.com</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>kms1234</td>
-						<td>김민석</td>
-						<td>일반회원</td>
-						<td>010-5959-1919</td>
-						<td>경기도 성남시 어딘가</td>
-						<td>kms1234@naver.com</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>kms1234</td>
-						<td>김민석</td>
-						<td>일반회원</td>
-						<td>010-5959-1919</td>
-						<td>경기도 성남시 어딘가</td>
-						<td>kms1234@naver.com</td>
-					</tr>
-					
+					<% for(int i=0; i<userList.size(); i++) {%>
+						<tr>
+							<td><%= userList.get(i).getUno()%></td>
+							<td><%= userList.get(i).getUser_id()%></td>
+							<td><%= userList.get(i).getNick_name() %></td>
+							<td><%= userList.get(i).getPhone() %></td>
+							<td><%= userList.get(i).getAddress() %></td>
+							<td><%= userList.get(i).getEmail() %></td>
+						</tr>
+					<% } %>
 				</table>
 			</div>
 			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
+				<div id="nextPageBox" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=1'"><<</button>
+					<% for(int p=1; p<=MaxPage; p++) { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
 			</div>
 		</div>
@@ -156,10 +151,10 @@ html, body {
 	<script>
 	$(function(){
 		
-		$(document).click(function(e) {
-			if(e.target.tagName == "TD"){
-				location.href = "admin_userDetailPage.jsp"
-			}
+		$("td").click(function(e) {
+			var userId = e.target.parentElement.children[1].innerHTML;
+			console.log(userId)
+		    location.href="<%=request.getContextPath()%>/userInfoDetail.me?userId="+userId;
 		})
 	});
 	</script>

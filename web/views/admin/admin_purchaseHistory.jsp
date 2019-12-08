@@ -9,8 +9,19 @@
  * </pre>
  */
 --%>
+<%@page import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<purchaseHistory> list = (ArrayList<purchaseHistory>)request.getAttribute("purchaseList");
+	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int listCount = pi.getListCount();
+	int maxPage = pi.getMaxPage();
+	int startPage =  pi.getStartPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,7 +120,7 @@ th, td {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>판매 상품 이력<h3>3권</h3>
+				<p>판매 상품 이력<h3><%= list.size() %>권</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -124,33 +135,18 @@ th, td {
 						<th>낙찰 날짜</th>
 						<th>구매 날짜</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>시계</td>
-						<td>명품시계</td>
-						<td>32,000,000원</td>
-						<td>adh1234</td>
-						<td>2019-12-02</td>
-						<td>2019-12-04</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>가방</td>
-						<td>구찌가방</td>
-						<td>4,000,000원</td>
-						<td>dksn213</td>
-						<td>2019-11-30</td>
-						<td>2019-12-01</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>시계</td>
-						<td>샤넬 시계</td>
-						<td>6,000,000원</td>
-						<td>ahffk1234</td>
-						<td>2019-12-05</td>
-						<td>2019-12-06</td>
-					</tr>
+					 <% for(int p=0; p<list.size(); p++) {%>
+					 	<tr>
+					 		<td><%= list.get(p).getRnum()%></td>
+					 		<td><%= list.get(p).getTitle()%></td>
+					 		<td><%= list.get(p).getProduct_name()%></td>
+					 		<td><%= list.get(p).getWinning_bid()%></td>
+					 		<td><%= list.get(p).getSeller()%></td>
+					 		<td><%= list.get(p).getBid_date()%></td>
+					 		<td><%= list.get(p).getPurchase_date()%></td>
+					 	</tr>
+					 	
+					 <% } %>
 					
 				</table>
 			</div>
