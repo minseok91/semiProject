@@ -92,12 +92,6 @@
     padding-top: 18px;
 }
 
-.status2>p:nth-of-type(2) {
-	padding-left: 10px;
-    color: #f00;
-    font-weight: bold;
-}
-
 .contentArea {
 	position: relative;
 	width: auto;
@@ -166,11 +160,10 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;입찰리스트 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;문의 내역 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 입찰하신 상품 리스트를 볼 수 있는 공간입니다.</p>
-				<p>다섯 상품만 입찰이 가능합니다.</p>
+				<p>회원님께서 저희 사이트에 문의하신 내역과 그에 대한 답변을 확인할 수 있는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">

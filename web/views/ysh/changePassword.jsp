@@ -1,14 +1,15 @@
 <%--
 /**
  * <pre>
- * @Author      : 안동환
- * @CreateDate  : 2019. 12. 6. 오후 9:31:31
- * @ModifyDate  : 2019. 12. 6. 오후 9:31:31
- * @fileName    : 회원정보 변경 비밀번호 입력 창
+ * @Author      : Kewon
+ * @CreateDate  : 2019. 12. 7. 오후 11:20:58
+ * @ModifyDate  : 2019. 12. 7. 오후 11:20:58
+ * @fileName    : 
  * @Description :
  * </pre>
  */
 --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -117,9 +118,24 @@
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
-#inputpassword {
-	width: 300px;
-	height: 300px;
+
+.newPasswordArea {
+	position: relative;
+	left: 33%;
+    width: 18%;
+    display: grid;
+}
+
+.newPasswordArea>label:nth-of-type(2) {
+	margin-top: 42%;
+}
+
+.newPasswordArea>button {
+	margin-top: 35%;
+	background: #211f22;
+	color: #a0733b;
+	border: 1px solid #a0733b;
+	padding: 10px 0;
 }
 </style>
 <meta charset="UTF-8">
@@ -134,7 +150,7 @@
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="" id=selectMenu>▶   입찰리스트</a></dd>
+				<dd><a href="">▶   입찰리스트</a></dd>
 				<dd><a href="">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
@@ -158,7 +174,7 @@
 				<dd><a href="">▶  신고 내역</a></dd>
 				
 				<dt>§  회원정보</dt>
-				<dd><a href="">▶  회원정보 변경</a></dd>
+				<dd><a href="" id=selectMenu>▶  회원정보 변경</a></dd>
 				<dd><a href="">▶  회원 탈퇴</a></dd>
 				
 			</dl>
@@ -172,10 +188,11 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<div id="inputpassowrd">
-				<p>본인 확인을 위해 비밀번호를 입력해주세요</p><br>
-				<label>비밀번호</label><input type="text"><button>확인</button>
-			</div>
+		<div class="newPasswordArea">
+			<label>새 비밀번호</label><input type="password" name="newPassword" id="newPassword">
+			<label>새 비밀번호 확인</label><input type="password" name="newPasswordChk" id="newPasswordChk">
+			<button>비밀번호 변경</button>
+		</div> <!-- newPasswordArea -->
 		</div> <!-- menuStatus End -->
 	</div> <!-- container End -->
  <%@ include file="../common/footer.jsp" %>
