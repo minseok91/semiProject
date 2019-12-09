@@ -45,12 +45,12 @@ public class LoginMemberServlet extends HttpServlet {
 		
 		Member loginMember = new MemberService().loginCheck(requestMember);
 		
-		if(loginMember != null) {
+		if(loginMember.getMemberId() != null) {
 			request.getSession().setAttribute("loginMember", loginMember);
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}else {
-			request.setAttribute("msg", "너 로그인 실패");
-			request.getRequestDispatcher("../common/errorPage.jsp").forward(request, response);
+			request.setAttribute("msg", "failLogin");
+			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 		}
 	}
 

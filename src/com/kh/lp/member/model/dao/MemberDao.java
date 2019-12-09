@@ -78,6 +78,7 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
+		log.debug(loginMember);
 		return loginMember;
 	}
 	
@@ -188,7 +189,7 @@ public class MemberDao {
 	 * @param memberId 
 	 * @return
 	 */
-	public int checkEmail(Connection con, String code, String memberId) {
+	public int checkEmail(Connection con, String code, Member requestMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -196,8 +197,9 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, memberId);
-			pstmt.setString(2, code);
+			pstmt.setString(1, requestMember.getMemberId());
+			pstmt.setString(2, requestMember.getMemberEmail());
+			pstmt.setString(3, code);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -301,6 +303,33 @@ public class MemberDao {
 			if(rset.next()) {
 				result = rset.getInt(1);
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 9. 오후 8:18:56
+	 * @ModifyDate    : 2019. 12. 9. 오후 8:18:56
+	 * @Description   : 비밀번호 변경 메소드
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
+	public int updatePassword(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updatePassword");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, requestMember.getMemberPwd());
+			pstmt.setString(2, requestMember.getMemberId());
+			pstmt.setString(3, requestMember.getMemberName());
+			pstmt.setString(4, requestMember.getMemberEmail());
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
