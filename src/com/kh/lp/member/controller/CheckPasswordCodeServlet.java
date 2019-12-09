@@ -1,11 +1,16 @@
 package com.kh.lp.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.lp.member.model.service.MemberService;
+import com.kh.lp.member.model.vo.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -34,15 +39,28 @@ public class CheckPasswordCodeServlet extends HttpServlet {
 		String code = request.getParameter("code");
 		String memberId = request.getParameter("memberId");
 		String memberName = request.getParameter("memberName");
-		String memberEmail1 = request.getParameter("memberEmail1");
-		String memberEmail2 = request.getParameter("memberEmail2");
-		String memberEmail = memberEmail1 + "@" + memberEmail2;
+		String memberEmail = request.getParameter("memberEmail");
 		log.debug(code);
 		log.debug(memberId);
 		log.debug(memberName);
 		log.debug(memberEmail);
 		
+		Member requestMember = new Member();
 		
+		requestMember.setMemberId(memberId);
+		requestMember.setMemberName(memberName);
+		requestMember.setMemberEmail(memberEmail);
+		
+		PrintWriter out = response.getWriter();
+		
+		int result = new MemberService().checkEmail(code, requestMember);
+		
+		if(result > 0) {
+			request.setAttribute("requestMember", requestMember);
+			out.append("true");
+		} else {
+			out.append("false");
+		}
 		
 	}
 

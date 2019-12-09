@@ -15,7 +15,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<!-- favicon불러오는 링크 -->
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>LauXion</title>
 <style type="text/css">
@@ -437,11 +438,15 @@
     	$("#emailCheck").click(function(){
     		var code = $("#emailCerti").val();
     		var memberId = $("#userId").val();
+    		var memberEmail1 = $("#userEmail").val();
+    		var memberEmail2 = $("#userEmail2").val();
+    		var memberEmail = memberEmail1 + "@" + memberEmail2;
     		$.ajax({
     			url: "<%= request.getContextPath() %>/checkEmailCode.me",
     			type: "post",
     			data: {
     				id: memberId,
+    				email: memberEmail,
     				code: code
     			},
     			success: function(data){

@@ -80,7 +80,7 @@
 				<tr>
 					<td><label for="">인증번호 : </label></td>
 					<td><input type="text" id="code" name="code"/></td>
-					<td align="right"><button class="btn" type="button" onclick="checkCode()">인증하기</button></td>
+					<td align="right"><button class="btn" type="button" id="checkBtn">인증하기</button></td>
 				</tr>
 			</table>
 			</div>  <!-- emailCheckArea end -->
@@ -88,29 +88,33 @@
 	</div>  <!-- container end -->
 	<%@ include file="../common/footer.jsp" %>
 	<script>
-		function checkCode(){
-			var code = $("#code").val();
-			<%
-				String[] email = request.getParameter("memberEmail").split("@");
-			%>
+		$("#checkBtn").click(function(){
+			var memberId = "<%= request.getParameter("memberId") %>";
+			var memberName = "<%= request.getParameter("memberName") %>";
+			var memberEmail = "<%= request.getParameter("memberEmail") %>";
+			console.log(memberId);
 			$.ajax({
 				url: "<%= request.getContextPath() %>/checkPwdCode.me",
 				type: "post",
-				data:{
-					memberId: <%= (String) request.getParameter("memberId") %>,
-					memberName: <%= (String) request.getParameter("memberName") %>,
-					memberEmail1: <%= (String) email[0] %>,
-					memberEmail2: <%= (String) email[1] %>,
-					code: code
+				data: {
+					code: $("#code").val(),
+					memberId: memberId,
+					memberName: memberName,
+					memberEmail: memberEmail
 				},
 				success: function(data){
-					console.log("ㅁㄴㅇ");
+					if(data === "true"){
+						location.href="<%= request.getContextPath() %>/views/member/updatePassword.jsp?memberId=" 
+							+ memberId + "&memberName=" + memberName + "&memberEmail=" + memberEmail;
+					} else {
+						alert("인증번호를 다시 입력해주세요");
+					}
 				},
 				error: function(data){
-					console.log("ajax 실패");
+					console.log("실패");
 				}
 			});
-		}
+		});
 	</script>
 </body>
 </html>

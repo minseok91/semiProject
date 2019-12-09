@@ -7,10 +7,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LauXion</title>
+<!-- favicon불러오는 링크 -->
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-<!-- 실패페이지 -->
-<h1 align="center"><%= msg %></h1>
+	<script>
+		window.onload = function(){
+			<% if(msg == "failLogin") { %>
+			alert("아이디와 비밀번호를 확인해주세요");
+			location.href = "<%= request.getContextPath() %>/views/member/login.jsp";
+		<% } else if(msg == "test"){ %>
+		<% } %>
+		}
+	</script>
 </body>
 </html>
