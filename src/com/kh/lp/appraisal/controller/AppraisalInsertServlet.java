@@ -1,6 +1,8 @@
 package com.kh.lp.appraisal.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.AppResult;
+import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
+import com.kh.lp.common.MyFileRenamePolicy;
+import com.oreilly.servlet.MultipartRequest;
+
 
 /**
  * Servlet implementation class AppraisalInsertServlet
@@ -31,35 +39,95 @@ public class AppraisalInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String isGen = request.getParameter("isGen");
-		System.out.println("isGen : " + isGen);
-		String desc = request.getParameter("comment");
-		String desc2 = request.getParameter("comment2");
+//		String isGen = request.getParameter("isGen");
+//		System.out.println("isGen : " + isGen);
+//		String desc = request.getParameter("comment");
+//		String desc2 = request.getParameter("comment2");
 		int result = 0;
+		if(ServletFileUpload.isMultipartContent(request)) {
+			
+			
+			
+		//전송파일 용량 제한 10mb 로 용향제한
+		int maxSize = 1024 * 1024 * 10;
+		
+		//웹서버 컨테이너 경로추출
+		String root = request.getSession().getServletContext().getRealPath("/");
+		
+		System.out.println(root);
+		
+		//파일 저장 경로 
+		String savePath = root + "img/appraisal/";
+		
+		//사용자가 올린 파일을 그대로 저장하지 않는 것이 일반적이다.
+		//1. 같은 파일명이 있는 경우 이전 파일을 덮어씌운다;
+		//2. 한글로된 파일명 , 특수기호, 띄어쓰기 등이 서버의 운영체제에 따라 문제가 생길 수 있다.
+		//DefaultFileRenamePolicy는 cos.jar안에 존재하는 클래스로 
+		//같은 파일명이 존재 하는지 검사하고, 있는 경우 파일명 뒤에 숫자를 붙여준다.
+		//ex :aaa.zip, aaa1.zip, aaa2.zip
+		//MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+		
+		MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolicy());
+		
+		System.out.println("multiRequest : " + multiRequest);
+		
+		
+		String isGen = multiRequest.getParameter("isGen");
+		System.out.println("isGen" + isGen);
+		
+		//저장할 파일의 이름을 저장할 arrayList를 생성 
+		ArrayList<String> saveFiles = new ArrayList<String>();
+		
+		//원본파일의 이름을 저장할 arrayList 를 생성 
+		ArrayList<String> originFiles = new ArrayList<>();
+		
+		//파일이 전송된 input 태그의 name을 반환
+		Enumeration<String> files =  multiRequest.getFileNames();
+		System.out.println("files :" + files);
+		
+		String name = files.nextElement();
+		saveFiles.add(multiRequest.getFilesystemName(name));
+		originFiles.add(multiRequest.getOriginalFileName(name));
 		
 		if(isGen.equals("Y")) {
+			String multiBrand = multiRequest.getParameter("brand");
+			String multiModel = multiRequest.getParameter("model");
+			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
+			String multiComment = multiRequest.getParameter("comment");
+			System.out.println("brand" + multiBrand);
+			System.out.println("model" + multiModel);
+			System.out.println("price" + multiPrice);
+			System.out.println("comment" + multiComment);
+			
 			AppResult ap = new AppResult();
-			ap.setDetailDesc(desc);
+			ap.setDetailDesc(multiComment);
 			ap.setGenStatus(isGen);
 			
-			String brand = request.getParameter("brand");
-			String model = request.getParameter("model");
-			int price = Integer.parseInt(request.getParameter("price"));
 			
 			GenDetail gd = new GenDetail();
-			gd.setBrand(brand);
-			gd.setModelName(model);
-			gd.setAppPrice(price);
+			gd.setBrand(multiBrand);
+			gd.setModelName(multiModel);
+			gd.setAppPrice(multiPrice);
 			
-			result = new AppraisalService().insertGenDetail(ap, gd);
+			//첨부파일 관련
+			Attachment at = new Attachment();
+			at.setFilePath(savePath);
+			at.setOriginName(originFiles.get(0));
+			at.setChangeName(saveFiles.get(0));
+			System.out.println("at : " + at );
+			result = new AppraisalService().insertGenDetail(ap, gd , at);
+			
 			System.out.println("여긴 진품일때");
 		} else {
+			
+			String multiComment = multiRequest.getParameter("comment2");
+			System.out.println("comment" + multiComment);
 			System.out.println("여긴 가품일때");
 			AppResult ap = new AppResult();
 			//감정번호 가져와서 넣기 ap.setAppId(appId);
 			//넣는거 아님 시퀀스로 ap.setAppResultNo(appResultNo);
 			//이건 첨부파일 관련해서 ap.setAttachId(attachId);
-			ap.setDetailDesc(desc2);
+			ap.setDetailDesc(multiComment);
 			ap.setGenStatus(isGen);
 			System.out.println("ap : " + ap);
 			//이건 입력할 떄 sysdate 로 ap.setResultDate(resultDate);
@@ -78,6 +146,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			request.getRequestDispatcher(page).forward(request, response);
 		}
 		
+		}
 	}
 
 	/**

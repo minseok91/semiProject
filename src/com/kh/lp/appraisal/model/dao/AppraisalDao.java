@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.kh.lp.appraisal.model.vo.AppResult;
+import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 
 import static com.kh.lp.common.JDBCTemplate.*;
@@ -90,6 +91,32 @@ public class AppraisalDao {
 			pstmt.setInt(3, gd.getAppPrice());
 			System.out.println("gd :"  + gd);
 			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAttach(Connection con, Attachment at) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttach");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, at.getBid());
+			pstmt.setString(2, at.getOriginName());
+			pstmt.setString(3, at.getChangeName());
+			pstmt.setString(4, at.getFilePath());
+			pstmt.setInt(5, 1);//일단 1로하자
+			
+			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

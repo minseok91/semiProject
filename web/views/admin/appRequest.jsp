@@ -150,7 +150,7 @@
       <div class="modal-content">
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;">
-                <form action="<%=request.getContextPath() %>/insert.app" method="post">
+                <form action="<%=request.getContextPath() %>/insert.app" method="post" encType="multipart/form-data">
 					<input type="radio" name="isGen" id="accept" value="Y" checked>
 					<label for="accept">진품</label>
 					<input type="radio" name="isGen" id="reject" value="N">
@@ -167,7 +167,8 @@
     					<input type="text" name="price" placeholder="가격">
 						<input type="text" id="acpName" value="">
 						<label>진품입니까?</label>
-						
+						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
+						<img width="120" height="100" id="titleImg">
 						<input name="comment" type="text" >
 						<input type="submit" value="입력하기">
 					</div>
@@ -202,6 +203,22 @@
 		</div>
 	</div>
 	<script>
+	function loadImg(value ,num){
+		if(value.files && value.files[0]){
+			var reader = new FileReader();
+			reader.onload = function(e){
+				switch(num){
+				case 1 : $("#titleImg").attr("src", e.target.result); break;
+				case 2 : $("#contentImg1").attr("src", e.target.result); break;
+				case 3 : $("#contentImg2").attr("src", e.target.result); break;
+				case 4 : $("#contentImg3").attr("src", e.target.result); break;
+				
+				}
+			}
+			reader.readAsDataURL(value.files[0]);
+		}
+	}
+	
 	function close_pop(flag) {
 	      $('#myModal').hide();
 	 };	
