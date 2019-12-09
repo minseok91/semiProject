@@ -5,7 +5,7 @@
  * @CreateDate  : 2019. 12. 6. 오후 9:14:49
  * @ModifyDate  : 2019. 12. 6. 오후 9:14:49
  * @fileName    : sellDeli
- * @Description : 마이페이지 - 구매상품 배송 조회(감정 상품 배송 조회와 통합할 예정)
+ * @Description : 마이페이지 - 구매상품 배송 조회
  * </pre>
  */
 --%>
@@ -135,43 +135,37 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="">▶   입찰리스트</a></dd>
-				<dd><a href="">▶   낙찰리스트</a></dd>
+				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
+				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
-				<dd><a href="">▶  상품감정 신청</a></dd>
-				<dd><a href="">▶  등록상품 관리</a></dd>
-				<dd><a href="">▶  경매 진행 상품 관리</a></dd>
-				<dd><a href="">▶  경매 마감 상품 관리</a></dd>
+				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
+				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
+				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
+				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
 				
 				<dt>§  결제/배송조회</dt>
-				<dd><a href="">▶  결제 내역</a></dd>
-				<dd><a href="">▶  감정 상품 배송 조회</a></dd>
-				<dd><a href="" id="selectMenu">▶  구매 상품 배송 조회</a></dd>
-				
-				<dt>§  메세지</dt>
-				<dd><a href="">▶  전체 메세지</a></dd>
-				<dd><a href="">▶  받은 메세지</a></dd>
-				<dd><a href="">▶  보낸 메세지</a></dd>
+				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
+				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
+				<dd><a value="delivery/sellDeli" id="selectMenu">▶  구매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
-				<dd><a href="">▶  문의 내역</a></dd>
-				<dd><a href="">▶  신고 내역</a></dd>
+				<dd><a value="queAndReport/questionList">▶  문의 내역</a></dd>
+				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
 				
 				<dt>§  회원정보</dt>
-				<dd><a href="">▶  회원정보 변경</a></dd>
-				<dd><a href="">▶  회원 탈퇴</a></dd>
+				<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
+				<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
 				
 			</dl>
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;입찰리스트 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;구매 상품 배송 조회 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 입찰하신 상품 리스트를 볼 수 있는 공간입니다.</p>
-				<p>다섯 상품만 입찰이 가능합니다.</p>
+				<p>회원님께서 판매 또는 구매하신 상품의 배송 상태를 조회할 수 있는 공간입니다. </p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
@@ -205,5 +199,15 @@
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../../common/footer.jsp" %>
+
+	<script>
+		$(function() {
+			$('a').click(function() {
+				let values=$(this).attr('value');
+				console.log(values);
+				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			})
+		});
+	</script>
 </body>
 </html>
