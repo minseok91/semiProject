@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
-public class SendEmailWrapper {
+public class EmailCodeWrapper {
 	public String getSha512(String pwd) {
 		String encPwd = null;
 		

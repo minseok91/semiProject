@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.member.model.service.MemberService;
+import com.kh.lp.member.model.vo.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -40,7 +41,12 @@ public class FindIdServlet extends HttpServlet {
 		log.debug(memberName);
 		log.debug(memberEmail);
 		
-		String result = new MemberService().findId(memberName, memberEmail);
+		Member requestMember = new Member();
+		
+		requestMember.setMemberName(memberName);
+		requestMember.setMemberEmail(memberEmail);
+		
+		String result = new MemberService().findId(requestMember);
 		
 		PrintWriter out = response.getWriter();
 		if(result != null) {

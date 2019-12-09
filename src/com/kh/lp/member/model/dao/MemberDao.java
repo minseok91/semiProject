@@ -12,8 +12,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
 
+import com.kh.lp.common.EmailTemplate;
 import com.kh.lp.member.model.vo.Member;
-import com.kh.lp.wrapper.SendEmailWrapper;
+import com.kh.lp.wrapper.EmailCodeWrapper;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -146,7 +147,7 @@ public class MemberDao {
 	 * @Author	      : gurwns
 	 * @CreateDate    : 2019. 12. 5. 오후 4:41:57
 	 * @ModifyDate    : 2019. 12. 5. 오후 4:41:57
-	 * @Description   : 이메일 인증코드 보내고 EMAIL_CODE 테이블에 저장하는 메소드
+	 * @Description   : 이메일 인증코드 보내고 EMAIL_CERTI 테이블에 저장하는 메소드
 	 * @param con
 	 * @param requestMember
 	 * @return
@@ -155,10 +156,7 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String query = prop.getProperty("sendEmail");
-		Random rnd = new Random();
-		String tempCode = new SendEmailWrapper().getSha512(String.valueOf((char) (rnd.nextInt(26)) + 97));
-		String emailCode = tempCode.substring(0, 10);
-		log.debug(tempCode);
+		String emailCode = new EmailTemplate().createCode();
 		log.debug(emailCode);
 		
 		try {
@@ -247,13 +245,13 @@ public class MemberDao {
 	 * @Author	      : gurwns
 	 * @CreateDate    : 2019. 12. 6. 오전 3:57:14
 	 * @ModifyDate    : 2019. 12. 6. 오전 3:57:14
-	 * @Description   : 아이디 찾는 메소드
+	 * @Description   : 아이디 찾는 메소드 파라미터 값에 의해 DB에 유저가 있으면 아이디값을 반환
 	 * @param con
 	 * @param memberName
 	 * @param memberEmail
 	 * @return
 	 */
-	public String findId(Connection con, String memberName, String memberEmail) {
+	public String findId(Connection con, Member requestMember) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String query = prop.getProperty("findId");
@@ -261,8 +259,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, memberName);
-			pstmt.setString(2, memberEmail);
+			pstmt.setString(1, requestMember.getMemberName());
+			pstmt.setString(2, requestMember.getMemberEmail());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
@@ -273,6 +271,39 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 8. 오전 3:52:24
+	 * @ModifyDate    : 2019. 12. 8. 오전 3:52:24
+	 * @Description   : 비밀번호 찾는 메소드 파라미터값에 의해 DB에 유저가 있는지 없는지 조회한다.
+	 * @param con
+	 * @param memberId
+	 * @param memberName
+	 * @param memberEmail
+	 * @return
+	 */
+	public int findPwd(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("findPwd");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, requestMember.getMemberId());
+			pstmt.setString(2, requestMember.getMemberName());
+			pstmt.setString(3, requestMember.getMemberEmail());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 }

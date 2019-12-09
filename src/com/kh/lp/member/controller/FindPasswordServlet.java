@@ -1,11 +1,16 @@
 package com.kh.lp.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.lp.member.model.service.MemberService;
+import com.kh.lp.member.model.vo.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -39,6 +44,25 @@ public class FindPasswordServlet extends HttpServlet {
 		log.debug(memberName);
 		log.debug(memberEmail);
 		
+		Member requestMember = new Member();
+		
+		requestMember.setMemberId(memberId);
+		requestMember.setMemberName(memberName);
+		requestMember.setMemberEmail(memberEmail);
+		
+		PrintWriter out = response.getWriter();
+		
+		int result = new MemberService().findPwd(requestMember);
+		if(result > 0) {
+			String result2 = new MemberService().sendEmail(requestMember);
+			if(result2 != null) {
+				out.append("true");
+			}
+		} else {
+			out.append("false");
+		}
+		out.flush();
+		out.close();
 	}
 
 	/**

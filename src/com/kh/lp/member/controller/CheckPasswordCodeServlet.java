@@ -1,30 +1,26 @@
 package com.kh.lp.member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.member.model.service.MemberService;
-import com.kh.lp.member.model.vo.Member;
-
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class InsertMemberServlet
+ * Servlet implementation class CheckPasswordCodeServlet
  */
 @Log4j2
-@WebServlet("/insertMember.me")
-public class InsertMemberServlet extends HttpServlet {
+@WebServlet("/checkPwdCode.me")
+public class CheckPasswordCodeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertMemberServlet() {
+    public CheckPasswordCodeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,38 +31,19 @@ public class InsertMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String code = request.getParameter("code");
 		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
 		String memberName = request.getParameter("memberName");
-		String memberPhone1 = request.getParameter("memberPhone1");
-		String memberPhone2 = request.getParameter("memberPhone2");
-		String memberPhone3 = request.getParameter("memberPhone3");
-		String memberPhone = memberPhone1 + "-" + memberPhone2 + "-" + memberPhone3;
 		String memberEmail1 = request.getParameter("memberEmail1");
 		String memberEmail2 = request.getParameter("memberEmail2");
 		String memberEmail = memberEmail1 + "@" + memberEmail2;
-		log.debug(memberEmail1);
-		log.debug(memberEmail2);
+		log.debug(code);
+		log.debug(memberId);
+		log.debug(memberName);
 		log.debug(memberEmail);
-		String memberAddress = request.getParameter("memberAddress");
 		
-		Member requestMember = new Member();
 		
-		requestMember.setMemberId(memberId);
-		requestMember.setMemberPwd(memberPwd);
-		requestMember.setMemberName(memberName);
-		requestMember.setMemberPhone(memberPhone);
-		requestMember.setMemberEmail(memberEmail);
-		requestMember.setMemberAddress(memberAddress);
-		log.debug(requestMember);
-		int result = new MemberService().insertMember(requestMember);
 		
-		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/views/member/registerEnd.jsp");
-		}else {
-			request.setAttribute("msg", "너 회원가입 실패다 나가");
-			request.getRequestDispatcher("../common/errorPage.jsp");
-		}
 	}
 
 	/**

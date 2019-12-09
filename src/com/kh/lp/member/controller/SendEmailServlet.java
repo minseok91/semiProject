@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.common.EmailTemplate;
 import com.kh.lp.common.MyAuthentication;
 import com.kh.lp.member.model.service.MemberService;
 import com.kh.lp.member.model.vo.Member;
@@ -62,58 +63,6 @@ public class SendEmailServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		if(result != null) {
-			String mailProtocol = "smtp";
-			String mailHost = "smtp.gmail.com";
-			String mailPort = "587";
-			String mailId = "lauxion04@gmail.com";
-			String mailPwd = "semiioi04@";
-			
-			String fromName = "LauXion 관리자";
-			String fromEmail = "lauxion04@gmail.com";
-			String toName = requestMember.getMemberId();
-			String toEmail = requestMember.getMemberEmail();
-			String mailTitle = "이메일 인증코드입니다.";
-			String mailContents = "인증코드 : " + result + "\n 10분 이내로 인증완료하세요";
-			String debugMode = "false";
-			String authMode = "true";
-			
-			boolean debug = Boolean.valueOf(debugMode).booleanValue();
-
-			Properties mailProps = new Properties();
-			
-			mailProps.put("mail.smtp.starttls.enable", "true");
-			mailProps.setProperty("mail.transport.protocol", mailProtocol);
-			mailProps.put("mail.debug", debugMode);
-			mailProps.put("mail.smtp.host", mailHost);
-			mailProps.put("mail.smtp.port", mailPort);
-			mailProps.put("mail.smtp.connectiontimeout", "5000");
-			mailProps.put("mail.smtp.timeout", "5000");
-			mailProps.put("mail.smtp.auth", authMode);
-			
-			Session msgSession = null;
-
-			if(authMode.equals("true")) {
-		        Authenticator auth = new MyAuthentication(mailId, mailPwd);
-				msgSession = Session.getInstance(mailProps, auth);
-			} else {
-				msgSession = Session.getInstance(mailProps, null); 
-			}
-			msgSession.setDebug(debug);
-			MimeMessage msg = new MimeMessage(msgSession);
-			try {
-				msg.setFrom(new InternetAddress(fromEmail, fromName));
-				msg.setRecipient(Message.RecipientType.TO, new InternetAddress(toEmail, toName));
-				msg.setSubject(mailTitle);
-				msg.setContent(mailContents, "text/html; charset=UTF-8");
-
-				Transport t = msgSession.getTransport(mailProtocol);
-				
-				t.connect();
-				t.sendMessage(msg, msg.getAllRecipients());
-				t.close();
-			} catch (MessagingException e) {
-				e.printStackTrace();
-			}
 			out.append("true");
 		} else {
 			out.append("false");
