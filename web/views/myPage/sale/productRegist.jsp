@@ -438,5 +438,15 @@
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
 	<%@ include file="../../common/footer.jsp" %>
+
+	<script>
+		$(function() {
+			$('a').click(function() {
+				let values=$(this).attr('value');
+				console.log(values);
+				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			})
+		});
+	</script>
 </body>
 </html>

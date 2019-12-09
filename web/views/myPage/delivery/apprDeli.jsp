@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 5. 오후 5:23:37
- * @ModifyDate  : 2019. 12. 5. 오후 5:23:37
- * @fileName    : biddingList
- * @Description : 마이페이지-경매진행상품 관리
+ * @CreateDate  : 2019. 12. 6. 오후 9:14:49
+ * @ModifyDate  : 2019. 12. 6. 오후 9:14:49
+ * @fileName    : sellDeli
+ * @Description : 마이페이지 - 구매상품 배송 조회
  * </pre>
  */
 --%>
@@ -21,7 +21,12 @@
 	padding-bottom: 10px;
 }
 
-.container>#myPageMenu {
+.contents{
+	height:650px;
+	width:inherit;
+}
+
+.container>.contents>#myPageMenu {
 	width: 210px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -29,14 +34,14 @@
 	float: left;
 }
 
-.container>#myPageMenu>dl>dt {
+#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-.container>#myPageMenu>dl>dd {
+#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -52,33 +57,33 @@
 	margin-top: 0px;
 }
 
-.container>#myPageMenu>dl>dd>a {
+#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
 
-.container>#myPageMenu>dl>dd>#selectMenu {
+#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>#myPageMenu>dl>dd>a:hover {
+#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>.menuStatus {
+.container>.contents>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
 
-.container>.menuStatus>.status2 {
+.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
@@ -103,7 +108,7 @@
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
+	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
@@ -122,9 +127,10 @@
 <title>LauXion</title>
 </head>
 <body>
-<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -136,12 +142,12 @@
 				<dt>§  판매정보</dt>
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
 				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
-				<dd><a value="sale/auctionList" id="selectMenu">▶  경매 진행 상품 관리</a></dd>
+				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
 				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
 				
 				<dt>§  결제/배송조회</dt>
 				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
-				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
+				<dd><a value="delivery/apprDeli" id="selectMenu">▶  감정 상품 배송 조회</a></dd>
 				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
@@ -156,70 +162,52 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;경매 진행 상품 관리 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;감정 상품 배송 조회 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 등록하신 상품리스트 입니다.</p>
+				<p>회원님께서 감정 신청하신 상품의 배송 상태를 조회할 수 있는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-		
 			<table>
 				<tr>
-					<th>경매번호</th>
+					<th>카테고리</th>
+					<th>상품번호</th>
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
-					<th>현재 입찰가</th>
-					<th>입찰인원</th>
-					<th>남은 시간</th>
-					<th>상세보기</th>
+					<th>배송상태</th>
+					<th>비고</th>
 				</tr>
 				<tr>
+					<td>감정대기중</td>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td>3</td>
-					<td>23시간 35분 전</td>
-					<td>
-						<button>상세보기</button>
-					</td>
+					<td>배송중</td>
+					<td></td>
 				</tr>
 				<tr>
+					<td>환불</td>
 					<td>2</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>배송완료</td>
 					<td></td>
-					<td>7</td>
-					<td></td>
-					<td>
-						<button>상세보기</button>
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td>9</td>
-					<td></td>
-					<td>
-						<button>상세보기</button>
-					</td>
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->
+		</div> <!-- contents End -->
 	</div> <!-- container End -->
-<%@ include file="../../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 
-<script>
-	$(function() {
-		$('a').click(function() {
-			let values=$(this).attr('value');
-			console.log(values);
-			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
-		})
-	});
-</script>
+	<script>
+		$(function() {
+			$('a').click(function() {
+				let values=$(this).attr('value');
+				console.log(values);
+				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			})
+		});
+	</script>
 </body>
 </html>
