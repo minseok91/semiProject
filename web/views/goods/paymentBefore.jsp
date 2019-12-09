@@ -147,6 +147,10 @@
 	text-align: right;
 }
 
+#buyInfo>div>label {
+	text-align: right;
+}
+
 </style>
 </head>
 <body>
@@ -204,22 +208,17 @@
 		
 		<div id="buyInfo">
 			<p>결제 정보</p>
-			<table>
-				<tr>
-					<td><label>낙찰가 : </label></td>
-					<td><input type="text" disabled></td>
-				</tr>
-				
-				<tr>
-					<td><label>낙찰 수수료 : </label></td>
-					<td><input type="text" disabled></td>
-				</tr>
-				
-				<tr>
-					<td><label>총 결제 금액 : </label></td>
-					<td><input type="text" disabled></td>
-				</tr>
-			</table>
+				<div>
+					<label>낙찰가 : </label><input type="text" disabled>
+				</div>
+
+				<div>
+					<label>낙찰 수수료 : </label><input type="text" disabled>
+				</div>
+
+				<div>
+					<label>총 결제 금액 : </label><input type="text" disabled>
+				</div>
 		</div>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
