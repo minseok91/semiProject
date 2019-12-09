@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 5. 오후 5:23:37
- * @ModifyDate  : 2019. 12. 5. 오후 5:23:37
- * @fileName    : biddingList
- * @Description : 마이페이지-입찰한 상품들을 보여주는 입찰리스트 페이지
+ * @CreateDate  : 2019. 12. 6. 오후 7:29:37
+ * @ModifyDate  : 2019. 12. 6. 오후 7:29:37
+ * @fileName    : goodsEnrollList
+ * @Description : 등록된 상품 관리 리스트
  * </pre>
  */
 --%>
@@ -22,8 +22,8 @@
 }
 
 .contents{
-	height:650px;
-	width:inherit;
+		height:650px;
+		width:inherit;
 }
 
 .container>.contents>#myPageMenu {
@@ -34,14 +34,14 @@
 	float: left;
 }
 
-#myPageMenu>dl>dt {
+.container>.contents>#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-#myPageMenu>dl>dd {
+.container>.contents>#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -57,19 +57,19 @@
 	margin-top: 0px;
 }
 
-#myPageMenu>dl>dd>a {
+.container>.contents>#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
 
-#myPageMenu>dl>dd>#selectMenu {
+.container>.contents>#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-#myPageMenu>dl>dd>a:hover {
+.container>.contents>#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
@@ -83,17 +83,15 @@
 	border-bottom: 1px solid #000;
 }
 
-.menuStatus>.status2 {
-	display: flex;
+.container>.contents>.menuStatus>.status2 {
 	width: 920px;
 	height: 54px;
 	background-color: lightgray;
 	padding-left: 25px;
-    padding-top: 18px;
+    padding-top: 3px;
 }
 
 .status2>p:nth-of-type(2) {
-	padding-left: 10px;
     color: #f00;
     font-weight: bold;
 }
@@ -102,7 +100,7 @@
 	position: relative;
 	width: auto;
 	margin-top: 75px;
-	left: 2%;
+	left: 1%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -122,13 +120,17 @@
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
+
+.contentArea>table>tbody>tr>td {
+	
+}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
 	<div class="contents">
 		<div id="myPageMenu">
@@ -136,12 +138,12 @@
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="" id="selectMenu">▶   입찰리스트</a></dd>
+				<dd><a href="">▶   입찰리스트</a></dd>
 				<dd><a href="">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a href="">▶  상품감정 신청</a></dd>
-				<dd><a href="">▶  등록상품 관리</a></dd>
+				<dd><a href="" id="selectMenu">▶  등록상품 관리</a></dd>
 				<dd><a href="">▶  경매 진행 상품 관리</a></dd>
 				<dd><a href="">▶  경매 마감 상품 관리</a></dd>
 				
@@ -170,48 +172,54 @@
 				<h3>&nbsp;&nbsp;<&nbsp;입찰리스트 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 입찰하신 상품 리스트를 볼 수 있는 공간입니다.</p>
-				<p>다섯 상품만 입찰이 가능합니다.</p>
+				<p>진품 보증 및 상품 감정이 완료되어 경매 진행이 가능한 상품 리스트 및 감정 결과를 볼 수 있는 공간입니다.</p>
+				<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다. (감정상품배송조회)</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
 			<table>
 				<tr>
-					<th>경매번호</th>
+					<th>상품번호</th>
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
-					<th>현재 입찰가</th>
-					<th>내 입찰가</th>
-					<th>남은 시간</th>
+					<th>감정 결과</th>
+					<th>경매 진행</th>
+					<th>시작 하기 남은 시간</th>
 				</tr>
 				<tr>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td>1,520,000</td>
+					<td>진품</td>
+					<td>
+						<button>경매 진행</button>
+						<button>경매 포기</button>
+					</td>
 					<td>23시간 35분 전</td>
 				</tr>
 				<tr>
 					<td>2</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>가품</td>
+					<td>배송중</td>
+					<td>23시간 35분 전</td>
 				</tr>
 				<tr>
 					<td>3</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
 					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
+					<td>진품</td>
+					<td>
+						<button>경매 진행</button>
+						<button>경매 포기</button>
+					</td>
+					<td>23시간 35분 전</td>
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
-	<%@ include file="../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

@@ -229,8 +229,8 @@ td>.content {
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
 	<div class="contents">
 		<div id="myPageMenu">
@@ -419,6 +419,6 @@ td>.content {
 		</div>  <!-- contentArea end -->
 		</div> <!-- contents End -->
 	</div>  <!-- container end -->
-	<%@ include file="../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

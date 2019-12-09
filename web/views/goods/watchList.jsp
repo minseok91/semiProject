@@ -1,3 +1,15 @@
+<%--
+/**
+ * <pre>
+ * @Author      : Kewon
+ * @CreateDate  : 2019. 12. 9. 오후 2:03:27
+ * @ModifyDate  : 2019. 12. 9. 오후 2:03:27
+ * @fileName    : watchList
+ * @Description : 시계상품 전체목록 -> bagList와 통합할 예정
+ * </pre>
+ */
+--%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -137,6 +149,21 @@ td>.content {
 	color: #fff;
 	margin: 0 5px 5px 5px;
 }
+
+.pagingArea {
+	position: relative;
+    left: -6%;
+    top: 5%;
+    text-align: center;
+    width: auto;
+}
+
+.pagingArea button {
+	border: none;
+	padding: 0;
+	background: none;
+	margin: 0 3px;
+}
 </style>
 <title>LauXion</title>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
@@ -247,6 +274,17 @@ td>.content {
 				</tr>
 			</table>
 		</div> <!-- watchList End -->
+		<div class="pagingArea">
+			<button><<처음</button>
+			<button><이전</button>
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>4</button>
+			<button>5</button>
+			<button>다음></button>
+			<button>마지막>></button>
+		</div>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>

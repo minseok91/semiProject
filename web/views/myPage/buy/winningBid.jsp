@@ -1,25 +1,30 @@
 <%--
 /**
  * <pre>
- * @Author      : 안동환
- * @CreateDate  : 2019. 12. 6. 오후 9:31:31
- * @ModifyDate  : 2019. 12. 6. 오후 9:31:31
- * @fileName    : 회원정보 변경 비밀번호 입력 창
- * @Description :
+ * @Author      : Kewon
+ * @CreateDate  : 2019. 12. 6. 오후 2:29:54
+ * @ModifyDate  : 2019. 12. 6. 오후 2:29:54
+ * @fileName    : winningBid
+ * @Description : 마이페이지의 낙찰리스트
  * </pre>
  */
 --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta content="text/html;">
 <style>
 .container {
 	margin: 0 auto;
 	padding-bottom: 10px;
 }
+
+.contents{
+		height:650px;
+		width:inherit;
+	}
 
 .container>#myPageMenu {
 	width: 210px;
@@ -103,7 +108,7 @@
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
+	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
@@ -117,25 +122,22 @@
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
-#inputpassword {
-	width: 300px;
-	height: 300px;
-}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="" id=selectMenu>▶   입찰리스트</a></dd>
-				<dd><a href="">▶   낙찰리스트</a></dd>
+				<dd><a href="">▶   입찰리스트</a></dd>
+				<dd><a href="" id="selectMenu">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a href="">▶  상품감정 신청</a></dd>
@@ -165,19 +167,51 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;회원정보 변경 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;입찰리스트 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님의 정보를 열람 및 변경할 수 있는 공간입니다.</p>
+				<p>회원님께서 입찰하신 상품 리스트를 볼 수 있는 공간입니다.</p>
+				<p>다섯 상품만 입찰이 가능합니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<div id="inputpassowrd">
-				<p>본인 확인을 위해 비밀번호를 입력해주세요</p><br>
-				<label>비밀번호</label><input type="text"><button>확인</button>
-			</div>
+			<table>
+				<tr>
+					<th>경매번호</th>
+					<th>상품사진</th>
+					<th>브랜드/모델명</th>
+					<th>낙찰가</th>
+					<th>낙찰여부</th>
+					<th>결제 하기 남은 시간</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">낙찰 실패</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">낙찰 성공</td>
+					<td>23시간 35분 전</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>대기중</td>
+				</tr>
+			</table>
 		</div> <!-- menuStatus End -->
+		</div> <!-- contents End -->
 	</div> <!-- container End -->
- <%@ include file="../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

@@ -138,6 +138,21 @@ td>.content {
 	color: #fff;
 	margin: 0 5px 5px 5px;
 }
+
+.pagingArea {
+	position: relative;
+    left: -6%;
+    top: 5%;
+    text-align: center;
+    width: auto;
+}
+
+.pagingArea button {
+	border: none;
+	padding: 0;
+	background: none;
+	margin: 0 3px;
+}
 	
 </style>
 <title>LauXion</title>
@@ -249,6 +264,17 @@ td>.content {
 				</tr>
 			</table>
 		</div> <!-- watchList End -->
+		<div class="pagingArea">
+			<button><<처음</button>
+			<button><이전</button>
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>4</button>
+			<button>5</button>
+			<button>다음></button>
+			<button>마지막>></button>
+		</div>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	</section>

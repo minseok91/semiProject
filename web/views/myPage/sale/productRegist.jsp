@@ -113,8 +113,8 @@
 </style>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
@@ -437,6 +437,6 @@
 						
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
-	<%@ include file="../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

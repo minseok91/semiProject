@@ -25,7 +25,6 @@
 	}
 	
 	.contents{
-		height:650px;
 		width:inherit;
 	}
 	

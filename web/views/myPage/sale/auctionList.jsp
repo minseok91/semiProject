@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 7. 오후 8:59:54
- * @ModifyDate  : 2019. 12. 7. 오후 8:59:54
- * @fileName    : reportList
- * @Description : 마이페이지 - 사용자가 다른 사용자를 신고한 목록
+ * @CreateDate  : 2019. 12. 5. 오후 5:23:37
+ * @ModifyDate  : 2019. 12. 5. 오후 5:23:37
+ * @fileName    : biddingList
+ * @Description : 마이페이지-경매진행상품 관리
  * </pre>
  */
 --%>
@@ -21,12 +21,7 @@
 	padding-bottom: 10px;
 }
 
-.contents{
-	height:650px;
-	width:inherit;
-}
-
-.container>.contents>#myPageMenu {
+.container>#myPageMenu {
 	width: 210px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -34,14 +29,14 @@
 	float: left;
 }
 
-#myPageMenu>dl>dt {
+.container>#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-#myPageMenu>dl>dd {
+.container>#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -57,39 +52,45 @@
 	margin-top: 0px;
 }
 
-#myPageMenu>dl>dd>a {
+.container>#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
 
-#myPageMenu>dl>dd>#selectMenu {
+.container>#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-#myPageMenu>dl>dd>a:hover {
+.container>#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>.contents>.menuStatus {
+.container>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
 
-.menuStatus>.status2 {
+.container>.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
 	background-color: lightgray;
 	padding-left: 25px;
     padding-top: 18px;
+}
+
+.status2>p:nth-of-type(2) {
+	padding-left: 10px;
+    color: #f00;
+    font-weight: bold;
 }
 
 .contentArea {
@@ -99,16 +100,17 @@
 	left: 2%;
 }
 
-.contentArea>table {
-    width: 78%;
-}
-
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 15px;
+	padding: 5px;
 	font-size: 15px;
 	text-align: center;
+}
+
+.contentArea>table>tbody>tr>td>img {
+	width: 100px;
+	height: 100px;
 }
 
 .contentArea>table>tbody>tr>th  {
@@ -120,22 +122,21 @@
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
-	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a href="">▶   위시리스트</a></dd>
-				<dd><a href="">▶   입찰리스트</a></dd>
+				<dd><a href="" >▶   입찰리스트</a></dd>
 				<dd><a href="">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a href="">▶  상품감정 신청</a></dd>
 				<dd><a href="">▶  등록상품 관리</a></dd>
-				<dd><a href="">▶  경매 진행 상품 관리</a></dd>
+				<dd><a href="" id="selectMenu">▶  경매 진행 상품 관리</a></dd>
 				<dd><a href="">▶  경매 마감 상품 관리</a></dd>
 				
 				<dt>§  결제/배송조회</dt>
@@ -149,7 +150,7 @@
 				<dd><a href="">▶  보낸 메세지</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
-				<dd><a href="" id="selectMenu">▶  문의 내역</a></dd>
+				<dd><a href="">▶  문의 내역</a></dd>
 				<dd><a href="">▶  신고 내역</a></dd>
 				
 				<dt>§  회원정보</dt>
@@ -160,37 +161,60 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;신고 내역 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;경매 진행 상품 관리 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 신고하신 내역과 그에 대한 접수 및 처리 상황을 확인할 수 있는 공간입니다.</p>
+				<p>회원님께서 등록하신 상품리스트 입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
+		
 			<table>
 				<tr>
-					<th>신고번호</th>
-					<th>제목</th>
-					<th>작성날짜</th>
-					<th>답변여부</th>
+					<th>경매번호</th>
+					<th>상품사진</th>
+					<th>브랜드/모델명</th>
+					<th>현재 입찰가</th>
+					<th>입찰인원</th>
+					<th>남은 시간</th>
+					<th>상세보기</th>
 				</tr>
 				<tr>
 					<td>1</td>
-					<td>배송하긴 한건가요</td>
-					<td>2019-12-06</td>
-					<td>답변완료</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td>3</td>
+					<td>23시간 35분 전</td>
+					<td>
+						<button>상세보기</button>
+					</td>
 				</tr>
 				<tr>
 					<td>2</td>
-					<td>낙찰취소 정말 불가능한건가요</td>
-					<td>2019-12-06</td>
-					<td>답변대기</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td></td>
+					<td>7</td>
+					<td></td>
+					<td>
+						<button>상세보기</button>
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td></td>
+					<td>9</td>
+					<td></td>
+					<td>
+						<button>상세보기</button>
+					</td>
 				</tr>
 			</table>
-			<button>신고하기</button>
-		</div> <!-- contentArea End -->
-		</div> <!-- contents End -->
+		</div> <!-- menuStatus End -->
 	</div> <!-- container End -->
-	<%@ include file="../common/footer.jsp" %>
+<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>

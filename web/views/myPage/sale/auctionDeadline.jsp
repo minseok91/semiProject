@@ -122,8 +122,8 @@
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../common/header.jsp" %>
-	<%@ include file="../common/nav.jsp" %>
+	<%@ include file="../../common/header.jsp" %>
+	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
@@ -205,6 +205,6 @@
 			</table>
 		</div> <!-- menuStatus End -->
 	</div> <!-- container End -->
-	<%@ include file="../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 </body>
 </html>
