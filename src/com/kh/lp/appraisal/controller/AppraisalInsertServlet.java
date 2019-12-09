@@ -34,6 +34,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 		String isGen = request.getParameter("isGen");
 		System.out.println("isGen : " + isGen);
 		String desc = request.getParameter("comment");
+		String desc2 = request.getParameter("comment2");
 		int result = 0;
 		
 		if(isGen.equals("Y")) {
@@ -58,8 +59,9 @@ public class AppraisalInsertServlet extends HttpServlet {
 			//감정번호 가져와서 넣기 ap.setAppId(appId);
 			//넣는거 아님 시퀀스로 ap.setAppResultNo(appResultNo);
 			//이건 첨부파일 관련해서 ap.setAttachId(attachId);
-			ap.setDetailDesc(desc);
+			ap.setDetailDesc(desc2);
 			ap.setGenStatus(isGen);
+			System.out.println("ap : " + ap);
 			//이건 입력할 떄 sysdate 로 ap.setResultDate(resultDate);
 			result = new AppraisalService().insertFake(ap);
 		}

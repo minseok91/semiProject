@@ -175,7 +175,7 @@
 						<input type="text" id="rejName" value="">
 						여기는 가품일 시에 넣는 공간
 						<label>가품입니까?</label>
-						<input name="comment" type="text">
+						<input name="comment2" type="text">
 						<input type="submit" value="입력하기">
 					</div>
 				</form>
