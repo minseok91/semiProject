@@ -83,27 +83,27 @@ td:nth-of-type(2) {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div id="infoBox">
-			<h3><%= user.getNick_name() %>님의 회원정보</h3>
+			<h3><%= user.getMember_name() %>님의 회원정보</h3>
 				<table id="infoTable">
 					<tr>
 						<td>아이디</td>
-						<td><%= user.getUser_id() %></td>
+						<td><%= user.getMember_id() %></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%= user.getNick_name() %></td>
+						<td><%= user.getMember_name() %></td>
 					</tr>
 					<tr>
 						<td>번호</td>
-						<td><%= user.getPhone() %></td>
+						<td><%= user.getMember_phone() %></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><%= user.getAddress() %></td>
+						<td><%= user.getMember_address() %></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><%= user.getEmail() %></td>
+						<td><%= user.getMember_email() %></td>
 					</tr>
 					<tr>
 						<td>판매상품이력</td>
@@ -112,6 +112,10 @@ td:nth-of-type(2) {
 					<tr>
 						<td>구매상품이력</td>
 						<td id="purchaseHistory"><%= user.getPurchasehistory() %>건</td>
+					</tr>
+					<tr>
+						<td>신고 이력</td>
+						<td id="reportHistory"><%= user.getReporthisory() %>건</td>
 					</tr>
 				</table>
 				<div id="buttonBox">
@@ -123,20 +127,23 @@ td:nth-of-type(2) {
 	<script>
 		$("#salesHistory").click(function(){
 			/* 판매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getUser_id()%>";
+			location.href = "<%= request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMember_id()%>";
 		}).mouseover(function(){
 			$("#salesHistory").css({'cursor':'pointer'})
 		})
 		$("#purchaseHistory").click(function(){
 			/* 구매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getUser_id()%>";
+			location.href = "<%= request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMember_id()%>";
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
 		$("#buttonBox > button").click(function(){
-			location.href = "<%=request.getContextPath()%>/userInfo.me"
+			window.history.back();
 		}).mouseover(function(){
 			$("#buttonBox > button").css({'cursor':'pointer'})
+		})
+		$("#reportHistory").click(function() {
+			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMember_id()%>";
 		})
 	</script>
 </body>
