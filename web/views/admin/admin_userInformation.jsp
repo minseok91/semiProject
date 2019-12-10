@@ -127,12 +127,12 @@ html, body {
 					</tr>
 					<% for(int i=0; i<userList.size(); i++) {%>
 						<tr>
-							<td><%= userList.get(i).getUno()%></td>
-							<td><%= userList.get(i).getUser_id()%></td>
-							<td><%= userList.get(i).getNick_name() %></td>
-							<td><%= userList.get(i).getPhone() %></td>
-							<td><%= userList.get(i).getAddress() %></td>
-							<td><%= userList.get(i).getEmail() %></td>
+							<td><%= userList.get(i).getRnum()%></td>
+							<td><%= userList.get(i).getMember_id()%></td>
+							<td><%= userList.get(i).getMember_name()%></td>
+							<td><%= userList.get(i).getMember_phone()%></td>
+							<td><%= userList.get(i).getMember_address()%></td>
+							<td><%= userList.get(i).getMember_email() %></td>
 						</tr>
 					<% } %>
 				</table>

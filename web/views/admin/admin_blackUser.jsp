@@ -1,5 +1,16 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*"%>
+<%
+	ArrayList<Member> blackList = (ArrayList<Member>)request.getAttribute("blackList");
+	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int ListCount = pi.getListCount();
+	int MaxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,7 +85,7 @@
 	height: 25px;
 	float: right;
 	border: none;
-	box-shadow: 1px 1px 1px 1px gray;
+	box-shadow: 2px 2px 6px 1px gray;
 }
 #sarchBoxBtn {
 	width: 65px;
@@ -86,7 +97,7 @@
 	color: rgb(160, 115, 66);
 }
 #nextPageBox {
-	width: 83px;
+	width: 80%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -94,11 +105,10 @@
 </style>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	<form action="" method="post">
 		<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>블랙 회원<h3>1명</h3>
+				<p>블랙 회원<h3><%= blackList.size() %>명</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -113,34 +123,76 @@
 						<th>이메일</th>
 						<th>설정</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>adh1234</td>
-						<td>안동환</td>
-						<td>010-2222-1919</td>
-						<td>충남 서산시</td>
-						<td>adh1234@naver.com</td>
-						<td></td>
-					</tr>
+					 <% for(int i=0; i<blackList.size(); i++) {%>
+						<tr>
+							<td><%= blackList.get(i).getRnum()%></td>
+							<td><%= blackList.get(i).getMember_id()%></td>
+							<td><%= blackList.get(i).getMember_name()%></td>
+							<td><%= blackList.get(i).getMember_phone()%></td>
+							<td><%= blackList.get(i).getMember_address()%></td>
+							<td><%= blackList.get(i).getMember_email() %></td>
+							<td>
+								<button class="withdraw" value="<%= blackList.get(i).getMember_id()%>">탈퇴</button>
+								<button class="release" value="<%= blackList.get(i).getMember_id()%>">해제</button>
+							</td>
+						</tr>
+					<% } %>
 					
 				</table>
 			</div>
 			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
+				<div id="nextPageBox" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=1'"><<</button>
+					<% for(int p=1; p<=MaxPage; p++) { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
 			</div>
 		</div>
 	</div>
-	</form>
 	<script>
-		$(document).click(function(e) {
-			if(e.target.tagName == "TD"){
-				location.href = "admin_userDetailPage.jsp"
-			}
+	/* $(function(){
+		$(".withdraw").click(function(){
+			console.log(this)
+			var id = $(this).parent().parent().children().eq(1).text();
+			console.log(id)
 		})
+		
+		$("tr").click(function(){
+			var id = $(this).children().eq(1).text();
+			console.log(id)
+			
+		})
+		
+		$(".release").click(function(){
+			var id = $(this).parent().parent().children().eq(1).text();
+			console.log(id)
+			
+		})
+	}) */
+	
+	$("td").click(function(e) {
+			var userId = e.target.parentElement.children[1].innerHTML;
+				if(e.target.innerHTML == '탈퇴'){
+					var userId = e.target.attributes.value.value;
+					location.href="<%=request.getContextPath()%>/userWithdraw.me?userId="+userId;
+					console.log(e.target.innerHTML);
+				} else if(e.target.innerHTML == '해제'){
+					var userId = e.target.attributes.value.value;
+					location.href="<%=request.getContextPath()%>/userRelease.me?userId="+userId;
+					console.log(e.target.innerHTML);
+				} else {
+					console.log(e.target.parentElement.children[1].innerHTML);
+					  location.href="<%=request.getContextPath()%>/userInfoDetail.me?userId="+userId
+				}
+			})
+		<%-- $(".withdraw").click(function(e) {
+			
+		})
+		$(".release").click(function(e) {
+			
+		}) --%>
 	</script>
 </body>
 </html>
