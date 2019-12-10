@@ -97,11 +97,11 @@
 }
 
 .contentArea {
-	display: flex;
-	position: relative;
-	width: auto;
-	margin-top: 75px;
-	left: 2%;
+    text-align: center;
+    position: absolute;
+    width: auto;
+    margin-top: 75px;
+    left: 24%;
 }
 
 .title>img {

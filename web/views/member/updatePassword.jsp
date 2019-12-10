@@ -101,7 +101,7 @@
 		function updatePwd(){
 			var pwd1 = $("#newPwd1").val();
 			var pwd2 = $("#newPwd2").val();
-			let regPwd = /^[A-Za-z0-9]{6,12}$/; // 비밀번호 정규화
+			let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/;  // 비밀번호 정규화
 			
 			console.log(pwd1);
 			console.log(pwd2);

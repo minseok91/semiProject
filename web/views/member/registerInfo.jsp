@@ -167,7 +167,6 @@
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-    <section>
         <div id="Register">
             회원가입 
             <span id="road">
@@ -216,6 +215,7 @@
                     </td>
                     <td>
                         <input type="password" name="memberPwd" id="userPwd" size="26">
+                        <div id="result">숫자, 영문자, 특수문자를 1개이상 포함해서 6~12글자로 작성해야합니다.</div>
                     </td>
                 </tr>
                 <tr>
@@ -282,7 +282,6 @@
                 <input type="submit" id="registerBtn" value="가입하기">
             </div>
         </form>
-    </section>
     <br><br><br><br>
     <%@ include file="../common/footer.jsp" %>
     <script>
@@ -328,11 +327,11 @@
     	
     	function checkAll(){   		
     		// 정규식
-    		let regId = /^[a-z]+[a-z0-9]{5,19}$/g;	 					// ID
-    		let regName  = /^[가-힣]{2,4}$/; 			 					// 이름
-    		let regPwd = /^[A-Za-z0-9]{6,12}$/; 	 					// 비밀번호
-    		let regPhone1 = /^[0-9]{3}$/; 		 					// 핸드폰번호 첫번째 -> 3글자도 존재
-    		let regPhone2 = /^[0-9]{4}$/;   		 					// 핸드폰번호 두번째 -> 반드시 4글자
+    		let regId = /^[a-z]+[a-z0-9]{5,19}$/g;	 												// ID
+    		let regName  = /^[가-힣]{2,4}$/; 			 												// 이름
+    		let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/; 	 	// 비밀번호
+    		let regPhone1 = /^[0-9]{3}$/; 		 													// 핸드폰번호 첫번째 -> 3글자도 존재
+    		let regPhone2 = /^[0-9]{4}$/;   		 												// 핸드폰번호 두번째 -> 반드시 4글자
     		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 
             var memberName = $("#userName").val();

@@ -143,12 +143,59 @@
     border-spacing: 50px;
 }
 
+#buyInfo label, #buyInfo input {
+	font-size: 20px;
+}
+
+#buyInfo label {
+	padding-bottom: 14px;
+}
+
+#buyInfo>table input, #endPrice>input {
+	margin-left: 3%;
+	height: 30px;
+	border: none;
+	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	background: none;
+	margin-bottom: 20px;
+}
+
 #buyInfo>table>tbody>tr>td:nth-of-type(1) {
 	text-align: right;
 }
 
-#buyInfo>div>label {
-	text-align: right;
+#endPrice {
+	position: relative;
+	left: 33.8%;
+	width: 486px;
+    border-top: 1px solid #000;
+    padding-top: 17px;
+}
+
+#endPrice>input {
+	margin-left: 1%;
+	vertical-align: bottom;
+}
+
+#end {
+    position: relative;
+    text-align: center;
+    left: 7%;
+}
+
+#payment {
+	position: relative;
+    left: 55%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 32%;
+    padding: 6px;
+    margin-top: 3%;
+    margin-bottom: 12%;
+    background: #211f22;
+    color: #a07342;
+    border: 1px solid #a07342;
+    border-radius: 5px;
 }
 
 </style>
@@ -208,18 +255,28 @@
 		
 		<div id="buyInfo">
 			<p>결제 정보</p>
-				<div>
-					<label>낙찰가 : </label><input type="text" disabled>
-				</div>
-
-				<div>
-					<label>낙찰 수수료 : </label><input type="text" disabled>
-				</div>
-
-				<div>
-					<label>총 결제 금액 : </label><input type="text" disabled>
-				</div>
+			<table>
+				<tr>
+					<td><label>낙찰가 : </label></td>
+					<td><input type="text" disabled></td>
+				</tr>
+				
+				<tr>
+					<td><label>낙찰 수수료 : </label></td>
+					<td><input type="text" disabled></td>
+				</tr>
+			</table>
+			<div id="endPrice">
+				<label>총 결제 금액 : </label>
+				<input type="text" disabled>
+			</div>
+		</div> <!-- buyInfo End -->
+		
+		<div id="end">
+			<input type="checkbox" id="agree">
+			<label for="agree">주문하는 상품 및 주문정보, 결제방식을 모두 확인하였으며 이에 동의합니다 (필수)</label>
 		</div>
+		<button id="payment">결제하기</button>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
