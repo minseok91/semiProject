@@ -129,11 +129,11 @@ input[type=submit] {
 						<table>
 							<tr>
 								<td><label>아이디</label></td>
-								<td><input type="text"></td>
+								<td><input type="text" name="memberId"></td>
 							</tr>
 							<tr>
 								<td><label>비밀번호</label></td>
-								<td><input type="password"></td>
+								<td><input type="password" name="memberPwd"></td>
 							</tr>
 						</table>
 						
