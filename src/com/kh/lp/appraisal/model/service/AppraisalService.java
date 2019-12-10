@@ -6,6 +6,7 @@ import com.kh.lp.appraisal.model.dao.AppraisalDao;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
+import com.kh.lp.appraisal.model.vo.Item;
 
 import static com.kh.lp.common.JDBCTemplate.*;
 
@@ -49,6 +50,50 @@ public class AppraisalService {
 		close(con);
 		
 		return result;
+	}
+
+	public Item getItemInfo(String itemId) {
+		Connection con = getConnection();
+		
+		Item item = new AppraisalDao().getItemInfo(con, itemId);
+		
+		close(con);
+		
+		return item;
+	}
+//
+//	public int insertHistory(Item item) {
+//		Connection con =getConnection();
+//		
+////		int result = new AppraisalDao().insertHistory(con, item);
+////		
+////		if(result > 0) {
+////			commit(con);
+////		} else {
+////			rollBack(con);
+////		}
+////		close(con);
+//		
+//		//return result;
+//	}
+
+	public int insertAppraisalInfoFake(String itemId) {
+		Connection con =getConnection();
+		//여기서 처리할 것이 신청이력을 넣고
+		int resultHistory = new AppraisalDao().insertHistory(con, itemId);
+		System.out.println("resulthistory :  " + resultHistory);
+		//상품감정정보 입력 가품일때
+		int resultApp = new AppraisalDao().insertAppFake(con, itemId);
+		//배그, 와치 상세정보 넣고
+		int resultAll = 0;
+		if(resultHistory > 0 && resultApp >0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		//상품감정 정보를 넣는다
+		return resultAll;
 	}
 
 }

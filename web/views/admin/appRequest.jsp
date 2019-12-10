@@ -4,8 +4,8 @@
  * @Author      : apple
  * @CreateDate  : Dec 4, 2019 9:19:35 PM
  * @ModifyDate  : Dec 4, 2019 9:19:35 PM
- * @fileName    : 
- * @Description :
+ * @fileName    : appRequest
+ * @Description : 감정신청목록
  * </pre>
  */
 --%>
@@ -101,7 +101,7 @@
 					 <tr>
 						<td>1</td>
 						<td>커뮤니티</td>
-						<td>adh5677</td>
+						<td>I1</td>
 						<td>자유게시판</td>
 						<td>전체</td>
 						<td>전체</td>
@@ -167,16 +167,23 @@
     					<input type="text" name="price" placeholder="가격">
 						<input type="text" id="acpName" value="">
 						<label>진품입니까?</label>
-						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
-						<img width="120" height="100" id="titleImg">
-						<input name="comment" type="text" >
+						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,2)">
+						<img width="120" height="100" id="contentImg1">
+						
+						<textarea name="comment" cols="40" rows="5"></textarea> 
 						<input type="submit" value="입력하기">
 					</div>
 					<div id="rejContent">
-						<input type="text" id="rejName" value="">
-						여기는 가품일 시에 넣는 공간
+					여기는 가품일 시에 넣는 공간
+					<br>
+						<label>제품ID</label>
+						<input type="text" id="rejName" name="rejName" value="">
+						<br>
 						<label>가품입니까?</label>
-						<input name="comment2" type="text">
+						<textarea name="comment2" cols="40" rows="5"></textarea> 
+						<br>
+						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
+						<img width="120" height="100" id="titleImg">
 						<input type="submit" value="입력하기">
 					</div>
 				</form>
