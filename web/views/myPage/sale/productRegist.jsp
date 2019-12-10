@@ -404,7 +404,7 @@
 <option value="zw">Zeno-Watch Basel</option>
 <option value="zp">Zeppelin</option>
 <option value="zd">Zodiac</option>
-<option value="et">_기타</option>
+<option value="et">기타</option>
 <option value="dg">de Grisogono</option>
 <option value="dc">deLaCour</option>
 <option value="mnp">mina perhonen</option>
