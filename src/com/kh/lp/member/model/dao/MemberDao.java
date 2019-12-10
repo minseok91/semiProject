@@ -66,10 +66,8 @@ public class MemberDao {
 				loginMember.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				loginMember.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				loginMember.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				loginMember.setMemberWithdrawYn(rset.getString("MEMBER_WITHDRAW_YN"));
-				loginMember.setMemberWithdrawDate(rset.getDate("MEMBER_WITHDRAW_DATE"));
-				loginMember.setMemberWithrawCause(rset.getString("MEMBER_WITHDRAW_CAUSE"));
-				loginMember.setMemberTempPwdYn(rset.getString("MEMBER_TEMP_PWD_YN"));
+				loginMember.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
+				loginMember.setMemberStatus(rset.getString("MEMBER_STATUS"));
 			}
 			
 		} catch (SQLException e) {
