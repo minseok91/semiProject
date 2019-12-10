@@ -120,7 +120,7 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
 				

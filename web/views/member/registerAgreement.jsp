@@ -11,14 +11,6 @@ html, body {
 	pause: 0;
 }
 
-#header {
-	height: 150px;
-	width: 1080px;
-	margin-bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
 .container {
 	width: 1080px;
 	margin: 0 auto;
@@ -68,7 +60,7 @@ html, body {
 	padding-right: 10px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	margin-bottom: 10px;
+	margin: 10px 0;
 	border: solid 1px;
 	height: 250px;
 	overflow: scroll;
@@ -106,7 +98,7 @@ ul {
 	margin-bottom: 30px;
 }
 
-#okButton > button {
+#okButton > a {
 	padding: 6px 25px;
 	margin-left: 25px;
 	border:1px solid #a07342;
@@ -132,14 +124,9 @@ ul {
 				</span>
 			</div>
 
-
-
 			<div id="joinsec">
-				<h2 alt="step1.약관동의"></h2>
+				<h2>step1.약관동의</h2>
 				<dl id="agreement_dl">
-					<dt>
-						<img alt="약관동의" src="#">
-					</dt>
 					<dd id="agreement">
 						<ul>
 							<li>이용약관과 개인정보 보호정책은 GUGUS 사이트 이용과 GUGUS 서비스를 통한 상품매매 규정사항
@@ -149,9 +136,7 @@ ul {
 					</dd>
 				</dl>
 				<dl>
-					<dt>
-						<img alt="회원가입 이용약관" src="#">
-					</dt>
+					<b>회원가입 이용약관</b>
 					<dd id="usagreement_dd">
 						<div id="usagreement">
 							<dl>
@@ -484,9 +469,7 @@ ul {
 			</div>
 			<div id="joinsec">
 				<dl>
-					<dt>
-						<img alt="개인정보 수집,이용" src="#">
-					</dt>
+					<b>개인정보 수집,이용</b>
 					<dd id="usagreement_dd">
 						<div id="usagreement">
 							<dl>
@@ -552,8 +535,8 @@ ul {
 				</dl>
 			</div>
 			<div id="okButton">
-				<button onclick="location.href='<%= request.getContextPath() %>/index.jsp'">취소</button>
-				<button onclick="next()" id="next">다음</button>
+				<a href='<%= request.getContextPath() %>/index.jsp'>취소</a>
+				<a onclick="next()" id="next">다음</a>
 			</div>
 		</div>
 	</div>
@@ -564,7 +547,7 @@ ul {
 			const chk2 = document.getElementById('userag2').checked;
 
 			if(chk1 === true && chk2 === true) {
-				document.getElementById('next').setAttribute('href', '<%= request.getContextPath() %>/views/member/registerInfo.jsp');
+				document.getElementById('next').setAttribute('href', "<%= request.getContextPath() %>/views/member/registerInfo.jsp");
 			} else {
 				alert('체크항목에 체크해주세요.');
 			}

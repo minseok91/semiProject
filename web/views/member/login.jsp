@@ -7,159 +7,161 @@
 <title>LauXion</title>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <style>
-	#main{
-		text-align:center;
-		width: 1080px;
-		margin-left: auto;
-		margin-right: auto;
-		margin-top:100px;
-		margin-bottom: 100px;
-	}
-	#contents{
-		width:700px;
-		display:inline-block;
-	}
-	#main>#contents>#loginbox{
-		border-top:1px solid #211f22;
-		border-bottom:1px solid #211f22;
-		width: 106%;
-		display:inline-block;
-		padding: 4% 0;
-	}
-	#main>#contents>#loginbox>#login{
-		float:left;
-		height:200px;
-		width:50%;
-		display:inline-block;
-		text-align:center;
-		padding-top: 60px;
-	}
-	#main>#contents>#loginbox>#find{
-		float:right;
-		height:200px;
-		width:49%;
-		display:inline-block;
-		text-align:center;
-		margin-top: 4%;
-	}
-	#table1{
-		font-size:15px;	
-		width: 100%;
-		border-spacing: 9px 14px;
-    	border-collapse: separate;
-	}
-	
-	#main>#contents>#loginbox>#table1>tbody>tr>td:first-child {
-		text-align:left;
-		padding-right:10px;
-	}
-	#main>#contents>#table1>tbody>tr>td:nth-child(2) {
-		text-align:left;
-		padding-right:10px;
-	}
-	#main>#contents>#table1>tbody>tr>td {
-	}
-	#main>#contents>#table2{
-	font-size:13px;
-		padding:13px;	
-		margin:10%;
-		width:290px;
-		margin-left:28px;
-				margin-top:40px;
-	}
-	#table2 {
-		border-spacing: 10px;
-    	border-collapse: separate;
-	}
-	#main>#contents>#table2>tbody>tr>td:first-child {
-		text-align:left;
-		margin-right:10px;
-	}
-	
-	#main>#contents>#line{
-		opacity:0.1;
-		margin-top:10px;
-		margin-bottom:30px;
-		float:left;
-		height:170px;
- 		border:1px solid black; 
-	}
-	
-	td>input {
-		padding: 5px;
-		font-size: 16px;
-		border: none;
-		box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
-	}
-	
-	#btn_login{
-		width:5px;
-		height:5px;
-	}
-	
-	.btn {
-		width: 114px;
-		padding: 0;
-		border:1px solid #a07342;
-		background:#211f22;
-		color:#e2ceb8;
-	}
-	.login{
-		width:70px;
-		height: 74px;
-		border-radius:5px;
-		font-size:14px;
-		border:1px solid #a07342;
-		background:#211f22;
-		color:#e2ceb8;
-	}
+.container {
+	margin: 0 auto;
+	padding-bottom: 10px;
+}
+
+.contents{
+	height:650px;
+	width:inherit;
+}
+
+#house {
+	position: relative;
+	text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#house>h3 {
+	text-align: left;
+    border-bottom: 1px solid black;
+    margin-left: 2%;
+    padding-bottom: 6px;
+}
+
+#loginAndResearch {
+	display: flex;
+	margin: 51px 0;
+}
+
+#login {
+	position: relative;
+	left: 13%;
+	width: 317px;
+	margin-top: 2%;
+}
+
+#login>form {
+	width: 317px;
+}
+
+#login table {
+	border-collapse: separate;
+    border-spacing: 10px 18px;
+}
+
+table input {
+	border: none;
+	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	padding: 3px;
+	font-size: 17px;
+	margin-left: 7px;
+}
+
+#login>form>table td {
+	text-align: right;
+}
+
+input[type=submit] {
+	position: absolute;
+    left: 100%;
+    top: 12%;
+    height: 64%;
+    width: 80px;
+    color: #a07342;
+    border: 1px solid #a07342;
+    background-color: #211f24;
+    border-radius: 3px;
+}
+
+#research {
+	position: relative;
+    left: 27%;
+    margin-top: 7px;
+    text-align: left;
+    border-left: 3px solid #d9e2de;
+    width: 47%;
+    padding-left: 8%;
+}
+
+#research>div {
+	margin-bottom: 18px;
+}
+
+#research button {
+	margin-left: 29px;
+	padding: 4px 13px;
+	color: #a07342;
+    border: 1px solid #a07342;
+    background-color: #211f24;
+    border-radius: 3px;
+}
+
+#research>div:nth-of-type(2)>button {
+	margin-left: 34px;
+}
+
+#research>div:nth-of-type(3)>button {
+	margin-left: 62px;
+}
+
+#underLine {
+	position: relative;
+    width: 99%;
+    border-top: 1px solid #000;
+    left: 2%;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<div id="main">
-		<div id="contents">
-			<h5 style="text-align: left;">회원 로그인</h5>
-			<div id="loginbox">
+	
+	<div class="container">
+		<div class="contents">
+			<div id="house">
+			<h3>회원 로그인</h3>
+				<div id="loginAndResearch">
 				<div id="login">
-					<form action="<%= request.getContextPath() %>/login.me" method="post">
-					<table id="table1"><!--  border="1"> -->
-						<tr> 
-							<td id="head">아이디</td>
-							<td><input type="text" name="memberId"></td>
-							<td rowspan="2" ><button class="login" type="submit">로그인</button></td>
-						</tr>
-						<tr>
-							<td>비밀번호</td>
-							<td><input type="password" name="memberPwd"></td>
-						</tr>
-					</table>
+					<form action="<%=request.getContextPath()%>/login.me" method="post">
+						<table>
+							<tr>
+								<td><label>아이디</label></td>
+								<td><input type="text"></td>
+							</tr>
+							<tr>
+								<td><label>비밀번호</label></td>
+								<td><input type="password"></td>
+							</tr>
+						</table>
+						
+						<input type="submit" value="로그인">
 					</form>
-				</div>  <!-- login end -->
-				<div id="line"></div>  <!-- line end -->
-				<div id="find">
-					<table id="table2"> 
-						<tr> 
-							<td>회원   아이디를   잊으셨나요?</td>
-							<td></td>
-							<td><button class="btn" onclick="findId()">아이디 찾기</button></td>
-						</tr>
-						<tr>
-							<td>비밀번호를  잊으셨나요?</td>
-							<td></td>
-							<td><button class="btn" onclick="findPassword()">비밀번호 찾기</button></td>
-						</tr>
-						<tr>
-							<td>아직  회원이  아니신가요?</td>
-							<td></td>
-							<td><button class="btn" onclick="register()">회원가입</button></td>
-						</tr>
-					</table>
-				</div>  <!-- find end -->
-			</div>  <!-- loginbox end -->
-		</div>  <!-- contents end -->
-	</div>  <!-- main end -->
+				</div> <!-- loginEnd -->
+
+				<div id="research">
+					<div>
+						<label>회원 아이디를 잊으셨나요?</label>
+						<button onclick="fintId()">아이디 찾기</button>
+					</div>
+					<div>
+						<label>비밀번호를 잊으셨나요?</label>
+						<button onclick="findPassword">비밀번호 찾기</button>
+					</div>
+					<div>
+						<label>아직 회원이 아니신가요?</label>
+						<button onclick="register">회원가입</button>
+					</div>
+				</div>
+				<!-- research End -->
+				</div> <!-- loginAndResearch End -->
+				<div id="underLine"></div>
+			</div> <!-- house End -->
+		</div> <!-- contents End -->
+	</div> <!-- container End -->
+	
 	<script>
 		function findId(){
 			location.href="<%= request.getContextPath()%>/views/member/findId.jsp";
