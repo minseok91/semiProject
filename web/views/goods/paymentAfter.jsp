@@ -2,10 +2,10 @@
 /**
  * <pre>
  * @Author      : Kewon
- * @CreateDate  : 2019. 12. 8. 오후 5:34:51
- * @ModifyDate  : 2019. 12. 8. 오후 5:34:51
- * @fileName    : paymentBefore
- * @Description : 결제 api들어가기 전에 보여지는 페이지
+ * @CreateDate  : 2019. 12. 9. 오전 2:00:38
+ * @ModifyDate  : 2019. 12. 9. 오전 2:00:38
+ * @fileName    : paymentAfter
+ * @Description : 결제절차가 완료된 후 보여지는 페이지(결제 정보)
  * </pre>
  */
 --%>
@@ -74,10 +74,6 @@
 	margin-left: 12px;
 }
 
-#write input[type=checkbox] {
-	width: 13px;
-}
-
 #address {
 	display: grid;
 	margin-left: 4px;
@@ -85,17 +81,6 @@
 
 #address>input {
 	margin-bottom: 21.203px;
-}
-
-#write>div:nth-of-type(3)>button {
-	margin-left: 25px;
-    height: 43px;
-    width: 101px;
-    font-size: 20px;
-    background: #211f22;
-    border: 1px solid #a07342;
-    color: #a07342;
-    border-radius: 3px;
 }
 
 #goodsInfo>img {
@@ -177,12 +162,6 @@
 	vertical-align: bottom;
 }
 
-#end {
-    position: relative;
-    text-align: center;
-    left: 7%;
-}
-
 #payment {
 	position: relative;
     left: 55%;
@@ -213,10 +192,6 @@
 				<div>
 					<p>이름 : </p>
 					<input type="text" name="name" id="name" disabled>
-					<div id="infoCheck">
-						<input type="checkbox" id="before" checked>
-						<label for="before">기존의 정보로 배송</label>
-					</div>
 				</div>
 				<div>
 					<p>휴대폰번호 : </p>
@@ -225,11 +200,10 @@
 				<div>
 					<p>주소 : </p>
 					<div id="address">
-						<input type="text" name="addr" id="addr">
-						<input type="text" name="addr" id="addr">
-						<input type="text" name="addr" id="addr">
+						<input type="text" name="addr" id="addr" disabled>
+						<input type="text" name="addr" id="addr" disabled>
+						<input type="text" name="addr" id="addr" disabled>
 					</div>
-					<button>검색</button>
 				</div>
 			</div>
 		</div> <!-- orderInfo -->
@@ -271,12 +245,7 @@
 				<input type="text" disabled>
 			</div>
 		</div> <!-- buyInfo End -->
-		
-		<div id="end">
-			<input type="checkbox" id="agree">
-			<label for="agree">주문하는 상품 및 주문정보, 결제방식을 모두 확인하였으며 이에 동의합니다 (필수)</label>
-		</div>
-		<button id="payment">결제하기</button>
+		<button id="payment">메인으로 돌아가기</button>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
