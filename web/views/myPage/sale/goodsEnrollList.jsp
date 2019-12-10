@@ -101,7 +101,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 24%;
+    left: 28%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -138,13 +138,13 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
-				<dd><a value="sale/productAppRequest" id="selectMenu">▶  상품감정 신청</a></dd>
-				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
+				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
+				<dd><a value="sale/goodsEnrollList" id="selectMenu">▶  등록상품 관리</a></dd>
 				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
 				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
 				
@@ -165,11 +165,11 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;입찰리스트 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;등록상품 관리 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
 				<p>진품 보증 및 상품 감정이 완료되어 경매 진행이 가능한 상품 리스트 및 감정 결과를 볼 수 있는 공간입니다.</p>
-				<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다. (감정상품배송조회)</p>
+				<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">

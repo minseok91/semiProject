@@ -98,7 +98,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 24%;
+    left: 28%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
