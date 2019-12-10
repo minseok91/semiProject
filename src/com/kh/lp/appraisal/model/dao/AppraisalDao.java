@@ -1,17 +1,19 @@
 package com.kh.lp.appraisal.model.dao;
 
+import static com.kh.lp.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
-
-import static com.kh.lp.common.JDBCTemplate.*;
+import com.kh.lp.appraisal.model.vo.Item;
 
 public class AppraisalDao {
 	
@@ -114,6 +116,90 @@ public class AppraisalDao {
 			pstmt.setString(3, at.getChangeName());
 			pstmt.setString(4, at.getFilePath());
 			pstmt.setInt(5, 1);//일단 1로하자
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Item getItemInfo(Connection con, String itemId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Item item = null;
+		
+		String query = prop.getProperty("getItemInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, itemId);
+			
+			rset = pstmt.executeQuery();
+			item = new Item();
+			
+			if(rset.next()) {
+				
+				item.setItemAppDate(rset.getDate("ITEM_APP_DATE"));
+				item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
+				item.setItemDetail(rset.getString("ITEM_DETAIL"));
+				item.setItemId(itemId);
+				item.setItemMemberNo(rset.getString("ITEM_MEMBER_NO"));
+				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
+				item.setItemType(rset.getString("ITEM_TYPE"));
+				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return item;
+	}
+
+	public int insertHistory(Connection con, String itemId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, itemId);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAppFake(Connection con, String itemId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAppFake");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, itemId);
 			
 			result = pstmt.executeUpdate();
 			

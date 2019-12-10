@@ -16,6 +16,7 @@ import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
+import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -47,7 +48,6 @@ public class AppraisalInsertServlet extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			
-			
 		//전송파일 용량 제한 10mb 로 용향제한
 		int maxSize = 1024 * 1024 * 10;
 		
@@ -72,6 +72,16 @@ public class AppraisalInsertServlet extends HttpServlet {
 		System.out.println("multiRequest : " + multiRequest);
 		
 		
+		//감정아이템정보 가져오기 시작
+		
+		String itemId = multiRequest.getParameter("itemId");
+		
+		
+		Item item = new AppraisalService().getItemInfo(itemId);
+		//감정아이템정보 가져오기 끝	
+		//감정신청이력 4로 인서트 시작
+//		int resultHisory = new AppraisalService().insertHistory(item); 
+		//감정신청이력 4로 인서트 끝
 		String isGen = multiRequest.getParameter("isGen");
 		System.out.println("isGen" + isGen);
 		
@@ -119,11 +129,18 @@ public class AppraisalInsertServlet extends HttpServlet {
 			
 			System.out.println("여긴 진품일때");
 		} else {
+			itemId = multiRequest.getParameter("rejName");
+			System.out.println("itemid :" + itemId);
+			//하나의 서비스로 합치기 시작 (가품)
+			int resultAll = new AppraisalService().insertAppraisalInfoFake(itemId);
+			//하나의 서비스로 합치기 끝
 			
 			String multiComment = multiRequest.getParameter("comment2");
 			System.out.println("comment" + multiComment);
 			System.out.println("여긴 가품일때");
 			AppResult ap = new AppResult();
+			
+			
 			//감정번호 가져와서 넣기 ap.setAppId(appId);
 			//넣는거 아님 시퀀스로 ap.setAppResultNo(appResultNo);
 			//이건 첨부파일 관련해서 ap.setAttachId(attachId);
@@ -131,7 +148,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			ap.setGenStatus(isGen);
 			System.out.println("ap : " + ap);
 			//이건 입력할 떄 sysdate 로 ap.setResultDate(resultDate);
-			result = new AppraisalService().insertFake(ap);
+			//result = new AppraisalService().insertFake(ap);
 		}
 		
 		 
