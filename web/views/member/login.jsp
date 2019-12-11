@@ -129,11 +129,11 @@ input[type=submit] {
 						<table>
 							<tr>
 								<td><label>아이디</label></td>
-								<td><input type="text"></td>
+								<td><input type="text" name="memberId"></td>
 							</tr>
 							<tr>
 								<td><label>비밀번호</label></td>
-								<td><input type="password"></td>
+								<td><input type="password" name="memberPwd"></td>
 							</tr>
 						</table>
 						
@@ -148,11 +148,11 @@ input[type=submit] {
 					</div>
 					<div>
 						<label>비밀번호를 잊으셨나요?</label>
-						<button onclick="findPassword">비밀번호 찾기</button>
+						<button onclick="findPassword()">비밀번호 찾기</button>
 					</div>
 					<div>
 						<label>아직 회원이 아니신가요?</label>
-						<button onclick="register">회원가입</button>
+						<button onclick="register()">회원가입</button>
 					</div>
 				</div>
 				<!-- research End -->
