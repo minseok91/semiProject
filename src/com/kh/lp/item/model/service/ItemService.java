@@ -32,4 +32,15 @@ public class ItemService {
 		return list;
 	}
 
+	public Item selectOne(String itemId) {
+		Connection con = getConnection();
+		
+		Item item = new ItemDao().selectOne(con, itemId);
+		
+		close(con);
+		
+		
+		return item;
+	}
+
 }

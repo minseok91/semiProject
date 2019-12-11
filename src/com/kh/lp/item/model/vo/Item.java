@@ -5,8 +5,7 @@ import java.sql.Date;
 public class Item implements java.io.Serializable {
 	
 	
-	
-	private String itemId;
+	private int itemId;
 	private String itemMemberNo;
 	private String itemType;
 	private String itemBrandModel;
@@ -17,7 +16,7 @@ public class Item implements java.io.Serializable {
 	
 	public Item () {}
 
-	public Item(String itemId, String itemMemberNo, String itemType, String itemBrandModel, Date itemPurDate,
+	public Item(int itemId, String itemMemberNo, String itemType, String itemBrandModel, Date itemPurDate,
 			String itemWarrantyYn, String itemDetail, Date itemAppDate) {
 		super();
 		this.itemId = itemId;
@@ -30,11 +29,11 @@ public class Item implements java.io.Serializable {
 		this.itemAppDate = itemAppDate;
 	}
 
-	public String getItemId() {
+	public int getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(String itemId) {
+	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
 
