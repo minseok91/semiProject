@@ -9,9 +9,10 @@
  * </pre>
  */
 --%>
+<%@page import="com.kh.lp.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import = "com.kh.lp.admin.member.model.vo.*"
+    import = "com.kh.lp.member.model.vo.*"
     %>
 <%
 	Member user = (Member)request.getAttribute("user");
@@ -83,39 +84,39 @@ td:nth-of-type(2) {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div id="infoBox">
-			<h3><%= user.getMember_name() %>님의 회원정보</h3>
+			<h3><%= user.getMemberName() %>님의 회원정보</h3>
 				<table id="infoTable">
 					<tr>
 						<td>아이디</td>
-						<td><%= user.getMember_id() %></td>
+						<td><%= user.getMemberId() %></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%= user.getMember_name() %></td>
+						<td><%= user.getMemberName() %></td>
 					</tr>
 					<tr>
 						<td>번호</td>
-						<td><%= user.getMember_phone() %></td>
+						<td><%= user.getMemberPhone() %></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><%= user.getMember_address() %></td>
+						<td><%= user.getMemberAddress() %></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><%= user.getMember_email() %></td>
+						<td><%= user.getMemberEmail() %></td>
 					</tr>
 					<tr>
 						<td>판매상품이력</td>
-						<td id="salesHistory"><%= user.getSaleshistory() %>건</td>
+						<td id="salesHistory"><%-- <%= user.getSaleshistory() %> --%>건</td>
 					</tr>
 					<tr>
 						<td>구매상품이력</td>
-						<td id="purchaseHistory"><%= user.getPurchasehistory() %>건</td>
+						<td id="purchaseHistory"><%-- <%= user.getPurchasehistory() %> --%>건</td>
 					</tr>
 					<tr>
 						<td>신고 이력</td>
-						<td id="reportHistory"><%= user.getReporthisory() %>건</td>
+						<td id="reportHistory"><%= request.getAttribute("resportCount") %>건</td>
 					</tr>
 				</table>
 				<div id="buttonBox">
@@ -127,13 +128,13 @@ td:nth-of-type(2) {
 	<script>
 		$("#salesHistory").click(function(){
 			/* 판매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMember_id()%>";
+			location.href = "<%= request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMemberId()%>";
 		}).mouseover(function(){
 			$("#salesHistory").css({'cursor':'pointer'})
 		})
 		$("#purchaseHistory").click(function(){
 			/* 구매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMember_id()%>";
+			location.href = "<%= request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMemberId()%>";
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
@@ -142,8 +143,9 @@ td:nth-of-type(2) {
 		}).mouseover(function(){
 			$("#buttonBox > button").css({'cursor':'pointer'})
 		})
+		//유저 신고 이력
 		$("#reportHistory").click(function() {
-			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMember_id()%>";
+			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMemberId()%>";
 		})
 	</script>
 </body>

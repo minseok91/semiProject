@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*"
+    import="java.util.ArrayList, com.kh.lp.member.model.vo.*
+    , com.kh.lp.common.PageInfo"
     %>
 <%
 	ArrayList<Member> userList = (ArrayList<Member>)request.getAttribute("list");
-	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int startPage = pi.getStartPage();
 	int currentPage = pi.getCurrentPage();
 	int endPage = pi.getEndPage();
@@ -107,7 +108,7 @@ html, body {
 </style>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	
+	<form>
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
@@ -120,19 +121,19 @@ html, body {
 					<tr>
 						<th>No.</th>
 						<th>아이디</th>
-						<th>등급</th>
+						<th>이름</th>
 						<th>휴대폰번호</th>
 						<th>주소</th>
 						<th>이메일</th>
 					</tr>
 					<% for(int i=0; i<userList.size(); i++) {%>
 						<tr>
-							<td><%= userList.get(i).getRnum()%></td>
-							<td><%= userList.get(i).getMember_id()%></td>
-							<td><%= userList.get(i).getMember_name()%></td>
-							<td><%= userList.get(i).getMember_phone()%></td>
-							<td><%= userList.get(i).getMember_address()%></td>
-							<td><%= userList.get(i).getMember_email() %></td>
+							<td><%= userList.get(i).getMemberNo()%></td>
+							<td><%= userList.get(i).getMemberId()%></td>
+							<td><%= userList.get(i).getMemberName()%></td>
+							<td><%= userList.get(i).getMemberPhone()%></td>
+							<td><%= userList.get(i).getMemberAddress()%></td>
+							<td><%= userList.get(i).getMemberEmail() %></td>
 						</tr>
 					<% } %>
 				</table>
