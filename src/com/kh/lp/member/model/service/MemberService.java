@@ -166,4 +166,21 @@ public class MemberService {
 		return result;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 11. 오후 6:05:38
+	 * @ModifyDate    : 2019. 12. 11. 오후 6:05:38
+	 * @Description   : 비밀번호 체크 메소드
+	 * @param requestMember
+	 * @return
+	 */
+	public int passwordCheck(Member requestMember) {
+		Connection con = getConnection();
+		int result = new MemberDao().passwordCheck(con ,requestMember);
+		
+		close(con);
+		return result;
+	}
+
+
 }
