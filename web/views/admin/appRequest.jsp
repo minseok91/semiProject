@@ -10,7 +10,16 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.item.model.vo.*, com.kh.lp.common.*" %>
+ <% ArrayList<Item> list = (ArrayList<Item>) request.getAttribute("list"); 
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int endPage = pi.getMaxPage();
+	int currentPage = pi.getCurrentPage();
+	int listCount = pi.getListCount();
+	int limit = pi.getLimit();
+	int maxPage = pi.getMaxPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,63 +95,60 @@
 				<p>총 게시판 수 :</p><h4>4명</h4>
 			</div>
 				<table id="table">
+				<!-- 리스트번호,상품번호,상품종류,회원아이디.신청받은날짜.배송받은날짜,처리기한 -->
 					<tr>
 						<th>No.</th>
 						<th>상품ID</th>
+						<th>상품종류</th>
 						<th>판매자ID</th>
-						<th>게시판명</th>
-						<th>목록보기</th>
-						<th>내용보기</th>
-						<th>글쓰기</th>
-						<th>답변쓰기</th>
-						<th>코멘트쓰기</th>
-						<th>감정정보입력</th>
+						<th>신청받은날짜</th>
+						<th>배송받은날짜</th>
+						<th>처리기한</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>커뮤니티</td>
-						<td>I1</td>
-						<td>자유게시판</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>전체</td>
+					<% int k = 1;
+					for(Item i :list) { %>
+					<tr>
+						<td><%= k %></td>
+						<td><%= i.getItemId() %></td>
+						<td><%= i.getItemType().equals("W")?"시계" :"가방" %></td>
+						<td><%= i.getItemMemberNo() %></td>
+						<td><%= i.getItemAppDate() %></td>
+						<td>받은 날짜 불러오기</td>
+						<td>받은 날짜 + 7일</td>
 						<td>
 							<button class="insertApp">정보입력</button>
 						</td>
 					</tr>
-					 <tr>
-						<td>2</td>
-						<td>커뮤니티</td>
-						<td>kingminseok</td>
-						<td>건의게시판</td>
-						<td>관리자</td>
-						<td>관리자</td>
-						<td>사용자</td>
-						<td>관리자</td>
-						<td>관리자</td>
-						<td>
-							<button class="insertApp">정보입력</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>커뮤니티</td>
-						<td>관리자</td>
-						<td>공지</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>관리자</td>
-						<td>관리자</td>
-						<td>관리자</td>
-						<td>
-							<button class="insertApp">정보입력</button>
-						</td>
-					</tr>
+			<% k++; } %>
 					
 				</table>
 			</div>
+			<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button disabled><%=p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=p%>'"><%=p %></button>
+				<% } %>
+			
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=maxPage%>'">>></button>
+		</div>  <!--  pagingArea End game -->
 			<!-- The Modal -->
     <div id="myModal" class="modal">
  
@@ -210,6 +216,50 @@
 		</div>
 	</div>
 	<script>
+	$(function(){
+		$("tr").click(function(){
+			var h1 = $(this);
+			var pr = $(this).children().eq(1).text();
+			console.log("pr : " + pr);
+			console.log("h1" + h1);
+			location.href="<%=request.getContextPath() %>/selectOne.it?itemId=" + pr;
+		})
+		
+		
+		$(".insertApp").click(function(){
+			$('#myModal').show();
+			var pr = $(this).parent().parent('tr').children().eq(1).text();
+			$("#acpName").val(pr);
+			$("#rejName").val(pr);
+			console.log("pr : "  + pr );
+			/* var url = "FAQList.jsp";
+            var name = "popup test";
+            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
+            window.open(url, name, option); */
+		})
+		
+		
+		$("#accept").click(function(){
+			
+			$("#acpContent").show();
+			$("#rejContent").hide();
+		})
+		
+		$("#reject").click(function(){
+			
+			$("#rejContent").show();
+			$("#acpContent").hide();
+		})
+		
+		$("#insertGen").click(function(){
+			location.href="<%=request.getContextPath()%>/insert.app";
+		})
+		
+		$("#insertFake").click(function(){
+			location.href="<%=request.getContextPath()%>/insert.app";
+		})
+	})
+	
 	function loadImg(value ,num){
 		if(value.files && value.files[0]){
 			var reader = new FileReader();
@@ -229,42 +279,7 @@
 	function close_pop(flag) {
 	      $('#myModal').hide();
 	 };	
-		$(function(){
-			
-			
-			$(".insertApp").click(function(){
-				$('#myModal').show();
-				var pr = $(this).parent().parent('tr').children().eq(2).text();
-				$("#acpName").val(pr);
-				$("#rejName").val(pr);
-				console.log("pr : "  + pr );
-				/* var url = "FAQList.jsp";
-	            var name = "popup test";
-	            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-	            window.open(url, name, option); */
-			})
-			
-			
-			$("#accept").click(function(){
-				
-				$("#acpContent").show();
-				$("#rejContent").hide();
-			})
-			
-			$("#reject").click(function(){
-				
-				$("#rejContent").show();
-				$("#acpContent").hide();
-			})
-			
-			$("#insertGen").click(function(){
-				location.href="<%=request.getContextPath()%>/insert.app";
-			})
-			
-			$("#insertFake").click(function(){
-				location.href="<%=request.getContextPath()%>/insert.app";
-			})
-		})
+		
 	</script>
 	
 </body>
