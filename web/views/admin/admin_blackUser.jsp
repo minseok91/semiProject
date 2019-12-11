@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*"%>
+    import="java.util.ArrayList, com.kh.lp.member.model.vo.*,
+    		com.kh.lp.common.PageInfo"%>
 <%
 	ArrayList<Member> blackList = (ArrayList<Member>)request.getAttribute("blackList");
-	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int startPage = pi.getStartPage();
 	int currentPage = pi.getCurrentPage();
 	int endPage = pi.getEndPage();
@@ -125,15 +126,15 @@
 					</tr>
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
-							<td><%= blackList.get(i).getRnum()%></td>
-							<td><%= blackList.get(i).getMember_id()%></td>
-							<td><%= blackList.get(i).getMember_name()%></td>
-							<td><%= blackList.get(i).getMember_phone()%></td>
-							<td><%= blackList.get(i).getMember_address()%></td>
-							<td><%= blackList.get(i).getMember_email() %></td>
+							<td><%= blackList.get(i).getMemberNo()%></td>
+							<td><%= blackList.get(i).getMemberId()%></td>
+							<td><%= blackList.get(i).getMemberName()%></td>
+							<td><%= blackList.get(i).getMemberPhone()%></td>
+							<td><%= blackList.get(i).getMemberAddress()%></td>
+							<td><%= blackList.get(i).getMemberEmail() %></td>
 							<td>
-								<button class="withdraw" value="<%= blackList.get(i).getMember_id()%>">탈퇴</button>
-								<button class="release" value="<%= blackList.get(i).getMember_id()%>">해제</button>
+								<button class="withdraw" value="<%= blackList.get(i).getMemberId()%>">탈퇴</button>
+								<button class="release" value="<%= blackList.get(i).getMemberId()%>">해제</button>
 							</td>
 						</tr>
 					<% } %>
@@ -142,36 +143,16 @@
 			</div>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=1'"><<</button>
+					<button onclick="location.href='<%=request.getContextPath()%>/blackUser.me?currentPage=1'"><<</button>
 					<% for(int p=1; p<=MaxPage; p++) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=p%>'"><%= p %></button>
+						<button onclick="location.href='<%=request.getContextPath()%>/blackUser.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=MaxPage%>'">>></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/blackUser.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-	/* $(function(){
-		$(".withdraw").click(function(){
-			console.log(this)
-			var id = $(this).parent().parent().children().eq(1).text();
-			console.log(id)
-		})
-		
-		$("tr").click(function(){
-			var id = $(this).children().eq(1).text();
-			console.log(id)
-			
-		})
-		
-		$(".release").click(function(){
-			var id = $(this).parent().parent().children().eq(1).text();
-			console.log(id)
-			
-		})
-	}) */
-	
 	$("td").click(function(e) {
 			var userId = e.target.parentElement.children[1].innerHTML;
 				if(e.target.innerHTML == '탈퇴'){
@@ -184,15 +165,9 @@
 					console.log(e.target.innerHTML);
 				} else {
 					console.log(e.target.parentElement.children[1].innerHTML);
-					  location.href="<%=request.getContextPath()%>/userInfoDetail.me?userId="+userId
+					  location.href="<%=request.getContextPath()%>/blackUser.me?userId="+userId
 				}
 			})
-		<%-- $(".withdraw").click(function(e) {
-			
-		})
-		$(".release").click(function(e) {
-			
-		}) --%>
 	</script>
 </body>
 </html>

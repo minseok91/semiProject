@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
 
@@ -378,4 +380,198 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 11. 오후 5:12:52
+	 * @ModifyDate    : 2019. 12. 11. 오후 5:12:52
+	 * @Description   : 관리자_회원 조회메소드(페이징 떄문에)
+	 * @param con
+	 * @return
+	 */
+	public int listCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("admin_listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+	}
+	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 11. 오후 5:14:39
+	 * @ModifyDate    : 2019. 12. 11. 오후 5:14:39
+	 * @Description   : 관리자_회원 목록 조회(페이징 포함)
+	 * @param con
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
+	public ArrayList<Member> selectUser(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> userList = null;
+		Member m = null;
+		
+		int startRow =  (currentPage -1) * 10 + 1;
+		int endRow = startRow + 10 - 1;
+		
+		String query = prop.getProperty("admin_selectUser");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			userList = new ArrayList<Member>();
+			while(rset.next()) {
+				m = new Member();
+				m.setMemberNo(rset.getInt("MEMBER_NO"));
+				m.setMemberId(rset.getString("MEMBER_ID"));
+				m.setMemberPwd(rset.getString("MEMBER_PWD"));
+				m.setMemberName(rset.getString("MEMBER_NAME"));
+				m.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				m.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				m.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
+				m.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
+				m.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
+				m.setMemberStatus(rset.getString("MEMBER_STATUS"));
+				
+				userList.add(m);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return userList;
+	}
+	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 11. 오후 6:02:51
+	 * @ModifyDate    : 2019. 12. 11. 오후 6:02:51
+	 * @Description   : 관리자_회원 상세 조회 메소드
+	 * @param userId
+	 * @param con
+	 * @return
+	 */
+	public Member selectOne(String userId, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member user = null;
+		
+		String query = prop.getProperty("admin_selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+				user = new Member();
+			while(rset.next()) {
+				user.setMemberNo(rset.getInt("MEMBER_NO"));
+				user.setMemberId(rset.getString("MEMBER_ID"));
+				user.setMemberPwd(rset.getString("MEMBER_PWD"));
+				user.setMemberName(rset.getString("MEMBER_NAME"));
+				user.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				user.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				user.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
+				user.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
+				user.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
+				user.setMemberStatus(rset.getString("MEMBER_STATUS"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(user);
+		return user;
+	}
+	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 11. 오후 9:16:33
+	 * @ModifyDate    : 2019. 12. 11. 오후 9:16:33
+	 * @Description   : 관리자_블랙리스트 조회
+	 * @param currentPage
+	 * @param limit
+	 * @param con
+	 * @return
+	 */
+	public ArrayList<Member> selectBlackList(int currentPage, int limit, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet  rset = null;
+		ArrayList<Member> list = null;
+		Member m = null;
+		
+		String query = prop.getProperty("admin_selectBlackList");
+		
+		int startRow = (currentPage - 1) * 10 + 1;
+		int endRow = (startRow - 1) + 10;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				m = new Member();
+				m.setMemberNo(rset.getInt("MEMBER_NO"));
+				m.setMemberId(rset.getString("MEMBER_ID"));
+				m.setMemberPwd(rset.getString("MEMBER_PWD"));
+				m.setMemberName(rset.getString("MEMBER_NAME"));
+				m.setMemberPhone(rset.getString("MEMBER_PHONE"));
+				m.setMemberEmail(rset.getString("MEMBER_EMAIL"));
+				m.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
+				m.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
+				m.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
+				m.setMemberStatus(rset.getString("MEMBER_STATUS"));
+				
+				list.add(m);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
 }
