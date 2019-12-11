@@ -154,13 +154,12 @@ input[type=submit] {
 						<label>아직 회원이 아니신가요?</label>
 						<button onclick="register()">회원가입</button>
 					</div>
-				</div>
-				<!-- research End -->
-				</div> <!-- loginAndResearch End -->
+				</div>  <!-- research End -->
+				</div>  <!-- loginAndResearch End -->
 				<div id="underLine"></div>
-			</div> <!-- house End -->
-		</div> <!-- contents End -->
-	</div> <!-- container End -->
+			</div>  <!-- house End -->
+		</div>  <!-- contents End -->
+	</div>  <!-- container End -->
 	
 	<script>
 		function findId(){

@@ -46,8 +46,13 @@ public class LoginMemberServlet extends HttpServlet {
 		Member loginMember = new MemberService().loginCheck(requestMember);
 		
 		if(loginMember.getMemberId() != null) {
-			request.getSession().setAttribute("loginMember", loginMember);
-			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			if(loginMember.getMemberId().equals("admin")) {
+				request.getSession().setAttribute("loginMember", loginMember);
+				response.sendRedirect(request.getContextPath() + "/views/admin/admin_mainPage.jsp");
+			} else {
+				request.getSession().setAttribute("loginMember", loginMember);
+				response.sendRedirect(request.getContextPath() + "/index.jsp");
+			}
 		}else {
 			request.setAttribute("msg", "failLogin");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
