@@ -25,43 +25,51 @@
 
 .contents {
 	width: inherit;
-	height: 650px;
+}
+
+#tableArea>ul {
+	font-size: 16px;
+    display: flex;
+    list-style: none;
+    position: relative;
+    left: 45%;
+    width: 49%;
+}
+
+#tableArea li {
+	background: #211f22;
+	padding: 8px 16px;
+	margin: 2px;
+	color: #94703a;
+	cursor: pointer;
 }
 
 #tableArea>table {
-	border: 1px solid red;
-	text-align: center;
-    width: inherit;
-    position: relative;
+	position: relative;
     left: 50%;
     transform: translateX(-50%);
-	margin-top: 16%;
+    width: 80%;
+	margin-top: 6%;
 }
 
-.title {
-    text-align: center;
+#tableArea>table>tbody>tr>th, #tableArea>table>tbody>tr>td {
+	width: auto;
+	border-bottom: 1px solid #d9d9d9;
+	padding: 15px;
+	font-size: 15px;
+	text-align: center;
 }
 
-.title:nth-of-type(1) {
-	width: 7%;
-}
-
-.title:nth-of-type(2) {
-	width: 60%;
-}
-
-#tableArea>table td {
-	border: 1px solid blue;
-	padding: 3px 0px;
+#tableArea>table>tbody>tr>th  {
+	background: #f5efe7;
+	border-top: 1px solid #3e2d1a;
 }
 
 .pagingArea {
 	position: relative;
-    top: 5%;
     text-align: center;
     width: auto;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 7% 0 15% 0;
 }
 
 .pagingArea button {
@@ -71,7 +79,8 @@
 	margin: 0 3px;
 }
 </style>
-<title>Insert title here</title>
+<title>LauXion</title>
+<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
@@ -79,78 +88,91 @@
 	<div class="container">
 		<div class="contents">
 			<div id="tableArea">
+			<ul>
+				<li>자유게시판</li>
+				<li>문의게시판</li>
+				<li>리뷰게시판</li>
+				<li>FAQ게시판</li>
+			</ul>
 				<table>
-					<tr>
-						<th class="title">게시물번호</th>
-						<th class="title">제목</th>
-						<th class="title">작성자</th>
-						<th class="title">작성일자</th>
-						<th class="title">조회수</th>
-					</tr>
-					<tr>
-						<td>000000</td>
-						<td style="border: 1px solid green; cursor: pointer;"><a>ppppppppppppppppppp</a></td>
-						<td>ppppppppppppppppppp</td>
-						<td>2019-12-10</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>abc</td>
-						<td>asdasd</td>
-						<td>20191210</td>
-						<td>0</td>
-					</tr>
-				</table>
+				<tr>
+					<th class="title">게시물 번호</th>
+					<th class="title">제목</th>
+					<th class="title">작성자</th>
+					<th class="title">작성일</th>
+					<th class="title">조회수</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">낙찰 실패</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">낙찰 성공</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>1,600,000</td>
+					<td id="check">차순위 낙찰</td>
+					<td>0</td>
+				</tr>
+			</table>
 			</div> <!-- tableArea End -->
 		<div class="pagingArea">
 			<button><<처음</button>
@@ -160,6 +182,11 @@
 			<button>3</button>
 			<button>4</button>
 			<button>5</button>
+			<button>6</button>
+			<button>7</button>
+			<button>8</button>
+			<button>9</button>
+			<button>10</button>
 			<button>다음></button>
 			<button>마지막>></button>
 		</div>

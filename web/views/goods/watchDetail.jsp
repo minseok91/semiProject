@@ -341,5 +341,16 @@
 		</div> <!-- container End -->
 	</section>
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script type="text/javascript">
+		$(function() {
+			const title = $('#title').attr('src');
+			$('#detailImg img').mouseover(function() {
+				$('#title').attr('src', $(this).attr('src'));
+			}).mouseout(function() {
+				$('#title').attr('src', title);
+			});
+		})
+	</script>
 </body>
 </html>
