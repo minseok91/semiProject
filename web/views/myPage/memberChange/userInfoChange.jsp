@@ -169,19 +169,45 @@
 		<div class="contentArea">
 			<div id="inputpassowrd">
 				<p>본인 확인을 위해 비밀번호를 입력해주세요</p><br>
-				<label>비밀번호</label><input type="text"><button>확인</button>
+				<label>비밀번호</label><input type="password" name="memberPwd" id="userPwd"><button id="pwdBtn">확인</button>
 			</div>
 		</div> <!-- menuStatus End -->
 	</div> <!-- container End -->
- <%@ include file="../../common/footer.jsp" %>
+	<%@ include file="../../common/footer.jsp" %>
 
  <script>
+ 	
 	$(function() {
 		$('a').click(function() {
 			let values=$(this).attr('value');
 			console.log(values);
 			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 		})
+	});
+	$("#pwdBtn").click(function(){
+		var id = "<%= loginMember.getMemberId() %>";
+		var pwd = $("#userPwd").val();
+		console.log(id);
+		console.log(pwd);
+		$.ajax({
+			url: "<%= request.getContextPath() %>/passwordCheck.me",
+			type: "post",
+			data: {
+				memberId: id,
+				memberPwd: pwd,
+				temp: pwd
+			},
+			success: function(data){
+				if(data === "true") {
+					 
+				} else {
+					alert("비밀번호를 다시 입력하세요");
+				}
+			},
+			error: function(data){
+				console.log("ajax 실패");
+			}
+		});
 	});
 </script>
 </body>

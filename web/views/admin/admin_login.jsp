@@ -73,6 +73,14 @@
 		border: solid 1px rgb(160, 115, 66);
 		border-radius: 5px;
 	}
+	
+	input[type="password"]{
+		width: 250px;
+		height: 30px;
+		border: solid 1px rgb(160, 115, 66);
+		border-radius: 5px;
+	}
+	
 	input[type="submit"] {
 		width: 100px;
 		height: 50px;
@@ -94,7 +102,7 @@
 	</style>
 </head>
 <body>
-	<form action="<%=request.getContextPath()%>/views/admin/admin_mainPage.jsp" method="post">
+	<form action="<%= request.getContextPath() %>/login.me" method="post">
 		<div id="header">
 		<div id="img_div">
 			<div>
@@ -113,12 +121,12 @@
 			<table>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input type="text"></td>
+					<td><input type="text" name="memberId"></td>
 					<td rowspan ="2"><input type="submit" value="로그인"></td>
 				</tr>
 				<tr>
 					<td>&nbsp;</td>
-					<td><input type="text"></td>
+					<td><input type="password" name="memberPwd"></td>
 				</tr>
 			</table>
 		</div>

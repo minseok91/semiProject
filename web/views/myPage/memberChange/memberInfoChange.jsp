@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title></title>
+<title>LauXion</title>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
@@ -205,7 +205,7 @@
 				<h3>&nbsp;&nbsp;<&nbsp;위시리스트 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 찜하신 상품 리스트를 볼 수 있는 공간입니다.</p>
+				<p>회원님의 정보를 수정하는 공간입니다. 비밀번호 공백이면 변경되지 않습니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
@@ -216,7 +216,7 @@
                         <label>이름</label>
                     </td>
                     <td>
-                        <input type="text" name="memberName" id="userName" size="26">
+                        <input type="text" name="memberName" id="userName" size="26" value="<%= loginMember.getMemberName() %>">
                     </td>
                 </tr>
                 <tr>
@@ -224,7 +224,7 @@
                         <label>아이디</label>
                     </td>
                     <td>
-                        <input type="text" name="memberId" id="userId" size="26" disabled>
+                        <input type="text" name="memberId" id="userId" size="26" value="<%= loginMember.getMemberId() %>" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -232,23 +232,34 @@
                         <label>비밀번호</label>
                     </td>
                     <td style="text-align: center;">
-                        <input type="button" name="memberPwd" id="userPwd" size="26" value="비밀번호 변경">
+                        <input type="password" name="memberPwd" id="userPwd" size="26">
                     </td>
                 </tr>
-                
+                <tr>
+                    <td>
+                        <label>비밀번호 확인</label>
+                    </td>
+                    <td style="text-align: center;">
+                        <input type="password" name="memberPwd2" id="userPwd2" size="26">
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         <label>휴대폰번호</label>
                     </td>
                     <td>
+                    <%
+                    	String[] srr = loginMember.getMemberPhone().split("-");
+                    	
+                    %>
                         <select name="memberPhone1" id="userPhone1">
-                            <option value="010">010</option>
-                            <option value="011">011</option>
-                            <option value="016">016</option>
-                            <option value="019">019</option>
+                            <option id="010" value="010">010</option>
+                            <option id="011" value="011">011</option>
+                            <option id="016" value="016">016</option>
+                            <option id="019"value="019">019</option>
                         </select>-
-                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4">-
-                        <input type="tel" name="memberPhone3" id="userPhone3" size="5" maxlength="4">
+                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4" value="<%= srr[1] %>">-
+                        <input type="tel" name="memberPhone3" id="userPhone3" size="5" maxlength="4" value="<%= srr[2] %>">
                     </td>
                 </tr>
                 <tr>
@@ -256,7 +267,7 @@
                         <label>주소</label>
                     </td>
                     <td>
-                        <input type="text" name="memberAddress" id="userAddr" size="26">
+                        <input type="text" name="memberAddress" id="userAddr" size="26" value="<%= loginMember.getMemberAddress() %>">
                     </td>
                 </tr>
                 <tr>
@@ -264,13 +275,12 @@
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="memberEmail1" id="userEmail" size="26" disabled> 
+                        <input type="text" name="memberEmail1" id="userEmail" size="26" value="<%= loginMember.getMemberEmail() %>" readonly> 
                 </tr>
             </table>
             <div class="end">
-                <input type="submit" id="registerBtn" value="가입하기">
+                <input type="submit" id="registerBtn" value="수정하기">
             </div>
-            
         </form>
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
@@ -278,12 +288,67 @@
 
 	<script>
 		$(function() {
+			console.log(<%= request.getParameter("temp") %>);
 			$('a').click(function() {
 				let values=$(this).attr('value');
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
+			
+			var phone1 = "<%= srr[0] %>";
+			if(phone1 === "010"){
+				$("#010").prop("selected", true);
+			} else if(phone1 === "011"){
+				$("#011").prop("selected", true);
+			} else if(phone1 === "016"){
+				$("#016").prop("selected", true);
+			} else if(phone1 === "019"){
+				$("#019").prop("selected", true);
+			}
 		});
+		
+		function checkAll(){   		
+    		// 정규식
+    		let regName  = /^[가-힣]{2,4}$/; 			 												// 이름
+    		let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/; 	 	// 비밀번호
+    		let regPhone1 = /^[0-9]{3}$/; 		 													// 핸드폰번호 첫번째 -> 3글자도 존재
+    		let regPhone2 = /^[0-9]{4}$/;   		 												// 핸드폰번호 두번째 -> 반드시 4글자
+
+            var memberName = $("#userName").val();
+    		if(memberName === "" || !regName.test(memberName)){
+    			alert("이름을 확인해주세요!");
+    			return false;
+    		} else {
+    			var pwd1 = $("#userPwd").val();
+				var pwd2 = $("#userPwd2").val();
+				console.log(pwd1);
+				console.log(pwd2);
+    			if(!regPwd.test(pwd1) && pwd1 !== "" && pwd2 !== ""){
+					alert("숫자, 영문자, 특수문자를 1개이상 포함해서 6~12글자로 작성해야합니다.");
+					return false;
+				} else if(pwd1 != pwd2){
+					alert("비밀번호를 확인해주세요");
+					return false;
+				} else {
+					var phone1 = $("#userPhone1").val();
+					var phone2 = $("#userPhone2").val();
+					var phone3 = $("#userPhone3").val();
+					
+					if(!regPhone1.test(phone1) || !regPhone2.test(phone2) || !regPhone2.test(phone3) || phone1 === "" || phone2 === "" || phone3 === ""){
+						alert("휴대폰 번호를 확인해주세요");
+						return false;
+					} else {
+						var address = $("#userAddr").val();
+						if(address === ""){
+							alert("주소를 확인해주세요");
+							return false;
+						} else {
+							$("#form1").attr("action", "<%= request.getContextPath() %>/updateMember.me");
+						}
+					}
+				}
+    		}
+    	}
 	</script>
 </body>
 </html>

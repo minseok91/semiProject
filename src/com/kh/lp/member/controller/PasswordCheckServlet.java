@@ -1,6 +1,7 @@
 package com.kh.lp.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,17 +15,17 @@ import com.kh.lp.member.model.vo.Member;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class LoginMemberServlet
+ * Servlet implementation class PasswordCheckServlet
  */
 @Log4j2
-@WebServlet("/login.me")
-public class LoginMemberServlet extends HttpServlet {
+@WebServlet("/passwordCheck.me")
+public class PasswordCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginMemberServlet() {
+    public PasswordCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,29 +35,33 @@ public class LoginMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String memberId = request.getParameter("memberId");
 		String memberPwd = request.getParameter("memberPwd");
-		log.debug("memberId : " + memberId);
-		log.debug("memberPwd : " + memberPwd);
+		String temp = request.getParameter("temp");
+		log.debug(memberId);
+		log.debug(memberPwd);
+		log.debug(temp);
+		
+		
 		
 		Member requestMember = new Member();
+		
 		requestMember.setMemberId(memberId);
 		requestMember.setMemberPwd(memberPwd);
 		
-		Member loginMember = new MemberService().loginCheck(requestMember);
+		int result = new MemberService().passwordCheck(requestMember);
 		
-		if(loginMember.getMemberId() != null) {
-			if(loginMember.getMemberId().equals("admin")) {
-				request.getSession().setAttribute("loginMember", loginMember);
-				response.sendRedirect(request.getContextPath() + "/views/admin/admin_mainPage.jsp");
-			} else {
-				request.getSession().setAttribute("loginMember", loginMember);
-				response.sendRedirect(request.getContextPath() + "/index.jsp");
-			}
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0) {
+			request.setAttribute("temp", temp);
+			out.append("true");
 		}else {
-			request.setAttribute("msg", "failLogin");
-			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
+			out.append("false");
 		}
+		out.flush();
+		out.close();
 	}
 
 	/**
