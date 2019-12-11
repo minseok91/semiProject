@@ -23,7 +23,7 @@
 	int maxPage = pi.getMaxPage();
 	int startPage = pi.getStartPage();
 %>
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
 <meta content="text/html;">
