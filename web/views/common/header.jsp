@@ -86,9 +86,8 @@
 					<a href="<%= request.getContextPath() %>/views/member/login.jsp">로그인</a>
                 	<a href="<%= request.getContextPath() %>/views/member/registerAgreement.jsp">회원가입</a> 
 					<% } else { %>
-					
 					<a href="<%= request.getContextPath() %>/logout.me">로그아웃</a>
-					<a href="#">마이페이지</a>
+					<a href="<%= request.getContextPath() %>/views/myPage/buy/wishList.jsp">마이페이지</a>
 					<% } %>       	
 				</p>
 			</div>  <!-- th1 end -->

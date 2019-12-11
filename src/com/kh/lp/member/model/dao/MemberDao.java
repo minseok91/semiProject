@@ -108,7 +108,7 @@ public class MemberDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
-		}
+		} 
 		
 		return result;
 	}
@@ -138,6 +138,9 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -269,6 +272,9 @@ public class MemberDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return result;
@@ -303,6 +309,9 @@ public class MemberDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
@@ -330,6 +339,42 @@ public class MemberDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 11. 오후 6:13:29
+	 * @ModifyDate    : 2019. 12. 11. 오후 6:13:29
+	 * @Description   : 비밀번호 체크 메소드
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
+	public int passwordCheck(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("passwordCheck");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, requestMember.getMemberId());
+			pstmt.setString(2, requestMember.getMemberPwd());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return result;
 	}
