@@ -17,6 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>LauXion</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 <style>
 	.container {
@@ -228,28 +229,14 @@
 				<span class="imgBox">
 					<div class="title">
 						<a id="wish" href="#">♡</a>
-						<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+						<img id="title" src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
 								</td>
 								<td>
 									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
@@ -350,5 +337,16 @@
 			</div> <!-- contents End -->
 		</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script type="text/javascript">
+		$(function() {
+			const title = $('#title').attr('src');
+			$('#detailImg img').mouseover(function() {
+				$('#title').attr('src', $(this).attr('src'));
+			}).mouseout(function() {
+				$('#title').attr('src', title);
+			});
+		})
+	</script>
 </body>
 </html>
