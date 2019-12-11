@@ -1,4 +1,4 @@
-package com.kh.lp.appraisal.model.vo;
+package com.kh.lp.item.model.vo;
 
 import java.sql.Date;
 

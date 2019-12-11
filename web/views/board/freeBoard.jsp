@@ -31,11 +31,11 @@
 #tableArea>table {
 	border: 1px solid red;
 	text-align: center;
-    width: 1080px;
-    position: absolute;
+    width: inherit;
+    position: relative;
     left: 50%;
     transform: translateX(-50%);
-    top: 59%;
+	margin-top: 16%;
 }
 
 .title {
@@ -52,7 +52,23 @@
 
 #tableArea>table td {
 	border: 1px solid blue;
-	padding: 20px 0px;
+	padding: 3px 0px;
+}
+
+.pagingArea {
+	position: relative;
+    top: 5%;
+    text-align: center;
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pagingArea button {
+	border: none;
+	padding: 0;
+	background: none;
+	margin: 0 3px;
 }
 </style>
 <title>Insert title here</title>
@@ -73,7 +89,7 @@
 					</tr>
 					<tr>
 						<td>000000</td>
-						<td>ppppppppppppppppppp</td>
+						<td style="border: 1px solid green; cursor: pointer;"><a>ppppppppppppppppppp</a></td>
 						<td>ppppppppppppppppppp</td>
 						<td>2019-12-10</td>
 						<td>0</td>
@@ -113,8 +129,40 @@
 						<td>20191210</td>
 						<td>0</td>
 					</tr>
+					<tr>
+						<td>1</td>
+						<td>abc</td>
+						<td>asdasd</td>
+						<td>20191210</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>abc</td>
+						<td>asdasd</td>
+						<td>20191210</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>abc</td>
+						<td>asdasd</td>
+						<td>20191210</td>
+						<td>0</td>
+					</tr>
 				</table>
 			</div> <!-- tableArea End -->
+		<div class="pagingArea">
+			<button><<처음</button>
+			<button><이전</button>
+			<button>1</button>
+			<button>2</button>
+			<button>3</button>
+			<button>4</button>
+			<button>5</button>
+			<button>다음></button>
+			<button>마지막>></button>
+		</div>
 		</div>
 	</div>
 	<%@ include file="../common/footer.jsp" %>
