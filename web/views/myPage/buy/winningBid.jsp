@@ -102,7 +102,14 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 24%;
+    left: 28%;
+}
+
+/* 나때문에 하는거니 무시해도됨 */
+@media(max-width: 1366px) {
+	.contentArea {
+		left: 24%;
+	}
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -198,7 +205,7 @@
 					<td id="price">1,600,000</td>
 					<td id="check">
 						<div>낙찰 성공</div>
-						<button>결제 시작</button>
+						<button>결제하기</button>
 					</td>
 					<td>23시간 35분 전</td>
 				</tr>
@@ -223,47 +230,16 @@
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			});
-			
-			$('#check>button').click(function() {
-				var IMP = window.IMP; // 생략가능
-				IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-				
-				IMP.request_pay({
-				    pg : 'inicis', // version 1.1.0부터 지원.
-				    pay_method : 'card',
-				    merchant_uid : 'merchant_' + new Date().getTime(),
-				    name : '주문명:결제테스트',
-				    amount : 100,
-				    buyer_email : 'iamport@siot.do',
-				    buyer_name : '구매자이름',
-				    buyer_tel : '010-1234-5678',
-				    buyer_addr : '서울특별시 강남구 삼성동',
-				    buyer_postcode : '123-456',
-				    m_redirect_url : 'http://localhost:8043/lp/views/myPage/buy/winningBid.jsp'
-				}, function(rsp) {
-				    if ( rsp.success ) {
-				        var msg = '결제가 완료되었습니다.';
-				        const impId = '고유ID : ' + rsp.imp_uid;
-				        const merId = '상점 거래ID : ' + rsp.merchant_uid;
-				        const amount = '결제 금액 : ' + rsp.paid_amount;
-				        const applyNum = '카드 승인번호 : ' + rsp.apply_num;
-				        const method = '결제 수단 : ' + rsp.pay_method;
-				        const status = '상태 : ' + rsp.status;
-				        
-				        console.log(impId);
-				        console.log(merId);
-				        console.log(amount);
-				        console.log(applyNum);
-				        console.log(method);
-				        console.log(status);
-				    } else {
-				        var msg = '결제에 실패하였습니다.';
-				        msg += '에러내용 : ' + rsp.error_msg;
-				    }
-				});
-			});
 		});
 		
+		
+		
+		$('#check>button').click(function() {
+			const num=$(this).parents('tr').children().eq(0).text();
+			
+			location.href="<%= request.getContextPath() %>/views/goods/paymentBefore.jsp";
+			// 형식 : location.href = "<%= request.getContextPath() %>/selectOne.tn?num=" + num;
+		})
 		
 	</script>
 </body>

@@ -18,9 +18,9 @@
 		width:inherit;
 	}
 	
-	.list {
+.list {
 	position: relative;	
-	width: 800px;
+	width: 86%;
 	left: 50%;
 	transform: translateX(-50%);
 	text-align: center;
@@ -38,7 +38,7 @@ td {
 }
 
 td>img {
-    width: 801%;
+    width: 768%;
 }
 
 #img {
@@ -91,12 +91,14 @@ td>.content {
 			<table>
 			<tr>
 					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
+						<a style="cursor: pointer;">
+							<div id="img">
+                        		<div class="price">￦720,000</div>
+                        		<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+                        	</div>
+                        	<span class="content">Omega Speedmaster Black Dial</span>
+                        	<div class="time">3 days 13 : 42</div>
+                        </a>
 					</td>
 					<td>
 						<div id="img">
@@ -198,6 +200,7 @@ td>.content {
 				</tr>
 			</table>
 		</div>
+	</div>
 	</div>
 	<%@ include file="views/common/footer.jsp" %>
 </body>

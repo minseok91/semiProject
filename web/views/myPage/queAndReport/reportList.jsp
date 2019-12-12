@@ -95,7 +95,7 @@
 .contentArea {
     text-align: center;
     position: absolute;
-    width: auto;
+    width: 74%;
     margin-top: 75px;
     left: 28%;
 }
