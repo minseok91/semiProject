@@ -206,13 +206,7 @@
         <!--End Modal-->
 
 
-			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
-				</div>
-			</div>
+			
 		</div>
 	</div>
 	<script>
