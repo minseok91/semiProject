@@ -108,11 +108,10 @@ html, body {
 </style>
 <body>
 	<%@ include file="headerPage.jsp" %>
-	<form>
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>전체 회원<h3><%= userList.size() %>명</h3>
+				<p>전체 회원<h3><%= request.getAttribute("listCount") %>명</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -141,10 +140,10 @@ html, body {
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
 					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=1'"><<</button>
-					<% for(int p=1; p<=MaxPage; p++) { %>
+					<% for(int p=1; p<=endPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=MaxPage%>'">>></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=endPage%>'">>></button>
 				</div>
 			</div>
 		</div>

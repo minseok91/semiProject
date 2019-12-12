@@ -46,25 +46,22 @@ public class admin_userInformationServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new MemberService().listCount();
-		
+		int listCount = new MemberService().listCount("MS1","MS2");
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		
 		endPage = startPage + 10 - 1;
-		
-		if(maxPage <= endPage) {
-			maxPage = endPage;
+		if(endPage <= maxPage) {
+			endPage = maxPage;
 		}
-		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit,maxPage,startPage,endPage);
 		ArrayList<Member> userList = new MemberService().selectUser(currentPage,limit); 
-		System.out.println("서블릿"+userList);
 		String Page = "";
 		if(userList != null) {
 			 Page = "views/admin/admin_userInformation.jsp";
 			 request.setAttribute("list", userList);
 			 request.setAttribute("pi", pi);
+			 request.setAttribute("listCount", listCount);
 		} else {
 			
 		}

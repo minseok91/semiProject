@@ -9,13 +9,13 @@
  * </pre>
  */
 --%>
-<%@page import="com.kh.lp.admin.member.model.vo.pageInfo,java.util.ArrayList
-,com.kh.lp.admin.report.model.vo.*"%>
+<%@page import="com.kh.lp.common.PageInfo,java.util.ArrayList
+,com.kh.lp.report.model.vo.*"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	 ArrayList<report> reportList = (ArrayList<report>)request.getAttribute("reportList");
-	pageInfo pi = (pageInfo)request.getAttribute("pi");
+	 ArrayList<Report> reportList = (ArrayList<Report>)request.getAttribute("reportList");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int endPage = pi.getEndPage();
 	int limit = pi.getLimit();
@@ -138,12 +138,34 @@ th, td {
 					</tr>
 					 <% for(int p=0; p<reportList.size(); p++) { %> 
 						<tr>
-						 <td><%= reportList.get(p).getRnum()%></td>
+							<input type="hidden" id="reportId" value="<%=reportList.get(p).getReport_id()%>">
+						 	<td><%= reportList.get(p).getRnum()%></td>
 							<td><%= reportList.get(p).getReporting_member_no()%></td>
 							<td><%= reportList.get(p).getReported_member_no()%></td>
 							<td><%= reportList.get(p).getReport_date()%></td>
-							<td><%= reportList.get(p).getReport_subject()%></td>
-							<td><%= reportList.get(p).getReport_type()%></td>
+							<%
+								switch(reportList.get(p).getReport_subject()) {
+								case "1" : %> <td>자유게시판</td> <%
+								; break;
+								case "2" :%> <td>문의게시판</td> <%
+								; break;
+								case "3" :%> <td>리뷰게시판</td> <% 
+								; break;
+								case "4" :%> <td>FAQ게시판</td> <% 
+								; break;							
+								}
+							%>
+							
+							<%
+								switch(reportList.get(p).getReport_type()){
+								case "RT1" : %><td>게시물</td>
+							<% 
+								; break;
+								case "RT2" : %><td>댓글</td>
+							<%
+								; break;
+								}
+							%>
 						</tr>
 					 <% } %>
 					
@@ -162,8 +184,54 @@ th, td {
 	</div>
 	<script>
 		$("td").click(function(e){
-			location.href="userReportDetail.me?userId=<%=request.getParameter("userId")%>";
+			var a = e.target.parentNode.children;
+			console.log(e.target.parentNode.children[0].value)
+			 $(".myModal").show(); 
+			 $.ajax({
+				url:"userReportDetail.me",
+				data: {reportId : e.target.parentNode.children[0].value},
+				type:"GET",
+				success:function(data) {
+					$tableBody = $('#modalTable tbody');
+					
+					var reportType;
+					if(data.report_type=="RT1"){
+						reportType = '게시물';
+					} else {
+						reportType = '댓글';
+					}
+					var reportSubject;
+					if(data.report_subject==1){
+						reportSubject = '자유게시판';
+					} else if(data.report_subject==2){
+						reportSubject = '문의게시판';
+					} else if(data.report_subject==3) {
+						reportSubject = '리뷰게시판';
+					} else {
+						reportSubject = 'FAQ게시판';
+					}
+					var report = data;
+					console.log(data);
+					var $tr = $("<tr>");
+					var $reporting = $("<tr><td>신고자 회원 </td><td>"+data.reporting_member_no+"</td><td>피신고 회원</td><td>"+data.reported_member_no+"</td>");
+					var $reporDate = $("<tr><td>신고 일시 </td><td>"+data.report_date+"</td><td>신고 대상</td><td>"+reportSubject+"</td>");
+					var $reporType = $("<tr><td>신고 유형 구분 </td><td>"+reportType+"</td><td><td>");
+					var $reporContent = $("<tr><td colspan='4'><textarea rows='30' cols='115' style='resize: none' readonly>"+data.reported_content+"</textarea></td>");
+					$tableBody.append($reporting);
+					$tableBody.append($reporDate);
+					$tableBody.append($reporType);
+					$tableBody.append($reporContent);
+				},
+				error:function(error, status) {
+					console.log("서버 전송 실패");
+				}
+			}) 
 		})
+		$("#close").click(function(){
+			$("#myModal").hide();
+			$tabletr = $('#modalTable tr');
+			$tabletr.remove();
+	})
 	</script>
 </body>
 </html>
