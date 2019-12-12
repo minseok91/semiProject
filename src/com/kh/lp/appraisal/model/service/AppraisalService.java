@@ -1,8 +1,10 @@
 package com.kh.lp.appraisal.model.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.lp.appraisal.model.dao.AppraisalDao;
+import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
@@ -94,6 +96,25 @@ public class AppraisalService {
 		close(con);
 		//상품감정 정보를 넣는다
 		return resultAll;
+	}
+
+	public int listCount() {
+		Connection con = getConnection();
+		
+		int result = new AppraisalDao().listCount(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	public ArrayList<AppCom> appPaging(int currentPage, int limit) {
+		Connection con = getConnection();
+		ArrayList<AppCom> list = new AppraisalDao().appPaging(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
 	}
 
 }

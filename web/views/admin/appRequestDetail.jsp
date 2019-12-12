@@ -206,16 +206,16 @@ String[] brandModel = item.getItemBrandModel().split(",");
 		background: none;
 	}
 	
-	#goods {
+	.goods {
 		margin-left: 90px;
 	}
 
-	#goods>table>tbody>tr>td {
+	.goods>table>tbody>tr>td {
 		border: 1px solid #d9d9d9;
 		padding: 10px;
 	}
 	
-	#goods>table>tbody>tr>td:nth-of-type(1) {
+	.goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
 	#aucResult{
@@ -399,8 +399,39 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						<img width="120" height="100" id="contentImg4">
 						
 						
+						<div id="c-type">
 						
-						<div id="goods">
+						<input type="radio" id="watch" value="w">
+						<label for="watch">시계</label>
+						<input type="radio" id="bag" value="b">
+						<label for="bag">가방</label>
+						</div>
+						<div id="goods" class="watchDetail">
+					<label>상품 정보 상세</label>
+					<table>
+						<tr>
+							<td>보증서 유무</td>
+							<td><input type="text" name="guaranteeYn" id="guaranteeYn" ></td>
+						</tr>
+						<tr>
+							<td>오리지널 박스 유무</td>
+							<td><input type="text" name="boxYn" id="boxYn" ></td>
+						</tr>
+						<tr>
+							<td>재질</td>
+							<td><input type="text" name="matertial" id="matertial" ></td>
+						</tr>
+						<tr>
+							<td>무브먼트 종류</td>
+							<td><input type="text" name="movement" id="movement" ></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><input type="text" name="chronograph" id="chronograph" ></td>
+						</tr>
+					</table>
+				</div>
+				<div id="bagDetail" class="watchDetail">
 					<label>상품 정보 상세</label>
 					<table>
 						<tr>
