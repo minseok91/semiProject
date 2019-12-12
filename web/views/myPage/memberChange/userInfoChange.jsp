@@ -20,7 +20,6 @@
 	margin: 0 auto;
 	padding-bottom: 10px;
 }
-
 .container>#myPageMenu {
 	width: 210px;
 	height: 1080px;
@@ -28,21 +27,18 @@
 	display: inline-block;
 	float: left;
 }
-
 .container>#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
-
 .container>#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
 	margin-bottom: 7px;
 }
-
 #h3 {
 	font-family: 'Nanum Myeongjo', serif;
 	background-color: #211f22;
@@ -51,33 +47,28 @@
 	color: #a07342;
 	margin-top: 0px;
 }
-
 .container>#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
-
 .container>#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-
 .container>#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-
 .container>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
-
 .container>.contentArea {
 	width: 920px;
 	height: 650px;
@@ -120,15 +111,11 @@ td>input{
 	padding-left: 25px;
     padding-top: 18px;
 }
-
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
     color: #f00;
     font-weight: bold;
 }
-
-
-
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
@@ -136,12 +123,10 @@ td>input{
 	font-size: 15px;
 	text-align: center;
 }
-
 .contentArea>table>tbody>tr>td>img {
 	width: 100px;
 	height: 100px;
 }
-
 .contentArea>table>tbody>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;

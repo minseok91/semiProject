@@ -601,4 +601,55 @@ public class MemberDao {
 		return result;
 	}
 
+	public int updateMemberNP(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemberNP");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getMemberName());
+			pstmt.setString(2, requestMember.getMemberPhone());
+			pstmt.setString(3, requestMember.getMemberAddress());
+			pstmt.setInt(4, requestMember.getMemberNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMember(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getMemberName());
+			pstmt.setString(2, requestMember.getMemberPwd());
+			pstmt.setString(3, requestMember.getMemberPhone());
+			pstmt.setString(4, requestMember.getMemberAddress());
+			pstmt.setInt(5, requestMember.getMemberNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 }

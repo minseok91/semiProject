@@ -1,6 +1,7 @@
 package com.kh.lp.member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,17 +14,17 @@ import com.kh.lp.member.model.vo.Member;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class UpdateMemberServlet
+ * Servlet implementation class UpdateMemberNoPasswordServlet
  */
 @Log4j2
-@WebServlet("/updateMember.me")
-public class UpdateMemberServlet extends HttpServlet {
+@WebServlet("/updateMemberNP.me")
+public class UpdateMemberNoPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateMemberServlet() {
+    public UpdateMemberNoPasswordServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +37,6 @@ public class UpdateMemberServlet extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		String memberId = request.getParameter("memberId");
-		String memberPwd = request.getParameter("memberPwd");
 		String memberName = request.getParameter("memberName");
 		String memberPhone1 = request.getParameter("memberPhone1");
 		String memberPhone2 = request.getParameter("memberPhone2");
@@ -53,18 +53,17 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		requestMember.setMemberNo(memberNo);
 		requestMember.setMemberId(memberId);
-		requestMember.setMemberPwd(memberPwd);
 		requestMember.setMemberName(memberName);
 		requestMember.setMemberPhone(memberPhone);
 		requestMember.setMemberEmail(memberEmail1);
 		requestMember.setMemberAddress(memberAddress);
 		log.debug(requestMember);
 		
-		int result = new MemberService().updateMember(requestMember);
+		int result = new MemberService().updateMemberNP(requestMember);
 		
 		if(result > 0) {
 			request.setAttribute("msg", "successMember");
-			request.getRequestDispatcher("views/common/successPage.jsp").forward(request, response);
+			request.getRequestDispatcher("views/myPage/memberChange/memberInfoChange.jsp").forward(request, response);
 		} else {
 			request.setAttribute("msg", "failMember");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

@@ -28,7 +28,6 @@
     	white-space: nowrap;
     	font-family: 'Nanum Myeongjo', serif;
 	}
-
 	#Register {
     	position: relative;
     	left: 50%;
@@ -40,25 +39,20 @@
     	padding-bottom: 0.3%;
     	border-bottom: 1px solid #3e2d1a;
 	}
-
 	#Register, #Register>#road, #Register>#arrow {
     	color: rgba(32, 45, 26, .45);
     	font-family: 'Nanum Myeongjo', serif;
     	font-size: 17px;
 	}
-
 	#Register>#road {
     	margin-left: 55%;
 	}
-
 	#Register>#road>.arrow {
     	padding: 0px 28px;
 	}
-
 	#Register, .road:nth-of-type(3), .arrow     {
     	color: #3e2d1a;
 	}
-
 /* ���� �Է� */
 	form>table {
     	position: relative;
@@ -69,25 +63,21 @@
     	border-bottom: 1px solid #3e2d1a;
     	padding: 30px 19%;
 	}
-
 	td>input, select {
     	border: none;
     	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
 	}
-
 	label {
     	margin: 5px;
     	font-family: sans-serif;
     	font-size: 15px;
     	margin-right: 25px;
 	}
-
 	td>input {
 		font-family: sans-serif;
 		padding: 5px;
     	font-size: 14px;
 	}
-
 	#idCheck, #emailSend, #emailCheck, #addrBtn {
 		background: #a07342;
 		border-radius: 5px;
@@ -97,7 +87,6 @@
 		padding: 7px;
 		color: #211f22;
 	}
-
 	td>select {
 		font-family: sans-serif;
    		font-size: 15px;
@@ -105,32 +94,26 @@
     	width: 125px;
     	height: 30px;
 	}
-
 	#userPhone1 {
 		width: 75px;
 	/* Chrome에서만 적용되는 select text-align: center */
 		text-align-last: center;
 	}
-
 	option {
 		font-family: sans-serif;
 	}
-
 	.gender {
 		margin-left: 20px;
 	}
-
 	#male {
 		margin-right: 50px;
 	}
-
 	.end {
     	position: relative;
     	margin-bottom: 50px;
     	float: right;
     	left: -13.4%;
 	}
-
 	.end>input {
     	border-radius: 3px;
     	font-size: 15px;
@@ -138,27 +121,22 @@
     	padding: 8px 0;
     	margin: 20px 10px;
 	}
-
 	input[type=submit] {
     	color: #a07342;
     	border: 1px solid #a07342;
     	background-color: #211f24;
 	}
-
 	input[type=reset] {
     	border: 1px solid #a07342;
     	background-color: #d9d9d9;
 	}
-
 	@media(min-width: 1600px) {
     	#Register {
         	width: 70%;
     	}
-
     	#Register>#road {
         	margin-left: 61.7%;
     	}
-
     	#Register>#road>.arrow {
         	padding: 0px 28px;
     	}
@@ -343,7 +321,6 @@
     		let regPhone1 = /^[0-9]{3}$/; 		 													// 핸드폰번호 첫번째 -> 3글자도 존재
     		let regPhone2 = /^[0-9]{4}$/;   		 												// 핸드폰번호 두번째 -> 반드시 4글자
     		let regEmail = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
             var memberName = $("#userName").val();
     		if(memberName === "" || !regName.test(memberName)){
     			alert("이름을 확인해주세요!");

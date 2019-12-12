@@ -275,5 +275,33 @@ public class MemberService {
 		return result;
 	}
 
+	public int updateMemberNP(Member requestMember) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updateMemberNP(con, requestMember);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
+	}
+	
+	public int updateMember(Member requestMember) {
+		Connection con = getConnection();
+		
+		int result = new MemberDao().updateMember(con, requestMember);
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
 
 }
