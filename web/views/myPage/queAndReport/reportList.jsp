@@ -93,10 +93,11 @@
 }
 
 .contentArea {
-	position: relative;
-	width: auto;
-	margin-top: 75px;
-	left: 2%;
+    text-align: center;
+    position: absolute;
+    width: auto;
+    margin-top: 75px;
+    left: 28%;
 }
 
 .contentArea>table {
@@ -128,9 +129,9 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
+				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>

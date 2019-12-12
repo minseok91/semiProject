@@ -76,13 +76,13 @@
                 <a href=""><div>user<br>GUIDE</div></a>
             </li>
             <li>
-                <a href=""><div>WATCH</div></a>
+                <a href="<%= request.getContextPath() %>/views/goods/watchList.jsp"><div>WATCH</div></a>
             </li>
             <li>
-                <a href=""><div>BAG</div></a>
+                <a href="<%= request.getContextPath() %>/views/goods/bagList.jsp"><div>BAG</div></a>
             </li>
             <li>
-                <a href=""><div>BOARD</div></a>
+                <a href="<%= request.getContextPath() %>/views/board/freeBoard.jsp"><div>BOARD</div></a>
             </li>
         </ul>	
 	</nav>

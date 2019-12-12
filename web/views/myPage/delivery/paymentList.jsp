@@ -94,10 +94,11 @@
 }
 
 .contentArea {
-	position: relative;
-	width: auto;
-	margin-top: 75px;
-	left: 1%;
+    text-align: center;
+    position: absolute;
+    width: auto;
+    margin-top: 75px;
+    left: 28%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -134,7 +135,7 @@
 				<dt>§  구매정보</dt>
 				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
+				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
@@ -215,6 +216,12 @@
 			$("#refund").click(function(){
 				$(this).hide();
 				$("#finish").html('환불진행중')
+			});
+			
+			$('a').click(function() {
+				let values=$(this).attr('value');
+				console.log(values);
+				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		})
 	</script>
