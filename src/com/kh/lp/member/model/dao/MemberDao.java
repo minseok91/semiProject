@@ -26,10 +26,8 @@ public class MemberDao {
 	private Properties admin_prop = new Properties();
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
-		String admin_fileName = MemberDao.class.getResource("/sql/admin/member/admin_member-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
-			admin_prop.load(new FileReader(admin_fileName));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
