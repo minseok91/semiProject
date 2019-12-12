@@ -18,6 +18,7 @@
 <title>LauXion</title>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 	.container {
 		margin: 0 auto;
@@ -81,7 +82,6 @@
 		height: 54px;
 		background-color: lightgray;
 		vertical-align: middle;
-
 	}
 	.container>.menuStatus>.status2>p{
 		padding-top: 16px;
@@ -107,50 +107,42 @@
     	border-bottom: 1px solid #3e2d1a;
     	padding: 30px 19%;
 	}
-
 	td>input, select {
     	border: none;
     	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
 	}
-
 	label {
     	margin: 5px;
     	font-family: sans-serif;
     	font-size: 15px;
     	margin-right: 25px;
 	}
-
 	td>input {
 		font-family: sans-serif;
 		padding: 5px;
-    	font-size: 20px;
+    	font-size: 14px;
 	}
-
 	td>select {
 		font-family: sans-serif;
    		font-size: 15px;
     	padding: 5px;
     	width: 125px;
-    	height: 40px;
+    	height: 30px;
 	}
-
 	#userPhone1 {
 		width: 75px;
 	/* Chrome에서만 적용되는 select text-align: center */
 		text-align-last: center;
 	}
-
 	option {
 		font-family: sans-serif;
 	}
-
 	.end {
     	position: relative;
     	margin-bottom: 50px;
     	float: right;
     	left: -13.4%;
 	}
-
 	.end>input {
     	border-radius: 3px;
     	font-size: 15px;
@@ -158,7 +150,6 @@
     	padding: 8px 0;
     	margin: 20px 10px;
 	}
-
 	input[type=submit], input[type=button] {
     	color: #a07342;
     	border: 1px solid #a07342;
@@ -175,9 +166,9 @@
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
+				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
@@ -216,7 +207,8 @@
                         <label>이름</label>
                     </td>
                     <td>
-                        <input type="text" name="memberName" id="userName" size="26" value="<%= loginMember.getMemberName() %>">
+                        <input type="text" name="memberName" id="userName" size="30" value="<%= loginMember.getMemberName() %>">
+                        <input type="hidden" name="memberNo" value="<%= loginMember.getMemberNo() %>">
                     </td>
                 </tr>
                 <tr>
@@ -224,7 +216,7 @@
                         <label>아이디</label>
                     </td>
                     <td>
-                        <input type="text" name="memberId" id="userId" size="26" value="<%= loginMember.getMemberId() %>" readonly>
+                        <input type="text" name="memberId" id="userId" size="30" value="<%= loginMember.getMemberId() %>" readonly>
                     </td>
                 </tr>
                 <tr>
@@ -232,7 +224,7 @@
                         <label>비밀번호</label>
                     </td>
                     <td style="text-align: center;">
-                        <input type="password" name="memberPwd" id="userPwd" size="26">
+                        <input type="password" name="memberPwd" id="userPwd" size="30">
                     </td>
                 </tr>
                 <tr>
@@ -240,7 +232,7 @@
                         <label>비밀번호 확인</label>
                     </td>
                     <td style="text-align: center;">
-                        <input type="password" name="memberPwd2" id="userPwd2" size="26">
+                        <input type="password" name="memberPwd2" id="userPwd2" size="30">
                     </td>
                 </tr>
                 <tr>
@@ -256,31 +248,45 @@
                             <option id="010" value="010">010</option>
                             <option id="011" value="011">011</option>
                             <option id="016" value="016">016</option>
-                            <option id="019"value="019">019</option>
-                        </select>-
-                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4" value="<%= srr[1] %>">-
+                            <option id="019" value="019">019</option>
+                        </select> - 
+                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4" value="<%= srr[1] %>"> - 
                         <input type="tel" name="memberPhone3" id="userPhone3" size="5" maxlength="4" value="<%= srr[2] %>">
                     </td>
                 </tr>
                 <tr>
+                <%
+                	String[] addr = loginMember.getMemberAddress().split("/");
+                %>
                     <td>
-                        <label>주소</label>
+                        <label>우편번호</label>
                     </td>
                     <td>
-                        <input type="text" name="memberAddress" id="userAddr" size="26" value="<%= loginMember.getMemberAddress() %>">
+                        <input type="text" name="memberZoneCode" id="userAddr1" size="8" value="<%= addr[0] %>" readonly placeholder="우편번호">
+                        &nbsp;&nbsp;
+                        <input type="button" id="addrBtn" onclick="daumPostCode()" value="주소 찾기"/>
                     </td>
+                </tr>
+                <tr>
+                	<td><label for="">기본주소</label></td>
+                	<td><input type="text" name="memberAddress1" id="userAddr2" size="30" value="<%= addr[1] %>" readonly placeholder="기본주소"></td>
+                </tr>
+                <tr>
+                	<td><label for="">상세주소</label></td>
+                	<td><input type="text" name="memberAddress2" id="userAddr3" size="30" value="<%= addr[2] %>" placeholder="상세주소"></td>
                 </tr>
                 <tr>
                     <td>
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="memberEmail1" id="userEmail" size="26" value="<%= loginMember.getMemberEmail() %>" readonly> 
+                        <input type="text" name="memberEmail1" id="userEmail" size="30" value="<%= loginMember.getMemberEmail() %>" readonly> 
                 </tr>
             </table>
             <div class="end">
                 <input type="submit" id="registerBtn" value="수정하기">
             </div>
+            
         </form>
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
@@ -288,7 +294,6 @@
 
 	<script>
 		$(function() {
-			console.log(<%= request.getParameter("temp") %>);
 			$('a').click(function() {
 				let values=$(this).attr('value');
 				console.log(values);
@@ -313,7 +318,6 @@
     		let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/; 	 	// 비밀번호
     		let regPhone1 = /^[0-9]{3}$/; 		 													// 핸드폰번호 첫번째 -> 3글자도 존재
     		let regPhone2 = /^[0-9]{4}$/;   		 												// 핸드폰번호 두번째 -> 반드시 4글자
-
             var memberName = $("#userName").val();
     		if(memberName === "" || !regName.test(memberName)){
     			alert("이름을 확인해주세요!");
@@ -343,12 +347,50 @@
 							alert("주소를 확인해주세요");
 							return false;
 						} else {
-							$("#form1").attr("action", "<%= request.getContextPath() %>/updateMember.me");
+							if($("#userPwd").val() === ""){
+								alert("비밀번호 공백입니다.");
+								$("#form1").attr("action", "<%= request.getContextPath() %>/updateMemberNP.me");
+							} else{
+								alert("비밀번호 공백이 아닙니다.");
+								$("#form1").attr("action", "<%= request.getContextPath() %>/updateMember.me");
+							}
 						}
 					}
 				}
     		}
     	}
+		function daumPostCode(){
+    		new daum.Postcode({
+    	        oncomplete: function(data) {
+					//팝업에서 검색 결과 눌렀을 때 실행할 코드
+    				
+    				var fullRoadAddr = data.roadAddress; //도로명 주소 변수
+    				var extraRoadAddr = '';				 //도로명 조합형 주소 변수
+    				
+    				//법정동명이 있을 경우 추가(법정리 제외)
+    				//법정동의 경우 마지막 문자가 "동/로/가로 끝남"
+    				if(data.bname !== '' && /[동/로/가]$/g.test(data.bname)){
+    					extraRoadAddr += data.bname;
+    				}
+    				//건물명이 있고 공동주택일 경우
+    				if(data.buildingName !== '' && data.apartment === 'Y'){
+    					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.build);
+    				}
+    				//도로명, 지번 조합형 주소일 경우
+    				if(extraRoadAddr !== ''){
+    					extraRoadAddr = ' (' + extraRoadAddr + ')';
+    				}
+    				//도로명, 지번 주소의 유무에 따라 해당 조합형 주소 추가
+    				if(fullRoadAddr !== ''){
+    					fullRoadAddr += extraRoadAddr;
+    				}
+    				$("#userAddr1").val(data.zonecode);
+    				$("#userAddr2").val(fullRoadAddr);
+    				$("#userAddr3").val("").focus();
+    				
+    	        }
+    	    }).open();
+    	};
 	</script>
 </body>
 </html>

@@ -26,10 +26,8 @@ public class MemberDao {
 	private Properties admin_prop = new Properties();
 	public MemberDao() {
 		String fileName = MemberDao.class.getResource("/sql/member/member-query.properties").getPath();
-		String admin_fileName = MemberDao.class.getResource("/sql/admin/member/admin_member-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
-			admin_prop.load(new FileReader(admin_fileName));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -366,7 +364,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, requestMember.getMemberId());
+			pstmt.setInt(1, requestMember.getMemberNo());
 			pstmt.setString(2, requestMember.getMemberPwd());
 			rset = pstmt.executeQuery();
 			
@@ -600,6 +598,57 @@ public class MemberDao {
 		}
 		
 		
+		return result;
+	}
+
+	public int updateMemberNP(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemberNP");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getMemberName());
+			pstmt.setString(2, requestMember.getMemberPhone());
+			pstmt.setString(3, requestMember.getMemberAddress());
+			pstmt.setInt(4, requestMember.getMemberNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateMember(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, requestMember.getMemberName());
+			pstmt.setString(2, requestMember.getMemberPwd());
+			pstmt.setString(3, requestMember.getMemberPhone());
+			pstmt.setString(4, requestMember.getMemberAddress());
+			pstmt.setInt(5, requestMember.getMemberNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

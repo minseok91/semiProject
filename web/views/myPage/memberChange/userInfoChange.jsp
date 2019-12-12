@@ -20,7 +20,6 @@
 	margin: 0 auto;
 	padding-bottom: 10px;
 }
-
 .container>#myPageMenu {
 	width: 210px;
 	height: 1080px;
@@ -28,21 +27,18 @@
 	display: inline-block;
 	float: left;
 }
-
 .container>#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
-
 .container>#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
 	margin-bottom: 7px;
 }
-
 #h3 {
 	font-family: 'Nanum Myeongjo', serif;
 	background-color: #211f22;
@@ -51,33 +47,62 @@
 	color: #a07342;
 	margin-top: 0px;
 }
-
 .container>#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
 }
-
 .container>#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-
 .container>#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-
 .container>.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
-
+.container>.contentArea {
+	width: 920px;
+	height: 650px;
+	display: inline-block;
+	margin-left: 10px;
+	border-bottom: 1px solid #000;
+}
+.container>.contentArea>form>table {
+    	border-collapse: separate;
+    	border-spacing: 0 25px;
+	}
+td>input{
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 20px;
+    	width: 300px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	label{
+		margin: 5px;
+    	font-family: sans-serif;
+    	font-size: 15px;
+    	margin-right: 25px;
+    	float: right;
+	}
+	.btn{
+		border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:32px;
+		border-radius:5px;
+		font-size:11px;
+	}
 .container>.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
@@ -86,20 +111,11 @@
 	padding-left: 25px;
     padding-top: 18px;
 }
-
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
     color: #f00;
     font-weight: bold;
 }
-
-.contentArea {
-	position: relative;
-	width: auto;
-	margin-top: 75px;
-	left: 2%;
-}
-
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
 	border-bottom: 1px solid #d9d9d9;
@@ -107,12 +123,10 @@
 	font-size: 15px;
 	text-align: center;
 }
-
 .contentArea>table>tbody>tr>td>img {
 	width: 100px;
 	height: 100px;
 }
-
 .contentArea>table>tbody>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
@@ -135,7 +149,7 @@
 				<dt>§  구매정보</dt>
 				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
 				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningList">▶   낙찰리스트</a></dd>
+				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
@@ -167,11 +181,20 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<div id="inputpassowrd">
-				<p>본인 확인을 위해 비밀번호를 입력해주세요</p><br>
-				<label>비밀번호</label><input type="password" name="memberPwd" id="userPwd"><button id="pwdBtn">확인</button>
-			</div>
-		</div> <!-- menuStatus End -->
+		<br /><br /><br /><br />
+			<form action="" method="post" id="form1" onsubmit="return passwordCheck()">
+				<h2 align="center">본인 확인을 위해 비밀번호를 입력해주세요</h2><br />
+				<br /><br /><br /><br />
+				<table align="center">
+					<tr>
+						<td><label for="">비밀번호 : </label></td>
+						<td><input type="password" id="memberPwd" name="memberPwd" /></td>
+						<td style="width: 80px;" align="right"><button class="btn" type="submit">확인</button></td>
+					</tr>
+				</table>
+				<input type="hidden" name="memberNo" value="<%= loginMember.getMemberNo() %>" />
+			</form>
+		</div> <!-- contentArea End -->
 	</div> <!-- container End -->
 	<%@ include file="../../common/footer.jsp" %>
 
@@ -184,31 +207,15 @@
 			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 		})
 	});
-	$("#pwdBtn").click(function(){
-		var id = "<%= loginMember.getMemberId() %>";
-		var pwd = $("#userPwd").val();
-		console.log(id);
-		console.log(pwd);
-		$.ajax({
-			url: "<%= request.getContextPath() %>/passwordCheck.me",
-			type: "post",
-			data: {
-				memberId: id,
-				memberPwd: pwd,
-				temp: pwd
-			},
-			success: function(data){
-				if(data === "true") {
-					 
-				} else {
-					alert("비밀번호를 다시 입력하세요");
-				}
-			},
-			error: function(data){
-				console.log("ajax 실패");
-			}
-		});
-	});
+	
+	function passwordCheck(){
+		var memberPwd = $("#memberPwd").val();
+		if(memberPwd === ""){
+			alert("비밀번호를 입력해주세요");
+		} else {
+			$("#form1").attr("action", "<%= request.getContextPath() %>/passwordCheck.me");
+		}
+	}
 </script>
 </body>
 </html>
