@@ -17,7 +17,9 @@
 			<% if(msg == "failLogin") { %>
 			alert("아이디와 비밀번호를 확인해주세요");
 			location.href = "<%= request.getContextPath() %>/views/member/login.jsp";
-		<% } else if(msg == "test"){ %>
+		<% } else if(msg == "wrongPwd"){ %>
+			alert("비밀번흐를 다시 확인해주세요");
+			location.href="views/myPage/memberChange/userInfoChange.jsp";
 		<% } %>
 		}
 	</script>

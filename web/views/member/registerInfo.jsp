@@ -17,6 +17,7 @@
 <meta charset="UTF-8">
 <!-- favicon불러오는 링크 -->
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>LauXion</title>
 <style type="text/css">
@@ -84,10 +85,10 @@
 	td>input {
 		font-family: sans-serif;
 		padding: 5px;
-    	font-size: 20px;
+    	font-size: 14px;
 	}
 
-	#idCheck, #emailSend, #emailCheck {
+	#idCheck, #emailSend, #emailCheck, #addrBtn {
 		background: #a07342;
 		border-radius: 5px;
 		margin-left: 7px;
@@ -102,7 +103,7 @@
    		font-size: 15px;
     	padding: 5px;
     	width: 125px;
-    	height: 40px;
+    	height: 30px;
 	}
 
 	#userPhone1 {
@@ -195,7 +196,7 @@
                         <label>이름</label>
                     </td>
                     <td>
-                        <input type="text" name="memberName" id="userName" size="26">
+                        <input type="text" name="memberName" id="userName" size="30" placeholder="이름을 입력해주세요">
                     </td>
                 </tr>
                 <tr>
@@ -203,7 +204,7 @@
                         <label>아이디</label>
                     </td>
                     <td>
-                        <input type="text" name="memberId" id="userId" size="26">
+                        <input type="text" name="memberId" id="userId" size="30" placeholder="소문자영문, 숫자로  6~20자리">
                         <input type="button" id="idCheck" value="중복확인"/>
                         <input type="hidden" id="resultCheck" value="false" />
                         <div id="result">중복확인 버튼을 눌러주세요.</div>
@@ -214,7 +215,7 @@
                         <label>비밀번호</label>
                     </td>
                     <td>
-                        <input type="password" name="memberPwd" id="userPwd" size="26">
+                        <input type="password" name="memberPwd" id="userPwd" size="30" placeholder="비밀번호를 입력해주세요">
                         <div id="result">숫자, 영문자, 특수문자를 1개이상 포함해서 6~12글자로 작성해야합니다.</div>
                     </td>
                 </tr>
@@ -223,7 +224,7 @@
                         <label>비밀번호 확인</label>
                     </td>
                     <td>
-                        <input type="password" id="pwdCheck" size="26">
+                        <input type="password" id="pwdCheck" size="30" placeholder="비밀번호를 한번 더 입력해주세요">
                     </td>
                 </tr>
                 
@@ -237,25 +238,34 @@
                             <option value="011">011</option>
                             <option value="016">016</option>
                             <option value="019">019</option>
-                        </select>-
-                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4">-
+                        </select> -
+                        <input type="tel" name="memberPhone2" id="userPhone2" size="5" maxlength="4"> -
                         <input type="tel" name="memberPhone3" id="userPhone3" size="5" maxlength="4">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>주소</label>
+                        <label>우편번호</label>
                     </td>
                     <td>
-                        <input type="text" name="memberAddress" id="userAddr" size="26">
+                        <input type="text" name="memberZoneCode" id="userAddr1" size="8" readonly placeholder="우편번호">
+                        <input type="button" id="addrBtn" onclick="daumPostCode()" value="주소 찾기"/>
                     </td>
+                </tr>
+                <tr>
+                	<td><label for="">기본주소</label></td>
+                	<td><input type="text" name="memberAddress1" id="userAddr2" size="30" readonly placeholder="기본주소"></td>
+                </tr>
+                <tr>
+                	<td><label for="">상세주소</label></td>
+                	<td><input type="text" name="memberAddress2" id="userAddr3" size="30" placeholder="상세주소"></td>
                 </tr>
                 <tr>
                     <td>
                         <label>이메일</label>
                     </td>
                     <td>
-                        <input type="text" name="memberEmail1" id="userEmail" size="10"> @
+                        <input type="text" name="memberEmail1" id="userEmail" size="10" placeholder="이메일"> @
                         <select name="memberEmail2" id="userEmail2">
                             <option value="naver.com">naver.com</option>
                             <option value="gmail.com">gmail.com</option>
@@ -271,7 +281,7 @@
                         <label>이메일 인증번호</label>
                     </td>
                     <td>
-                        <input type="text" name="" id="emailCerti" size="26">
+                        <input type="text" name="" id="emailCerti" size="31" placeholder="전송받은 인증번호를 입력해주세요">
                         <input type="hidden" id="emailCheckResult" value="false"/>
                         <input type="button" id="emailCheck" value="확인"/>
                     </td>
@@ -362,7 +372,7 @@
     						alert("휴대폰 번호를 확인해주세요");
     						return false;
     					} else {
-    						var address = $("#userAddr").val();
+    						var address = $("#userAddr3").val();
     						if(address === ""){
     							alert("주소를 확인해주세요");
     							return false;
@@ -464,6 +474,37 @@
     			}
     		});
     	});
+    	function daumPostCode(){
+    		new daum.Postcode({
+    	        oncomplete: function(data) {
+					//팝업에서 검색 결과 눌렀을 때 실행할 코드
+    				
+    				var fullRoadAddr = data.roadAddress; //도로명 주소 변수
+    				var extraRoadAddr = '';				 //도로명 조합형 주소 변수
+    				
+    				//법정동명이 있을 경우 추가(법정리 제외)
+    				//법정동의 경우 마지막 문자가 "동/로/가로 끝남"
+    				if(data.bname !== '' && /[동/로/가]$/g.test(data.bname)){
+    					extraRoadAddr += data.bname;
+    				}
+    				//건물명이 있고 공동주택일 경우
+    				if(data.buildingName !== '' && data.apartment === 'Y'){
+    					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.build);
+    				}
+    				//도로명, 지번 조합형 주소일 경우
+    				if(extraRoadAddr !== ''){
+    					extraRoadAddr = ' (' + extraRoadAddr + ')';
+    				}
+    				//도로명, 지번 주소의 유무에 따라 해당 조합형 주소 추가
+    				if(fullRoadAddr !== ''){
+    					fullRoadAddr += extraRoadAddr;
+    				}
+    				$("#userAddr1").val(data.zonecode);
+    				$("#userAddr2").val(fullRoadAddr);
+    				document.getElementById("userAddr3").focus();
+    	        }
+    	    }).open();
+    	};
     </script>
 </body>
 </html>

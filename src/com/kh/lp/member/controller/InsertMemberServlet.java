@@ -48,7 +48,12 @@ public class InsertMemberServlet extends HttpServlet {
 		log.debug(memberEmail1);
 		log.debug(memberEmail2);
 		log.debug(memberEmail);
-		String memberAddress = request.getParameter("memberAddress");
+		String memberZoneCode = request.getParameter("memberZoneCode");
+		String memberAddress1 = request.getParameter("memberAddress1");
+		String memberAddress2 = request.getParameter("memberAddress2");
+		
+		String memberAddress = memberZoneCode + "/" + memberAddress1 + "/" + memberAddress2;
+		log.debug(memberAddress);
 		
 		Member requestMember = new Member();
 		

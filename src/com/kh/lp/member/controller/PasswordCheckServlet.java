@@ -36,32 +36,24 @@ public class PasswordCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String memberId = request.getParameter("memberId");
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		String memberPwd = request.getParameter("memberPwd");
-		String temp = request.getParameter("temp");
-		log.debug(memberId);
+		log.debug(memberNo);
 		log.debug(memberPwd);
-		log.debug(temp);
-		
-		
 		
 		Member requestMember = new Member();
 		
-		requestMember.setMemberId(memberId);
+		requestMember.setMemberNo(memberNo);
 		requestMember.setMemberPwd(memberPwd);
 		
 		int result = new MemberService().passwordCheck(requestMember);
 		
-		PrintWriter out = response.getWriter();
-		
 		if(result > 0) {
-			request.setAttribute("temp", temp);
-			out.append("true");
-		}else {
-			out.append("false");
+			response.sendRedirect(request.getContextPath() + "/views/myPage/memberChange/memberInfoChange.jsp");
+		} else {
+			request.setAttribute("msg", "wrongPwd");
+			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);
 		}
-		out.flush();
-		out.close();
 	}
 
 	/**
