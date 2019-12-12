@@ -195,7 +195,7 @@ public class MemberService {
 		Connection con = getConnection();
 		
 		int listCount = new MemberDao().listCount(con, status1, status2);
-		
+		System.out.println(con);
 		close(con);
 		
 		return listCount;

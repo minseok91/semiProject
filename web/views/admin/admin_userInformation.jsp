@@ -105,6 +105,7 @@ html, body {
 	margin-left: auto;
 	margin-right: auto;
 }
+
 </style>
 <body>
 	<%@ include file="headerPage.jsp" %>
@@ -131,7 +132,7 @@ html, body {
 							<td><%= userList.get(i).getMemberId()%></td>
 							<td><%= userList.get(i).getMemberName()%></td>
 							<td><%= userList.get(i).getMemberPhone()%></td>
-							<td><%= userList.get(i).getMemberAddress()%></td>
+							<td style="width: 394px"><%= userList.get(i).getMemberAddress()%></td>
 							<td><%= userList.get(i).getMemberEmail() %></td>
 						</tr>
 					<% } %>

@@ -203,6 +203,7 @@
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
+	<% if(loginMember != null) { %>
 	<div class="container">
 	<div class="contents">
 		<h1>결제 확인</h1>
@@ -212,7 +213,7 @@
 			<div id="write">
 				<div>
 					<p>이름 : </p>
-					<input type="text" name="name" id="name" disabled>
+					<input type="text" name="name" id="name" value="<%= loginMember.getMemberName() %>" disabled>
 					<div id="infoCheck">
 						<input type="checkbox" id="before" checked>
 						<label for="before">기존의 정보로 배송</label>
@@ -220,7 +221,7 @@
 				</div>
 				<div>
 					<p>휴대폰번호 : </p>
-					<input type="tel" name="phone" id="phone" disabled>
+					<input type="tel" name="phone" id="phone" value="<%= loginMember.getMemberPhone() %>" disabled>
 				</div>
 				<div>
 					<p>주소 : </p>
@@ -280,5 +281,27 @@
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script type="text/javascript">
+		
+		// if(before.checked == false) {
+		// 	name.value="";
+		// }
+		$(function() {
+			$('#before').click(function() {
+				if($('#before').attr('checked')) {
+					$(this).attr('checked', false);
+					$('#write>div>input[type=text]').attr('disabled', true);
+					$('#write>div>input[type=text]').val(null);
+				} else {
+					$(this).attr('checked', true);
+					$('#write>div>input[type=text]').attr('disabled', false);
+					$('#write>div:nth-of-type(1)>input[type=text]').val('<%= loginMember.getMemberName() %>');
+				}
+			});
+		});
+
+	</script>
+	<% } %>
 </body>
 </html>	

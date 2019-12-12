@@ -7,7 +7,6 @@
 <meta http-equiv="X-UA-Compatible" content="chrome">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title></title>
 <style>
@@ -76,13 +75,13 @@
                 <a href=""><div>user<br>GUIDE</div></a>
             </li>
             <li>
-                <a href=""><div>WATCH</div></a>
+                <a href="<%= request.getContextPath() %>/views/goods/watchList.jsp"><div>WATCH</div></a>
             </li>
             <li>
-                <a href=""><div>BAG</div></a>
+                <a href="<%= request.getContextPath() %>/views/goods/bagList.jsp"><div>BAG</div></a>
             </li>
             <li>
-                <a href=""><div>BOARD</div></a>
+                <a href="<%= request.getContextPath() %>/views/board/freeBoard.jsp"><div>BOARD</div></a>
             </li>
         </ul>	
 	</nav>

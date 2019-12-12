@@ -10,8 +10,8 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.item.model.vo.*, com.kh.lp.common.*" %>
- <% ArrayList<Item> list = (ArrayList<Item>) request.getAttribute("list"); 
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.appraisal.model.vo.*, com.kh.lp.common.*" %>
+ <% ArrayList<AppCom> list = (ArrayList<AppCom>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int startPage = pi.getStartPage();
 	int endPage = pi.getMaxPage();
@@ -101,34 +101,29 @@
 						<th>상품ID</th>
 						<th>상품종류</th>
 						<th>판매자ID</th>
-						<th>신청받은날짜</th>
-						<th>배송받은날짜</th>
-						<th>처리기한</th>
+						<th>감정완료날짜</th>
+						<th>감정결과</th>
 					</tr>
 					<% int k = 1;
-					for(Item i :list) { %>
+					for(AppCom ac :list) { %>
 					<tr>
 						<td><%= k %></td>
-						<td><%= i.getItemId() %></td>
-						<td><%= i.getItemType().equals("W")?"시계" :"가방" %></td>
-						<td><%= i.getItemMemberNo() %></td>
-						<td><%= i.getItemAppDate() %></td>
-						<td>받은 날짜 불러오기</td>
-						<td>받은 날짜 + 7일</td>
-						<td>
-							<button class="insertApp">정보입력</button>
-						</td>
+						<td><%= ac.getItemId() %></td>
+						<td><%= ac.getItemType().equals("W")?"시계" :"가방" %></td>
+						<td><%= ac.getItemMemberNo() %></td>
+						<td><%= ac.getItemAppDate() %></td>
+						<td><%= ac.getAppResult().equals("AR1")?"진품":"가품"%></td>
 					</tr>
 			<% k++; } %>
 					
 				</table>
 			</div>
 			<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=1'"><<</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=1'"><<</button>
 		<% if(currentPage <= 1){ %>
 			<button disabled> < </button>
 		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage-1%>'"><</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=<%=currentPage-1%>'"><</button>
 		<% } %>
 		
 		
@@ -137,7 +132,7 @@
 		%>
 				<button disabled><%=p %></button>
 				<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=p%>'"><%=p %></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=<%=p%>'"><%=p %></button>
 				<% } %>
 			
 		<% } %>
@@ -145,9 +140,9 @@
 		<% if(currentPage >= maxPage){ %>
 			<button disabled> > </button>
 		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage + 1 %>'"> > </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=<%=currentPage + 1 %>'"> > </button>
 		<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=maxPage%>'">>></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=<%=maxPage%>'">>></button>
 		</div>  <!--  pagingArea End game -->
 			<!-- The Modal -->
     <div id="myModal" class="modal">
