@@ -6,7 +6,6 @@
 <meta content="text/html;">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
-<link  rel="stylesheet" type="text/css" href="views/admin/css/header.css">
 </head>
 <style>
 	#header {
@@ -50,7 +49,6 @@
 		background: rgb(160, 115, 66);
 	}
 	#bottom_box {
-		margin-left: 20%;
 		width: 1080px;
 		height: 100%;
 		background: rgb(160, 115, 66);
@@ -100,17 +98,21 @@
 	#header_box > ul > li > a {
 		color: #e2ceb8;
 	}
+	#notice, #usermit {
+		width: 301px;
+		margin: 0 auto;
+	}
 </style>
 <body>
 	<div id="header">
 		<div id="header_box">
 			<ul>
-				<li id="mainPage">메인 화면</li>
-				<li>회사 관리</li>
-				<li id="up">회원 정보</li>
+				<li id="mainPage" class="cursor">메인 화면</li>
+				<li class="cursor">회사 관리</li>
+				<li>회원 정보</li>
 				<li id="goods_li">상품 관리</li>
 				<li>경매 관리</li>
-				<li id="up">매출 관리</li>
+				<li id="">매출 관리</li>
 				<li>게시판 관리</li>
 				<li id="inquiryAndReport">문의 및 신고</li>
 			</ul>
@@ -119,12 +121,12 @@
 	<div id="bottom">
 		<div id="bottom_box">
 			<ul id="usermit">
-				<li id="up"><a href="views/admin/admin_userInformation.jsp">회원정보 관리</a></li>
-				<li id="up"><a href="<%=request.getContextPath() %>/admin_blackUser.jsp">블랙리스트</a></li>
+				<li id="userInfo" class="cursor">회원정보 관리</li>
+				<li id="blackList" class="cursor">블랙리스트</li>
 			</ul>
 			<ul id="notice">
-				<li id="notice_li">게시판 관리</li>
-				<li id="FAQ">FAQ</li>
+				<li id="notice_li" class="cursor">게시판 관리</li>
+				<li id="FAQ" class="cursor">FAQ</li>
 			</ul>
 		</div>
 	</div>
@@ -141,25 +143,23 @@
 					$("#usermit > li").hide(0);
 					$("#notice > li").show(0);
 				}
-				$("#bottom").animate({height:'70'},150);
-				$("#bottom_div").animate({height:'70'},150);
+				$("#bottom").stop().animate({height:'70'},150);
+				$("#bottom_div").stop().animate({height:'70'},150);
 			} else if(e.target.localName == "body"){
-				$("#bottom").animate({height:'5'},150);
-				$("#bottom_div").animate({height:'5'},150);
+				$("#bottom").stop().animate({height:'5'},150);
+				$("#bottom_div").stop().animate({height:'5'},150);
 				$("#notice >li").delay(100).hide(0);
 				$("#usermit >li").delay(100).hide(0);
 			}
 		});
 	});
-	</script>
-	<script>
+	
 	$("#mainPage").click(function(){
 		location.href="<%= request.getContextPath()%>/views/admin/admin_mainPage.jsp";
 	})
 	$("#notice_li").click(function(){
 		location.href="<%= request.getContextPath()%>/selectAll.bo";
 	})
-	
 	$("#FAQ").click(function(){
 	
 	})
@@ -169,6 +169,16 @@
 	$("#goods_li").click(function(){
 		location.href="<%= request.getContextPath()%>/views/admin/admin_appraisalProducts.jsp";
 	})
+	$("#userInfo").click(function(){
+		location.href="<%= request.getContextPath()%>/userInfo.me";
+	})
+	$("#blackList").click(function(){
+		location.href="<%=request.getContextPath()%>/blackList.me";
+	})
+ 	$(".cursor").mouseover(function(){
+		$(".cursor").css('cursor','pointer');
+	});
 	</script>
+	
 </body>
 </html>

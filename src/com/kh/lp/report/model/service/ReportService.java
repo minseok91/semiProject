@@ -30,4 +30,14 @@ public class ReportService {
 		return list;
 	}
 
+	public Report selectOne(String reportId) {
+		Connection con = getConnection();
+		
+		Report list = new ReportDao().selectOne(con, reportId);
+		
+		close(con);
+		
+		return list;
+	}
+
 }

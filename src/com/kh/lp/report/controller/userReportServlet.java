@@ -48,8 +48,8 @@ public class userReportServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new MemberService().listCount();
-		
+		int listCount = new ReportService().listReportCount(userId);
+		System.out.println(listCount);
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		
@@ -70,7 +70,7 @@ public class userReportServlet extends HttpServlet {
 		} else {
 			
 		}
-		//request.getRequestDispatcher(page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

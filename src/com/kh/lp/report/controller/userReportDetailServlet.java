@@ -1,4 +1,4 @@
-package com.kh.lp.admin.report.controller;
+package com.kh.lp.report.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,6 +6,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.kh.lp.report.model.service.ReportService;
+import com.kh.lp.report.model.vo.Report;
+
+import jdk.nashorn.api.scripting.JSObject;
 
 /**
  * Servlet implementation class userReportDetailServlet
@@ -26,13 +34,20 @@ public class userReportDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
-		
-		System.out.println(userId);
+		String reportId = request.getParameter("reportId");
 		
 		
+		Report list = new ReportService().selectOne(reportId);
 		
 		
+		
+		
+		
+		
+		  response.setContentType("application/json");
+		  response.setCharacterEncoding("UTF-8"); new Gson().toJson(list,
+		  response.getWriter());
+		 
 	}
 
 	/**

@@ -9,16 +9,22 @@
  * </pre>
  */
 --%>
+<%@page import="com.kh.lp.common.PageInfo,java.util.ArrayList
+,com.kh.lp.report.model.vo.*"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	//Report list = (Report)request.getAttribute("list");
+	//System.out.println("sss : "+list);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html;">
 <title>Insert title here</title>
 <style>
-.modal {
-	/* display: none; */
+.myModal {
+	display: none;
 	position: fixed;
 	z-index: 1;
 	left: 0;
@@ -35,12 +41,26 @@
 	padding: 20px;
 	boarder: 1px solid #888;
 	width: 70%;
-	background: gray;
+	background: white;
 }
 #modalTable {
 	width: 100%;
 	height: 50px;
 	border: 1px solid;
+	border-collapse: collapse;
+}
+#modalTable td {
+	width: 300px;
+}
+#close{
+	margin: 0 auto;
+}
+#btn_div {
+	width: 45px;
+	margin: 0 auto;
+}
+textarea{
+	width: 99%;
 }
 </style>
 </head>
@@ -49,28 +69,12 @@
 		<div class="modal-content">
 			<div id="infoBox">
 				<table id="modalTable" align="center">
-					<tr>
-						<td>신고자 회원</td>
-						<td><input type="text"></td>
-						<td>피신고 회원</td>
-						<td><input type="text"></td>
-					</tr>
-					<tr>
-						<td>신고일시</td>
-						<td><input type="label"></td>
-						<td>신고 대상</td>
-						<td><input type="text"></td>
-					</tr>
-					<tr>
-						<td colspan="1">신고 유형 구분</td>
-						<td colspan="3"><input type="text"></td>
-					</tr>
-					<tr>
-						<td colspan="4">
-							<textarea rows="30" cols="115"></textarea>
-						</td>
-					</tr>
+				<tbody>
+				</tbody>
 				</table>
+				<div id="btn_div">
+					<button id="close">닫기</button>
+				</div>		
 			</div>
 		</div>
 	</div>

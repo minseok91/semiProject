@@ -16,7 +16,7 @@ import static com.kh.lp.common.JDBCTemplate.*;
 public class ReportDao {
 	Properties prop = new Properties();
 	public ReportDao() {
-		String fileName = ReportDao.class.getResource("/sql/Report/Report-query.properties").getPath();
+		String fileName = ReportDao.class.getResource("/sql/admin/Report/Report-query.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
@@ -80,7 +80,7 @@ public class ReportDao {
 		int startRow = (currentPage - 1) * 10 + 1;
 		int endRow = (startRow + 10) - 1;
 		
-		String query = prop.getProperty("selectReport");
+		String query = prop.getProperty("admin_selectReport");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -95,12 +95,12 @@ public class ReportDao {
 				r = new Report();
 				r.setRnum(rset.getInt("RNUM"));
 				r.setReport_id(rset.getString("Report_ID"));
-				r.setReporting_member_no(rset.getString("REFORTING"));
-				r.setReported_member_no(rset.getString("ReportED"));
-				r.setReported_content(rset.getString("ReportED_CONTENT"));
-				r.setReport_date(rset.getDate("Report_DATE"));
-				r.setReport_subject(rset.getString("Report"));
-				r.setReport_type(rset.getString("BOARD"));
+				r.setReporting_member_no(rset.getString("REPORTING"));
+				r.setReported_member_no(rset.getString("REPORTED"));
+				r.setReported_content(rset.getString("REPORT_CONTENT"));
+				r.setReport_date(rset.getDate("REPORT_DATE"));
+				r.setReport_subject(rset.getString("REPORT_SUBJECT"));
+				r.setReport_type(rset.getString("REPORT_TYPE"));
 			
 				list.add(r);
 			}
@@ -108,8 +108,45 @@ public class ReportDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
+		
+		return list;
+	}
+
+	public Report selectOne(Connection con, String reportId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Report list = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(reportId));
+			
+			rset = pstmt.executeQuery();
+			
+			list = new Report();
+			while(rset.next()) {
+				list.setReport_id(rset.getString("REPORT_ID"));
+				list.setReporting_member_no(rset.getString("REPORTING_MEMBER_NO"));
+				list.setReported_member_no(rset.getString("REPORTED_MEMBER_NO"));
+				list.setReported_content(rset.getString("REPORT_CONTENT"));
+				list.setReport_date(rset.getDate("REPORT_DATE"));
+				list.setReport_subject(rset.getString("REPORT_SUBJECT"));
+				list.setReport_type(rset.getString("REPORT_TYPE"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return list;
 	}
