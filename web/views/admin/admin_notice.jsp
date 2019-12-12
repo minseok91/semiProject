@@ -262,6 +262,7 @@ html, body {
 		$("#insertBoard").click(function(){
 			location.href="<%=request.getContextPath()%>/views/admin/insertNotice.jsp?userId=admin";
 		})
+		$("#table > td").click()
 	</script>
 </body>
 </html>

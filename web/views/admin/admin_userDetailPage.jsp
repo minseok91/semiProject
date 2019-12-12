@@ -11,100 +11,113 @@
 --%>
 <%@page import="com.kh.lp.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"
-    import = "com.kh.lp.member.model.vo.*"
-    %>
+	pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
 <%
-	Member user = (Member)request.getAttribute("user");
+	Member user = (Member) request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="image/loginimg(2).png">
 <meta content="text/html;">
 <style>
-	html, body {
+html, body {
 	padding: 0;
 	margin: 0;
 	width: 100%;
 	height: 100%;
 }
+
 .container {
 	width: 1080px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 .contents {
 	width: 100%;
 	height: 650px;
 	margin-top: 10%;
-	
 }
-#infoBox {
+
+.infoBox {
 	width: 90%;
 	height: 100%;
 	margin: 0 auto;
 }
+
 #infoTable {
 	margin-top: 56px;
-	margin-left: 38%;	
+	margin-left: 38%;
 	width: 45%;
 	border-collapse: collapse;
 }
-#infoTable  td{
+
+#infoTable  td {
 	height: 60px;
+	width: 100px;
 }
+
 td:nth-of-type(1) {
 	font-weight: bold;
 	color: #404040;
 }
+
 td:nth-of-type(2) {
 	color: #000000;
 }
-#infoBox > h3{
+
+#infoBox>h3 {
 	text-align: center;
 }
+
 #buttonBox {
 	margin-top: 30px;
 	width: 73.03px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
 #buttonBox button {
 	background: rgb(33, 31, 34);
 	border: 1px solid rgb(33, 31, 34);
 	color: rgb(160, 115, 66);
 }
+#blackListHistory {
+	margin-left: 191px;
+}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>회원정보 관리 상세</title>
 </head>
 <body>
-	<%@ include file="headerPage.jsp" %>
+	<%@ include file="headerPage.jsp"%>
 	<div id="container" class="container">
 		<div id="contents" class="contents">
-			<div id="infoBox">
-			<h3><%= user.getMemberName() %>님의 회원정보</h3>
+			<div class="infoBox">
+				<h3 align="center"><%=user.getMemberName()%>님의 회원정보</h3>
 				<table id="infoTable">
 					<tr>
 						<td>아이디</td>
-						<td><%= user.getMemberId() %></td>
+						<td><%=user.getMemberId()%></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%= user.getMemberName() %></td>
+						<td><%=user.getMemberName()%></td>
 					</tr>
 					<tr>
 						<td>번호</td>
-						<td><%= user.getMemberPhone() %></td>
+						<td><%=user.getMemberPhone()%></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><%= user.getMemberAddress() %></td>
+						<td><%=user.getMemberAddress()%></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><%= user.getMemberEmail() %></td>
+						<td><%=user.getMemberEmail()%></td>
 					</tr>
 					<tr>
 						<td>판매상품이력</td>
@@ -118,9 +131,11 @@ td:nth-of-type(2) {
 						<td>신고 이력</td>
 						<td id="reportHistory"><%= request.getAttribute("resportCount") %>건</td>
 					</tr>
+					
 				</table>
+				
 				<div id="buttonBox">
-						<button>뒤로 가기</button>
+					<button>뒤로 가기</button>
 				</div>
 			</div>
 		</div>
@@ -128,13 +143,13 @@ td:nth-of-type(2) {
 	<script>
 		$("#salesHistory").click(function(){
 			/* 판매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMemberId()%>";
+			location.href = "<%=request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMemberId()%>";
 		}).mouseover(function(){
 			$("#salesHistory").css({'cursor':'pointer'})
 		})
 		$("#purchaseHistory").click(function(){
 			/* 구매이력servlet으로 가는 코드 */
-			location.href = "<%= request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMemberId()%>";
+			location.href = "<%=request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMemberId()%>";
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
@@ -147,6 +162,9 @@ td:nth-of-type(2) {
 		$("#reportHistory").click(function() {
 			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMemberId()%>";
 		})
+		$("#buttonBox").click(function() {
+			window.history.back();
+		});
 	</script>
 </body>
 </html>
