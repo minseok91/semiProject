@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
@@ -211,6 +214,71 @@ public class AppraisalDao {
 		}
 		
 		return result;
+	}
+
+	public int listCount(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<AppCom> appPaging(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AppCom> list = null;
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow =  startRow + limit -1;
+		
+		String query = prop.getProperty("appPaging");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				AppCom app = new AppCom();
+				app.setAppResult(rset.getString("APP_RESULT"));
+				app.setItemAppDate(rset.getDate("ITEM_APP_DATE"));
+				app.setItemId(rset.getInt("ITEM_ID"));
+				app.setItemMemberNo(rset.getInt("ITEM_MEMBER_NO"));
+				app.setItemType(rset.getString("ITEM_TYPE"));
+				app.setMemberName(rset.getString("MEMBER_NAME"));
+				
+				list.add(app);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 
 }

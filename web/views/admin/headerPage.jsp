@@ -78,6 +78,18 @@
 		padding-top: 30px;
 		padding-right: 40px;
 	}
+	#appraisal {
+		margin-bottom: 0;
+		margin-top: 0;
+		list-style: none;
+	}
+	#appraisal > li{
+		float: left;
+		display: none;
+		color: rgb(33, 31, 34);
+		padding-top: 30px;
+		padding-right: 40px;
+	}
 	#header_box > ul > li > a {
 		text-decoration: none;
 		color: rgb(33, 31, 34);
@@ -98,7 +110,7 @@
 	#header_box > ul > li > a {
 		color: #e2ceb8;
 	}
-	#notice, #usermit {
+	#notice, #usermit, #appraisal{
 		width: 301px;
 		margin: 0 auto;
 	}
@@ -128,20 +140,30 @@
 				<li id="notice_li" class="cursor">게시판 관리</li>
 				<li id="FAQ" class="cursor">FAQ</li>
 			</ul>
+			<ul id="appraisal">
+				<li id="appraisal_req" class="cursor">감정 신청 물품</li>
+				<li id="appraisal_com" class="cursor">감정 완료 물품</li>
+			</ul>
 		</div>
 	</div>
 	<script>
 	$(function(){
 		$(document).mouseover(function(e){
 			//		console.log(e.target.innerText);
-			if( e.target.innerText == "회원 정보" || e.target.innerText == "게시판 관리"){
+			if( e.target.innerText == "회원 정보" || e.target.innerText == "게시판 관리" || e.target.innerText == "상품 관리"){
 				if(e.target.innerText == "회원 정보"){
 					$("#usermit > li").show(0);
 					$("#notice > li").hide(0);
+					$("#appraisal > li").hide(0);
 					
 				} else if(e.target.innerText == "게시판 관리") {
 					$("#usermit > li").hide(0);
 					$("#notice > li").show(0);
+					$("#appraisal > li").hide(0);
+				} else if(e.target.innerText == "상품 관리"){
+					$("#usermit > li").hide(0);
+					$("#notice > li").hide(0);
+					$("#appraisal > li").show(0);
 				}
 				$("#bottom").stop().animate({height:'70'},150);
 				$("#bottom_div").stop().animate({height:'70'},150);
@@ -150,6 +172,7 @@
 				$("#bottom_div").stop().animate({height:'5'},150);
 				$("#notice >li").delay(100).hide(0);
 				$("#usermit >li").delay(100).hide(0);
+				$("#appraisal >li").delay(100).hide(0);
 			}
 		});
 	});
@@ -163,6 +186,10 @@
 	$("#FAQ").click(function(){
 	
 	})
+	$("#appraisal_req").click(function(){
+		location.href="<%= request.getContextPath()%>/selectAll.it";
+	})
+	
 	$("#inquiryAndReport").click(function(){
 		location.href="<%= request.getContextPath()%>/views/admin/admin_inquiryAndReport.jsp";
 	})
