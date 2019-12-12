@@ -77,7 +77,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 		String itemId = multiRequest.getParameter("itemId");
 		
 		
-		Item item = new AppraisalService().getItemInfo(itemId);
+//		Item item = new AppraisalService().getItemInfo(itemId);
 		//감정아이템정보 가져오기 끝	
 		//감정신청이력 4로 인서트 시작
 //		int resultHisory = new AppraisalService().insertHistory(item); 
@@ -104,10 +104,23 @@ public class AppraisalInsertServlet extends HttpServlet {
 			String multiModel = multiRequest.getParameter("model");
 			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
 			String multiComment = multiRequest.getParameter("comment");
+			
+			String chronograph = multiRequest.getParameter("chronograph");
+			String movement = multiRequest.getParameter("movement");
+			String matertial = multiRequest.getParameter("matertial");
+			String boxYn = multiRequest.getParameter("boxYn");
+			String guaranteeYn = multiRequest.getParameter("guaranteeYn");
+			
 			System.out.println("brand" + multiBrand);
 			System.out.println("model" + multiModel);
 			System.out.println("price" + multiPrice);
 			System.out.println("comment" + multiComment);
+			
+			System.out.println("chronograph" + chronograph);
+			System.out.println("movement" + movement);
+			System.out.println("matertial" + matertial);
+			System.out.println("boxYn" + boxYn);
+			System.out.println("guaranteeYn" + guaranteeYn);
 			
 			AppResult ap = new AppResult();
 			ap.setDetailDesc(multiComment);
@@ -129,8 +142,11 @@ public class AppraisalInsertServlet extends HttpServlet {
 			
 			System.out.println("여긴 진품일때");
 		} else {
+			System.out.println("여긴 가품일때");
+			
 			itemId = multiRequest.getParameter("rejName");
 			System.out.println("itemid :" + itemId);
+			
 			//하나의 서비스로 합치기 시작 (가품)
 			int resultAll = new AppraisalService().insertAppraisalInfoFake(itemId);
 			//하나의 서비스로 합치기 끝
