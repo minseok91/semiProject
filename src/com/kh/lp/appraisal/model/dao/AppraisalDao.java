@@ -12,11 +12,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.Item;
+import com.kh.lp.appraisal.model.vo.ItemHistory;
+import com.kh.lp.appraisal.model.vo.Watch;
 
 public class AppraisalDao {
 	
@@ -279,6 +283,112 @@ public class AppraisalDao {
 		}
 		
 		return list;
+	}
+
+	public int insertIh(Connection con, ItemHistory ih) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertIh");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, ih.getItemId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertApp(Connection con, App ap) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertApp");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ap.getAppNote());
+			pstmt.setInt(2, ap.getAppItemId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertW(Connection con, Watch w) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertW");
+		
+		
+//		WATCH_GUARANTEE_YN
+//		WATCH_BOX_YN
+//		WATCH_MATERIAL
+//		WATCH_MOVEMENT
+//		WATCH_CHRONOGRAPH
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, w.getWatchGuaranteeYn());
+			pstmt.setString(2, w.getWatchBoxYn());
+			pstmt.setString(3, w.getWatchMaterial());
+			pstmt.setString(4, w.getWatchMovement());
+			pstmt.setString(5, w.getWatchChronograph());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int insertArW(Connection con, AR1 ar) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertArW");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ar.getBrand());
+			pstmt.setString(2, ar.getModel());
+			pstmt.setInt(3, ar.getPrice());
+			pstmt.setString(4, ar.getCondition());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

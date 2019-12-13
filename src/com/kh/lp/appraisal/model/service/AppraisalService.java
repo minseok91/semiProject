@@ -1,16 +1,24 @@
 package com.kh.lp.appraisal.model.service;
 
+import static com.kh.lp.common.JDBCTemplate.close;
+import static com.kh.lp.common.JDBCTemplate.commit;
+import static com.kh.lp.common.JDBCTemplate.getConnection;
+import static com.kh.lp.common.JDBCTemplate.rollBack;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.jsp.board.model.dao.BoardDao;
 import com.kh.lp.appraisal.model.dao.AppraisalDao;
+import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.Item;
-
-import static com.kh.lp.common.JDBCTemplate.*;
+import com.kh.lp.appraisal.model.vo.ItemHistory;
+import com.kh.lp.appraisal.model.vo.Watch;
 
 public class AppraisalService {
 
@@ -115,6 +123,33 @@ public class AppraisalService {
 		close(con);
 		
 		return list;
+	}
+
+	public int insertIsGen(ItemHistory ih, App ap, Watch w, AR1 ar, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		//IH처리
+		int resultIh = new AppraisalDao().insertIh(con, ih);
+		//app 처리
+		int resultApp = new AppraisalDao().insertApp(con, ap);
+		//W 처리
+		int resultW = new AppraisalDao().insertW(con, w);
+		//Ar 처리
+		int resultAr = new AppraisalDao().insertArW(con, ar);
+		
+		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
+		
+		result = resultIh + resultApp + resultW + resultAr + resultAt;
+		
+		if(result > 4) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
 	}
 
 }
