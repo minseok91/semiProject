@@ -62,9 +62,20 @@ public class UpdateMemberServlet extends HttpServlet {
 		
 		int result = new MemberService().updateMember(requestMember);
 		
-		if(result > 0) {
+		if(result > 0) {						
 			request.setAttribute("msg", "successMember");
+			Member beforeMember = (Member) request.getSession().getAttribute("loginMember");
+			String afterId = beforeMember.getMemberId();
+			String afterPwd = beforeMember.getMemberPwd();
+			Member afterMember = new Member();
+			afterMember.setMemberId(afterId);
+			afterMember.setMemberPwd(afterPwd);
+			
+			request.getSession().invalidate();
+			request.getSession().setAttribute("loginMember", new MemberService().loginCheck(afterMember));
+			log.debug("정상실행");
 			request.getRequestDispatcher("views/common/successPage.jsp").forward(request, response);
+	
 		} else {
 			request.setAttribute("msg", "failMember");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
