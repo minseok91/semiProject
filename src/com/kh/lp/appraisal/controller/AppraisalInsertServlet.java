@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.lp.appraisal.model.service.AppraisalService;
+import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.GenDetail;
-import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -74,7 +74,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 		
 		//감정아이템정보 가져오기 시작
 		
-		String itemId = multiRequest.getParameter("itemId");
+		int itemId = Integer.parseInt(multiRequest.getParameter("itemId"));
 		
 		
 //		Item item = new AppraisalService().getItemInfo(itemId);
@@ -104,6 +104,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			String multiModel = multiRequest.getParameter("model");
 			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
 			String multiComment = multiRequest.getParameter("comment");
+			String multiGrade = multiRequest.getParameter("grade");
 			
 			String chronograph = multiRequest.getParameter("chronograph");
 			String movement = multiRequest.getParameter("movement");
@@ -115,6 +116,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			System.out.println("model" + multiModel);
 			System.out.println("price" + multiPrice);
 			System.out.println("comment" + multiComment);
+			System.out.println("multiGrade" + multiGrade);
 			
 			System.out.println("chronograph" + chronograph);
 			System.out.println("movement" + movement);
@@ -122,10 +124,12 @@ public class AppraisalInsertServlet extends HttpServlet {
 			System.out.println("boxYn" + boxYn);
 			System.out.println("guaranteeYn" + guaranteeYn);
 			
-			AppResult ap = new AppResult();
-			ap.setDetailDesc(multiComment);
-			ap.setGenStatus(isGen);
-			
+			App ap = new App();
+			//시퀀스로 넣기 ap.setAppId(appId);
+			ap.setAppItemId(itemId);
+			ap.setAppNote(multiComment);
+			ap.setAppResult("Y");
+			//여기 까지 했어요 ^^ 
 			
 			GenDetail gd = new GenDetail();
 			gd.setBrand(multiBrand);
