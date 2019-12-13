@@ -8,7 +8,6 @@ import static com.kh.lp.common.JDBCTemplate.rollBack;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.jsp.board.model.dao.BoardDao;
 import com.kh.lp.appraisal.model.dao.AppraisalDao;
 import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.appraisal.model.vo.App;
@@ -131,12 +130,30 @@ public class AppraisalService {
 		int result = 0;
 		//IH처리
 		int resultIh = new AppraisalDao().insertIh(con, ih);
+		System.out.println("resultIh" + resultIh);
 		//app 처리
 		int resultApp = new AppraisalDao().insertApp(con, ap);
+		System.out.println("resultApp" + resultApp);
 		//W 처리
 		int resultW = new AppraisalDao().insertW(con, w);
+		System.out.println("resultW" + resultW);
 		//Ar 처리
 		int resultAr = new AppraisalDao().insertArW(con, ar);
+		System.out.println("resultAr" + resultAr);
+		
+		System.out.println("result : "+ result);
+		if (result> 3) {
+			
+			int appId = new AppraisalDao().selectCurrvalApp(con);
+			
+			System.out.println("appId :" + appId);
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				
+				fileList.get(i).setRefApp(appId);
+				
+			}
+		}
 		
 		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
 		

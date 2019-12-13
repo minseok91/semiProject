@@ -118,11 +118,11 @@ public class AppraisalDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, at.getBid());
-			pstmt.setString(2, at.getOriginName());
-			pstmt.setString(3, at.getChangeName());
-			pstmt.setString(4, at.getFilePath());
-			pstmt.setInt(5, 1);//일단 1로하자
+//			pstmt.setInt(1, at.getBid());
+//			pstmt.setString(2, at.getOriginName());
+//			pstmt.setString(3, at.getChangeName());
+//			pstmt.setString(4, at.getFilePath());
+//			pstmt.setInt(5, 1);//일단 1로하자
 			
 			result = pstmt.executeUpdate();
 			
@@ -388,6 +388,64 @@ public class AppraisalDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int selectCurrvalApp(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int appid = 0;
+		
+		String query = prop.getProperty("selectCurrValApp");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				appid = rset.getInt("CURRVAL");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return appid;
+	}
+
+	public int insertAttachment(Connection con, ArrayList<Attachment> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, fileList.get(i).getAtName());
+			pstmt.setString(2, fileList.get(i).getAtRename());
+			pstmt.setString(3, fileList.get(i).getAtPath());
+			
+			int level = 0;
+			if(i == 0) {
+				level = 0;
+			} else {
+				level = 1;
+			}
+			pstmt.setInt(4, level);
+			pstmt.setInt(5, fileList.get(i).getRefApp());
+			
+			result  += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		return result;
 	}
 
