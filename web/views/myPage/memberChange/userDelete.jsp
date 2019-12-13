@@ -93,12 +93,40 @@
     font-weight: bold;
 }
 
-.contentArea {
-	position: relative;
-	width: auto;
-	margin-top: 75px;
-	left: 2%;
+.container>.contentArea {
+	width: 920px;
+	height: 650px;
+	display: inline-block;
+	margin-left: 10px;
+	border-bottom: 1px solid #000;
 }
+.container>.contentArea>form>table {
+    	border-collapse: separate;
+    	border-spacing: 0 25px;
+	}
+td>input{
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 20px;
+    	width: 300px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	label{
+		margin: 5px;
+    	font-family: sans-serif;
+    	font-size: 15px;
+    	margin-right: 25px;
+    	float: right;
+	}
+	.btn{
+		border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:32px;
+		border-radius:5px;
+		font-size:11px;
+	}
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
 	width: auto;
@@ -167,11 +195,20 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<div id="inputpassowrd">
-				<p>본인 확인을 위해 비밀번호를 입력해주세요</p><br>
-				<label>비밀번호</label><input type="text"><button>확인</button>
-			</div>
-		</div> <!-- menuStatus End -->
+		<br /><br /><br /><br />
+			<form action="" method="post" id="form1" onsubmit="return passwordCheck()">
+				<h2 align="center">본인 확인을 위해 비밀번호를 입력해주세요</h2><br />
+				<br /><br /><br /><br />
+				<table align="center">
+					<tr>
+						<td><label for="">비밀번호 : </label></td>
+						<td><input type="password" id="memberPwd" name="memberPwd" /></td>
+						<td style="width: 80px;" align="right"><button class="btn" type="submit">확인</button></td>
+					</tr>
+				</table>
+				<input type="hidden" name="memberNo" value="<%= loginMember.getMemberNo() %>" />
+			</form>
+		</div> <!-- contentArea End -->
 	</div> <!-- container End -->
  <%@ include file="../../common/footer.jsp" %>
 
@@ -183,6 +220,15 @@
 			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 		})
 	});
+	
+	function passwordCheck(){
+		var memberPwd = $("#memberPwd").val();
+		if(memberPwd === ""){
+			alert("비밀번호를 입력해주세요");
+		} else {
+			$("#form1").attr("action", "<%= request.getContextPath() %>/passwordCheck.me?num=2");
+		}
+	}
 </script>
 </body>
 </html>

@@ -9,14 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.Random;
 
 import com.kh.lp.common.EmailTemplate;
 import com.kh.lp.member.model.vo.Member;
-import com.kh.lp.wrapper.EmailCodeWrapper;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -110,6 +107,23 @@ public class MemberDao {
 		} finally {
 			close(pstmt);
 		} 
+		
+		return result;
+	}
+	
+	public int insertMemberHistory(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertMemberHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestMember.getMemberNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		return result;
 	}

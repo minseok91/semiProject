@@ -213,7 +213,7 @@ td>input{
 		if(memberPwd === ""){
 			alert("비밀번호를 입력해주세요");
 		} else {
-			$("#form1").attr("action", "<%= request.getContextPath() %>/passwordCheck.me");
+			$("#form1").attr("action", "<%= request.getContextPath() %>/passwordCheck.me?num=1");
 		}
 	}
 </script>
