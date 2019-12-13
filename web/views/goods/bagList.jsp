@@ -166,12 +166,14 @@ td>.content {
 		<div class="head">
 			<span class="title">< 경매 진행중인 가방 상품 ></span> <span class="search">검색</span>
 			<span class="content">
-				<form action="">
+				<form action="" method="get">
 					<select name="keyword" id="keyword">
 						<option value="brand">브랜드명</option>
 						<option value="content">모델명</option>
-					</select> <input type="search" name="content" id="content"
-						placeholder="브랜드명"> <input type="submit" value="검색">
+					</select> 
+					
+					<input type="search" name="content" id="content" placeholder="브랜드명">
+					<input type="submit" value="검색">
 				</form>
 			</span>
 		</div>
@@ -179,6 +181,21 @@ td>.content {
 		<div class="list">
 			<table>
 				<tr>
+<%-- 				<% 
+					for(int i=1; i<11; i++) { 
+						if(i == 10*(i-4)-5) { // 5, 15, 25, ... -> </tr><tr>, 10, 20, ... -> </tr>
+				%>
+					</tr><tr>
+					<% } %> --%>
+					<td>
+						<div id="img">
+                        	<div class="price">￦2,314,000</div>
+                            <img src="../../img/bag1.jpg" alt="" >
+                        </div>
+                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
+                        <div class="time">End in 8h 55m</div>
+					</td>
+				<!-- <tr>
 					<td>
 						<div id="img">
                         	<div class="price">￦2,314,000</div>
@@ -261,7 +278,9 @@ td>.content {
                         <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
                         <div class="time">End in 8h 55m</div>
 					</td>
-				</tr>
+				</tr> -->
+<%-- 					<% } %>
+				<% } %> --%>
 			</table>
 		</div> <!-- watchList End -->
 		<div class="pagingArea">
@@ -277,7 +296,6 @@ td>.content {
 		</div>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
-	</section>
 	<%@ include file="../common/footer.jsp" %>
 </body>
 </html>

@@ -264,37 +264,34 @@
 			<input type="checkbox" id="agree">
 			<label for="agree">주문하는 상품 및 주문정보, 결제방식을 모두 확인하였으며 이에 동의합니다 (필수)</label>
 		</div>
-		<button id="payment" onclick="pay()">결제하기</button>
+		<button id="payment">결제하기</button>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
-	<%@ include file="../common/footer.jsp" %>
 	
 	<script type="text/javascript">
-	
-		const win = Number($('#win').val());
-		const end = win*1.15;
-
-	$(function() {
-		$('#fees').val(win*0.15);
-		$('#end').val(end);
-	})
+		$(function() {
+			const win = Number($('#win').val());
+			const end = win*1.15;
 		
-		// 결제 버튼 누를 시 진행 동의안했으면 동의하게 함
-		function pay() {
-			if(document.getElementById('agree').checked) {
+			$('#fees').val(win*0.15);
+			$('#end').val(end);
+			
 
-				var IMP = window.IMP; // 생략가능
-				IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-				
+			var IMP = window.IMP; // 생략가능
+			IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			
+		// 결제 버튼 누를 시 진행 동의안했으면 동의하게 함
+		$('#payment').click(function() {
+			if(document.getElementById('agree').checked) {
 				IMP.request_pay({
 					pg : 'inicis', // version 1.1.0부터 지원.
 					pay_method : 'card',
-					merchant_uid : 'One-O-One',
+					merchant_uid : 'merchant_' + new Date().getTime(),
 					name : 'MT3'+document.getElementById('aucNum').innerHTML, // 감정결제 : MT1, 낙찰결제 : MT3
 					amount : end,
-					buyer_email : '<%= loginMember.getMemberEmail() %>',
-					buyer_name : '<%= loginMember.getMemberName() %>',
-					buyer_tel : '<%= loginMember.getMemberPhone() %>',
+					buyer_email : '<%=loginMember.getMemberEmail()%>',
+					buyer_name : '<%=loginMember.getMemberName()%>',
+					buyer_tel : '<%=loginMember.getMemberPhone()%>',
 					buyer_addr : $('#userAddr2').val(),
 					buyer_postcode : $('#userAddr1').val(),
 				}, function(rsp) {
@@ -307,14 +304,14 @@
 						const method = '결제 수단 : ' + rsp.pay_method;
 						const status = '상태 : ' + rsp.status;
 						
-						console.log(impId);
+/* 						console.log(impId);
 						console.log(merId);
 						console.log(amount);
 						console.log(applyNum);
 						console.log(method);
-						console.log(status);
+						console.log(status); */
 						
-						location.href="'<%= request.getContextPath() %>'/views/goods/paymentAfter.jsp";
+						location.href="<%=request.getContextPath()%>/test.t?impId="+ rsp.imp_uid;
 					} else {
 						alert('결제가 취소되었습니다.');
 					}
@@ -322,42 +319,43 @@
 			} else {
 				alert('동의약관에 체크해주세요.');
 			}
+		});
+	});
 
-		}
-		
-    	function daumPostCode(){
-    		new daum.Postcode({
-    	        oncomplete: function(data) {
+		function daumPostCode() {
+			new daum.Postcode({
+				oncomplete : function(data) {
 					//팝업에서 검색 결과 눌렀을 때 실행할 코드
-    				
-    				var fullRoadAddr = data.roadAddress; //도로명 주소 변수
-    				var extraRoadAddr = '';				 //도로명 조합형 주소 변수
-    				
-    				//법정동명이 있을 경우 추가(법정리 제외)
-    				//법정동의 경우 마지막 문자가 "동/로/가로 끝남"
-    				if(data.bname !== '' && /[동/로/가]$/g.test(data.bname)){
-    					extraRoadAddr += data.bname;
-    				}
-    				//건물명이 있고 공동주택일 경우
-    				if(data.buildingName !== '' && data.apartment === 'Y'){
-    					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.build);
-    				}
-    				//도로명, 지번 조합형 주소일 경우
-    				if(extraRoadAddr !== ''){
-    					extraRoadAddr = ' (' + extraRoadAddr + ')';
-    				}
-    				//도로명, 지번 주소의 유무에 따라 해당 조합형 주소 추가
-    				if(fullRoadAddr !== ''){
-    					fullRoadAddr += extraRoadAddr;
-    				}
-    				$("#userAddr1").val(data.zonecode);
-    				$("#userAddr2").val(fullRoadAddr);
-    				document.getElementById("userAddr3").focus();
-    	        }
-    	    }).open();
-    	};
 
+					var fullRoadAddr = data.roadAddress; //도로명 주소 변수
+					var extraRoadAddr = ''; //도로명 조합형 주소 변수
+
+					//법정동명이 있을 경우 추가(법정리 제외)
+					//법정동의 경우 마지막 문자가 "동/로/가로 끝남"
+					if (data.bname !== '' && /[동/로/가]$/g.test(data.bname)) {
+						extraRoadAddr += data.bname;
+					}
+					//건물명이 있고 공동주택일 경우
+					if (data.buildingName !== '' && data.apartment === 'Y') {
+						extraRoadAddr += (extraRoadAddr !== '' ? ', '
+								+ data.buildingName : data.build);
+					}
+					//도로명, 지번 조합형 주소일 경우
+					if (extraRoadAddr !== '') {
+						extraRoadAddr = ' (' + extraRoadAddr + ')';
+					}
+					//도로명, 지번 주소의 유무에 따라 해당 조합형 주소 추가
+					if (fullRoadAddr !== '') {
+						fullRoadAddr += extraRoadAddr;
+					}
+					$("#userAddr1").val(data.zonecode);
+					$("#userAddr2").val(fullRoadAddr);
+					document.getElementById("userAddr3").focus();
+				}
+			}).open();
+		};
 	</script>
 	<% } %>
+		<%@ include file="../common/footer.jsp" %>
 </body>
 </html>	
