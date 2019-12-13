@@ -12,6 +12,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int amount = Integer.parseInt(String.valueOf(request.getAttribute("amount")));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,7 +245,7 @@
 			</table>
 			<div id="endPrice">
 				<label>총 결제 금액 : </label>
-				<input type="text" disabled>
+				<input type="text" value="<%= amount %>" disabled>
 			</div>
 		</div> <!-- buyInfo End -->
 		<button id="payment">메인으로 돌아가기</button>

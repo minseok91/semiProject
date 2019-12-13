@@ -129,6 +129,7 @@ td>.content {
 									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 								<span class="content">Cartier Marcello De Cartier handbag Bro…</span>
 								<div class="time">3 days 13 : 42</div>
+								</div>
 							</a>
 						</td>
 						<%

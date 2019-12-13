@@ -111,7 +111,7 @@
 	padding-bottom: 14px;
 }
 
-#buyInfo>table input, #endPrice>input {
+#buyInfo>table input, #endPrice>input, #write>table input {
 	margin-left: 3%;
 	height: 30px;
 	border: none;
@@ -133,7 +133,7 @@
 }
 
 #endPrice>input {
-	margin-left: 1%;
+	margin-left: -7%;
 	vertical-align: bottom;
 	text-align: left;
 }
@@ -256,7 +256,7 @@
 			</table>
 			<div id="endPrice">
 				<label>총 결제 금액 : </label>
-				<input type="text" id="end" disabled>
+				<input type="text" id="end" name="end" readonly>
 			</div>
 		</div> <!-- buyInfo End -->
 		
@@ -297,14 +297,14 @@
 				}, function(rsp) {
 					if ( rsp.success ) {
 						var msg = '결제가 완료되었습니다.';
-						const impId = '고유ID : ' + rsp.imp_uid;
-						const merId = '상점 거래ID : ' + rsp.merchant_uid;
-						const amount = '결제 금액 : ' + rsp.paid_amount;
-						const applyNum = '카드 승인번호 : ' + rsp.apply_num;
-						const method = '결제 수단 : ' + rsp.pay_method;
-						const status = '상태 : ' + rsp.status;
+						const impId = rsp.imp_uid; // 고유ID
+						const merId = rsp.merchant_uid; //상점 거래ID
+						const amount = rsp.paid_amount; //결제 금액
+						const applyNum = rsp.apply_num; //카드 승인번호
+						const method = rsp.pay_method; //결제 수단
+						const status = rsp.status; // 상태
 						
-						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId;
+						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId+"&amount="+amount+"&status="+status;
 						
 						location.href=URL;
 					} else {
