@@ -46,21 +46,21 @@
 	
 	.container>#th1 #left {
 		position: absolute;
-    	right: 72%;
+    	left: 234px;
     	top: 22%;
 	}
 	
 	.container>#th1 #logo {
 		position: absolute;
     	left: 50%;
-    	margin-top: -2.5%;
+    	margin-top: -15px;
     	transform: translateX(-50%);
 	}
 	
 	.container>#th1 #headerlogin {
 		position: absolute;
     	display: inline-block;
-    	left: 79%;
+    	right: 228px;
     	top: 38%;
 	}
 	
