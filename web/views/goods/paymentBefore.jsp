@@ -304,14 +304,9 @@
 						const method = '결제 수단 : ' + rsp.pay_method;
 						const status = '상태 : ' + rsp.status;
 						
-/* 						console.log(impId);
-						console.log(merId);
-						console.log(amount);
-						console.log(applyNum);
-						console.log(method);
-						console.log(status); */
+						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId;
 						
-						location.href="<%=request.getContextPath()%>/test.t?impId="+ rsp.imp_uid;
+						location.href=URL;
 					} else {
 						alert('결제가 취소되었습니다.');
 					}
