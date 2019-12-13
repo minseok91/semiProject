@@ -252,6 +252,9 @@ String[] brandModel = item.getItemBrandModel().split(",");
  	.center{
  		text-align:center;
  	}
+ 	.bagDetail{
+ 		display:none;
+ 	}
 </style>
 </head>
 <body>
@@ -401,12 +404,12 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						
 						<div id="c-type">
 						
-						<input type="radio" id="watch" value="w">
+						<input type="radio" id="watch" name="type" value="W">
 						<label for="watch">시계</label>
-						<input type="radio" id="bag" value="b">
+						<input type="radio" id="bag" name="type" value="B">
 						<label for="bag">가방</label>
 						</div>
-						<div id="goods" class="watchDetail">
+				<div id="watchDetail" class="watchDetail">
 					<label>상품 정보 상세</label>
 					<table>
 						<tr>
@@ -431,28 +434,20 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						</tr>
 					</table>
 				</div>
-				<div id="bagDetail" class="watchDetail">
+				<div id="bagDetail" class="bagDetail">
 					<label>상품 정보 상세</label>
 					<table>
 						<tr>
-							<td>보증서 유무</td>
-							<td><input type="text" name="guaranteeYn" id="guaranteeYn" ></td>
+							<td>끈 높이</td>
+							<td><input type="text" name="strap" id="strap" ></td>
 						</tr>
 						<tr>
-							<td>오리지널 박스 유무</td>
-							<td><input type="text" name="boxYn" id="boxYn" ></td>
+							<td>사이즈</td>
+							<td><input type="text" name="size" id="size" ></td>
 						</tr>
 						<tr>
-							<td>재질</td>
-							<td><input type="text" name="matertial" id="matertial" ></td>
-						</tr>
-						<tr>
-							<td>무브먼트 종류</td>
-							<td><input type="text" name="movement" id="movement" ></td>
-						</tr>
-						<tr>
-							<td>크로노그래프</td>
-							<td><input type="text" name="chronograph" id="chronograph" ></td>
+							<td>성별</td>
+							<td><input type="text" name="gender" id="gender" ></td>
 						</tr>
 					</table>
 				</div>
@@ -648,6 +643,18 @@ String[] brandModel = item.getItemBrandModel().split(",");
 			
 			$("#rejContent").show();
 			$("#acpContent").hide();
+		})
+		
+		$("#bag").click(function(){
+			
+			$("#watchDetail").show();
+			$("#bagDetail").hide();
+		})
+		
+		$("#watch").click(function(){
+			
+			$("#bagDetail").show();
+			$("#watchDetail").hide();
 		})
 		
 		$("#appDoc").click(function(){
