@@ -9,11 +9,13 @@
  * </pre>
  */
 --%>
-<%@page import="com.kh.lp.report.model.vo.Report"%>
+<%@page import="com.kh.lp.admin.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.lp.admin.member.model.vo.*"%>
 <%
 	Member user = (Member) request.getAttribute("user");
+	int userInfo = Integer.parseInt((String)request.getAttribute("userInfo"));
+	System.out.println(userInfo);
 %>
 <!DOCTYPE html>
 <html>
@@ -119,7 +121,8 @@ td:nth-of-type(2) {
 						<td>이메일</td>
 						<td><%=user.getMemberEmail()%></td>
 					</tr>
-					<tr>
+					<% if(userInfo == 1){ %>
+						<tr>
 						<td>판매상품이력</td>
 						<td id="salesHistory"><%-- <%= user.getSaleshistory() %> --%>건</td>
 					</tr>
@@ -131,6 +134,8 @@ td:nth-of-type(2) {
 						<td>신고 이력</td>
 						<td id="reportHistory"><%= request.getAttribute("resportCount") %>건</td>
 					</tr>
+					<%} %>
+					
 					
 				</table>
 				

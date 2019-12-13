@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.kh.lp.member.model.vo.*
+    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*
     , com.kh.lp.common.PageInfo"
     %>
 <%
