@@ -193,7 +193,7 @@
 		</div>  <!-- myPageMenu end -->
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;위시리스트 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;회원정보 변경 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
 				<p>회원님의 정보를 수정하는 공간입니다. 비밀번호 공백이면 변경되지 않습니다.</p>

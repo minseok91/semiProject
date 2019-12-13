@@ -49,7 +49,7 @@ public class MemberService {
 			int delResult = new MemberDao().deleteEmailCode(con, requestMember.getMemberId());
 			if (delResult > 0) {
 				log.debug(delResult);
-				int historyResult = insertMemberHistory(requestMember);
+				int historyResult = new MemberDao().insertMemberHistory(con, requestMember);
 				if(historyResult > 0) {
 					commit(con);
 				} else {
@@ -307,19 +307,4 @@ public class MemberService {
 		
 		return result;
 	}
-
-	public int insertMemberHistory(Member requestMember) {
-		Connection con = getConnection();
-		
-		int result = new MemberDao().insertMemberHistory(con, requestMember);
-		if(result > 0) {
-			commit(con);
-		} else {
-			rollBack(con);
-		}
-		close(con);
-		return result;
-	}
-
-
 }
