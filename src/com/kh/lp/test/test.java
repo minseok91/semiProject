@@ -7,10 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.member.controller.SendEmailServlet;
-
-import lombok.extern.log4j.Log4j2;
-
 /**
  * Servlet implementation class test
  */
@@ -33,13 +29,19 @@ public class test extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String impId = request.getParameter("impId");
 		String merId = request.getParameter("merId");
+		String name = request.getParameter("name");
 		int amount = Integer.parseInt(request.getParameter("amount"));
 		
 		System.out.println("impId : "+impId);
 		System.out.println("merId : "+merId);
 		System.out.println("amount : "+amount);
+		System.out.println("name : "+name);
 		
+		String page = "views/goods/paymentAfter.jsp";
 		
+		request.setAttribute("amount", amount);
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
