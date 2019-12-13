@@ -62,6 +62,7 @@ public class UpdateMemberNoPasswordServlet extends HttpServlet {
 		int result = new MemberService().updateMemberNP(requestMember);
 		
 		if(result > 0) {
+			Member resultMember = new MemberService().selectOne(memberId);
 			request.setAttribute("msg", "successMember");
 			request.getRequestDispatcher("views/myPage/memberChange/memberInfoChange.jsp").forward(request, response);
 		} else {

@@ -67,7 +67,10 @@ public class InsertMemberServlet extends HttpServlet {
 		int result = new MemberService().insertMember(requestMember);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath() + "/views/member/registerEnd.jsp");
+				int historyResult = new MemberService().insertMemberHistory(requestMember);
+				if(historyResult > 0) {
+					response.sendRedirect(request.getContextPath() + "/views/member/registerEnd.jsp");
+				}
 		}else {
 			request.setAttribute("msg", "너 회원가입 실패다 나가");
 			request.getRequestDispatcher("../common/errorPage.jsp");

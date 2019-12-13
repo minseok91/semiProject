@@ -19,6 +19,10 @@
 		<% } else if(msg == "wrongPwd"){ %>
 			alert("비밀번흐를 다시 확인해주세요");
 			location.href="views/myPage/memberChange/userInfoChange.jsp";
+		<% } else if(msg == "delete") {%>
+			if(confirm("정말 탈퇴하시겠습니까?")){
+				console.log("탈퇴완료");
+			}
 		<% } %>
 		}
 	</script>
