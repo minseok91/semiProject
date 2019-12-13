@@ -14,16 +14,16 @@ import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.common.PageInfo;
 
 /**
- * Servlet implementation class userInformationServlet
+ * Servlet implementation class userBlackServlet
  */
-@WebServlet("/userInfo.me")
-public class admin_userInformationServlet extends HttpServlet {
+@WebServlet("/blackList.me")
+public class admin_blackListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_userInformationServlet() {
+    public admin_blackListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +32,7 @@ public class admin_userInformationServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		int currentPage;
 		int limit;
 		int maxPage;
@@ -46,26 +46,31 @@ public class admin_userInformationServlet extends HttpServlet {
 		
 		limit = 10;
 		
-		int listCount = new MemberService().listCount("MS1","MS2");
+		int listCount = new MemberService().listCount("MS2","MS2");
+		
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
-		System.out.println(listCount);
+		
 		endPage = startPage + 10 - 1;
-		if(endPage >= maxPage) {
+		
+		if(endPage <= maxPage) {
 			endPage = maxPage;
 		}
-		PageInfo pi = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
-		ArrayList<Member> userList = new MemberService().selectUser(currentPage,limit); 
-		String Page = "";
-		if(userList != null) {
-			 Page = "views/admin/admin_userInformation.jsp";
-			 request.setAttribute("list", userList);
-			 request.setAttribute("pi", pi);
-			 request.setAttribute("listCount", listCount);
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, limit,maxPage,startPage,endPage);
+		ArrayList<Member> list = new MemberService().selectBlackList(currentPage, limit);
+		
+		String page = "";
+		System.out.println(list);
+		if(list != null) {
+			page = "views/admin/admin_blackList.jsp";
+			request.setAttribute("blackList", list);
+			request.setAttribute("pi",pi);
 		} else {
 			
 		}
-		request.getRequestDispatcher(Page).forward(request, response);
+		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**
