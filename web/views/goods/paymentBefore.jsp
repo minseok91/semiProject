@@ -39,63 +39,23 @@
 }
 
 #write {
-	margin-left: 7%;
-    margin-top: 4%;
+	margin: 4% 7%;
 }
 
-#write>div {
-	padding-bottom: 2%;
-	display: flex;
+#write>table {
+	border-collapse: separate;
+	    border-spacing: 21px 5px;
 }
+
+#write>table {
+	font-size: 16px;
+}
+
+#write>table input[type=text]
 
 #infoCheck {
 	margin-left: 7px;
     margin-top: 8px;
-}
-
-#write>div:nth-of-type(3) {
-	display: flex;
-}
-
-#write>div>p {
-	font-size: 20px;
-}
-
-#write>div:nth-of-type(2n-1)>p {
-	margin-left: 5.65%;
-}
-
-#write input {
-	border: none;
-	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
-	background: #fff;
-	width: 276px;
-	font-size: 20px;
-	margin-left: 12px;
-}
-
-#write input[type=checkbox] {
-	width: 13px;
-}
-
-#address {
-	display: grid;
-	margin-left: 4px;
-}
-
-#address>input {
-	margin-bottom: 21.203px;
-}
-
-#write>div:nth-of-type(3)>button {
-	margin-left: 25px;
-    height: 43px;
-    width: 101px;
-    font-size: 20px;
-    background: #211f22;
-    border: 1px solid #a07342;
-    color: #a07342;
-    border-radius: 3px;
 }
 
 #goodsInfo>img {
@@ -175,6 +135,7 @@
 #endPrice>input {
 	margin-left: 1%;
 	vertical-align: bottom;
+	text-align: left;
 }
 
 #end {
@@ -200,10 +161,12 @@
 
 </style>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
+	<% if(loginMember != null) { %>
 	<div class="container">
 	<div class="contents">
 		<h1>결제 확인</h1>
@@ -211,27 +174,49 @@
 		<div id="orderInfo">
 			<p>수취인 정보</p>
 			<div id="write">
-				<div>
-					<p>이름 : </p>
-					<input type="text" name="name" id="name" disabled>
-					<div id="infoCheck">
-						<input type="checkbox" id="before" checked>
-						<label for="before">기존의 정보로 배송</label>
-					</div>
-				</div>
-				<div>
-					<p>휴대폰번호 : </p>
-					<input type="tel" name="phone" id="phone" disabled>
-				</div>
-				<div>
-					<p>주소 : </p>
-					<div id="address">
-						<input type="text" name="addr" id="addr">
-						<input type="text" name="addr" id="addr">
-						<input type="text" name="addr" id="addr">
-					</div>
-					<button>검색</button>
-				</div>
+			<table>
+				<tr>
+					<td>
+						<p>이름 : </p>
+					</td>
+					<td>
+						<input type="text" name="name" id="name" value="<%= loginMember.getMemberName() %>" disabled>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>휴대폰번호 : </p>
+					</td>
+					<td>
+						<input type="text" name="phone" id="phone" value="<%= loginMember.getMemberPhone() %>" disabled>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>우편번호 : </p>
+					</td>
+					<td>
+						<input type="text" name="memberZoneCode" id="userAddr1" size="8" readonly placeholder="우편번호">
+						<button id="addrBtn" onclick="daumPostCode()">주소 찾기</button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>기본주소 : </p>
+					</td>
+					<td>
+						<input type="text" name="memberAddress1" id="userAddr2" size="30" readonly placeholder="기본주소">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>상세주소 : </p>
+					</td>
+					<td>
+						<input type="text" name="memberAddress2" id="userAddr3" size="30" placeholder="상세주소">
+					</td>
+				</tr>
+			</table>
 			</div>
 		</div> <!-- orderInfo -->
 		
@@ -241,12 +226,14 @@
 			<div id="goodsContents">
 				<img src="<%= request.getContextPath() %>/img/bag1.jpg">
 				<div id="goodsTitle">
+					<label>상품 번호 : </label>
 					<label>상품 명 : </label>
 					<label>브랜드 명 : </label>
 					<label>모델 명 : </label>
 				</div>
 				
 				<div id="goodsTitle">
+					<input type="text" id="aucNum" disabled> <!-- AUCTION_ID -->
 					<input type="text" disabled>
 					<input type="text" disabled>
 					<input type="text" disabled>
@@ -259,17 +246,17 @@
 			<table>
 				<tr>
 					<td><label>낙찰가 : </label></td>
-					<td><input type="text" disabled></td>
+					<td><input type="text" id="win" value="500" disabled></td>
 				</tr>
 				
 				<tr>
 					<td><label>낙찰 수수료 : </label></td>
-					<td><input type="text" disabled></td>
+					<td><input type="text" id="fees" disabled></td>
 				</tr>
 			</table>
 			<div id="endPrice">
 				<label>총 결제 금액 : </label>
-				<input type="text" disabled>
+				<input type="text" id="end" disabled>
 			</div>
 		</div> <!-- buyInfo End -->
 		
@@ -277,55 +264,100 @@
 			<input type="checkbox" id="agree">
 			<label for="agree">주문하는 상품 및 주문정보, 결제방식을 모두 확인하였으며 이에 동의합니다 (필수)</label>
 		</div>
-		<button id="payment">결제하기</button>
+		<button id="payment" onclick="pay()">결제하기</button>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script type="text/javascript">
+	
+		const win = Number($('#win').val());
+		const end = win*1.15;
+
+	$(function() {
+		$('#fees').val(win*0.15);
+		$('#end').val(end);
+	})
 		
-		// if(before.checked == false) {
-		// 	name.value="";
-		// }
-		$(function() {
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-			
-			IMP.request_pay({
-			    pg : 'inicis', // version 1.1.0부터 지원.
-			    pay_method : 'card',
-			    merchant_uid : 'merchant_' + new Date().getTime(),
-			    name : '주문명:결제테스트', // 감정결제 : MT1, 낙찰결제 : MT3
-			    amount : 100,
-			    buyer_email : 'iamport@siot.do',
-			    buyer_name : '구매자이름',
-			    buyer_tel : '010-1234-5678',
-			    buyer_addr : '서울특별시 강남구 삼성동',
-			    buyer_postcode : '123-456',
-			    m_redirect_url : 'http://localhost:8043/lp/views/myPage/buy/winningBid.jsp'
-			}, function(rsp) {
-			    if ( rsp.success ) {
-			        var msg = '결제가 완료되었습니다.';
-			        const impId = '고유ID : ' + rsp.imp_uid;
-			        const merId = '상점 거래ID : ' + rsp.merchant_uid;
-			        const amount = '결제 금액 : ' + rsp.paid_amount;
-			        const applyNum = '카드 승인번호 : ' + rsp.apply_num;
-			        const method = '결제 수단 : ' + rsp.pay_method;
-			        const status = '상태 : ' + rsp.status;
-			        
-			        console.log(impId);
-			        console.log(merId);
-			        console.log(amount);
-			        console.log(applyNum);
-			        console.log(method);
-			        console.log(status);
-			    } else {
-			        var msg = '결제에 실패하였습니다.';
-			        msg += '에러내용 : ' + rsp.error_msg;
-			    }
-			});
-		});
+		// 결제 버튼 누를 시 진행 동의안했으면 동의하게 함
+		function pay() {
+			if(document.getElementById('agree').checked) {
+
+				var IMP = window.IMP; // 생략가능
+				IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+				
+				IMP.request_pay({
+					pg : 'inicis', // version 1.1.0부터 지원.
+					pay_method : 'card',
+					merchant_uid : 'One-O-One',
+					name : 'MT3'+document.getElementById('aucNum').innerHTML, // 감정결제 : MT1, 낙찰결제 : MT3
+					amount : end,
+					buyer_email : '<%= loginMember.getMemberEmail() %>',
+					buyer_name : '<%= loginMember.getMemberName() %>',
+					buyer_tel : '<%= loginMember.getMemberPhone() %>',
+					buyer_addr : $('#userAddr2').val(),
+					buyer_postcode : $('#userAddr1').val(),
+				}, function(rsp) {
+					if ( rsp.success ) {
+						var msg = '결제가 완료되었습니다.';
+						const impId = '고유ID : ' + rsp.imp_uid;
+						const merId = '상점 거래ID : ' + rsp.merchant_uid;
+						const amount = '결제 금액 : ' + rsp.paid_amount;
+						const applyNum = '카드 승인번호 : ' + rsp.apply_num;
+						const method = '결제 수단 : ' + rsp.pay_method;
+						const status = '상태 : ' + rsp.status;
+						
+						console.log(impId);
+						console.log(merId);
+						console.log(amount);
+						console.log(applyNum);
+						console.log(method);
+						console.log(status);
+						
+						location.href="'<%= request.getContextPath() %>'/views/goods/paymentAfter.jsp";
+					} else {
+						alert('결제가 취소되었습니다.');
+					}
+				});
+			} else {
+				alert('동의약관에 체크해주세요.');
+			}
+
+		}
+		
+    	function daumPostCode(){
+    		new daum.Postcode({
+    	        oncomplete: function(data) {
+					//팝업에서 검색 결과 눌렀을 때 실행할 코드
+    				
+    				var fullRoadAddr = data.roadAddress; //도로명 주소 변수
+    				var extraRoadAddr = '';				 //도로명 조합형 주소 변수
+    				
+    				//법정동명이 있을 경우 추가(법정리 제외)
+    				//법정동의 경우 마지막 문자가 "동/로/가로 끝남"
+    				if(data.bname !== '' && /[동/로/가]$/g.test(data.bname)){
+    					extraRoadAddr += data.bname;
+    				}
+    				//건물명이 있고 공동주택일 경우
+    				if(data.buildingName !== '' && data.apartment === 'Y'){
+    					extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.build);
+    				}
+    				//도로명, 지번 조합형 주소일 경우
+    				if(extraRoadAddr !== ''){
+    					extraRoadAddr = ' (' + extraRoadAddr + ')';
+    				}
+    				//도로명, 지번 주소의 유무에 따라 해당 조합형 주소 추가
+    				if(fullRoadAddr !== ''){
+    					fullRoadAddr += extraRoadAddr;
+    				}
+    				$("#userAddr1").val(data.zonecode);
+    				$("#userAddr2").val(fullRoadAddr);
+    				document.getElementById("userAddr3").focus();
+    	        }
+    	    }).open();
+    	};
 
 	</script>
+	<% } %>
 </body>
 </html>	
