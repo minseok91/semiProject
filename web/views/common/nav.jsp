@@ -14,6 +14,8 @@
     	background-color: #a07342;
     	text-align: center;
     	height: 51px;
+    	position: relative;
+   		width: 100%;
 	}
 
 	#menubar li{

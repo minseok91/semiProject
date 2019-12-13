@@ -40,17 +40,28 @@
     	color: #a07f5c;
 	}
 	
+	#top-header>.container, #top-header>.container>#th1 {
+		height: inherit;
+	}
+	
 	.container>#th1 #left {
-		padding-right: 12%;
+		position: absolute;
+    	right: 72%;
+    	top: 22%;
 	}
 	
 	.container>#th1 #logo {
-		padding-right: 6%;
-		padding-left: 6%;
+		position: absolute;
+    	left: 50%;
+    	margin-top: -2.5%;
+    	transform: translateX(-50%);
 	}
 	
 	.container>#th1 #headerlogin {
-		padding-left: 12%;
+		position: absolute;
+    	display: inline-block;
+    	left: 79%;
+    	top: 38%;
 	}
 	
 	header .container #headerlogin a {
