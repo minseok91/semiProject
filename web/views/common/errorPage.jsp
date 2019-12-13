@@ -20,6 +20,9 @@
 		<% } else if(msg == "wrongPwd"){ %>
 			alert("비밀번흐를 다시 확인해주세요");
 			location.href="views/myPage/memberChange/userInfoChange.jsp";
+		<% } else if(msg == "failDelete") { %>
+			alert("회원탈퇴에 실패했습니다. 다시 시도해주세요");
+			location.href="<%= request.getContextPath() %>/index.jsp";
 		<% } %>
 		}
 	</script>
