@@ -198,6 +198,7 @@ td>input{
 		<br /><br /><br /><br />
 			<form action="" method="post" id="form1" onsubmit="return passwordCheck()">
 				<h2 align="center">본인 확인을 위해 비밀번호를 입력해주세요</h2><br />
+				<h3 style="color: red;" align="center">경고!   </h3><h3 align="center">회원탈퇴는 진행 후 복구가 안됩니다. 신중하게 생각하고 진행해주세요</h3>
 				<br /><br /><br /><br />
 				<table align="center">
 					<tr>

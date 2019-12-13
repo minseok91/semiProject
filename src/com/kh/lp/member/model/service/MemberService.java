@@ -280,12 +280,23 @@ public class MemberService {
 		return result;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 7:46:00
+	 * @ModifyDate    : 2019. 12. 13. 오후 7:46:00
+	 * @Description   : 회원정보수정(비밀번호 미변경)
+	 * @param requestMember
+	 * @return
+	 */
 	public int updateMemberNP(Member requestMember) {
 		Connection con = getConnection();
-		
+		String detail = "회원정보 수정(비밀번호 미변경)";
 		int result = new MemberDao().updateMemberNP(con, requestMember);
 		if(result > 0) {
-			commit(con);
+			int updateResult = new MemberDao().updateMemberHistory(con, requestMember, detail);
+			if(updateResult > 0) {
+				commit(con);
+			}
 		} else {
 			rollBack(con);
 		}
@@ -294,17 +305,51 @@ public class MemberService {
 		return result;
 	}
 	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 7:46:20
+	 * @ModifyDate    : 2019. 12. 13. 오후 7:46:20
+	 * @Description   : 비밀번호 변경
+	 * @param requestMember
+	 * @return
+	 */
 	public int updateMember(Member requestMember) {
 		Connection con = getConnection();
-		
+		String detail = "회원정보 수정(비밀번호 변경)";
 		int result = new MemberDao().updateMember(con, requestMember);
 		if(result > 0) {
-			commit(con);
+			int updateResult = new MemberDao().updateMemberHistory(con, requestMember, detail);
+			if(updateResult > 0) {
+				commit(con);
+			}
 		} else {
 			rollBack(con);
 		}
 		close(con);
 		
+		return result;
+	}
+	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 7:52:51
+	 * @ModifyDate    : 2019. 12. 13. 오후 7:52:51
+	 * @Description   : 회원탈퇴 메소드
+	 * @param requestMember
+	 * @return
+	 */
+	public int deleteMember(Member requestMember) {
+		Connection con = getConnection();
+		String detail = "회원탈퇴";
+		int result = new MemberDao().deleteMember(con, requestMember);
+		if(result > 0) {
+			int deleteResult = new MemberDao().deleteMemberHistory(con, requestMember, detail);
+			if(deleteResult > 0) {
+				commit(con);
+			}
+		} else {
+			rollBack(con);
+		}
 		return result;
 	}
 }

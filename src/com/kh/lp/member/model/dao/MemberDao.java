@@ -614,6 +614,15 @@ public class MemberDao {
 		return result;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 8:07:03
+	 * @ModifyDate    : 2019. 12. 13. 오후 8:07:03
+	 * @Description   : 회원정보 수정(비밀번호 미변경)
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
 	public int updateMemberNP(Connection con, Member requestMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -639,6 +648,15 @@ public class MemberDao {
 		return result;
 	}
 	
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 8:07:16
+	 * @ModifyDate    : 2019. 12. 13. 오후 8:07:16
+	 * @Description   : 회원정보 수정(비밀번호 변경)
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
 	public int updateMember(Connection con, Member requestMember) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -661,6 +679,82 @@ public class MemberDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 8:07:24
+	 * @ModifyDate    : 2019. 12. 13. 오후 8:07:24
+	 * @Description   : 회원정보 수정 시 이력 등록
+	 * @param con
+	 * @param requestMember
+	 * @param detail
+	 * @return
+	 */
+	public int updateMemberHistory(Connection con, Member requestMember, String detail) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("updateMemberHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, detail);
+			pstmt.setInt(2, requestMember.getMemberNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 8:07:38
+	 * @ModifyDate    : 2019. 12. 13. 오후 8:07:38
+	 * @Description   : 회원 삭제
+	 * @param con
+	 * @param requestMember
+	 * @return
+	 */
+	public int deleteMember(Connection con, Member requestMember) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestMember.getMemberNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 13. 오후 8:07:44
+	 * @ModifyDate    : 2019. 12. 13. 오후 8:07:44
+	 * @Description   : 회원 삭제시 이력 등록
+	 * @param con
+	 * @param requestMember
+	 * @param detail
+	 * @return
+	 */
+	public int deleteMemberHistory(Connection con, Member requestMember, String detail) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("deleteMemberHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, detail);
+			pstmt.setInt(2, requestMember.getMemberNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
