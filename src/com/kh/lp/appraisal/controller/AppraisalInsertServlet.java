@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.kh.lp.appraisal.model.service.AppraisalService;
+import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
-import com.kh.lp.appraisal.model.vo.GenDetail;
+import com.kh.lp.appraisal.model.vo.Auction;
+import com.kh.lp.appraisal.model.vo.Bag;
+import com.kh.lp.appraisal.model.vo.ItemHistory;
+import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.common.MyFileRenamePolicy;
 import com.oreilly.servlet.MultipartRequest;
 
@@ -73,9 +77,9 @@ public class AppraisalInsertServlet extends HttpServlet {
 		
 		
 		//감정아이템정보 가져오기 시작
-		
+		System.out.println("itemId :" + "이놈이 문제야 문제!!");
 		int itemId = Integer.parseInt(multiRequest.getParameter("itemId"));
-		
+		System.out.println("itemId :" + itemId);
 		
 //		Item item = new AppraisalService().getItemInfo(itemId);
 		//감정아이템정보 가져오기 끝	
@@ -95,64 +99,140 @@ public class AppraisalInsertServlet extends HttpServlet {
 		Enumeration<String> files =  multiRequest.getFileNames();
 		System.out.println("files :" + files);
 		
-		String name = files.nextElement();
-		saveFiles.add(multiRequest.getFilesystemName(name));
-		originFiles.add(multiRequest.getOriginalFileName(name));
+		while(files.hasMoreElements()) {
+			String name = files.nextElement();
+			
+			//System.out.println("name : " + name);
+			
+			saveFiles.add(multiRequest.getFilesystemName(name));
+			originFiles.add(multiRequest.getOriginalFileName(name));
+		}
+		
+		//Attachment 객체 생성해서 arrayList에 담기 
+		ArrayList<Attachment> fileList = new ArrayList<>();
+		
+		//전송 순서가 역순으로 들어왔기 때문에 반복문을 역순으로 돌여 arrayList에 담기
+		for(int i = originFiles.size() - 1 ; i >= 0; i--) {
+			Attachment at = new Attachment();
+			at.setAtPath(savePath);
+			at.setAtName(originFiles.get(i));
+			at.setAtRename(saveFiles.get(i));
+			
+//			at.setFilePath(savePath);
+//			at.setOriginName(originFiles.get(i));
+//			at.setChangeName(saveFiles.get(i));
+			
+			fileList.add(at);
+			
+		}
 		
 		if(isGen.equals("Y")) {
-			String multiBrand = multiRequest.getParameter("brand");
-			String multiModel = multiRequest.getParameter("model");
-			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
+			
+			
+			//1. IH넣기
+			ItemHistory ih = new ItemHistory();
+			//SYSDATE로 넣기 ih.setItemHistoryDate(itemHistoryDate);
+			//시퀀스로 넣기 ih.setItemHistoryId(itemHistoryId);
+			//값 4로 넣기 ih.setItemHistoryStatus(itemHistoryStatus);
+			ih.setItemId(itemId);
+			
+			//확인 IH
+			System.out.println("IH :" + ih);
+			
+			//2. APP 넣기
 			String multiComment = multiRequest.getParameter("comment");
-			String multiGrade = multiRequest.getParameter("grade");
-			
-			String chronograph = multiRequest.getParameter("chronograph");
-			String movement = multiRequest.getParameter("movement");
-			String matertial = multiRequest.getParameter("matertial");
-			String boxYn = multiRequest.getParameter("boxYn");
-			String guaranteeYn = multiRequest.getParameter("guaranteeYn");
-			
-			System.out.println("brand" + multiBrand);
-			System.out.println("model" + multiModel);
-			System.out.println("price" + multiPrice);
-			System.out.println("comment" + multiComment);
-			System.out.println("multiGrade" + multiGrade);
-			
-			System.out.println("chronograph" + chronograph);
-			System.out.println("movement" + movement);
-			System.out.println("matertial" + matertial);
-			System.out.println("boxYn" + boxYn);
-			System.out.println("guaranteeYn" + guaranteeYn);
-			
 			App ap = new App();
 			//시퀀스로 넣기 ap.setAppId(appId);
 			ap.setAppItemId(itemId);
 			ap.setAppNote(multiComment);
 			ap.setAppResult("Y");
-			//여기 까지 했어요 ^^ 
+			//확인 APP
+			System.out.println("ap :" + ap);
 			
-			GenDetail gd = new GenDetail();
-			gd.setBrand(multiBrand);
-			gd.setModelName(multiModel);
-			gd.setAppPrice(multiPrice);
+			//3. 상세 넣기
 			
-			//첨부파일 관련
-			Attachment at = new Attachment();
-			at.setFilePath(savePath);
-			at.setOriginName(originFiles.get(0));
-			at.setChangeName(saveFiles.get(0));
-			System.out.println("at : " + at );
-			result = new AppraisalService().insertGenDetail(ap, gd , at);
+			//상세 타입 확인
+			String type = multiRequest.getParameter("type");
+			
+			
+			Watch w = new Watch();
+			Bag b = new Bag();
+			
+			if(type.equals("W")) {
+				String chronograph = multiRequest.getParameter("chronograph");
+				String movement = multiRequest.getParameter("movement");
+				String matertial = multiRequest.getParameter("matertial");
+				String boxYn = multiRequest.getParameter("boxYn");
+				String guaranteeYn = multiRequest.getParameter("guaranteeYn");
+				
+				
+				w.setWatchChronograph(chronograph);
+				w.setWatchGuaranteeYn(guaranteeYn);
+				//시퀀스로 w.setWatchId(watchId);
+				w.setWatchMaterial(matertial);
+				w.setWatchMovement(movement);
+				w.setWatchBoxYn(boxYn);
+				
+				//확인 watch
+				System.out.println("watch :" + w);
+				
+			} else {
+				String bagSize = multiRequest.getParameter("bagSize");
+				String bagStrap = multiRequest.getParameter("bagStrap");
+				String gender = multiRequest.getParameter("gender");
+				
+				//시퀀스로  b.setBagId(bagId);
+				b.setBagSize(bagSize);
+				b.setBagStrap(bagStrap);
+				b.setGender(gender);
+				
+				//확인 bag
+				System.out.println("bag :" + b);
+			}
+			
+			
+			//4. 진품정보 넣기
+			
+			String multiBrand = multiRequest.getParameter("brand");
+			String multiModel = multiRequest.getParameter("model");
+			int multiPrice = Integer.parseInt(multiRequest.getParameter("price"));
+			
+			String multiGrade = multiRequest.getParameter("status");
+			
+			AR1 ar = new AR1();
+			//시퀀스로 ar.setAppId(appId);
+			//시퀀스로 ar.setBagId(bagId);
+			//시퀀스로 ar.setWatchId(watchId);
+			ar.setBrand(multiBrand);
+			ar.setCondition(multiGrade);
+			ar.setModel(multiModel);
+			ar.setPrice(multiPrice);
+			//확인 ar1 
+			System.out.println("ar1 : " + ar);
+			
+
+			//5. 경매에 넣기
+			Auction au = new Auction();
+			//app 시퀀스 넣기 au.setAuAppId(auAppId);
+			//시퀀스로 넣기 au.setAuctionId(auctionId);
+			//판매자가 설정 au.setAuPeriod(auPeriod);
+			//판매자가 설정 au.setAuStartPrice(auStartPrice);
+			//판매자가 설정 au.setAuStartTime(auStartTime);
+			au.setCount(0);//초기값인데 재경매 일때 다시해야 되나? 
+			//판매자 아이디 넣기 au.setMemberNo(memberNo);
+			
+			//ih,ap,w,ar
+			result = new AppraisalService().insertIsGen(ih, ap , w, ar, fileList);
 			
 			System.out.println("여긴 진품일때");
 		} else {
 			System.out.println("여긴 가품일때");
 			
-			itemId = multiRequest.getParameter("rejName");
+			//itemId = multiRequest.getParameter("rejName");
 			System.out.println("itemid :" + itemId);
 			
 			//하나의 서비스로 합치기 시작 (가품)
-			int resultAll = new AppraisalService().insertAppraisalInfoFake(itemId);
+			//int resultAll = new AppraisalService().insertAppraisalInfoFake(itemId);
 			//하나의 서비스로 합치기 끝
 			
 			String multiComment = multiRequest.getParameter("comment2");
@@ -173,15 +253,15 @@ public class AppraisalInsertServlet extends HttpServlet {
 		
 		 
 		
-		String page = "";
-		if(result > 0) {
-			page = "views/admin/appRequest.jsp";
-			response.sendRedirect(page);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "인서트 실패");
-			request.getRequestDispatcher(page).forward(request, response);
-		}
+//		String page = "";
+//		if(result > 0) {
+//			page = "views/admin/appRequest.jsp";
+//			response.sendRedirect(page);
+//		} else {
+//			page = "views/common/errorPage.jsp";
+//			request.setAttribute("msg", "인서트 실패");
+//			request.getRequestDispatcher(page).forward(request, response);
+//		}
 		
 		}
 	}

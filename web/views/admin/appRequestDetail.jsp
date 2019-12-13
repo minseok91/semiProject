@@ -332,6 +332,7 @@ String[] brandModel = item.getItemBrandModel().split(",");
 					<input type="radio" name="isGen" id="reject" value="N">
 					<label for="reject">가품</label>
 				   </div>
+				   <input type="hidden" value="<%=itemId%>" name="itemId">
 					<div id="acpContent">
 						여기는 진품일 시에 넣는 공간
 						<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
@@ -363,9 +364,9 @@ String[] brandModel = item.getItemBrandModel().split(",");
 							<td><!-- <input type="text" name="status" placeholder="상태"> -->
 								<select name="status" id="status">
 									<option value="S">S</option>
-									<option value="AP">A+</option>
+									<option value="A+">A+</option>
 									<option value="A">A</option>
-									<option value="BP">B+</option>
+									<option value="B+">B+</option>
 									<option value="B">B</option>
 								</select>
 							</td>
@@ -647,14 +648,14 @@ String[] brandModel = item.getItemBrandModel().split(",");
 		
 		$("#bag").click(function(){
 			
-			$("#watchDetail").show();
-			$("#bagDetail").hide();
+			$("#bagDetail").show();
+			$("#watchDetail").hide();
 		})
 		
 		$("#watch").click(function(){
 			
-			$("#bagDetail").show();
-			$("#watchDetail").hide();
+			$("#watchDetail").show();
+			$("#bagDetail").hide();
 		})
 		
 		$("#appDoc").click(function(){

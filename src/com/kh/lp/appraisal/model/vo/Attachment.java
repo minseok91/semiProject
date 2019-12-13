@@ -3,70 +3,66 @@ package com.kh.lp.appraisal.model.vo;
 import java.sql.Date;
 
 public class Attachment implements java.io.Serializable{
-	private int fid;
-	private int bid;
-	private String originName;
-	private String changeName;
-	private String filePath;
+	
+	
+	private int atid;
+	private String atName;
+	private String atRename;
+	private String atPath;
 	private Date uploadDate;
 	private int fileLevel;
-	private int downloadCount;
-	private String status;
+	private int refItem;
+	private int refApp;
+	private int refBoard;
+	private String type;
 	
 	public Attachment() {}
 
-	public Attachment(int fid, int bid, String originName, String changeName, String filePath, Date uploadDate,
-			int fileLevel, int downloadCount, String status) {
+	public Attachment(int atid, String atName, String atRename, String atPath, Date uploadDate, int fileLevel,
+			int refItem, int refApp, int refBoard, String type) {
 		super();
-		this.fid = fid;
-		this.bid = bid;
-		this.originName = originName;
-		this.changeName = changeName;
-		this.filePath = filePath;
+		this.atid = atid;
+		this.atName = atName;
+		this.atRename = atRename;
+		this.atPath = atPath;
 		this.uploadDate = uploadDate;
 		this.fileLevel = fileLevel;
-		this.downloadCount = downloadCount;
-		this.status = status;
+		this.refItem = refItem;
+		this.refApp = refApp;
+		this.refBoard = refBoard;
+		this.type = type;
 	}
 
-	public int getFid() {
-		return fid;
+	public int getAtid() {
+		return atid;
 	}
 
-	public void setFid(int fid) {
-		this.fid = fid;
+	public void setAtid(int atid) {
+		this.atid = atid;
 	}
 
-	public int getBid() {
-		return bid;
+	public String getAtName() {
+		return atName;
 	}
 
-	public void setBid(int bid) {
-		this.bid = bid;
+	public void setAtName(String atName) {
+		this.atName = atName;
 	}
 
-	public String getOriginName() {
-		return originName;
+	public String getAtRename() {
+		return atRename;
 	}
 
-	public void setOriginName(String originName) {
-		this.originName = originName;
+	public void setAtRename(String atRename) {
+		this.atRename = atRename;
 	}
 
-	public String getChangeName() {
-		return changeName;
+	public String getAtPath() {
+		return atPath;
 	}
 
-	public void setChangeName(String changeName) {
-		this.changeName = changeName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setAtPath(String atPath) {
+		this.atPath = atPath;
 	}
 
 	public Date getUploadDate() {
@@ -85,28 +81,45 @@ public class Attachment implements java.io.Serializable{
 		this.fileLevel = fileLevel;
 	}
 
-	public int getDownloadCount() {
-		return downloadCount;
+	public int getRefItem() {
+		return refItem;
 	}
 
-	public void setDownloadCount(int downloadCount) {
-		this.downloadCount = downloadCount;
+	public void setRefItem(int refItem) {
+		this.refItem = refItem;
 	}
 
-	public String getStatus() {
-		return status;
+	public int getRefApp() {
+		return refApp;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setRefApp(int refApp) {
+		this.refApp = refApp;
+	}
+
+	public int getRefBoard() {
+		return refBoard;
+	}
+
+	public void setRefBoard(int refBoard) {
+		this.refBoard = refBoard;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@Override
 	public String toString() {
-		return "Attachment [fid=" + fid + ", bid=" + bid + ", originName=" + originName + ", changeName=" + changeName
-				+ ", filePath=" + filePath + ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel
-				+ ", downloadCount=" + downloadCount + ", status=" + status + "]";
+		return "Attachment [atid=" + atid + ", atName=" + atName + ", atRename=" + atRename + ", atPath=" + atPath
+				+ ", uploadDate=" + uploadDate + ", fileLevel=" + fileLevel + ", refItem=" + refItem + ", refApp="
+				+ refApp + ", refBoard=" + refBoard + ", type=" + type + "]";
 	}
-	
+
+		
 	
 }
