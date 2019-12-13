@@ -10,7 +10,7 @@
  */
 --%>
 <%@page import="com.kh.lp.common.PageInfo,java.util.ArrayList
-,com.kh.lp.report.model.vo.*"%>
+,com.kh.lp.admin.report.model.vo.*"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -113,7 +113,9 @@ th, td {
 	margin-left: auto;
 	margin-right: auto;
 }
-
+#tdColor {
+	background: #EAEAEA;
+}
 </style>
 </head>
 <body>
@@ -144,25 +146,26 @@ th, td {
 							<td><%= reportList.get(p).getReported_member_no()%></td>
 							<td><%= reportList.get(p).getReport_date()%></td>
 							<%
-								switch(reportList.get(p).getReport_subject()) {
-								case "1" : %> <td>자유게시판</td> <%
+								switch(reportList.get(p).getReport_type()) {
+								case "BT1" : %> <td>자유게시판</td> <%
 								; break;
-								case "2" :%> <td>문의게시판</td> <%
+								case "BT2" :%> <td>문의게시판</td> <%
 								; break;
-								case "3" :%> <td>리뷰게시판</td> <% 
+								case "BT3" :%> <td>리뷰게시판</td> <% 
 								; break;
-								case "4" :%> <td>FAQ게시판</td> <% 
+								case "BT4" :%> <td>FAQ게시판</td> <% 
 								; break;							
 								}
 							%>
 							
 							<%
-								switch(reportList.get(p).getReport_type()){
-								case "RT1" : %><td>게시물</td>
-							<% 
+								System.out.println(reportList.get(p).getReport_subject());
+								switch(reportList.get(p).getReport_subject()){
+								case "RT1" : %> <td>자유게시판</td> <%
 								; break;
-								case "RT2" : %><td>댓글</td>
-							<%
+								case "RT2" :%> <td>문의게시판</td> <%
+								; break;
+								default :%> <td>오류</td> <% 
 								; break;
 								}
 							%>
@@ -213,9 +216,9 @@ th, td {
 					var report = data;
 					console.log(data);
 					var $tr = $("<tr>");
-					var $reporting = $("<tr><td>신고자 회원 </td><td>"+data.reporting_member_no+"</td><td>피신고 회원</td><td>"+data.reported_member_no+"</td>");
-					var $reporDate = $("<tr><td>신고 일시 </td><td>"+data.report_date+"</td><td>신고 대상</td><td>"+reportSubject+"</td>");
-					var $reporType = $("<tr><td>신고 유형 구분 </td><td>"+reportType+"</td><td><td>");
+					var $reporting = $("<tr><td id='tdColor'>신고자 회원 </td><td>"+data.reporting_member_no+"</td><td id='tdColor'>피신고 회원</td><td>"+data.reported_member_no+"</td>");
+					var $reporDate = $("<tr><td id='tdColor'>신고 일시 </td><td>"+data.report_date+"</td><td id='tdColor'>신고 대상</td><td>"+reportSubject+"</td>");
+					var $reporType = $("<tr><td id='tdColor'>신고 유형 구분 </td><td>"+reportType+"</td><td><td>");
 					var $reporContent = $("<tr><td colspan='4'><textarea rows='30' cols='115' style='resize: none' readonly>"+data.reported_content+"</textarea></td>");
 					$tableBody.append($reporting);
 					$tableBody.append($reporDate);

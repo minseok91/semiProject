@@ -40,7 +40,7 @@
 	margin: 15% auto;
 	padding: 20px;
 	boarder: 1px solid #888;
-	width: 70%;
+	width: 674px;
 	background: white;
 }
 #modalTable {
