@@ -63,7 +63,7 @@ td>img {
     width: 100px;
 }
 
-td>.content, .time {
+td>a>.content, .time {
 	font-size: 12px;
 }
 
@@ -72,6 +72,7 @@ td>.content {
 	text-align: left;
 	white-space: pre-wrap;
 	left: 2%;
+	font-size: 12px;
 }
 
 .time {
@@ -89,119 +90,64 @@ td>.content {
 		<div class="contents">
 			<div class="list">
 			<table>
-			<tr>
+					<tr>
+						<%
+							for (int i = 0; i < 6; i++) {
+						%>
+						<!-- 6개 제한 -->
+						<td>
+							<a style="cursor: pointer;" onclick="detail()">
+								<p id="num"></p>
+								<div id="img">
+									<div class="price">￦720,000</div>
+									<img src="<%=request.getContextPath()%>/img/watch1.jpg"
+										alt="">
+								</div> <span class="content">Omega Speedmaster Black Dial</span>
+								<div class="time">3 days 13 : 42</div>
+							</a>
+						</td>
+						<%
+							}
+						%>
+					</tr>
+				<tr>
 					<td>
-						<a style="cursor: pointer;">
-							<div id="img">
-                        		<div class="price">￦720,000</div>
-                        		<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        	</div>
-                        	<span class="content">Omega Speedmaster Black Dial</span>
-                        	<div class="time">3 days 13 : 42</div>
-                        </a>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
+						<img alt="" src="<%=request.getContextPath()%>/img/add.png">
 					</td>
 				</tr>
 				
 				<tr>
-					<td>
-						<img alt="" src="<%= request.getContextPath() %>/img/add.png">
-					</td>
-				</tr>
-				
-				<tr>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-					<td>
-						<div id="img">
-                        	<div class="price">￦2,314,000</div>
-                            <img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-                        </div>
-                        <span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                        <div class="time">End in 8h 55m</div>
-					</td>
-				</tr>
+						<%
+							for (int i = 0; i < 6; i++) {
+						%>
+						<!-- 6개 제한 -->
+						<td>
+							<a style="cursor: pointer;" onclick="detail()">
+								<p id="num"></p>
+								<div id="img">
+									<div class="price">￦2,314,000</div>
+									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+								<span class="content">Cartier Marcello De Cartier handbag Bro…</span>
+								<div class="time">3 days 13 : 42</div>
+							</a>
+						</td>
+						<%
+							}
+						%>
+					</tr>
 			</table>
 		</div>
 	</div>
 	</div>
 	<%@ include file="views/common/footer.jsp" %>
+	
+	<script type="text/javascript">
+		function detail() {
+			const num = document.getElementById('num');
+			
+			location.href="<%= request.getContextPath() %>"/views/goods/watchList.jsp;
+			<%-- location.href="<%= request.getContextPath() %>"/[서블릿링크]?num=num; --%>
+		} 
+	</script>
 </body>
 </html>
