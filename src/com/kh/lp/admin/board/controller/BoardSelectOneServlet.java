@@ -31,13 +31,15 @@ public class BoardSelectOneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int bid = Integer.parseInt(request.getParameter("BID"));
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		String memberName = request.getParameter("memberName");
 		
-		Board b = new BoardService().selectOne(bid);
-		System.out.println("b :" + b );
+		
+		Board b = new BoardService().selectOne(boardId);
 		String page = "";
 		if(b != null) {
-			page = "views/admin/noticeDetail.jsp";
+			page = "views/admin/admin_noticeUpdatePage.jsp";
+			b.setBoardMemberName(memberName);
 			request.setAttribute("b", b);
 		} else {
 			page = "common/errorPage.jsp";

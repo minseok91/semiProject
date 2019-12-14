@@ -78,7 +78,8 @@ public class BoardDao {
 			while(rset.next()) {
 				Board b = new Board();
 				b.setBoardNo(rset.getInt("RNUM"));
-				b.setBoardMemberNo(rset.getString("MEMBER_ID"));
+				b.setBoardId(rset.getInt("BOARD_ID"));
+				b.setBoardMemberName(rset.getString("REPORTING"));
 				b.setBoardTitle(rset.getString("BOARD_TITLE"));
 				b.setBoardContent(rset.getString("BOARD_CONTENT"));
 				b.setBoardDate(rset.getDate("BOARD_DATE"));
@@ -116,10 +117,12 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			b = new Board();
 			if(rset.next()) {
-				b.setBoardId(bid);
-				b.setBoardDate(rset.getDate("BDATE"));
-				b.setBoardTitle(rset.getString("BTITLE"));
-				b.setBoardContent(rset.getString("BCONTENT"));
+				b.setBoardId(rset.getInt("BOARD_ID"));
+				b.setBoardMemberNo(rset.getInt("BOARD_MEMBER_NO"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardDate(rset.getDate("BOARD_DATE"));
+				b.setBoardType(rset.getString("BOARD_TYPE"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,7 +153,7 @@ public class BoardDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			close(con);
+			close(pstmt);
 		}
 		
 		return result;
@@ -160,10 +163,14 @@ public class BoardDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
+		System.out.println("dao : " + b);
 		String query = admin_prop.getProperty("insertBoard");
 		try {
 			pstmt =  con.prepareStatement(query);
-			pstmt.setString(1, b.getBoardContent());
+			pstmt.setInt(1, b.getBoardMemberNo());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setString(4, b.getBoardType());
 			//채우기
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -173,6 +180,58 @@ public class BoardDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int selectMn(Connection con, String writer) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int memberNo = 0;
+		
+		String query = admin_prop.getProperty("selectMemberNo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, writer);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberNo = rset.getInt("MEMBER_No");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return memberNo;
+	}
+
+	public int updateBoard(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, b.getBoardTitle());
+			pstmt.setString(2, b.getBoardContent());
+			pstmt.setString(3, b.getBoardType());
+			pstmt.setInt(4, b.getBoardId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
 		return result;
 	}
 

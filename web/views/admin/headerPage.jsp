@@ -197,7 +197,7 @@
 		location.href="<%= request.getContextPath()%>/views/admin/admin_appraisalProducts.jsp";
 	})
 	$("#userInfo").click(function(){
-		location.href="<%= request.getContextPath()%>/userInfo.me";
+		location.href="<%= request.getContextPath()%>/memberInfo.me";
 	})
 	$("#blackList").click(function(){
 		location.href="<%=request.getContextPath()%>/blackList.me";

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta content="text/html;">
-<link rel="icon" type="image/png" sizes="32x32" href="views/admin/image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 </head>
 <title>Insert title here</title>
 <style>

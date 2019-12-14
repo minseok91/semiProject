@@ -1,8 +1,6 @@
 package com.kh.lp.admin.board.controller;
 
 import java.io.IOException;
-import java.sql.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import com.kh.lp.admin.board.model.service.BoardService;
 import com.kh.lp.admin.board.model.vo.Board;
 
 /**
- * Servlet implementation class BoardInsertServlet
+ * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/insert.bo")
-public class BoardInsertServlet extends HttpServlet {
+@WebServlet("/updateBoard.bo")
+public class BoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardInsertServlet() {
+    public BoardUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,38 +29,33 @@ public class BoardInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int memberId = Integer.parseInt(request.getParameter("boardId"));
 		String title = request.getParameter("title");
+		String type = request.getParameter("category");
 		String content = request.getParameter("content");
-		String category = request.getParameter("category");
-		String writer = request.getParameter("writer");
-		String date = request.getParameter("date");
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
+		System.out.println("게시판 번호"+memberId);
+		System.out.println(type);
+		System.out.println("회원 버호"+memberNo);
 		
-		System.out.println("title : " + title);
-		System.out.println("content : " + content);
-		System.out.println("category : " + category);
-		System.out.println("writer : " + writer);
-		
-		
-		int memberNo = new BoardService().selectMn(writer);
 		Board b = new Board();
-		b.setBoardContent(content);
+		b.setBoardId(memberId);
+		b.setBoardType(type);
 		b.setBoardTitle(title);
 		b.setBoardMemberNo(memberNo);
-		b.setBoardType(category);
+		b.setBoardContent(content);
 		
-		int result = new BoardService().insertBoard(b);
+		int updateBoard = new BoardService().updateBoard(b);
 		
-		String page = "selectAll.bo";
-		
-		  if(result > 0) { 
-			  response.sendRedirect(page); 
-		  } else {
-		  request.setAttribute("msg", "인서트 실패 !");
-		  request.getRequestDispatcher(page).forward(request, response); 
-		  
-		  }
-		 
+		String page = "";
+		if(updateBoard > 0) {
+			page = "selectAll.bo";
+			response.sendRedirect(page);
+		} else {
+			//에러 처리
+		}
+	
 	}
 
 	/**

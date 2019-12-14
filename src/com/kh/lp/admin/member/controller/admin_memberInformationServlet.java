@@ -16,14 +16,14 @@ import com.kh.lp.common.PageInfo;
 /**
  * Servlet implementation class userInformationServlet
  */
-@WebServlet("/userInfo.me")
-public class admin_userInformationServlet extends HttpServlet {
+@WebServlet("/memberInfo.me")
+public class admin_memberInformationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_userInformationServlet() {
+    public admin_memberInformationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,7 +49,6 @@ public class admin_userInformationServlet extends HttpServlet {
 		int listCount = new MemberService().listCount("MS1","MS2");
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
-		System.out.println(listCount);
 		endPage = startPage + 10 - 1;
 		if(endPage >= maxPage) {
 			endPage = maxPage;
@@ -58,7 +57,7 @@ public class admin_userInformationServlet extends HttpServlet {
 		ArrayList<Member> userList = new MemberService().selectUser(currentPage, limit);
 		String Page = "";
 		if(userList != null) {
-			 Page = "views/admin/admin_userInformation.jsp";
+			 Page = "views/admin/admin_mamberInformation.jsp";
 			 request.setAttribute("list", userList);
 			 request.setAttribute("pi", pi);
 			 request.setAttribute("listCount", listCount);

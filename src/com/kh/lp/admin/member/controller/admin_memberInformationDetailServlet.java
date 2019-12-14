@@ -18,14 +18,14 @@ import com.kh.lp.admin.member.model.vo.Member;
 /**
  * Servlet implementation class userInformationDetailServlet
  */
-@WebServlet("/userInfoDetail.me")
-public class admin_userInformationDetailServlet extends HttpServlet {
+@WebServlet("/memberInfoDetail.me")
+public class admin_memberInformationDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_userInformationDetailServlet() {
+    public admin_memberInformationDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,7 +49,7 @@ public class admin_userInformationDetailServlet extends HttpServlet {
 		//user.setPurchasehistory(purchaseCount) ;
 		String page = "";
 		if(user != null) {
-			page = "views/admin/admin_userDetailPage.jsp";
+			page = "views/admin/admin_memberDetailPage.jsp";
 			request.setAttribute("user", user);
 			request.setAttribute("userInfo","1");
 			request.setAttribute("resportCount", resportCount);

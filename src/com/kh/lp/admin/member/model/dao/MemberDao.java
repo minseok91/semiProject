@@ -45,7 +45,6 @@ public class MemberDao {
 		int listCount = 0;
 		
 		String query = admin_prop.getProperty("admin_listCount");
-		System.out.println(query);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, status1);
@@ -56,7 +55,6 @@ public class MemberDao {
 			while(rset.next()) {
 				listCount = rset.getInt(1);
 			}
-			System.out.println(listCount);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,7 +162,6 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(user);
 		return user;
 	}
 	

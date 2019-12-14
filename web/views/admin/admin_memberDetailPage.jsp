@@ -140,7 +140,7 @@ td:nth-of-type(2) {
 				</table>
 				
 				<div id="buttonBox">
-					<button>뒤로 가기</button>
+					<button id="back">뒤로 가기</button>
 				</div>
 			</div>
 		</div>
@@ -167,7 +167,7 @@ td:nth-of-type(2) {
 		$("#reportHistory").click(function() {
 			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMemberId()%>";
 		})
-		$("#buttonBox").click(function() {
+		$("#back").click(function() {
 			window.history.back();
 		});
 	</script>
