@@ -333,6 +333,7 @@ String[] brandModel = item.getItemBrandModel().split(",");
 					<label for="reject">가품</label>
 				   </div>
 				   <input type="hidden" value="<%=itemId%>" name="itemId">
+				   <input type="hidden" value="<%=item.getItemMemberNo()%>" name="memberNo">
 					<div id="acpContent">
 						여기는 진품일 시에 넣는 공간
 						<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
@@ -353,7 +354,7 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						</tr>
 						<tr>
 							<td>모델명</td>
-							<td><input type="text" name="model" placeholder="모델명"></td>
+							<td><input type="text" name="model" value="<%=model %>" placeholder="모델명"></td>
 						</tr>
 						<tr>
 							<td>감정가</td>
@@ -448,7 +449,8 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						</tr>
 						<tr>
 							<td>성별</td>
-							<td><input type="text" name="gender" id="gender" ></td>
+							<td><input type="radio" name="gender" id="Male" value="M"><label for="Male">남</label></td>
+							<td><input type="radio" name="gender" id="FeMale" value="F"><label for="FeMale">여</label></td>
 						</tr>
 					</table>
 				</div>
@@ -465,7 +467,15 @@ String[] brandModel = item.getItemBrandModel().split(",");
 						<textarea name="comment2" cols="40" rows="5"></textarea> 
 						<br>
 						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
+						<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this ,2)">
+						<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this ,3)">
+						<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this ,4)">
+						<input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this ,5)">
 						<img width="120" height="100" id="titleImg">
+						<img width="120" height="100" id="contentImg1">
+						<img width="120" height="100" id="contentImg2">
+						<img width="120" height="100" id="contentImg3">
+						<img width="120" height="100" id="contentImg4">
 						<!-- <input type="submit" value="입력하기"> -->
 						
 						<input type="submit" id="insertGen" value="입력하기">
@@ -482,118 +492,6 @@ String[] brandModel = item.getItemBrandModel().split(",");
  
     </div>
         <!--End Modal-->
-         <!-- The Modal2 -->
-    <div id="myModal2" class="modal">
- 
-      <!-- Modal content -->
-      <div class="modal-content">
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">경매 이력</span></b></span></p>
-                <p style="text-align: center; line-height: 1.5;">
-					<div id="deliNum">
-						<table>
-								<tr>
-									<th>입찰자</th>
-									<th>입찰 금액</th>
-									<th>입찰 시간</th>
-								</tr>
-								<tr>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
-								</tr>
-								<tr>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-							</table>
-					</div>
-				</p>
-                <p><br /></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop2();">
-                <span class="pop_bt" style="font-size: 13pt;" >
-                     닫기
-                </span>
-            </div>
-      </div>
- 
-    </div>
-        <!--End Modal2-->
 	<script>
 	function close_pop(flag) {
 	      $('#myModal').hide();

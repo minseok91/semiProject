@@ -17,6 +17,8 @@ import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.appraisal.model.vo.Auction;
+import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
@@ -446,6 +448,139 @@ public class AppraisalDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int insertAuction(Connection con, Auction au, int memberNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAuction");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int getMemberNo(Connection con, int itemId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int memberNo = 0;
+		
+		String query = prop.getProperty("getMemberNo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, itemId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberNo = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return memberNo;
+	}
+
+	public int insertB(Connection con, Bag b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertB");
+		
+		
+//		BAG_ID
+//		BAG_SIZE
+//		BAG_STRAP
+//		BAG_GENDER
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, b.getBagSize());
+			pstmt.setString(2, b.getBagStrap());
+			pstmt.setString(3, b.getGender());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+	public int insertArB(Connection con, AR1 ar) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertArB");
+
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ar.getBrand());
+			pstmt.setString(2, ar.getModel());
+			pstmt.setInt(3, ar.getPrice());
+			pstmt.setString(4, ar.getCondition());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertAppF(Connection con, App ap) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAppF");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, ap.getAppNote());
+			pstmt.setInt(2, ap.getAppItemId());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

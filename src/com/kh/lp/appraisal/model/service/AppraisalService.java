@@ -14,6 +14,8 @@ import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.appraisal.model.vo.Auction;
+import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
@@ -124,7 +126,7 @@ public class AppraisalService {
 		return list;
 	}
 
-	public int insertIsGen(ItemHistory ih, App ap, Watch w, AR1 ar, ArrayList<Attachment> fileList) {
+	public int insertIsGenW(ItemHistory ih, App ap, Watch w, AR1 ar, ArrayList<Attachment> fileList, Auction au) {
 		Connection con = getConnection();
 		
 		int result = 0;
@@ -140,7 +142,7 @@ public class AppraisalService {
 		//Ar 처리
 		int resultAr = new AppraisalDao().insertArW(con, ar);
 		System.out.println("resultAr" + resultAr);
-		
+		result = resultIh + resultApp + resultW + resultAr;
 		System.out.println("result : "+ result);
 		if (result> 3) {
 			
@@ -159,7 +161,106 @@ public class AppraisalService {
 		
 		result = resultIh + resultApp + resultW + resultAr + resultAt;
 		
-		if(result > 4) {
+		int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
+		
+		int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
+		
+		result += resultAu;
+		
+		
+		if(result > 5) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int insertIsGenB(ItemHistory ih, App ap, Bag b, AR1 ar, ArrayList<Attachment> fileList, Auction au) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		//IH처리
+		int resultIh = new AppraisalDao().insertIh(con, ih);
+		System.out.println("resultIh" + resultIh);
+		//app 처리
+		int resultApp = new AppraisalDao().insertApp(con, ap);
+		System.out.println("resultApp" + resultApp);
+		//W 처리
+		int resultB = new AppraisalDao().insertB(con, b);
+		System.out.println("resultB" + resultB);
+		//Ar 처리
+		int resultAr = new AppraisalDao().insertArB(con, ar);
+		System.out.println("resultAr" + resultAr);
+		result = resultIh + resultApp + resultB + resultAr;
+		System.out.println("result : "+ result);
+		if (result> 3) {
+			
+			int appId = new AppraisalDao().selectCurrvalApp(con);
+			
+			System.out.println("appId :" + appId);
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				
+				fileList.get(i).setRefApp(appId);
+				
+			}
+		}
+		
+		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
+		
+		result = resultIh + resultApp + resultB + resultAr + resultAt;
+		
+		int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
+		
+		int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
+		
+		result += resultAu;
+		
+		
+		if(result > 5) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public int insertIsFake(ItemHistory ih, App ap, ArrayList<Attachment> fileList) {
+		Connection con = getConnection();
+		
+		int result = 0;
+		//IH처리
+		int resultIh = new AppraisalDao().insertIh(con, ih);
+		System.out.println("resultIh" + resultIh);
+		//app 처리
+		int resultApp = new AppraisalDao().insertAppF(con, ap);
+		System.out.println("resultApp" + resultApp);
+		
+		result = resultIh + resultApp;
+		
+		if (result> 1) {
+			
+			int appId = new AppraisalDao().selectCurrvalApp(con);
+			
+			System.out.println("appId :" + appId);
+			
+			for (int i = 0; i < fileList.size(); i++) {
+				
+				fileList.get(i).setRefApp(appId);
+				
+			}
+		}
+		
+		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
+		
+		result = resultIh + resultApp + resultAt;
+		
+		if(result > 2) {
 			commit(con);
 		} else {
 			rollBack(con);

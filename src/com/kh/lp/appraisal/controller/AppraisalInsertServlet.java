@@ -153,7 +153,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			
 			//상세 타입 확인
 			String type = multiRequest.getParameter("type");
-			
+			System.out.println("타입 확인 :" + type);
 			
 			Watch w = new Watch();
 			Bag b = new Bag();
@@ -177,8 +177,8 @@ public class AppraisalInsertServlet extends HttpServlet {
 				System.out.println("watch :" + w);
 				
 			} else {
-				String bagSize = multiRequest.getParameter("bagSize");
-				String bagStrap = multiRequest.getParameter("bagStrap");
+				String bagSize = multiRequest.getParameter("size");
+				String bagStrap = multiRequest.getParameter("strap");
 				String gender = multiRequest.getParameter("gender");
 				
 				//시퀀스로  b.setBagId(bagId);
@@ -219,49 +219,59 @@ public class AppraisalInsertServlet extends HttpServlet {
 			//판매자가 설정 au.setAuStartPrice(auStartPrice);
 			//판매자가 설정 au.setAuStartTime(auStartTime);
 			au.setCount(0);//초기값인데 재경매 일때 다시해야 되나? 
-			//판매자 아이디 넣기 au.setMemberNo(memberNo);
-			
-			//ih,ap,w,ar
-			result = new AppraisalService().insertIsGen(ih, ap , w, ar, fileList);
+			//au.setMemberNo(memberNo);//판매자 아이디 넣기 
+			System.out.println("au : "+ au);
+			//ih,ap,w,ar,fileList
+			System.out.println("type :" + type);
+			if(type.equals("W")) {
+				result = new AppraisalService().insertIsGenW(ih, ap , w, ar, fileList, au);
+			} else {
+				System.out.println("여기는 가방이에요 ");
+				result = new AppraisalService().insertIsGenB(ih, ap , b, ar, fileList, au);
+			}
 			
 			System.out.println("여긴 진품일때");
 		} else {
 			System.out.println("여긴 가품일때");
 			
-			//itemId = multiRequest.getParameter("rejName");
-			System.out.println("itemid :" + itemId);
+			//1. IH넣기
+			ItemHistory ih = new ItemHistory();
+			//SYSDATE로 넣기 ih.setItemHistoryDate(itemHistoryDate);
+			//시퀀스로 넣기 ih.setItemHistoryId(itemHistoryId);
+			//값 4로 넣기 ih.setItemHistoryStatus(itemHistoryStatus);
+			ih.setItemId(itemId);
 			
-			//하나의 서비스로 합치기 시작 (가품)
-			//int resultAll = new AppraisalService().insertAppraisalInfoFake(itemId);
-			//하나의 서비스로 합치기 끝
+			//확인 IH
+			System.out.println("IH :" + ih);
 			
+			//2. APP 넣기
 			String multiComment = multiRequest.getParameter("comment2");
-			System.out.println("comment" + multiComment);
+			App ap = new App();
+			//시퀀스로 넣기 ap.setAppId(appId);
+			ap.setAppItemId(itemId);
+			ap.setAppNote(multiComment);
+			ap.setAppResult("N");
+			//확인 APP
+			System.out.println("ap :" + ap);
+			
+			
+			
 			System.out.println("여긴 가품일때");
-			AppResult ap = new AppResult();
 			
-			
-			//감정번호 가져와서 넣기 ap.setAppId(appId);
-			//넣는거 아님 시퀀스로 ap.setAppResultNo(appResultNo);
-			//이건 첨부파일 관련해서 ap.setAttachId(attachId);
-			ap.setDetailDesc(multiComment);
-			ap.setGenStatus(isGen);
-			System.out.println("ap : " + ap);
-			//이건 입력할 떄 sysdate 로 ap.setResultDate(resultDate);
-			//result = new AppraisalService().insertFake(ap);
+			result = new AppraisalService().insertIsFake(ih, ap , fileList);
 		}
 		
 		 
 		
-//		String page = "";
-//		if(result > 0) {
-//			page = "views/admin/appRequest.jsp";
-//			response.sendRedirect(page);
-//		} else {
-//			page = "views/common/errorPage.jsp";
-//			request.setAttribute("msg", "인서트 실패");
-//			request.getRequestDispatcher(page).forward(request, response);
-//		}
+		String page = "";
+		if(result > 0) {
+			page = "/lp/selectAll.app";
+			response.sendRedirect(page);
+		} else {
+			page = "views/common/errorPage.jsp";
+			request.setAttribute("msg", "인서트 실패");
+			request.getRequestDispatcher(page).forward(request, response);
+		}
 		
 		}
 	}
