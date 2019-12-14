@@ -69,4 +69,35 @@ public class BoardService {
 		return result;
 	}
 
+	public int selectMn(String writer) {
+		Connection con = getConnection();
+		
+		int memberNo = new BoardDao().selectMn(con, writer);
+		
+		close(con);
+		
+		return memberNo;
+	}
+
+	public int updateBoard(Board b) {
+		Connection con = getConnection();
+		
+		int updateBoard = new BoardDao().updateBoard(con,b);
+		
+		if(updateBoard > 0) {
+			
+			commit(con);
+			
+		} else {
+			
+			rollBack(con);
+			
+		}
+		
+		
+		return updateBoard;
+	}
+
+	
+
 }

@@ -12,7 +12,6 @@
 	int limit = pi.getLimit();
 	int ListCount = pi.getListCount();
 	int MaxPage = pi.getMaxPage();
-	System.out.println(pi);
 %>
 <!DOCTYPE html>
 <html>
@@ -83,7 +82,7 @@ html, body {
 	width: 100%;
 	height: 15%;
 } 
-#sarchBoxBtn {
+#searchBoxBtn {
 	width: 65px;
 	height: 31px;
 	margin-left: 2%;
@@ -114,7 +113,7 @@ html, body {
 		<div id="contents" class="contents">
 			<div>
 				<p>전체 회원<h3><%= request.getAttribute("listCount") %>명</h3>
-				<button id="sarchBoxBtn">검색</button>
+				<button id="searchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
 			<div>
@@ -156,7 +155,7 @@ html, body {
 		$("td").click(function(e) {
 			var userId = e.target.parentElement.children[1].innerHTML;
 			console.log(userId)
-		    location.href="<%=request.getContextPath()%>/userInfoDetail.me?userId="+userId;
+		    location.href="<%=request.getContextPath()%>/memberInfoDetail.me?userId="+userId;
 		})
 	});
 	</script>

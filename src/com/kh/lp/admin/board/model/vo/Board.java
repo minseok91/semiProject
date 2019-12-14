@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Board {
 	private int boardNo;
 	private int boardId;
-	private String boardMemberNo;
+	private int boardMemberNo;
 	private String boardTitle;
 	private String boardContent;
 	private Date boardDate;
@@ -21,6 +21,7 @@ public class Board {
 	private String boardType;
 	private String boardStatus;
 	private Date boardModifyDate;
+	private String boardMemberName;
 	
 	
 	

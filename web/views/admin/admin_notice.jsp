@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.lp.board.model.vo.*"%>
+	pageEncoding="UTF-8" import="java.util.*, com.kh.lp.admin.board.model.vo.*
+	, com.kh.lp.common.*"%>
 <%  ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int startPage = pi.getStartPage();
@@ -14,10 +15,7 @@
 <head>
 <meta content="text/html;">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/admin_notice.css">
-</head>
-<link rel="icon" type="image/png" sizes="32x32"
-	href="image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="views/admin/image/loginimg(2).png">
 </head>
 <style>
 html, body {
@@ -71,7 +69,7 @@ html, body {
 }
 
 #search_Box {
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	border: none;
 	margin-top: 10px;
@@ -134,19 +132,22 @@ html, body {
 }
 
 #idSearch {
+	margin-top: 1px;
 	width: 130px;
-	height: 30px;
-	margin-left: 8px;
-	border: 1px solid gray;
-	border-radius: 5px;
+	height: 25px;
+	border: none;
+	box-shadow: 2px 2px 6px 1px gray;
 }
 
 #idSearchBtn {
-	width: 50px;
-	height: 30px;
-	background: rgb(160, 115, 66);
-	color: #e2ceb8;
-	border: 1px solid rgb(160, 115, 66);
+	width: 65px;
+	height: 31px;
+	margin-left: 2%;
+	float: right;
+	background: rgb(33, 31, 34);
+	border: 2px solid rgb(160, 115, 66);
+	color: rgb(160, 115, 66);
+	margin-top: 2px;
 }
 
 #NoticeNumber>p {
@@ -182,8 +183,14 @@ html, body {
 								<option value="BT1">자유 게시판</option>
 								<option value="BT2">건의 게시판</option>
 								<option value="BT3">리뷰 게시판</option>
-						</select> <input type="text" id="idSearch">
-							<button id="idSearchBtn">검색</button></td>
+						</select>
+						</td>
+						<td>
+							 <input type="text" id="idSearch">
+						</td>
+						<td>
+							<button id="idSearchBtn">검색</button>
+							</td>
 					</tr>
 				</table>
 			</div>
@@ -195,20 +202,21 @@ html, body {
 					<tr>
 						<th>No.</th>
 						<th>제목</th>
-						<th>아이디</th>
+						<th>작성자</th>
 						<th>작성일</th>
-						<th>조회수</th>
 						<th>수정일</th>
 						<th>게시판종류</th>
+						<th>조회수</th>
 						<th>기능</th>
 					</tr>
 					 <% for(int i=0; i<list.size(); i++) { %>
 					<tr>
-						<td><%= list.get(i).getBoardNo() %></td>
+						<td><%= list.get(i).getBoardNo() %>
+							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
+						</td>
 						<td><%= list.get(i).getBoardTitle() %></td>
-						<td><%= list.get(i).getBoardMemberNo() %></td>
+						<td><%= list.get(i).getBoardMemberName() %></td>
 						<td><%= list.get(i).getBoardDate() %></td>
-						<td><%= list.get(i).getBoardCount() %></td>
 						<td><%= list.get(i).getBoardModifyDate() %></td>
 						<% switch(list.get(i).getBoardType()) { 
 						case "BT1" : %><td>자유게시판</td><%
@@ -218,9 +226,10 @@ html, body {
 						case "BT3" : %><td>리뷰게시판</td><%
 						; break;
 						}%>
+						<td><%= list.get(i).getBoardCount() %></td>
 						<td>
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
+							<button id="updateBtn" onclick="location.href='<%=request.getContextPath()%>/selectOne.bo?boardId=<%=list.get(i).getBoardId()%>&memberName=<%=list.get(i).getBoardMemberName()%>'">수정</button>
+							<button id="deleteBtn" onclick="location.href='<%=request.getContextPath()%>/delete.bo?boardId=<%=list.get(i).getBoardId()%>'">삭제</button>
 						</td>
 					</tr>
 			<% } %> 
@@ -259,10 +268,24 @@ html, body {
 		</div>
 	</div>
 	<script>
-		$("#insertBoard").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/insertNotice.jsp?userId=admin";
+	$("td").click(function(e) {
+		var boardId = e.target.parentNode.children[0].children[0].value;
+		var MemberName = e.target.parentNode.children[2].innerText;
+		console.log(MemberName);
+			if(e.target.innerHTML == '수정'){
+				var userId = e.target.attributes.value.value;
+				location.href="<%=request.getContextPath()%>/selectOne.bo?boardId=boardId%>"
+				console.log(e.target.innerHTML);
+			} else if(e.target.innerHTML == '삭제'){
+				var userId = e.target.attributes.value.value;
+				location.href="<%=request.getContextPath()%>/delete.bo?boardId=boardId"
+				console.log(e.target.innerHTML);
+			} else {
+				console.log(e.target.parentElement.children[1].innerHTML);
+			    location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+MemberName
+			}
 		})
-		$("#table > td").click()
+		
 	</script>
 </body>
 </html>
