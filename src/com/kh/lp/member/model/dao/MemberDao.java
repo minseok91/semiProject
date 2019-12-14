@@ -64,7 +64,6 @@ public class MemberDao {
 				loginMember.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				loginMember.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				loginMember.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				loginMember.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
 				loginMember.setMemberStatus(rset.getString("MEMBER_STATUS"));
 			}
 			
@@ -118,6 +117,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "회원가입");
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -470,7 +470,6 @@ public class MemberDao {
 				m.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				m.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				m.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				m.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
 				m.setMemberStatus(rset.getString("MEMBER_STATUS"));
 				
 				userList.add(m);
@@ -520,7 +519,6 @@ public class MemberDao {
 				user.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				user.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				user.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				user.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
 				user.setMemberStatus(rset.getString("MEMBER_STATUS"));
 				
 			}
@@ -572,7 +570,6 @@ public class MemberDao {
 				m.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				m.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				m.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				m.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
 				m.setMemberStatus(rset.getString("MEMBER_STATUS"));
 				
 				list.add(m);
@@ -700,8 +697,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, detail);
-			pstmt.setInt(2, requestMember.getMemberNo());
+			pstmt.setInt(1, requestMember.getMemberNo());
+			pstmt.setString(2, detail);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -750,8 +747,8 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, detail);
-			pstmt.setInt(2, requestMember.getMemberNo());
+			pstmt.setInt(1, requestMember.getMemberNo());
+			pstmt.setString(2, detail);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
