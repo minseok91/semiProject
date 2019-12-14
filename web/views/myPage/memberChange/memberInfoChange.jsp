@@ -25,11 +25,13 @@
 		padding-bottom: 10px;
 	}
 	.container>#myPageMenu{
-		width: 210px;
+		width: 200px;
 		height: 1080px;
 		border-right: 2px solid black;
 		display: inline-block;
 		float: left;
+		margin-right:10px;
+		margin-top: 10px;
 	}
 	.container>#myPageMenu>dl>dt {
 		font-size: 1.5em;
@@ -73,6 +75,7 @@
 		height: 110px;
 		display: inline-block;
 		margin-left: 10px;
+		margin-bottom: 10px;
 	}
 	.container>.menuStatus>.status1>h3{
 		margin-top:10px;

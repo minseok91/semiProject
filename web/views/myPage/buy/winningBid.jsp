@@ -27,11 +27,13 @@
 	}
 
 #myPageMenu {
-	width: 210px;
+	width: 200px;
 	height: 1080px;
 	border-right: 2px solid black;
 	display: inline-block;
 	float: left;
+	margin-right:10px;
+	margin-top: 10px;
 }
 
 #myPageMenu>dl>dt {
@@ -80,6 +82,7 @@
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
+	margin-bottom: 10px;
 }
 
 .menuStatus>.status2 {

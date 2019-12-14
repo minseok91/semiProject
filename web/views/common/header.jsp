@@ -46,8 +46,8 @@
 	
 	.container>#th1 #left {
 		position: absolute;
-    	left: 234px;
-    	top: 22%;
+    	left: 400px;
+    	top: 40%;
 	}
 	
 	.container>#th1 #logo {
@@ -60,8 +60,8 @@
 	.container>#th1 #headerlogin {
 		position: absolute;
     	display: inline-block;
-    	right: 228px;
-    	top: 38%;
+    	right: 370px;
+    	top: 45%;
 	}
 	
 	header .container #headerlogin a {

@@ -13,7 +13,7 @@
 	#menubar{
     	background-color: #a07342;
     	text-align: center;
-    	height: 51px;
+    	height: 50px;
     	position: relative;
    		width: 100%;
 	}
@@ -22,7 +22,7 @@
    		display: inline-block;
     	vertical-align: top;
     	text-align: center;
-    	margin-right: -7px;
+    	
 	}
 
 	#menubar li a{
@@ -30,25 +30,26 @@
     	padding-left: 35px;
     	padding-right: 35px;
     	width: 230px;
-    	height: 45px;
+    	height: 50px;
     	color:#211f22;
     	border-left: 1px solid #e2ceb8;
-    	border-right: 1px solid #e2ceb8;
+
 	}
 
 	#menubar li a:hover {
     	background-color: #dba060;
-    	transition: 0.5s;
+    	/* transition: 0.5s; */
 	}
 
 	#menubar>li>a>div{
     	padding-top: 4px;
-	}
+	} 
 
 	#menubar>li:nth-of-type(n+3)>a>div{
     	padding: 15px;
 	}
-	@media(max-width:1150px){
+	
+ 	@media(max-width:1150px){
 		#menubar li a{
     		display: inline-block;
     		padding-left: 20px;
@@ -65,6 +66,11 @@
     		padding-left: 0px;
 		}
 	}
+	
+	.board {
+		border-right: 1px solid #e2ceb8;
+	}
+	
 </style>
 </head>
 <body>
@@ -82,7 +88,7 @@
             <li>
                 <a href="<%= request.getContextPath() %>/views/goods/bagList.jsp"><div>BAG</div></a>
             </li>
-            <li>
+            <li class="board">
                 <a href="<%= request.getContextPath() %>/views/board/freeBoard.jsp"><div>BOARD</div></a>
             </li>
         </ul>	
