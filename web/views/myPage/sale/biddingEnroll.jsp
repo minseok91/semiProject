@@ -178,6 +178,7 @@ input[type=date] {
 <body>
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
+	<% if(loginMember != null) { %>
 	<div class="container">
 	<div class="contents">
 		<div id="myPageMenu">
@@ -269,6 +270,10 @@ input[type=date] {
 				</div> <!-- contentArea End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
+	<% } else {
+		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
+	   } %>
 	<%@ include file="../../common/footer.jsp" %>
 
 	<script>

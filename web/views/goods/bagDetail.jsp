@@ -22,7 +22,7 @@
 <style>
 	.container {
 		width: 1080px;
-		margin: 75px auto;
+		margin: auto;
 	}
 	
 	.contents{
@@ -260,7 +260,11 @@
 						<div id="price">
 							<label>현재 가격</label>
 							<label>￦1,600,000</label>
+							<% if(loginMember == null) { %>
+									<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
+							<% } %>
 						</div>
+						<% if(loginMember != null) { %>
 						<div id="biddingApply">
 						<form action="" post="get">
 							<label>입찰 단위 : ￦ 80,000</label><br>
@@ -269,6 +273,7 @@
 						</form>
 						<label>※경매 수수료 : 낙찰가의 15%</label>
 					</div>
+					<% } %>
 					</div>
 					<div id="biddingUsers">
 							<table>

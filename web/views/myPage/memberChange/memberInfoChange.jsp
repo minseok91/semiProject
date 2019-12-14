@@ -164,6 +164,7 @@
 <body>
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
+	<% if(loginMember != null) { %>
 	<div class="container">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
@@ -293,6 +294,10 @@
         </form>
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
+	<% } else {
+		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
+	   } %>
 	<%@ include file="../../common/footer.jsp" %>
 
 	<script>
