@@ -23,4 +23,19 @@ public class ReplyService {
 		return Rlist;
 	}
 
+	public int inserReply(int boardId, String comment, int memberId) {
+		Connection con = getConnection();
+		
+		int result = new ReplyDao().insertReply(con, boardId, comment, memberId);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		
+		
+		return 0;
+	}
+
 }

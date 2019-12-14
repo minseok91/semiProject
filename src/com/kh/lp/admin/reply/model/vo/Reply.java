@@ -13,6 +13,7 @@ public class Reply {
 	private int replyId;
 	private int replyBoardId;
 	private int replyMemberNo;
+	private String replyMemberName;
 	private Date replyDate;
 	private String replyStatus;
 	private String replyContent;

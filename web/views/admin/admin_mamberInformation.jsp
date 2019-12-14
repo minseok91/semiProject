@@ -35,7 +35,6 @@ html, body {
 }
 .contents {
 	width: 100%;
-	height: 650px;
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
@@ -81,6 +80,8 @@ html, body {
 #nextPage {
 	width: 100%;
 	height: 15%;
+	margin-bottom: 20px;
+	margin-top: 70px;
 } 
 #searchBoxBtn {
 	width: 65px;
@@ -140,11 +141,11 @@ html, body {
 			</div>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=1'"><<</button>
+					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
 					<% for(int p=1; p<=endPage; p++) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=p%>'"><%= p %></button>
+						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/userInfo.me?currentPage=<%=endPage%>'">>></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=endPage%>'">>></button>
 				</div>
 			</div>
 		</div>

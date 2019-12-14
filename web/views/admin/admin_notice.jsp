@@ -228,8 +228,8 @@ html, body {
 						}%>
 						<td><%= list.get(i).getBoardCount() %></td>
 						<td>
-							<button id="updateBtn" onclick="location.href='<%=request.getContextPath()%>/selectOne.bo?boardId=<%=list.get(i).getBoardId()%>&memberName=<%=list.get(i).getBoardMemberName()%>'">수정</button>
-							<button id="deleteBtn" onclick="location.href='<%=request.getContextPath()%>/delete.bo?boardId=<%=list.get(i).getBoardId()%>'">삭제</button>
+							<button id="updateBtn">수정</button>
+							<button id="deleteBtn">삭제</button>
 						</td>
 					</tr>
 			<% } %> 
@@ -284,6 +284,9 @@ html, body {
 				console.log(e.target.parentElement.children[1].innerHTML);
 			    location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+MemberName
 			}
+		})
+		$("#insertBoard").click(function(){
+			location.href="views/admin/insertNotice.jsp";
 		})
 		
 	</script>

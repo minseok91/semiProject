@@ -17,13 +17,13 @@ import com.kh.lp.common.PageInfo;
  * Servlet implementation class userReportServlet
  */
 @WebServlet("/userReport.me")
-public class userReportServlet extends HttpServlet {
+public class ReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public userReportServlet() {
+    public ReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
