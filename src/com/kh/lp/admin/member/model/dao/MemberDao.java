@@ -153,7 +153,6 @@ public class MemberDao {
 				user.setMemberEmail(rset.getString("MEMBER_EMAIL"));
 				user.setMemberAddress(rset.getString("MEMBER_ADDRESS"));
 				user.setMemberEnrollDate(rset.getDate("MEMBER_ENROLL_DATE"));
-				user.setMemberModifyDate(rset.getDate("MEMBER_MODIFY_DATE"));
 				user.setMemberStatus(rset.getString("MEMBER_STATUS"));
 				
 			}

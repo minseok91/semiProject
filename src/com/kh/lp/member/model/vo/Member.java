@@ -18,7 +18,6 @@ public class Member {
 	private String memberAddress;				//회원주소
 	private String memberEmail;					//회원이메일
 	private Date memberEnrollDate;				//회원가입일자
-	private Date memberModifyDate;				//회원변경일자
 	private String memberStatus;				//회원 상태 M1,M2,M3
 
 }
