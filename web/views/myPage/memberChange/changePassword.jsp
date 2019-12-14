@@ -23,11 +23,13 @@
 }
 
 .container>#myPageMenu {
-	width: 210px;
+	width: 200px;
 	height: 1080px;
 	border-right: 2px solid black;
 	display: inline-block;
 	float: left;
+	margin-right:10px;
+	margin-top: 10px;
 }
 
 .container>#myPageMenu>dl>dt {
@@ -77,6 +79,7 @@
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
+	margin-bottom: 10px;
 }
 
 .container>.menuStatus>.status2 {
