@@ -23,6 +23,8 @@
 		<% } else if(msg == "failDelete") { %>
 			alert("회원탈퇴에 실패했습니다. 다시 시도해주세요");
 			location.href="<%= request.getContextPath() %>/index.jsp";
+		<% } else if(msg == "잘못된 경로로 접근했습니다.") { %>
+			location.href = "<%= request.getContextPath() %>/views/member/login.jsp";
 		<% } %>
 		}
 	</script>
