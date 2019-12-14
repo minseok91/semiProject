@@ -38,7 +38,7 @@ public class BoardDetailServlet extends HttpServlet {
 		
 		Board list = new BoardService().selectOne(boardId);
 		ArrayList<Reply> Rlist = new ReplyService().selectAll(boardId);
-		
+		System.out.println(Rlist);
 		String page = "";
 		if(list != null) {
 			page = "views/admin/admin_noticeDetail.jsp";

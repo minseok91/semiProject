@@ -208,11 +208,11 @@ input:nth-of-type(text) {
 #infoTable td:nth-child(1){
 	width: 200px;
 }
-#infoTable textarea {
+#boardContents {
 	width: 783px;
 	height: 350px;
 	resize: none;
-	overflow: scroll;
+	overflow: hidden;
 }
 input[type="text"] {
 	margin-left: 30px;
@@ -253,10 +253,13 @@ input[type="text"]:focus {
 	overflow: scroll;
 }
 #comment_text {
-	width: 837px;
+	width: 861px;
 	float: left;
 	border: 1px solid;
 	height: 45px;
+	margin-left:10px;
+	resize: none; 
+	
 }
 </style>
 <script
@@ -298,7 +301,7 @@ input[type="text"]:focus {
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea name="content" readonly><%= list.getBoardContent() %></textarea></td>
+							<td><textarea id="boardContents" name="content" readonly><%= list.getBoardContent() %></textarea></td>
 						</tr>
 						<tr>
 							<td colspan="2">댓글</td>
@@ -312,7 +315,7 @@ input[type="text"]:focus {
 						</tr>
 						<tr>
 							<td colspan="2" id="comment_bottom">
-							<input type="text" id="comment_text">
+							<textarea rows="" cols="" id="comment_text"></textarea>
 							<button id="comment_btn">작성하기</button>
 							</td>
 						</tr>
@@ -354,6 +357,29 @@ input[type="text"]:focus {
 			function ok(){
 				return nn;
 			}
+	</script>
+	<script>
+		$(function(){
+			
+			$("#comment_btn").click(function(){
+					var comment = $("#comment_text")[0].value;
+					console.log(comment);
+				$.ajax({
+					url:"insertReply.re",
+					data : { boardId : <%= list.getBoardId() %>,
+							 memberId : <%= list.getBoardMemberNo()%>,	
+							 comment : comment
+					},
+					type : "GET",
+					success:function(data) {
+						console.log("서버 전송 성공");
+					}, error:function(error, status) {
+						
+					}
+				})
+			
+			})
+		})
 	</script>
 </body>
 </html>

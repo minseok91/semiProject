@@ -33,7 +33,6 @@
 }
 .contents {
 	width: 100%;
-	height: 650px;
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
@@ -79,6 +78,8 @@
 #nextPage {
 	width: 100%;
 	height: 15%;
+	margin-bottom: 20px;
+	margin-top: 70px;
 } 
 #searchBox {
 	margin-top: 1px;
@@ -130,7 +131,7 @@
 							<td><%= blackList.get(i).getMemberId()%></td>
 							<td><%= blackList.get(i).getMemberName()%></td>
 							<td><%= blackList.get(i).getMemberPhone()%></td>
-							<td><%= blackList.get(i).getMemberAddress()%></td>
+							<td style="width: 394px"><%= blackList.get(i).getMemberAddress()%></td>
 							<td><%= blackList.get(i).getMemberEmail() %></td>
 							<td>
 								<button class="withdraw" value="<%= blackList.get(i).getMemberId()%>">탈퇴</button>

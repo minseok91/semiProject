@@ -1,4 +1,4 @@
-package com.kh.lp.admin.report.controller;
+package com.kh.lp.admin.reply.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,25 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.kh.lp.admin.report.model.service.ReportService;
-import com.kh.lp.admin.report.model.vo.Report;
-
-import jdk.nashorn.api.scripting.JSObject;
+import com.kh.lp.admin.reply.model.service.ReplyService;
 
 /**
- * Servlet implementation class userReportDetailServlet
+ * Servlet implementation class insertReplyServlet
  */
-@WebServlet("/userReportDetail.me")
-public class userReportDetailServlet extends HttpServlet {
+@WebServlet("/insertReply.re")
+public class insertReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public userReportDetailServlet() {
+    public insertReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,20 +28,18 @@ public class userReportDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String reportId = request.getParameter("reportId");
+		int boardId = Integer.parseInt(request.getParameter("boardId"));
+		int memberId = Integer.parseInt(request.getParameter("memberId"));
+		String comment = request.getParameter("comment");
 		
-		System.out.println(reportId);
-		Report list = new ReportService().selectOne(reportId);
+		System.out.println(boardId);
+		System.out.println(memberId);
+		System.out.println(comment);
 		
 		
+		int inserReply = new ReplyService().inserReply(boardId, comment, memberId);
+	
 		
-		
-		
-		
-		  response.setContentType("application/json");
-		  response.setCharacterEncoding("UTF-8"); new Gson().toJson(list,
-		  response.getWriter());
-		 
 	}
 
 	/**
