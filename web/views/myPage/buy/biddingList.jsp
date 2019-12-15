@@ -26,8 +26,6 @@
 	width:inherit;
 }
 
-
-
 .container>.contents>#myPageMenu {
 	width: 200px;
 	height: 1080px;
@@ -108,7 +106,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 28%;
+    left: 32%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
