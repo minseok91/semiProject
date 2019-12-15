@@ -307,8 +307,10 @@
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
-			
-			var phone1 = "<%= srr[0] %>";
+			<%
+				String[] p = loginMember.getMemberPhone().split("-");
+			%>
+			var phone1 = "<%= p[0] %>";
 			if(phone1 === "010"){
 				$("#010").prop("selected", true);
 			} else if(phone1 === "011"){

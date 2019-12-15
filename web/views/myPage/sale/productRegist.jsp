@@ -254,10 +254,7 @@
 			<br>
 			<label>상세설명</label>
 			<br>
-			<textarea style="width: inherit; height:50px" >
-			
-			
-			</textarea>
+			<textarea style="width: inherit; height:50px" ></textarea>
 			</div>
 			<button id="regist" align="center">등록하기</button>
 
