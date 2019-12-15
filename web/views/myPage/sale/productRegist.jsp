@@ -27,12 +27,14 @@
 		margin-top: 50px;
 		margin-bottom: 10px;
 	}
+	
 	.container>#myPageMenu>dl>dd {
 		font-size: 15px;
 		margin-left: 20px;
 		margin-top: 7px;
 		margin-bottom: 7px;
 	}
+	
 	#h3{
 		font-family: 'Nanum Myeongjo', serif;
 		background-color: #211f22;
@@ -48,18 +50,21 @@
 		color: darkgray;
 		text-decoration: none;
 	}
+	
 	.container>#myPageMenu>dl>dd>#selectMenu{
 		font-size: 1em;
 		font-weight: bold;
 		color: black;
 		text-decoration: underline;
 	}
+	
 	.container>#myPageMenu>dl>dd>a:hover{
 		font-size: 1em;
 		font-weight: bold;
 		color: black;
 		text-decoration: underline;
 	}
+	
 	.container>.menuStatus{
 		width: 920px;
 		height: 110px;
@@ -67,29 +72,32 @@
 		margin-left: 10px;
 		margin-bottom: 10px;
 	}
+	
 	.container>.menuStatus>.status1>h3{
 		margin-top:10px;
 	}
+	
 	.container>.menuStatus>.status2{
 		width: 920px;
 		height: 54px;
 		background-color: lightgray;
 		vertical-align: middle;
-
 	}
+	
 	.container>.menuStatus>.status2>p{
 		padding-top: 16px;
 		padding-left: 30px;
 		font-size: 17px;
 	}
+	
 	.container>.contentArea{
 		width: 920px;
 		height: 970px;
 		border: 1px solid black;
 		display: inline-block;
 		margin-left: 10px;
-		
 	}
+	
 	#picArea{
 		width:29%;
 		border:1px solid black;
@@ -98,7 +106,8 @@
 		float:left;
 		text-align:center;
 	}
-	#contArea{
+	
+	#infoArea{
 		width:70%;
 		border:1px solid black;
 		height:300px;
@@ -117,13 +126,32 @@
 		margin-bottom:10px;
 	}
 	
+	#watchBrand, #bagBrand {
+		width:100px;
+	}
+	
+	#bagBrand {
+		display:none;
+	}
+	
+	
+	.titles, .inputs {
+		border: 1px solid red;
+	}
+	
+	.titles {
+		width: 
+	}
+	
+	
+	
 	
 </style>
 </head>
 <body>
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
-	<% if(loginMember != null) { %>
+	<%-- <% if(loginMember != null) { %> --%>
 	<div class="container">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
@@ -170,25 +198,28 @@
 				<input type="file" value="사진업로드">
 				
 			</div>
-			<div id="contArea">
-			<div>
+			<div id="infoArea">
+			<div class="titles">
 			<label>종류</label>
-			<select onchange="watchBag();">
-				<option value="W">시계</option>
+			</div>
+			<div class="inputs">
+			<select id="type" onchange="watchBag();">
+				<option value="W" selected>시계</option>
 				<option value="B">가방</option>
 			</select>
+			</div>
 			
-			
+			<div class="titles">
 			<label>브랜드</label>
-			<select name="watchBrand" id="watchBrand" class="brandSelect">
+			</div>			
+			<div class="inputs">
+			<select name="watchBrand" id="watchBrand" class="brandSelect" >
 			
 				<option value="ROLEX">ROLEX</option>
-				
-				
-				
+										
 				
 			</select>
-			<select name="bagBrand" id="bagBrand" class="brandSelect">
+			<select name="bagBrand" id="bagBrand" class="brandSelect" >
 				
 				<option value="HERMES">HERMES</option>
 			
@@ -197,11 +228,17 @@
 			
 			
 			
-			<div><br>
+			
+			<div class="titles">
 				<label>모델명</label>
+			</div>
+			<div class="inputs">
 				<input type="text">
-				<br><br>
+			</div>
+				<div class="titles">
 				<label>구매시기</label>
+				</div>
+				<div class="inputs">
 				<select name="purYear" id="purYear" class="purDate">
 					<option value="2000년">2000</option>
 					<option value="2001년">2001</option>
@@ -240,24 +277,26 @@
 					<option value="12월">12</option>
 				</select>
 				<label>월</label>				
-				<br><br>
-				
+				</div>
+			
+				<div class="titles">
 				<label>보증서 유무</label>
+				</div>
+				<div class="inputs">
 				<select name="warrYN" id="warrYN" class="warranty">
 					<option value="Y">유</option>
 					<option value="N" selected>무</option>
 				</select>
 				<br>
 				<p>&nbsp;&nbsp;※보증서 '유'에 체크하셨다면 상품 배송 시 보증서를 함께 배송해주세요.</p>
+				</div>
 				
-			</div>
-			<br>
+			<div class="titles">
 			<label>상세설명</label>
-			<br>
-			<textarea style="width: inherit; height:50px" >
-			
-			
-			</textarea>
+			</div>
+			<div class="inputs">
+			<textarea style="width: inherit; height:50px; resize:none;" ></textarea>
+			</div>
 			</div>
 			<button id="regist" align="center">등록하기</button>
 
@@ -267,13 +306,14 @@
 						
 		</div>  <!-- contentArea end -->
 	</div>  <!-- container end -->
-	<% } else {
+	<%-- <% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
-	   } %>
+	   } %> --%>
 	<%@ include file="../../common/footer.jsp" %>
 
 	<script>
+	
 		$(function() {
 			$('a').click(function() {
 				let values=$(this).attr('value');
@@ -284,8 +324,20 @@
 		
 		
 		
+		function watchBag(){
+						
+			if($("#type").val() === 'W'){
+				$('#bagBrand').hide();
+				$('#watchBrand').show();
+			}else {
+				$('#watchBrand').hide();
+				$('#bagBrand').show();
+			}
+			
+		};
 		
 		
+
 	</script>
 </body>
 </html>
