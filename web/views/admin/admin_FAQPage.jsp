@@ -4,15 +4,16 @@
  * @Author      : 안동환
  * @CreateDate  : 2019. 12. 15. 오후 5:56:50
  * @ModifyDate  : 2019. 12. 15. 오후 5:56:50
- * @fileName    : 관리자 게사판페이지
+ * @fileName    : 관리자 FAQ페이지
  * @Description :
  * </pre>
  */
 --%>
-<%@ page language="java" contentType="text/html;charset=UTF-8"
+<%@  page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.kh.lp.admin.board.model.vo.*
 	, com.kh.lp.common.*"%>
-<%  ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list"); 
+<% 
+	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int startPage = pi.getStartPage();
 	int endPage = pi.getMaxPage();
@@ -25,9 +26,8 @@
 <html>
 <head>
 <meta content="text/html;">
+<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 <title>Insert title here</title>
-<link rel="icon" type="image/png" sizes="32x32" href="views/admin/image/loginimg(2).png">
-</head>
 <style>
 html, body {
 	padding: 0;
@@ -187,17 +187,10 @@ html, body {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<table id="search_Box">
+				<table id="search_Box" style="float: right;">
 					<tr>
-						<td><select id="boardType" name="boardType">
-								<option>-- 선택 --</option>
-								<option value="BT1">자유 게시판</option>
-								<option value="BT2">건의 게시판</option>
-								<option value="BT3">리뷰 게시판</option>
-						</select>
-						</td>
 						<td>
-							 <input type="text" id="idSearch">
+							 <input type="text" id="idSearch" style="margin-left: 87px;">
 						</td>
 						<td>
 							<button id="idSearchBtn">검색</button>
@@ -207,44 +200,35 @@ html, body {
 			</div>
 			<div>
 				<div id="NoticeNumber">
-					<p>총 게시판 글 :</p><h4><%= list.size() %>개</h4>
+					 <p>총 게시판 글 :</p><h4><%= list.size() %> 개</h4>
 				</div>
 				<table id="table">
 					<tr>
 						<th>No.</th>
-						<th>제목</th>
 						<th>작성자</th>
+						<th>제목</th>
 						<th>작성일</th>
 						<th>수정일</th>
-						<th>게시판종류</th>
+						<th>게시판 종류</th>
 						<th>조회수</th>
-						<th>기능</th>
 					</tr>
-					 <% for(int i=0; i<list.size(); i++) { %>
+					<% for(int i=0; i<list.size(); i++) { %>
 					<tr>
 						<td><%= list.get(i).getBoardNo() %>
 							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
 							<input type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
 						</td>
-						<td><%= list.get(i).getBoardTitle() %></td>
 						<td><%= list.get(i).getBoardMemberName() %></td>
+						<td style="width: 560px"><%= list.get(i).getBoardTitle() %></td>
 						<td><%= list.get(i).getBoardDate() %></td>
 						<td><%= list.get(i).getBoardModifyDate() %></td>
 						<% switch(list.get(i).getBoardType()) { 
-						case "BT1" : %><td>자유게시판</td><%
-						; break;
-						case "BT2" : %><td>문의게시판</td><%
-						; break;
-						case "BT3" : %><td>리뷰게시판</td><%
+						case "BT4" : %><td>FAQ게시판</td><%
 						; break;
 						}%>
 						<td><%= list.get(i).getBoardCount() %></td>
-						<td>
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
-						</td>
 					</tr>
-			<% } %> 
+			<% } %>
 
 				</table>
 
@@ -252,27 +236,27 @@ html, body {
 			<button id="insertBoard">글쓰기</button>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=1'"><<</button>
 		<% if(currentPage <= 1){ %>
 			<button disabled> < </button>
 		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=currentPage-1%>'"><</button>
 		<% } %>
 		
 		
 		<% for(int p = startPage ; p <= endPage; p++){ 
 				if(p == currentPage){
 		%>			
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>	
+					<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=p%>'"><%=p %></button>	
 		<% }
 		} %>
 		
 		<% if(currentPage >= maxPage){ %>
 			<button disabled> > </button>
 		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
 		<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=maxPage%>'">>></button>
 				</div>
 			</div>
 			 
@@ -281,21 +265,12 @@ html, body {
 	</div>
 	<script>
 	$("td").click(function(e) {
-				var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;
-				var boardId = e.target.parentNode.parentNode.children[0].children[0].value;
-			if(e.target.innerHTML == '수정'){
-				 location.href="<%=request.getContextPath()%>/selectOne.bo?boardId="+boardId+"&MemberName="+MemberName
-			} else if(e.target.innerHTML == '삭제'){
-				location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId
-				console.log(e.target.innerHTML);
-			} else {
 				var memberName = e.target.parentNode.children[0].children[1].value;
 				var boardId = e.target.parentNode.children[0].children[0].value;
-			    location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+memberName;
-			}
+			    location.href="<%=request.getContextPath()%>/boardFAQDetail.bo?boardId="+boardId+"&MemberName="+memberName;
 		})
 		$("#insertBoard").click(function(){
-			location.href="views/admin/insertNotice.jsp";
+			location.href="<%=request.getContextPath()%>/views/admin/admin_InsertFAQPage.jsp";
 		})
 		
 	</script>

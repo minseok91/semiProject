@@ -98,6 +98,40 @@ public class BoardService {
 		return updateBoard;
 	}
 
+	public int insertFAQ(Board b) {
+		Connection con = getConnection();
+		
+		int insertFAQ = new BoardDao().insertFAQ(con, b);
+		
+		if(insertFAQ > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		
+		
+		return insertFAQ;
+	}
+
+	public ArrayList<Board> selectFAQ(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Board> list = new BoardDao().selectFAQ(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int FAQListCount() {
+		Connection con = getConnection();
+		
+		int FAQListCount = new BoardDao().FAQListCount(con);
+		
+		
+		return FAQListCount;
+	}
+
 	
 
 }
