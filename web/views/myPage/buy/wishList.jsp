@@ -162,6 +162,7 @@
 .list>table {
 	border-collapse: separate;
 	border-spacing: 40px;
+	margin-top: 14px;
 }
 
 .list td {
@@ -274,7 +275,7 @@ td>.content {
 				<p>회원님께서 찜하신 상품 리스트를 볼 수 있는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 			<div id="deleteAndSearch">
-				<button>위시리스트 삭제</button>
+				<button id="wishDelete">위시리스트 삭제</button>
 				<form action="" method="get">
 					<input type="search" name="modelName">
 					<input type="submit" value="검색">
@@ -288,8 +289,11 @@ td>.content {
 			</div>
 			<div class="list">
 			<table>
+			<% for(int i=0; i<3; i++) { %> <!-- 리스트 전체 / 4 + 1 -->
 				<tr>
+				<% for(int j=0; j<4; j++) { %> <!-- 4 고정 -->
 					<td>
+						<input type="hidden" value=""> <!-- value에 해당상품번호 이식 -->
 						<input type="checkbox" class="wish">
 						<div id="img">
                         	<div class="price">￦720,000</div>
@@ -298,110 +302,9 @@ td>.content {
                         <span class="content">Omega Speedmaster Black Dial</span>
                         <div class="time">3 days 13 : 42</div>
 					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
+				<% } %>
 				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-					<td>
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-				</tr>
+				<% } %>
 			</table>
 		</div> <!-- watchList End -->
 		<div class="pagingArea">
@@ -415,6 +318,33 @@ td>.content {
 			<button>다음></button>
 			<button>마지막>></button>
 		</div>
+		<%--       <div class="pagingArea" align="center">
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"><<</button>
+
+			<% if(currentPage <= 1) { %>
+				<button disabled><</button>
+			<% } else { %>
+				<button onclick="location.href='<%= request.getContextPath() %>'/selectList.bo?currentPage=<%= currentPage - 1 %>"><</button>
+			<% } %>
+
+			<% for (int p=startPage; p <= endPage; p++) {
+				if(p == currentPage) {
+			%>
+			<button disabled><%= p %></button>
+			<% } else { %>
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= p %>'"><%= p %></button>
+			<% } %>
+			<% } %>
+
+			<% if(currentPage >= maxPage) { %>
+			<button disabled>></button>
+			<% } else { %>
+			<button
+				onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage + 1 %>'">></button>
+			<% } %>
+
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">>></button>
+		</div> --%>
 		</div>  <!-- contentArea end -->
 		</div> <!-- contents End -->
 	</div>  <!-- container end -->
@@ -429,6 +359,19 @@ td>.content {
 				let values=$(this).attr('value');
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			})
+			
+			// 전체체크
+			$('#checkAll').click(function() {
+				let chkAll = $(this).is(':checked');
+				
+				if(chkAll) $('.wish').prop('checked', true);
+				else $('.wish').prop('checked', false);
+			});
+			
+			// 체크한항목 제거
+			$('#wishDelete').click(function () {
+				
 			})
 		});
 	</script>
