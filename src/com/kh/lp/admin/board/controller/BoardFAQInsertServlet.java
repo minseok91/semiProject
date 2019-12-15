@@ -1,7 +1,6 @@
 package com.kh.lp.admin.board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,18 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.lp.admin.board.model.service.BoardService;
 import com.kh.lp.admin.board.model.vo.Board;
 
-
 /**
- * Servlet implementation class BoardSelectOneServlet
+ * Servlet implementation class BoardFAQInsertServlet
  */
-@WebServlet("/selectOne.bo")
-public class BoardSelectOneServlet extends HttpServlet {
+@WebServlet("/InsertFAQ.bo")
+public class BoardFAQInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardSelectOneServlet() {
+    public BoardFAQInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +29,26 @@ public class BoardSelectOneServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardId = Integer.parseInt(request.getParameter("boardId"));
-		String memberName = request.getParameter("MemberName");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		Board b = new Board();
+		b.setBoardTitle(title);
+		b.setBoardMemberNo(1);
+		b.setBoardType("BT4");
+		b.setBoardContent(content);
 		
+		int insertFAQ = new BoardService().insertFAQ(b);
 		
-		Board b = new BoardService().selectOne(boardId);
 		String page = "";
-		if(b != null) {
-			page = "views/admin/admin_noticeUpdatePage.jsp";
-			b.setBoardMemberName(memberName);
-			request.setAttribute("b", b);
+		if(insertFAQ > 0) {
+			page = "selectFAQ.bo";
+			response.sendRedirect(page);
 		} else {
-			page = "common/errorPage.jsp";
-			request.setAttribute("msg", "상세보기 실패 !");
+			//실패 에러 페이지
 		}
-		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+		
 	}
 
 	/**

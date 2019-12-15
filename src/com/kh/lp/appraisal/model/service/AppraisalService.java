@@ -270,4 +270,12 @@ public class AppraisalService {
 		return result;
 	}
 
+	public ArrayList<ArrayList<Object>> selectItemResult(int memberNo) {
+		Connection con = getConnection();
+		ArrayList<ArrayList<Object>> app = new AppraisalDao().selectItemResult(con, memberNo);
+		
+		close(con);
+		return app;
+	}
+
 }

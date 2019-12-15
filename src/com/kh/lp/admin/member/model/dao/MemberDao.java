@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.admin.member.model.vo.memberHistory;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -45,6 +46,7 @@ public class MemberDao {
 		int listCount = 0;
 		
 		String query = admin_prop.getProperty("admin_listCount");
+		log.debug(query);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, status1);
@@ -240,6 +242,30 @@ public class MemberDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, status);
 			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	public int historyUpdate(Connection con, memberHistory memberHistory) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("admin_memberHistoryInsert");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberHistory.getMemberNo());
+			pstmt.setString(2, memberHistory.getMemberHistoryType());
+			pstmt.setString(3, memberHistory.getMemberHistoryDetail());
 			
 			result = pstmt.executeUpdate();
 			

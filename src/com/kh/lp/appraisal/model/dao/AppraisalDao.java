@@ -24,6 +24,9 @@ import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class AppraisalDao {
 	
 	Properties prop = new Properties();
@@ -584,4 +587,41 @@ public class AppraisalDao {
 		return result;
 	}
 
+	public ArrayList<ArrayList<Object>> selectItemResult(Connection con, int memberNo) {
+		ArrayList<ArrayList<Object>> app = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		App a = null;
+		Item i = null;
+		
+		String query = prop.getProperty("selectItemResult");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			app = new ArrayList<>();
+			while(rset.next()) {
+				a = new App();
+				i = new Item();
+				ArrayList<Object> list = new ArrayList<>();
+				
+				a.setAppId(rset.getInt("APP_ID"));
+				i.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
+				a.setAppResult(rset.getString("NAME"));
+				
+				list.add(a);
+				list.add(i);
+				app.add(list);
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		log.debug(app);
+		return app;
+	}
 }

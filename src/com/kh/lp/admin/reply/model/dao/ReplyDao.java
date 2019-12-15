@@ -43,7 +43,7 @@ public class ReplyDao {
 				r.setReplyId(rset.getInt("REPLY_ID"));
 				r.setReplyBoardId(rset.getInt("REPLY_BOARD_ID"));
 				r.setReplyMemberName(rset.getString("MEMBER_NAME"));
-				r.setReplyDate(rset.getDate("REPLY_DATE"));
+				r.setReplyDate(rset.getString("REPLY_DATE"));
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
 				
 				rList.add(r);
@@ -64,7 +64,7 @@ public class ReplyDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = admin_prop.getProperty("");
+		String query = admin_prop.getProperty("insertReply");
 		
 		try {
 			pstmt = con.prepareStatement(query);

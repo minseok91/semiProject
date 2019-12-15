@@ -298,33 +298,35 @@
       request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
       } %>
    <%@ include file="../../common/footer.jsp" %>
+	<script>
+		$(function() {
+			$('a').click(function() {
+				let values=$(this).attr('value');
+				console.log(values);
+				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			})
+			<%
+				String[] p = loginMember.getMemberPhone().split("-");
+			%>
+			var phone1 = "<%= p[0] %>";
+			if(phone1 === "010"){
+				$("#010").prop("selected", true);
+			} else if(phone1 === "011"){
+				$("#011").prop("selected", true);
+			} else if(phone1 === "016"){
+				$("#016").prop("selected", true);
+			} else if(phone1 === "019"){
+				$("#019").prop("selected", true);
+			}
+		});
+		
+		function checkAll(){   		
+    		// 정규식
+    		let regName  = /^[가-힣]{2,4}$/; 			 												// 이름
+    		let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/; 	 	// 비밀번호
+    		let regPhone1 = /^[0-9]{3}$/; 		 													// 핸드폰번호 첫번째 -> 3글자도 존재
+    		let regPhone2 = /^[0-9]{4}$/;   		 												// 핸드폰번호 두번째 -> 반드시 4글자
 
-   <script>
-      $(function() {
-         $('a').click(function() {
-            let values=$(this).attr('value');
-            console.log(values);
-            location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
-         })
-         
-         var phone1 = "<%= srr[0] %>";
-         if(phone1 === "010"){
-            $("#010").prop("selected", true);
-         } else if(phone1 === "011"){
-            $("#011").prop("selected", true);
-         } else if(phone1 === "016"){
-            $("#016").prop("selected", true);
-         } else if(phone1 === "019"){
-            $("#019").prop("selected", true);
-         }
-      });
-      
-      function checkAll(){         
-          // 정규식
-          let regName  = /^[가-힣]{2,4}$/;                                               // 이름
-          let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{6,12}$/;        // 비밀번호
-          let regPhone1 = /^[0-9]{3}$/;                                               // 핸드폰번호 첫번째 -> 3글자도 존재
-          let regPhone2 = /^[0-9]{4}$/;                                              // 핸드폰번호 두번째 -> 반드시 4글자
             var memberName = $("#userName").val();
           if(memberName === "" || !regName.test(memberName)){
              alert("이름을 확인해주세요!");

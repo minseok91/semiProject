@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.member.model.service.MemberService;
+import com.kh.lp.admin.member.model.vo.memberHistory;
 
 
 /**
@@ -29,17 +30,35 @@ public class admin_userTypeUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		String userId = request.getParameter("userid");
+		int MemberNo = Integer.parseInt(request.getParameter("MemberNo"));
 		String type = request.getParameter("type");
+		String text = request.getParameter("text");
+		
+		memberHistory memberHistory = new memberHistory();
+		memberHistory.setMemberNo(MemberNo);
+		memberHistory.setMemberHistoryType(type);
+		memberHistory.setMemberHistoryDetail(text);
 		
 		int result = new MemberService().typeUpdate(userId,type);
+		int historyUpdate = 0;
+		  if(result > 0) { 
+			  
+			   historyUpdate = new MemberService().historyUpdate(memberHistory); 
+			  
+		  }
+		 
+		System.out.println("ser"+userId);
 		
 		String page = "";
-		if(result > 0) {
-			page = "blackList.me";
-		} else {
-			
-		}
+		
+		  if(historyUpdate > 0) { 
+			  page = "blackList.me"; 
+			  
+		  } else {
+			  // 회원 타입변경 히스토리 저장 실패
+		  }
+		 
 		response.sendRedirect(page);
 	}
 
