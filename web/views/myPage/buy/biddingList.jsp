@@ -24,6 +24,7 @@
 .contents{
 	height:650px;
 	width:inherit;
+	margin-top: 30px;
 }
 
 .container>.contents>#myPageMenu {
@@ -62,6 +63,7 @@
 #myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 #myPageMenu>dl>dd>#selectMenu {
@@ -106,7 +108,15 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 32%;
+    left: 28%;
+}
+
+/* 1920px 전용(작업용) */
+@media(min-width: 1919px) {
+	.contentArea {
+		left: 32%;
+		width: 59%;
+	}
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {

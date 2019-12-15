@@ -11,7 +11,13 @@
 		margin: 0 auto;
 		padding-bottom: 10px;
 	}
-	.container>#myPageMenu{
+	
+	.contents{
+	height:650px;
+	width:inherit;
+	margin-top: 30px;
+}
+	#myPageMenu{
 		width: 200px;
 		height: 1080px;
 		border-right: 2px solid black;
@@ -21,14 +27,14 @@
 		margin-top: 10px;
 	}
 	
-	.container>#myPageMenu>dl>dt {
+	#myPageMenu>dl>dt {
 		font-size: 1.5em;
 		font-family: 'Nanum Myeongjo', serif;
 		margin-top: 50px;
 		margin-bottom: 10px;
 	}
 	
-	.container>#myPageMenu>dl>dd {
+	#myPageMenu>dl>dd {
 		font-size: 15px;
 		margin-left: 20px;
 		margin-top: 7px;
@@ -46,26 +52,27 @@
 	
 	
 	
-	.container>#myPageMenu>dl>dd>a{
+	#myPageMenu>dl>dd>a{
 		color: darkgray;
 		text-decoration: none;
+		cursor: pointer;
 	}
 	
-	.container>#myPageMenu>dl>dd>#selectMenu{
+	#myPageMenu>dl>dd>#selectMenu{
 		font-size: 1em;
 		font-weight: bold;
 		color: black;
 		text-decoration: underline;
 	}
 	
-	.container>#myPageMenu>dl>dd>a:hover{
+	#myPageMenu>dl>dd>a:hover{
 		font-size: 1em;
 		font-weight: bold;
 		color: black;
 		text-decoration: underline;
 	}
 	
-	.container>.menuStatus{
+	.menuStatus{
 		width: 920px;
 		height: 110px;
 		display: inline-block;
@@ -73,24 +80,24 @@
 		margin-bottom: 10px;
 	}
 	
-	.container>.menuStatus>.status1>h3{
+	.menuStatus>.status1>h3{
 		margin-top:10px;
 	}
 	
-	.container>.menuStatus>.status2{
+	.menuStatus>.status2{
 		width: 920px;
 		height: 54px;
 		background-color: lightgray;
 		vertical-align: middle;
 	}
 	
-	.container>.menuStatus>.status2>p{
+	.menuStatus>.status2>p{
 		padding-top: 16px;
 		padding-left: 30px;
 		font-size: 17px;
 	}
 	
-	.container>.contentArea{
+	.contentArea{
 		width: 920px;
 		height: 970px;
 		border: 1px solid black;
@@ -139,10 +146,6 @@
 		border: 1px solid red;
 	}
 	
-	.titles {
-		width: 
-	}
-	
 	
 	
 	
@@ -153,6 +156,7 @@
 	<%@ include file="../../common/nav.jsp" %>
 	<%-- <% if(loginMember != null) { %> --%>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -305,6 +309,7 @@
 
 						
 		</div>  <!-- contentArea end -->
+		</div> <!-- contents End -->
 	</div>  <!-- container end -->
 	<%-- <% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
@@ -317,9 +322,8 @@
 		$(function() {
 			$('a').click(function() {
 				let values=$(this).attr('value');
-				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
-			})
+			}).css('cursor', 'pointer');
 		});
 		
 		

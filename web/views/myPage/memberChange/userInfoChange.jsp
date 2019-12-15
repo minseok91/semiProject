@@ -20,7 +20,14 @@
 	margin: 0 auto;
 	padding-bottom: 10px;
 }
-.container>#myPageMenu {
+
+.contents{
+	height:650px;
+	width:inherit;
+	margin-top: 30px;
+}
+
+#myPageMenu {
 	width: 200px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -29,13 +36,13 @@
 	margin-right:10px;
 	margin-top: 10px;
 }
-.container>#myPageMenu>dl>dt {
+#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
-.container>#myPageMenu>dl>dd {
+#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -49,37 +56,38 @@
 	color: #a07342;
 	margin-top: 0px;
 }
-.container>#myPageMenu>dl>dd>a {
+#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
+	cursor: pointer;
 }
-.container>#myPageMenu>dl>dd>#selectMenu {
+#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-.container>#myPageMenu>dl>dd>a:hover {
+#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
-.container>.menuStatus {
+.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 	margin-bottom: 10px;
 }
-.container>.contentArea {
+.contentArea {
 	width: 920px;
 	height: 650px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
 }
-.container>.contentArea>form>table {
+.contentArea>form>table {
     	border-collapse: separate;
     	border-spacing: 0 25px;
 	}
@@ -106,7 +114,7 @@ td>input{
 		border-radius:5px;
 		font-size:11px;
 	}
-.container>.menuStatus>.status2 {
+.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
@@ -147,6 +155,7 @@ td>input{
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -199,6 +208,7 @@ td>input{
 				<input type="hidden" name="memberNo" value="<%= loginMember.getMemberNo() %>" />
 			</form>
 		</div> <!-- contentArea End -->
+		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");

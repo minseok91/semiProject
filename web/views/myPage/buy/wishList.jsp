@@ -27,6 +27,7 @@
 .contents{
 		height:650px;
 		width:inherit;
+		margin-top: 30px;
 	}
 
 #myPageMenu {
@@ -65,6 +66,7 @@
 #myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 #myPageMenu>dl>dd>#selectMenu {
