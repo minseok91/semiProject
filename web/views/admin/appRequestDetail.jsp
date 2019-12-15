@@ -12,7 +12,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.lp.item.model.vo.* "%>
 <% Item item = (Item) request.getAttribute("item");
-String[] brandModel = item.getItemBrandModel().split(",");
+String[] brandModel = item.getItemBrandModel().split("/");
  String brand = brandModel[0];
  String model = brandModel[1];
  int itemId = item.getItemId();
