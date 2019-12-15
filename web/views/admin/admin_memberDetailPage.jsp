@@ -13,7 +13,7 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.lp.admin.member.model.vo.*"%>
 <%
-	Member user = (Member) request.getAttribute("user");
+	Member member = (Member) request.getAttribute("user");
 	int userInfo = Integer.parseInt((String)request.getAttribute("userInfo"));
 	System.out.println(userInfo);
 %>
@@ -89,6 +89,14 @@ td:nth-of-type(2) {
 #blackListHistory {
 	margin-left: 191px;
 }
+#textarea {
+	width: 428px;
+	height: 150px;
+	resize: none;
+}
+#changeTypeBtn {
+	text-align: center;
+}
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -99,27 +107,27 @@ td:nth-of-type(2) {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div class="infoBox">
-				<h3 align="center"><%=user.getMemberName()%>님의 회원정보</h3>
+				<h3 align="center"><%=member.getMemberName()%>님의 회원정보</h3>
 				<table id="infoTable">
 					<tr>
 						<td>아이디</td>
-						<td><%=user.getMemberId()%></td>
+						<td><%=member.getMemberId()%></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%=user.getMemberName()%></td>
+						<td><%=member.getMemberName()%></td>
 					</tr>
 					<tr>
 						<td>번호</td>
-						<td><%=user.getMemberPhone()%></td>
+						<td><%=member.getMemberPhone()%></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><%=user.getMemberAddress()%></td>
+						<td><%=member.getMemberAddress()%></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><%=user.getMemberEmail()%></td>
+						<td><%=member.getMemberEmail()%></td>
 					</tr>
 					<% if(userInfo == 1){ %>
 						<tr>
@@ -134,7 +142,22 @@ td:nth-of-type(2) {
 						<td>신고 이력</td>
 						<td id="reportHistory"><%= request.getAttribute("resportCount") %>건</td>
 					</tr>
-					<%} %>
+					<%} else {%>
+						<tr>
+							<td>상세 정보 입력</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<textarea id="textarea" name="textarea"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td id="changeTypeBtn" colspan="2">
+							<button class="withdraw">탈퇴</button>
+								<button class="release">해제</button>
+							</td>
+						</tr>
+					<% } %>
 					
 					
 				</table>
@@ -148,13 +171,13 @@ td:nth-of-type(2) {
 	<script>
 		$("#salesHistory").click(function(){
 			/* 판매이력servlet으로 가는 코드 */
-			location.href = "<%=request.getContextPath()%>/userSalesHistory.me?userId=<%=user.getMemberId()%>";
+			location.href = "<%=request.getContextPath()%>/userSalesHistory.me?userId=<%=member.getMemberId()%>";
 		}).mouseover(function(){
 			$("#salesHistory").css({'cursor':'pointer'})
 		})
 		$("#purchaseHistory").click(function(){
 			/* 구매이력servlet으로 가는 코드 */
-			location.href = "<%=request.getContextPath()%>/userpurchaseHistory.me?userId=<%=user.getMemberId()%>";
+			location.href = "<%=request.getContextPath()%>/userpurchaseHistory.me?userId=<%=member.getMemberId()%>";
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
@@ -165,11 +188,20 @@ td:nth-of-type(2) {
 		})
 		//유저 신고 이력
 		$("#reportHistory").click(function() {
-			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=user.getMemberId()%>";
+			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=member.getMemberId()%>";
 		})
 		$("#back").click(function() {
 			window.history.back();
 		});
+		$("button").click(function(e){
+			var text = $("#textarea").val();
+			console.log(text);
+			 if(e.target.innerHTML == '탈퇴') {
+				location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS3&text="+text;
+			} else if(e.target.innerHTML == '해제'){
+				location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS1&text="+text;
+			} 
+		})
 	</script>
 </body>
 </html>

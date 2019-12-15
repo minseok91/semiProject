@@ -11,20 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.board.model.service.BoardService;
 import com.kh.lp.admin.board.model.vo.Board;
-import com.kh.lp.admin.reply.model.service.ReplyService;
-import com.kh.lp.admin.reply.model.vo.Reply;
+import com.kh.lp.common.PageInfo;
 
 /**
- * Servlet implementation class BoardDetailServlet
+ * Servlet implementation class BoardSelectFAQServlet
  */
-@WebServlet("/boardDetial.bo")
-public class BoardDetailServlet extends HttpServlet {
+@WebServlet("/selectFAQ.bo")
+public class BoardSelectFAQServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailServlet() {
+    public BoardSelectFAQServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +32,45 @@ public class BoardDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardId = Integer.parseInt(request.getParameter("boardId"));
-		String MemberName = request.getParameter("MemberName");
 		
-		Board list = new BoardService().selectOne(boardId);
-		ArrayList<Reply> Rlist = new ReplyService().selectAll(boardId);
-		System.out.println(Rlist);
+		int currentPage;
+		int limit;
+		int startPage;
+		int endPage;
+		int maxPage;
+		int listCount;
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		listCount = new BoardService().FAQListCount();
+		limit = 10;
+		maxPage = (int)((double) listCount / limit + 0.9);
+		startPage = (((int)((double)currentPage / limit + 0.9)) - 1) * 10 + 1;
+		endPage = startPage + 10 - 1;
+		if(maxPage < endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, limit, startPage, endPage , maxPage, listCount);
+		
+		ArrayList<Board> list = new BoardService().selectFAQ(currentPage, limit);
+	
 		String page = "";
 		if(list != null) {
-			page = "views/admin/admin_noticeDetail.jsp";
-			list.setBoardMemberName(MemberName);
-			request.setAttribute("Rlist", Rlist);
+			page = "views/admin/admin_FAQPage.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
 		} else {
-			page = "common/errorPage.jsp";
-			request.setAttribute("msg", "상세보기 실패 !");
+			
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-	}
 		
+		request.getRequestDispatcher(page).forward(request,response);
+	
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

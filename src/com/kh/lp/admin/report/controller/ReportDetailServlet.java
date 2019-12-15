@@ -45,8 +45,8 @@ public class ReportDetailServlet extends HttpServlet {
 		
 		
 		  response.setContentType("application/json");
-		  response.setCharacterEncoding("UTF-8"); new Gson().toJson(list,
-		  response.getWriter());
+		  response.setCharacterEncoding("UTF-8"); 
+		  new Gson().toJson(list, response.getWriter());
 		 
 	}
 

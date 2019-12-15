@@ -184,7 +184,7 @@
 		location.href="<%= request.getContextPath()%>/selectAll.bo";
 	})
 	$("#FAQ").click(function(){
-	
+		location.href="<%= request.getContextPath()%>/selectFAQ.bo";
 	})
 	$("#appraisal_req").click(function(){
 		location.href="<%= request.getContextPath()%>/selectAll.it";

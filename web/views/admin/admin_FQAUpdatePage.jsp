@@ -1,11 +1,11 @@
 <%--
 /**
  * <pre>
- * @Author      : minseok
- * @CreateDate  : 2019. 12. 5. 오후 12:03:13
- * @ModifyDate  : 2019. 12. 5. 오후 12:03:13
- * @fileName    : 	noticeDetail.jsp
- * @Description :	게시판 상세
+ * @Author      : 안동환
+ * @CreateDate  : 2019. 12. 15. 오후 8:25:04
+ * @ModifyDate  : 2019. 12. 15. 오후 8:25:04
+ * @fileName    : 
+ * @Description :
  * </pre>
  */
 --%>
@@ -14,19 +14,15 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
 	pageEncoding="UTF-8" import="com.kh.lp.admin.board.model.vo.*
 	,java.util.*"%>
-    <%
-    Board list = (Board)request.getAttribute("list");
-    ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("Rlist");
-	Date day = new Date();
-	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-	String today = df.format(day);
+<%
+	Board list = (Board)request.getAttribute("list");
+	ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("Rlist");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html;">
-</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
-<title>게시판 상세</title>
+<title>Insert title here</title>
 <style>
 html, body {
 	padding: 0;
@@ -103,6 +99,7 @@ input:nth-of-type(text) {
 	overflow: hidden;
 }
 input[type="text"] {
+	width: 90%;
 	margin-left: 30px;
 	border: hidden;
 }
@@ -180,16 +177,11 @@ margin-top: 27px;
 					<table id="infoTable">
 						<tr>
 							<td>제목</td>
-							<td><input type="text" name="title" value="<%=list.getBoardTitle()%>" readonly></td>
+							<td><input type="text" name="title" value="<%=list.getBoardTitle()%>" ></td>
 						</tr>
 						<tr>
 							<td>게시판 종류</td>
-							<td><% if(list.getBoardType().equals("BT1")){ %>
-									<input type="text" value= "자유게시판" readonly>
-								<% } else { %>
-									<input type="text" value= "리뷰게시판" readonly>
-								<% } %>
-							</td>
+							<td><input type="text" name="category" value="BT4" readonly></td>
 						</tr>
 						<tr>
 							<td>작성자</td>
@@ -201,38 +193,17 @@ margin-top: 27px;
 						</tr>
 						<tr>
 							<td>작성일</td>
-							<td id="today"><input type="text" id="today" name="date" value="<%= today %>"readonly></td>
+							<td id="today"><input type="text" id="today" name="date" value="<%= list.getBoardDate() %>"readonly></td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea id="boardContents" name="content" readonly><%= list.getBoardContent() %></textarea></td>
-						</tr>
-						<tr>
-							<td colspan="2">댓글</td>
-						</tr>
-						<tr>
-							<td colspan="2" id="comment_top">
-								<div id="comment_div">
-									<% for(int i=0; i<rList.size(); i++)  {%>
-										<div id="comment">
-											<div>작성자 : <%= rList.get(i).getReplyMemberName() %></div>
-											<div>작성일 : <%= rList.get(i).getReplyDate() %></div>
-											<div><%= rList.get(i).getReplyContent() %></div>
-											<hr>
-										</div>
-									<% } %>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" id="comment_bottom">
-							<textarea rows="" cols="" id="comment_text"></textarea>
-							<button id="comment_btn">작성하기</button>
-							</td>
+							<td><textarea id="boardContents" name="content" ><%= list.getBoardContent() %></textarea></td>
 						</tr>
 					</table>
 					<div id="buttonBox">
 						<button id="back">뒤로 가기</button>
+						<button id="submit">수정 하기</button>
+						<button id="delete">삭제 하기</button>
 					</div>
 				</form>
 			</div>
@@ -264,46 +235,12 @@ margin-top: 27px;
 		$("#back").click(function(){
 			window.history.back();
 		})
+		$("#delete").click(function(){
+			location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId=<%=list.getBoardId()%>&type=<%=list.getBoardType()%>"
+		})
 			function ok(){
 				return nn;
 			}
-	</script>
-	<script>
-		$(function(){
-			
-			$("#comment_btn").click(function(){
-					var comment = $("#comment_text")[0].value;
-					console.log(comment);
-				$.ajax({
-					url:"insertReply.re",
-					data : { boardId : <%= list.getBoardId() %>,
-							 memberId : <%= list.getBoardMemberNo()%>,	
-							 comment : comment
-					},
-					type : "GET",
-					success:function(data) {
-					 $comment_div = $("#comment_div");
-						var date = data.replyDate;
-						console.log(data);
-						console.log(date);
-						var $comment = $("<div id='comment'>")
-						var $div1 = $("<div>작성자 : "+data.replyMemberName+"</div>");
-						var $div2 = $("<div>작성일 : "+data.replyDate+"</div>");
-						var $div3 = $("<div>"+data.replyContent+"</div>")
-						$comment.append($div1);
-						$comment.append($div2);
-						$comment.append($div3);
-						$comment.append("<hr>");
-						$comment_div.append($comment);
-						
-						
-					}, error:function(error, status) {
-						
-					}
-				})
-				$("#comment_text").val('');	
-			})
-		})
 	</script>
 </body>
 </html>
