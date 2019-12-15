@@ -10,7 +10,17 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
+ <% ArrayList<Auction> list = (ArrayList<Auction>) request.getAttribute("list"); 
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int endPage = pi.getMaxPage();
+	int currentPage = pi.getCurrentPage();
+	int listCount = pi.getListCount();
+	int limit = pi.getLimit();
+	int maxPage = pi.getMaxPage();
+%> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -90,7 +100,7 @@
 해당 상품을 클릭할 시 상품에 따른 상태에 맞는 정보들을 보여준다.
 
 				<table id="table">
-					<tr>
+					<!-- <tr>
 						<th>No.</th>
 						<th>상품ID</th>
 						<th>판매자ID</th>
@@ -100,7 +110,33 @@
 						<th>글쓰기</th>
 						<th>상태</th>
 						<th>상세보기</th>
+					</tr> -->
+					<tr>
+						<th>No.</th>
+						<th>판매자ID</th>
+						<th>경매기간</th>
+						<th>시작가</th>
+						<th>시작시간</th>
+						<th>회차</th>
+						<th>경매ID</th>
+						<th>상태</th>
+						<th>상세보기</th>
 					</tr>
+					<% 
+					for(Auction au :list) { %>
+					<tr>
+						<td><%= au.getAuctionId() %></td>
+						<td><%= au.getMemberNo() %></td>
+						<td><%= au.getAuPeriod() %></td>
+						<td><%= au.getAuStartPrice() %></td>
+						<td><%= au.getAuStartTime() %></td>
+						<td><%= au.getCount() %></td>
+						<td><%= au.getAuAppId() %></td>
+						<td>
+							<button class="insertApp">정보입력</button>
+						</td>
+					</tr>
+					<% } %>
 					 <tr>
 						<td>1</td>
 						<td>pr001</td>
@@ -181,13 +217,32 @@
 					</tr>
 				</table>
 			</div>
-			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
-				</div>
-			</div>
+			<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button disabled><%=p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=<%=p%>'"><%=p %></button>
+				<% } %>
+			
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=<%=maxPage%>'">>></button>
+		</div>  <!--  pagingArea End game -->
 		</div>
 	</div>
 		<!-- The Modal -->
