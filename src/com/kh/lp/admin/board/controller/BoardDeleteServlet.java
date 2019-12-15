@@ -14,7 +14,7 @@ import com.kh.lp.admin.board.model.service.BoardService;
 /**
  * Servlet implementation class BoardDeleteServlet
  */
-@WebServlet("/delete.bo")
+@WebServlet("/deleteBoard.bo")
 public class BoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,12 +31,17 @@ public class BoardDeleteServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
-
-
+		String type = request.getParameter("type");
+		
+		
 		int result = new BoardService().deleteBoard(boardId); 
 		String page = ""; 
 		if(result > 0) { 
-			page = "selectAll.bo";
+			if(type.equals("BT4")) {
+				page = "selectFAQ.bo";
+			} else {
+				page = "selectAll.bo";
+			}
 			response.sendRedirect(page);
 		} else { 
 			request.setAttribute("msg","삭제 실패 !");

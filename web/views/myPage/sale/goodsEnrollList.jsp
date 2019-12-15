@@ -59,6 +59,13 @@
 	margin-top: 0px;
 }
 
+.container>.contents>#contentArea>#tableArea{
+	width: 920px;
+	border-collapse: separate;
+    border-spacing: 0 25px;
+	
+}
+
 .container>.contents>#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
@@ -104,35 +111,34 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 28%;
+    left: 32%;
 }
 
-.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
+.contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
+	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
 	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
-
+.container>.contents>#contentArea>#tableArea> {
+	width: 200px;
+}
 .contentArea>table>tbody>tr>td>img {
 	width: 100px;
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
 
-.contentArea>table>tbody>tr>td {
-	
-}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
-<body>
+<body onload="selectTable()">
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -177,45 +183,18 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table>
-				<tr>
-					<th>상품번호</th>
-					<th>상품사진</th>
-					<th>브랜드/모델명</th>
-					<th>감정 결과</th>
-					<th>경매 진행</th>
-					<th>시작 하기 남은 시간</th>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>진품</td>
-					<td>
-						<button>경매 진행</button>
-						<button>경매 포기</button>
-					</td>
-					<td>23시간 35분 전</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>가품</td>
-					<td>배송중</td>
-					<td>23시간 35분 전</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>진품</td>
-					<td>
-						<button>경매 진행</button>
-						<button>경매 포기</button>
-					</td>
-					<td>23시간 35분 전</td>
-				</tr>
+			<table id="tableArea" border="1">
+				<thead id="tableHeadArea">
+					<tr>
+						<th>상품번호</th>
+						<th>상품사진</th>
+						<th>브랜드/모델명</th>
+						<th>감정 결과</th>
+						<th>경매 진행</th>
+						<th>남은 시간</th>
+					</tr>
+				</thead>
+				<tbody id="tableBodyArea"></tbody>
 			</table>
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
@@ -234,6 +213,45 @@
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		});
+		
+		function selectTable(){
+			console.log("페이지 로드 될때마다 실행");
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectItemResult.app",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>
+				},
+				success: function(data){
+					console.log(data);
+					var arr = data.split("#");
+					for(i in arr){
+						console.log(arr[i]);
+						var arr2 = arr[i].split("::");
+						$("#tableArea > #tableBodyArea:last").append("<tr>");
+						for(j in arr2){
+							console.log(arr2[j]);
+							$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+						}
+						$("#tableArea > #tableBodyArea:last").append("<td></td><td><button onclick='startAuction()'>경매시작</button><br><button onclick='endAuction()'>경매취소</button></td>");
+						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'></td>");
+						$("#tableArea > #tableBodyArea:last").append("</tr>");
+						
+					}
+				},
+				error: function(data){
+					console.log("테스트 실패");
+				}
+			});
+		}
+		
+		function startAuction(){
+			console.log("경매시작합니다.");
+		};
+		
+		function endAuction(){
+			console.log("경매를 취소합니다.");
+		};
 	</script>
 </body>
 </html>

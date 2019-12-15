@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.kh.lp.admin.member.model.dao.MemberDao;
 import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.admin.member.model.vo.memberHistory;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -105,5 +106,28 @@ public class MemberService {
 		close(con);
 		
 		return result;
+	}
+
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 15. 오후 9:39:39
+	 * @ModifyDate    : 2019. 12. 15. 오후 9:39:39
+	 * @Description   :  회원 타입 변경 히스토리 저장
+	 * @param memberHistory
+	 * @return
+	 */
+	public int historyUpdate(memberHistory memberHistory) {
+		Connection con = getConnection();
+		//여기 작업해야함
+		if(memberHistory.getMemberHistoryType().equals("MS2")) {
+			
+		}
+		
+		int resutl = new MemberDao().historyUpdate(con, memberHistory);
+		
+		System.out.println("서비스"+memberHistory);
+		close(con);
+		
+		return resutl;
 	}
 }

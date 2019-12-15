@@ -50,7 +50,12 @@ public class BoardUpdateServlet extends HttpServlet {
 		
 		String page = "";
 		if(updateBoard > 0) {
-			page = "selectAll.bo";
+			if(!b.getBoardType().equals("BT4")) {
+				page = "selectAll.bo";
+			} else {
+				page = "selectFAQ.bo";
+			}
+				
 			response.sendRedirect(page);
 		} else {
 			//에러 처리

@@ -1,13 +1,17 @@
 package com.kh.lp.admin.reply.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.lp.admin.reply.model.service.ReplyService;
+import com.kh.lp.admin.reply.model.vo.Reply;
 
 /**
  * Servlet implementation class insertReplyServlet
@@ -38,7 +42,12 @@ public class insertReplyServlet extends HttpServlet {
 		
 		
 		int inserReply = new ReplyService().inserReply(boardId, comment, memberId);
-	
+		ArrayList<Reply> list = new ReplyService().selectAll(boardId);
+		Reply r = list.get(list.size()-1);
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(r, response.getWriter());
 		
 	}
 

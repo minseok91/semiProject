@@ -235,4 +235,104 @@ public class BoardDao {
 		return result;
 	}
 
+	public int insertFAQ(Connection con, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("insertFAQ");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, b.getBoardMemberNo());
+			pstmt.setString(2, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
+			pstmt.setString(4, b.getBoardType());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con);
+		}
+		
+		
+		return result;
+	}
+
+	public ArrayList<Board> selectFAQ(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = null;
+		Board b = null;
+		
+		String query = admin_prop.getProperty("admin_selectFAQ");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow =  startRow + limit -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+		
+			list = new ArrayList<Board>();
+			while(rset.next()) {
+				b = new Board();
+				b.setBoardNo(rset.getInt("RNUM"));
+				b.setBoardId(rset.getInt("BOARD_ID"));
+				b.setBoardMemberName(rset.getString("REPORTING"));
+				b.setBoardTitle(rset.getString("BOARD_TITLE"));
+				b.setBoardContent(rset.getString("BOARD_CONTENT"));
+				b.setBoardDate(rset.getDate("BOARD_DATE"));
+				b.setBoardCount(rset.getInt("BOARD_COUNT"));
+				b.setBoardType(rset.getString("BOARD_TYPE"));
+				b.setBoardStatus(rset.getString("BOARD_STATUS"));
+				b.setBoardModifyDate(rset.getDate("BOARD_MODIFY_DATE"));
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return list;
+	}
+
+	public int FAQListCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int FAQListCount = 0;
+		
+		
+		String query = admin_prop.getProperty("FAQListCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				FAQListCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return FAQListCount;
+	}
+
 }
