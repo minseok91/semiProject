@@ -24,6 +24,7 @@
 .contents{
 		height:650px;
 		width:inherit;
+		margin-top: 30px;
 	}
 
 #myPageMenu {
@@ -62,6 +63,7 @@
 #myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 #myPageMenu>dl>dd>#selectMenu {
@@ -112,6 +114,13 @@
 @media(max-width: 1366px) {
 	.contentArea {
 		left: 24%;
+	}
+}
+
+/* 1920px 전용(작업용) */
+@media(min-width: 1919px) {
+	.contentArea {
+		left: 32%;
 	}
 }
 

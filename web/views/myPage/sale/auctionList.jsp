@@ -21,7 +21,13 @@
 	padding-bottom: 10px;
 }
 
-.container>#myPageMenu {
+.contents{
+	height:650px;
+	width:inherit;
+	margin-top: 30px;
+}
+
+#myPageMenu {
 	width: 200px;
 	height: 1080px;
 	border-right: 2px solid black;
@@ -31,14 +37,14 @@
 	margin-top: 10px;
 }
 
-.container>#myPageMenu>dl>dt {
+#myPageMenu>dl>dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
 }
 
-.container>#myPageMenu>dl>dd {
+#myPageMenu>dl>dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
@@ -54,26 +60,27 @@
 	margin-top: 0px;
 }
 
-.container>#myPageMenu>dl>dd>a {
+#myPageMenu>dl>dd>a {
 	color: darkgray;
 	text-decoration: none;
+	cursor: pointer;
 }
 
-.container>#myPageMenu>dl>dd>#selectMenu {
+#myPageMenu>dl>dd>#selectMenu {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>#myPageMenu>dl>dd>a:hover {
+#myPageMenu>dl>dd>a:hover {
 	font-size: 1em;
 	font-weight: bold;
 	color: black;
 	text-decoration: underline;
 }
 
-.container>.menuStatus {
+.menuStatus {
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
@@ -81,7 +88,7 @@
 	margin-bottom: 10px;
 }
 
-.container>.menuStatus>.status2 {
+.menuStatus>.status2 {
 	display: flex;
 	width: 920px;
 	height: 54px;
@@ -99,9 +106,21 @@
 .contentArea {
     text-align: center;
     position: absolute;
-    width: auto;
+    width: 72%;
     margin-top: 75px;
     left: 28%;
+}
+
+/* 1920px 전용(작업용) */
+@media(min-width: 1919px) {
+	.contentArea {
+		left: 32%;
+		width: 59%;
+	}
+}
+
+.contentArea>table {
+	width: 81%;
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -130,6 +149,7 @@
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
 	<div class="container">
+	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -214,6 +234,7 @@
 				</tr>
 			</table>
 		</div> <!-- menuStatus End -->
+		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
