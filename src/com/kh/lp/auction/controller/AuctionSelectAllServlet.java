@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.appraisal.model.service.AppraisalService;
-import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.auction.model.service.AuctionService;
-import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.common.PageInfo;
 
 /**
@@ -64,7 +62,7 @@ public class AuctionSelectAllServlet extends HttpServlet {
 		
 		
 		
-		ArrayList<Auction> list = new AuctionService().AuPaging(currentPage, limit);
+		ArrayList<AuctionList> list = new AuctionService().AuPaging(currentPage, limit);
 		
 		String page = "";
 		if(list != null) {

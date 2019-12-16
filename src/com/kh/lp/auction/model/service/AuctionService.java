@@ -5,15 +5,16 @@ import java.util.ArrayList;
 
 import com.kh.lp.auction.model.dao.AuctionDao;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.auction.model.vo.AuctionList;
 
 import static com.kh.lp.common.JDBCTemplate.*;
 
 public class AuctionService {
 
-	public ArrayList<Auction> AuPaging(int currentPage, int limit) {
+	public ArrayList<AuctionList> AuPaging(int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		ArrayList<Auction> list = new AuctionDao().AuPaging(con, currentPage, limit);
+		ArrayList<AuctionList> list = new AuctionDao().AuPaging(con, currentPage, limit);
 		
 		close(con);
 		

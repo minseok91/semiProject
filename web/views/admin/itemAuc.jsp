@@ -11,7 +11,7 @@
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
- <% ArrayList<Auction> list = (ArrayList<Auction>) request.getAttribute("list"); 
+ <% ArrayList<AuctionList> list = (ArrayList<AuctionList>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
 	int startPage = pi.getStartPage();
 	int endPage = pi.getMaxPage();
@@ -115,23 +115,39 @@
 						<th>No.</th>
 						<th>판매자ID</th>
 						<th>경매기간</th>
-						<th>시작가</th>
-						<th>시작시간</th>
-						<th>회차</th>
-						<th>경매ID</th>
+						<!-- <th>시작가</th> -->
+						<th>상태</th>
+						<th>시작시간</th>1
 						<th>상태</th>
 						<th>상세보기</th>
 					</tr>
 					<% 
-					for(Auction au :list) { %>
+					for(AuctionList al :list) { %>
 					<tr>
-						<td><%= au.getAuctionId() %></td>
-						<td><%= au.getMemberNo() %></td>
-						<td><%= au.getAuPeriod() %></td>
-						<td><%= au.getAuStartPrice() %></td>
+						<td><%= al.getAuctionId() %></td>
+						<td><%= al.getAuctionCount() %></td>
+						<td><%= al.getAuctionType() %></td>
+						<td><% if(al.getAuctionCount() == 0 && al.getAuctionType() == null) { %>
+						 경매 준비<button id="ready">상세보기</button>
+						<% } else if(al.getAuctionCount() == 0 && al.getAuctionType().equals("1")) { %>
+						경매 미실행(유찰)<button id="noAct">상세보기</button>
+						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("2")) {%>
+						경매 시작<button id="start">상세보기</button>
+						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("3")) {%>
+						경매 완료(낙찰)<button id="win">상세보기</button>
+						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("4")) {%>
+						경매 완료(유찰)<button id="noBid">상세보기</button>
+						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("5")) {%>
+						낙찰 상품 결제 완료<button id="payed">상세보기</button>
+						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("6")) {%>
+						낙찰 상품 미결제 유찰<button id="noPayed">상세보기</button>
+						<%} %>
+						</td>
+						
+						<%-- <td><%= au.getAuStartPrice() %></td>
 						<td><%= au.getAuStartTime() %></td>
 						<td><%= au.getCount() %></td>
-						<td><%= au.getAuAppId() %></td>
+						<td><%= au.getAuAppId() %></td> --%>
 						<td>
 							<button class="insertApp">정보입력</button>
 						</td>
@@ -290,6 +306,34 @@
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option); */
 		})
+		$("#ready").click(function(){
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + 1 + "&status=1";
+		})
+		
+		$("#noAct").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/admin_autionNotRunning.jsp?appId=" + 1 + "&status=2";
+		})
+		
+		$("#start").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/AucBidding.jsp?appId=" + 1 + "&status=3";
+		})
+		
+		$("#win").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/AucResultSuccess.jsp?appId=" + 1 + "&status=4";
+		})
+		
+		$("#noBid").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/AucResultFail.jsp?appId=" + 1 + "&status=5";
+		})
+		
+		$("#payed").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/AucResultFail.jsp?appId=" + "이거안만드러졌네ㅎ" + "&status=6";
+		})
+		
+		$("#noPayed").click(function(){
+			location.href="<%=request.getContextPath()%>/views/admin/AucAllResult.jsp?appId=" + 1 + "&status=7";
+		})
+		
 		
 		
 		$("#bidding").click(function(){
