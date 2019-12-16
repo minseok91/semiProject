@@ -12,6 +12,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,10 +45,8 @@
 
 #write>table {
 	border-collapse: separate;
-	    border-spacing: 21px 5px;
-}
-
-#write>table {
+	border-spacing: 21px 5px;
+	width: 540px;
 	font-size: 16px;
 }
 
@@ -58,7 +57,7 @@
     margin-top: 8px;
 }
 
-#goodsInfo>img {
+#goodsContents>img {
 	width: 200px;
 	height: 200px;
 }
@@ -120,6 +119,10 @@
 	margin-bottom: 20px;
 }
 
+#basicAddress {
+	box-shadow: white;
+}
+
 #buyInfo>table>tbody>tr>td:nth-of-type(1) {
 	text-align: right;
 }
@@ -165,6 +168,9 @@
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
+	<%
+		String[] addr = loginMember.getMemberAddress().split("/");
+	%>
 	<%@ include file="../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
 	<div class="container">
@@ -196,8 +202,10 @@
 						<p>우편번호 : </p>
 					</td>
 					<td>
-						<input type="text" name="memberZoneCode" id="userAddr1" size="8" readonly placeholder="우편번호">
+						<input type="text" name="memberZoneCode" id="userAddr1" size="8" value="<%= addr[0] %>" readonly placeholder="우편번호">
 						<button id="addrBtn" onclick="daumPostCode()">주소 찾기</button>
+						<input type="checkbox" id="basicAddress">
+						<label for="basicAddress">기존의 주소로 배송</label>
 					</td>
 				</tr>
 				<tr>
@@ -205,7 +213,7 @@
 						<p>기본주소 : </p>
 					</td>
 					<td>
-						<input type="text" name="memberAddress1" id="userAddr2" size="30" readonly placeholder="기본주소">
+						<input type="text" name="memberAddress1" id="userAddr2" size="30" value="<%= addr[1] %>" readonly placeholder="기본주소">
 					</td>
 				</tr>
 				<tr>
@@ -213,7 +221,7 @@
 						<p>상세주소 : </p>
 					</td>
 					<td>
-						<input type="text" name="memberAddress2" id="userAddr3" size="30" placeholder="상세주소">
+						<input type="text" name="memberAddress2" id="userAddr3" size="30" value="<%= addr[2] %>" placeholder="상세주소">
 					</td>
 				</tr>
 			</table>
@@ -276,6 +284,7 @@
 			$('#fees').val(win*0.15);
 			$('#end').val(end);
 			
+			$('#basicAddress').attr('checked', 'true');
 
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -315,6 +324,21 @@
 				alert('동의약관에 체크해주세요.');
 			}
 		});
+			
+		$('#basicAddress').click(function() {
+			const chk = $(this).is(':checked');
+			console.log(chk);
+			
+			if(chk) {
+				$('userAddr1').val("<%= addr[0] %>");
+				$('userAddr2').val("<%= addr[1] %>");
+				$('userAddr3').val("<%= addr[2] %>");
+			} else {
+				$('userAddr1').val(' ');
+				$('userAddr2').val(' ');
+				$('userAddr3').val(' ');
+			}
+		}); 
 	});
 
 		function daumPostCode() {
@@ -349,6 +373,8 @@
 				}
 			}).open();
 		};
+		
+		
 	</script>
 	<% } %>
 		<%@ include file="../common/footer.jsp" %>

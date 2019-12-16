@@ -132,6 +132,7 @@ public class AppraisalService {
 		int result = 0;
 		//IH처리
 		int resultIh = new AppraisalDao().insertIh(con, ih);
+		
 		System.out.println("resultIh" + resultIh);
 		//app 처리
 		int resultApp = new AppraisalDao().insertApp(con, ap);
@@ -158,7 +159,6 @@ public class AppraisalService {
 		}
 		
 		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
-		
 		result = resultIh + resultApp + resultW + resultAr + resultAt;
 		
 		int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
@@ -166,7 +166,7 @@ public class AppraisalService {
 		int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
 		
 		result += resultAu;
-		
+		System.out.println(result);
 		
 		if(result > 5) {
 			commit(con);

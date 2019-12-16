@@ -10,8 +10,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.lp.common.Attachment;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
 
@@ -114,6 +116,7 @@ public class AuctionDao {
 		return result;
 	}
 
+
 	/**
 	 * @Author	      : gurwns
 	 * @CreateDate    : 2019. 12. 16. 오후 9:05:58
@@ -157,5 +160,48 @@ public class AuctionDao {
 			e.printStackTrace();
 		}
 		return result;
+
+	public HashMap<String, Object> selectOne(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> list = null;
+		
+		String query = prop.getProperty("selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			list = new HashMap<>();
+			ArrayList<Attachment> atList = new ArrayList<>();
+			Auction au = new Auction();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				atList.add(at);
+				
+				
+				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
+				au.setAuctionId(rset.getInt("AUCTION_ID"));
+				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
+				au.setAuStartPrice(rset.getInt("AUCTION_START_PRICE"));
+				au.setAuStartTime(rset.getDate("AUCTION_START_TIME"));
+				au.setCount(rset.getInt("AUCTION_COUNT"));
+				au.setMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				
+			
+			}
+			list.put("attach", atList);
+			list.put("auction", au);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
 	}
 }

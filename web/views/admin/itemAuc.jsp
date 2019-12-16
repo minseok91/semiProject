@@ -126,7 +126,7 @@
 					<tr>
 						<td><%= al.getAuctionId() %></td>
 						<td><%= al.getAuctionCount() %></td>
-						<td><%= al.getAuctionType() %></td>
+						<td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td>
 						<td><% if(al.getAuctionCount() == 0 && al.getAuctionType() == null) { %>
 						 경매 준비<button id="ready">상세보기</button>
 						<% } else if(al.getAuctionCount() == 0 && al.getAuctionType().equals("1")) { %>
@@ -153,7 +153,7 @@
 						</td>
 					</tr>
 					<% } %>
-					 <tr>
+				<!-- 	 <tr>
 						<td>1</td>
 						<td>pr001</td>
 						<td>adh5677</td>
@@ -230,7 +230,7 @@
 						<td>
 							<button id="allResult" class="detail">상세보기</button>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<div class="pagingArea" align="center">
@@ -306,32 +306,41 @@
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option); */
 		})
+		
 		$("#ready").click(function(){
-			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + 1 + "&status=1";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			console.log(aucId);
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId + "&status=1";
 		})
 		
 		$("#noAct").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/admin_autionNotRunning.jsp?appId=" + 1 + "&status=2";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId + "&status=2";
 		})
 		
 		$("#start").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/AucBidding.jsp?appId=" + 1 + "&status=3";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId+ "&status=3";
 		})
 		
 		$("#win").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/AucResultSuccess.jsp?appId=" + 1 + "&status=4";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId + "&status=4";
 		})
 		
 		$("#noBid").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/AucResultFail.jsp?appId=" + 1 + "&status=5";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId + "&status=5";
 		})
 		
 		$("#payed").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/AucResultFail.jsp?appId=" + "이거안만드러졌네ㅎ" + "&status=6";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + "이거안만드러졌네ㅎ" + "&status=6";
 		})
 		
 		$("#noPayed").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/AucAllResult.jsp?appId=" + 1 + "&status=7";
+			var aucId = $(this).parent().parent().children().eq(0).text()
+			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId	 + "&status=7";
 		})
 		
 		
