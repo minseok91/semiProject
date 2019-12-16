@@ -17,12 +17,12 @@ import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
-import com.kh.lp.appraisal.model.vo.Auction;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
+import com.kh.lp.auction.model.vo.Auction;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -603,17 +603,15 @@ public class AppraisalDao {
 			rset = pstmt.executeQuery();
 			app = new ArrayList<>();
 			while(rset.next()) {
-				a = new App();
 				ar = new AR1();
 				at = new Attachment();
 				ArrayList<Object> list = new ArrayList<>();
 				
-				a.setAppId(rset.getInt("APP_ID"));
+				ar.setAr1Id(rset.getInt("AR1_ID"));
 				ar.setAr1Brand(rset.getString("AR1_BRAND"));
 				ar.setAr1Price(rset.getInt("AR1_PRICE"));
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				
-				list.add(a);
 				list.add(ar);
 				list.add(at);
 				app.add(list);

@@ -25,6 +25,9 @@
 			location.href="<%= request.getContextPath() %>/index.jsp";
 		<% } else if(msg == "잘못된 경로로 접근했습니다.") { %>
 			location.href="<%= request.getContextPath() %>/index.jsp";
+		<% } else if(msg == "failAuctionStart") {%>
+			alert("경매시작을 실패했습니다. 다시 시도해주세요");
+			location.href="<%= request.getContextPath() %>/index.jsp";
 		<% } %>
 		}
 	</script>

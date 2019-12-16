@@ -61,16 +61,14 @@ public class AppraisalSelectItemResultServlet extends HttpServlet {
 		ArrayList<ArrayList<Object>> app = new AppraisalService().selectItemResult(memberNo);
 		PrintWriter out = response.getWriter();
 		String msg = "";
-		DecimalFormat formatter = new DecimalFormat("###,###");
 		if(app != null) {
 			for(int n = 0; n < app.size(); n++) {
-				App a = (App) app.get(n).get(0);
-				AR1 ar = (AR1) app.get(n).get(1);
-				Attachment at = (Attachment) app.get(n).get(2);
+				AR1 ar = (AR1) app.get(n).get(0);
+				Attachment at = (Attachment) app.get(n).get(1);
 				if(n == app.size() - 1) {
-					msg += a.getAppId() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + formatter.format(ar.getAr1Price());
+					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + (ar.getAr1Price());
 				} else {
-					msg += a.getAppId() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + formatter.format(ar.getAr1Price()) + "#";
+					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + ar.getAr1Price() + "#";
 				}
 			}
 			out.append(msg);
