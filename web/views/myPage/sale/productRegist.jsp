@@ -106,7 +106,7 @@
 	}
 	
 	#picArea{
-		width:29%;
+		width:270px;
 		border:1px solid black;
 		height:300px;
 		display:inline-block;
@@ -115,15 +115,18 @@
 	}
 	
 	#infoArea{
-		width:70%;
+		width:640px;
 		border:1px solid black;
 		height:300px;
 		display:inline-block;
 		float:left;
 	}
+	
 	#regist{
 	
 	}
+	
+	
 	.itemPic{
 		display:inline-block;
 		width:200px;
@@ -144,6 +147,42 @@
 	
 	.titles, .inputs {
 		border: 1px solid red;
+		display: inline-block;
+	}
+	
+	.titles {
+		width: 100px;
+		text-align:center;
+		height: 30px;
+	}
+	
+	
+	
+	.inputs {
+		width: 530px;
+		padding-left:5px;
+		height:30px;
+	}
+	.row1 {
+		margin-top: 25px;
+	}
+	.row1,.row2,.row3,.row4,.row5,.row6 {
+		border: 1px solid blue;
+		height: 35px;
+	}
+	
+	.row6 {
+		border: 1px solid blue;
+		height: 70px;
+	}
+	
+	#detailLabel, #detailText {
+		height: 65px;
+	}
+	
+	#detailLabel {
+		height: 30px;
+		
 	}
 	
 	
@@ -156,7 +195,6 @@
 	<%@ include file="../../common/nav.jsp" %>
 	<%-- <% if(loginMember != null) { %> --%>
 	<div class="container">
-	<div class="contents">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -194,25 +232,33 @@
 				<p>상품을 등록하는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
+		
+		
+		
+		
+		
+		<form action="<%=request.getContextPath()%>/productRegist.me" method="post" encType="multipart/form-data">
 		<div class="contentArea">
 			<div id="picArea">
 			<p>※상품 사진은 상품 식별이 가능하도록 찍어주세요.</p>
 				<div class="itemPic"  ></div>
-				<img src="../../img/step01.png">
-				<input type="file" value="사진업로드">
+				
+				<input type="file" name="itemPic">
 				
 			</div>
 			<div id="infoArea">
+			<div class="row1">
 			<div class="titles">
 			<label>종류</label>
 			</div>
 			<div class="inputs">
-			<select id="type" onchange="watchBag();">
+			<select name="itemType" id="type" onchange="watchBag();">
 				<option value="W" selected>시계</option>
 				<option value="B">가방</option>
 			</select>
 			</div>
-			
+			</div>
+			<div class="row2">
 			<div class="titles">
 			<label>브랜드</label>
 			</div>			
@@ -229,16 +275,20 @@
 			
 			</select>
 			</div>
+			</div>
 			
 			
 			
-			
+			<div class="row3">
 			<div class="titles">
 				<label>모델명</label>
 			</div>
 			<div class="inputs">
-				<input type="text">
+				<input name="model" type="text">
 			</div>
+			</div>
+			
+			<div class="row4">
 				<div class="titles">
 				<label>구매시기</label>
 				</div>
@@ -282,7 +332,8 @@
 				</select>
 				<label>월</label>				
 				</div>
-			
+			</div>
+			<div class="row5">
 				<div class="titles">
 				<label>보증서 유무</label>
 				</div>
@@ -291,16 +342,22 @@
 					<option value="Y">유</option>
 					<option value="N" selected>무</option>
 				</select>
-				<br>
-				<p>&nbsp;&nbsp;※보증서 '유'에 체크하셨다면 상품 배송 시 보증서를 함께 배송해주세요.</p>
-				</div>
 				
-			<div class="titles">
+				&nbsp;&nbsp;※보증서 '유'에 체크하셨다면 상품 배송 시 보증서를 함께 배송해주세요.
+				</div>
+			</div>
+			
+			<div class="row6">
+			<div class="titles" id="detailLabel">
 			<label>상세설명</label>
 			</div>
-			<div class="inputs">
-			<textarea style="width: inherit; height:50px; resize:none;" ></textarea>
+			<div class="inputs" id="detailText">
+			<textarea name="itemDetail" style="width: 500px; height:50px; resize:none;" ></textarea>
 			</div>
+			</div>
+			
+			
+			
 			</div>
 			<button id="regist" align="center">등록하기</button>
 
@@ -309,7 +366,7 @@
 
 						
 		</div>  <!-- contentArea end -->
-		</div> <!-- contents End -->
+		</form>
 	</div>  <!-- container end -->
 	<%-- <% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
@@ -322,8 +379,9 @@
 		$(function() {
 			$('a').click(function() {
 				let values=$(this).attr('value');
+				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
-			}).css('cursor', 'pointer');
+			})
 		});
 		
 		
@@ -345,13 +403,6 @@
 	</script>
 </body>
 </html>
-
-
-
-
-
-
-
 
 
 

@@ -21,3 +21,8 @@ public class Attachment implements java.io.Serializable{
 	private int refBoard;
 	private String type;
 }
+
+
+
+
+
