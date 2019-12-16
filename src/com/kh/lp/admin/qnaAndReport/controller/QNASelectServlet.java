@@ -1,13 +1,18 @@
 package com.kh.lp.admin.qnaAndReport.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.admin.member.model.service.MemberService;
+import com.kh.lp.admin.member.model.vo.Member;
 import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
+import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.common.PageInfo;
 
 
@@ -47,6 +52,7 @@ public class QNASelectServlet extends HttpServlet {
 		
 		int listCount = new QNAService().QNACount();
 	
+		
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		endPage = startPage + 10 - 1;
@@ -55,6 +61,19 @@ public class QNASelectServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
+		ArrayList<QNA> list = new QNAService().selectAll(currentPage, limit);
+		String page = "";
+		
+		System.out.println(list);
+		
+		if(list != null) {
+			page = "views/admin/admin_inquiryAndReport.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+		} else {
+			//에러 페이지
+		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**
