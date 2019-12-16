@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.jsp.board.model.service.BoardService;
 import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.Item;
@@ -36,10 +37,26 @@ public class AppraisalSelectItemResultServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		log.debug(memberNo);
+		
+		int currentPage; //현재 페이지를 표시할 변수
+		int limit; 		 //한 페이지에 게시글이 몇 개 보여질 것인지
+		int maxPage;	//전체 페이지에서 가장 마지막 페이지
+		int startPage;	//한 번에 표시될 페이지의 시작할 페이지
+		int endPage;	//한 번에 표시될 페이지의 마지막 페이지
+		
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		limit = 10;
+		
+		int listCount = new AppraisalService().getListCount(memberNo);
+		
 		ArrayList<ArrayList<Object>> app = new AppraisalService().selectItemResult(memberNo);
 		PrintWriter out = response.getWriter();
 		String msg = "";
