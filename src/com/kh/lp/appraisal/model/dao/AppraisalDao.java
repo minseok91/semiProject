@@ -624,4 +624,15 @@ public class AppraisalDao {
 		log.debug(app);
 		return app;
 	}
+
+	// 등록상품 갯수 추출
+	public int getListCount(Connection con, int memberNo) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		
+		
+		return result;
+	}
 }

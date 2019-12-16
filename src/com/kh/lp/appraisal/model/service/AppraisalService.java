@@ -277,5 +277,14 @@ public class AppraisalService {
 		close(con);
 		return app;
 	}
+	
+	// 등록상품 갯수 추출
+	public int getListCount(int memberNo) {
+		Connection con = getConnection();
+		
+		int resultCount = new AppraisalDao().getListCount(con, memberNo);
+		
+		return 0;
+	}
 
 }

@@ -10,8 +10,12 @@
  */
 --%>
 
+<%@page import="com.kh.lp.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,6 +210,35 @@
 				</thead>
 				<tbody id="tableBodyArea"></tbody>
 			</table>
+			
+			<div class="pagingArea" align="center">
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"><<</button>
+
+			<% if(currentPage <= 1) { %>
+				<button disabled><</button>
+			<% } else { %>
+				<button onclick="location.href='<%= request.getContextPath() %>'/selectList.bo?currentPage=<%= currentPage - 1 %>"><</button>
+			<% } %>
+
+			<% for (int p=startPage; p <= endPage; p++) {
+				if(p == currentPage) {
+			%>
+			<button disabled><%= p %></button>
+			<% } else { %>
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= p %>'"><%= p %></button>
+			<% } %>
+			<% } %>
+
+			<% if(currentPage >= maxPage) { %>
+			<button disabled>></button>
+			<% } else { %>
+			<button
+				onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage + 1 %>'">></button>
+			<% } %>
+
+			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">>></button>
+		</div>
+		
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
