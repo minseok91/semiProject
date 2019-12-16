@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -92,15 +93,16 @@ public class ReportDao {
 			
 			list = new ArrayList<Report>();
 			while(rset.next()) {
-				r = new Report();
-				r.setRnum(rset.getInt("RNUM"));
-				r.setReport_id(rset.getString("Report_ID"));
-				r.setReporting_member_no(rset.getString("REPORTING"));
-				r.setReported_member_no(rset.getString("REPORTED"));
-				r.setReported_content(rset.getString("REPORT_CONTENT"));
-				r.setReport_date(rset.getDate("REPORT_DATE"));
-				r.setReport_subject(rset.getString("REPORT_TYPE"));
-				r.setReport_type(rset.getString("BOARD_TYPE"));
+				/*
+				 * r = new Report(); r.setRnum(rset.getInt("RNUM"));
+				 * r.setReportId(rset.getString("Report_ID"));
+				 * r.setReporting(rset.getString("REPORTING"));
+				 * r.setReported(rset.getString("REPORTED"));
+				 * r.setReportcontent(rset.getString("REPORT_CONTENT"));
+				 * r.setReportDate(rset.getDate("REPORT_DATE"));
+				 * r.setReport_subject(rset.getString("REPORT_TYPE"));
+				 * r.setReportType(rset.getString("BOARD_TYPE"));
+				 */
 			
 				list.add(r);
 			}
@@ -132,13 +134,15 @@ public class ReportDao {
 			
 			list = new Report();
 			while(rset.next()) {
-				list.setReport_id(rset.getString("REPORT_ID"));
-				list.setReporting_member_no(rset.getString("REPORTING"));
-				list.setReported_member_no(rset.getString("REPORTED"));
-				list.setReported_content(rset.getString("REPORT_CONTENT"));
-				list.setReport_date(rset.getDate("REPORT_DATE"));
-				list.setReport_subject(rset.getString("REPORT_TYPE"));
-				list.setReport_type(rset.getString("BOARD_TYPE"));
+				/*
+				 * list.setReportId(rset.getString("REPORT_ID"));
+				 * list.setReporting(rset.getString("REPORTING"));
+				 * list.setReported(rset.getString("REPORTED"));
+				 * list.setReportcontent(rset.getString("REPORT_CONTENT"));
+				 * list.setReportDate(rset.getDate("REPORT_DATE"));
+				 * list.setReport_subject(rset.getString("REPORT_TYPE"));
+				 * list.setReportType(rset.getString("BOARD_TYPE"));
+				 */
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,6 +154,34 @@ public class ReportDao {
 		System.out.println(list);
 		
 		return list;
+	}
+
+	public int ReportCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("reportCount");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return result;
 	}
 
 }

@@ -11,17 +11,26 @@
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import = "com.kh.lp.admin.qnaAndReport.model.vo.*"
+    import = "com.kh.lp.admin.qnaAndReport.model.vo.*
+    , java.util.*, com.kh.lp.common.*"
     %>
  <%
  	ArrayList<QNA> list = (ArrayList<QNA>)request.getAttribute("list");
+ PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int startPage = pi.getStartPage();
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int ListCount = pi.getListCount();
+	int MaxPage = pi.getMaxPage();
  %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html;">
 <title>Insert title here</title>
-</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+</head>
 <meta content="text/html;">
 <style>
 html, body {
@@ -82,8 +91,6 @@ html, body {
 	margin-right: 0px; 
 	text-align: center;
 }
-#search_Box tr td {
-}
 
 #container_Box > div > p, h3 {
 	width: 90px;
@@ -109,7 +116,7 @@ html, body {
 
 
 #nextPageBox {
-	width: 83px;
+	width: 80%;
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -200,62 +207,67 @@ html, body {
 				<table id="table">
 					<tr>
 						<th>번호</th>
-						<th>카테고리</th>
-						<th>신고제목</th>
-						<th>글쓴이</th>
-						<th>게시물ID</th>
-						<th>기능</th>
+						<th>회원 아이디</th>
+						<th>문의제목</th>
+						<th>작성일</th>
+						<th>상태</th>
 					</tr>
-					 <tr>
-						<td>1</td>
-						<td>신고게시판</td>
-						<td>게시판 도배</td>
-						<td>킹민석</td>
-						<td>NT1234</td>
-						<td>
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>2</td>
-						<td>문의게시판</td>
-						<td>악성광고</td>
-						<td>안동환</td>
-						<td>NT1235</td>
-						<td>
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>신고게시판</td>
-						<td>그냥 심심</td>
-						<td>안동</td>
-						<td>NT1237</td>
-						<td>
-							<button id="updateBtn">수정</button>
-							<button id="deleteBtn">삭제</button>
-						</td>
-					</tr>
+					<% for(QNA q : list) { %>
+						<tr>
+							<td><%= q.getRnum() %>
+								<input type="hidden" value="<%=q.getQnaId()%>">
+							</td>
+							<td><%= q.getMemberId() %></td>
+							<td><%= q.getQnaTitle() %></td>
+							<td><%= q.getQnaDate() %></td>
+							<td>
+								<% switch(q.getQnastatus()) { 
+								case "QHT1" : %>문의 접수<% 
+								;break;
+								case "QHT2" : %>문의 확인<%
+								;break;
+								case "QHT#" : %>문의 답변<%
+								}
+								%>
+							</td>
+						</tr>
+					<% } %>
 					
 				</table>
 			</div>
 			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
+				<div id="nextPageBox" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=1'"><<</button>
+					<% for(int p=1; p<=endPage; p++) { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+					<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=endPage%>'">>></button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
-	$(document).click(function(e) {
-		if(e.target.tagName == "TD"){
-			location.href = "admin_noticeDetailPage.jsp"
-		}
+	$("#table  td").click(function(e) {
+		var qnaId = e.target.parentElement.children[0].children[0].value;
+		console.log(qnaId);
+	    location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+qnaId;
+		})
+		
+	$("#boardType").click(function(e) {
+		console.log(e.target.value);
+		
+		$.ajax({
+			url : "typeSelect.tr",
+			data : {type : e.target.value},
+			type : "GET",
+			success:function(date) {
+				console.log("전송 성공!");
+			}, error:function(error, status) {
+				console.log("전송 실패!");
+			}
+			
+		})
+		
 	})
 	</script>
 </body>
