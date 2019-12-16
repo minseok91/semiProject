@@ -13,13 +13,14 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Report {
 	private int rnum;
-	private String report_id;
-	private String reporting_member_no;
-	private String reported_member_no;
-	private String reported_content;
-	private Date report_date;
-	private String report_subject;
-	private String report_type;
+	private int reportId;
+	private int reporting;
+	private int reported;
+	private String reportcontent;
+	private Date reportDate;
+	private int reportBoard;
+	private int reportReply;
+	private String reportType;
 	
 	public Report() {}
 }

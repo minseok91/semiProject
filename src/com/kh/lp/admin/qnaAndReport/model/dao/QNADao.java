@@ -58,8 +58,106 @@ public class QNADao {
 		
 		String query = admin_prop.getProperty("admin_selectAll");
 		
-		int startRow = (currentPage - 1) * 10 + 1;
-		int endRow = (startRow + 10 - 1);
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = (startRow + limit - 1);
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+		
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<QNA>();
+			while(rset.next()) {
+				q = new QNA();
+				q.setRnum(rset.getInt("RNUM"));
+				q.setQnaId(rset.getInt("QNA_ID"));
+				q.setMemberId(rset.getString("MEMBER_ID"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaContent(rset.getString("QNA_CONTENT"));
+				q.setQnaDate(rset.getDate("QNA_DATE"));
+				q.setQnastatus(rset.getString("QNA_STATUS"));
+				
+				list.add(q);
+				
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return list;
+	}
+	public QNA selectOne(Connection con, String qnaId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		QNA q = null;
+		
+		String query = admin_prop.getProperty("admin_selectOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(qnaId));
+			
+			rset = pstmt.executeQuery();
+			
+			q = new QNA();
+			if(rset.next()) {
+				q.setQnaId(rset.getInt("QNA_ID"));
+				q.setMemberId(rset.getString("MEMBER_ID"));
+				q.setQnaTitle(rset.getString("QNA_TITLE"));
+				q.setQnaContent(rset.getString("QNA_CONTENT"));
+				q.setQnaDate(rset.getDate("QNA_DATE"));
+				q.setQnastatus(rset.getString("QNA_STATUS"));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return q;
+	}
+	public int updateStatus(Connection con, String qnaId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("admin_updateStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(qnaId));
+			
+			result = pstmt.executeUpdate();
+	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+	public ArrayList<QNA> selectType(String type, Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<QNA> list = null;
+		QNA q = null;
+		
+		String query = admin_prop.getProperty("admin_selectAll");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = (startRow + limit - 1);
 		
 		try {
 			pstmt = con.prepareStatement(query);
