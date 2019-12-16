@@ -148,7 +148,7 @@ td>img {
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>LauXion</title>
 </head>
-<body>
+<body onload="selectTable()">
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
@@ -236,15 +236,49 @@ td>img {
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			});
 		});
-		
-		
-		
+
 		$('#check>button').click(function() {
 			const num=$(this).parents('tr').children().eq(0).text();
 			
 			location.href="<%= request.getContextPath() %>/views/goods/paymentBefore.jsp";
 			// 형식 : location.href = "<%= request.getContextPath() %>/selectOne.tn?num=" + num;
 		})
+		
+		function selectTable(){
+			console.log("페이지 로드 될때마다 실행");
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectWin.wi",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>
+				},
+				success: function(data){
+					console.log(data);
+					var arr = data.split("#");
+					for(i in arr){
+						console.log(arr[i]);
+						var arr2 = arr[i].split("::");
+						$("#tableArea > #tableBodyArea:last").append("<tr>");
+						for(j in arr2){
+							console.log(arr2[j]);
+							if(j == 1){
+								$("#tableArea > #tableBodyArea:last").append("<td><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></td>");
+							} else{
+								$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+							}
+
+						}
+						$("#tableArea > #tableBodyArea:last").append("<td><button class='btn' onclick='startAuction()' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>");
+						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'>00 : 00 : 00</td>"); //웹소켓 또는 시간 흐르는 기능 표시
+						$("#tableArea > #tableBodyArea:last").append("</tr>");
+						
+					}
+				},
+				error: function(data){
+					console.log("테스트 실패");
+				}
+			});
+		}
 		
 	</script>
 </body>
