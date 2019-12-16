@@ -105,6 +105,7 @@ input:nth-of-type(text) {
 input[type="text"] {
 	margin-left: 30px;
 	border: hidden;
+	width: 90%;
 }
 input[type="text"]:focus {
 	outline: none;
@@ -168,7 +169,6 @@ margin-top: 27px;
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>회원정보 관리 상세</title>
 </head>
 <body>
 	<%@ include file="headerPage.jsp"%>

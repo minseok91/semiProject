@@ -14,14 +14,14 @@ import com.kh.lp.admin.member.model.vo.memberHistory;
 /**
  * Servlet implementation class userReleaseServlet
  */
-@WebServlet("/userTypeUpdate.me")
-public class admin_userTypeUpdateServlet extends HttpServlet {
+@WebServlet("/memberTypeUpdate.me")
+public class admin_memberTypeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_userTypeUpdateServlet() {
+    public admin_memberTypeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

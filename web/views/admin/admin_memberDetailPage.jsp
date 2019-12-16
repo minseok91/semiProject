@@ -23,6 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32"
 	href="image/loginimg(2).png">
 <meta content="text/html;">
+<title>회원정보 관리 상세</title>
 <style>
 html, body {
 	padding: 0;
@@ -100,7 +101,7 @@ td:nth-of-type(2) {
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>회원정보 관리 상세</title>
+
 </head>
 <body>
 	<%@ include file="headerPage.jsp"%>
@@ -197,9 +198,9 @@ td:nth-of-type(2) {
 			var text = $("#textarea").val();
 			console.log(text);
 			 if(e.target.innerHTML == '탈퇴') {
-				location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS3&text="+text;
+				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS3&text="+text;
 			} else if(e.target.innerHTML == '해제'){
-				location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS1&text="+text;
+				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS1&text="+text;
 			} 
 		})
 	</script>

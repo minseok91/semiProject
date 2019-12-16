@@ -118,10 +118,16 @@ public class MemberService {
 	 */
 	public int historyUpdate(memberHistory memberHistory) {
 		Connection con = getConnection();
-		//여기 작업해야함
-		if(memberHistory.getMemberHistoryType().equals("MS2")) {
-			
+		
+		//타입을 멤버타입히스토리에 맞는 타입으로 변경
+		String type = "";
+		switch(memberHistory.getMemberHistoryType()) {
+		case "MS1" : type = "MHT1"; break;
+		case "MS2" : type = "MHT2"; break;
+		case "MS3" : type = "MHT3"; break;
+		case "MS4" : type = "MHT4"; break;
 		}
+		memberHistory.setMemberHistoryType(type);
 		
 		int resutl = new MemberDao().historyUpdate(con, memberHistory);
 		

@@ -191,7 +191,7 @@
 	})
 	
 	$("#inquiryAndReport").click(function(){
-		location.href="<%= request.getContextPath()%>/views/admin/admin_inquiryAndReport.jsp";
+		location.href="<%= request.getContextPath()%>/QNASelect.qr";
 	})
 	$("#goods_li").click(function(){
 		location.href="<%= request.getContextPath()%>/views/admin/admin_appraisalProducts.jsp";
