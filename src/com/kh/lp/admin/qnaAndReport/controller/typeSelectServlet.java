@@ -2,6 +2,7 @@ package com.kh.lp.admin.qnaAndReport.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.admin.report.model.service.ReportService;
+import com.kh.lp.admin.report.model.vo.Report;
 import com.kh.lp.common.PageInfo;
 
 /**
@@ -64,10 +67,20 @@ public class typeSelectServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
-	
-		ArrayList<QNA> list = new QNAService().selectType(type, currentPage, limit);
+		ArrayList<HashMap<String, Object>> list = null;
+		String page = "";
+		if(type.equals("BT1")) {
+			 
+			list = new QNAService().selectType( currentPage, limit);
+		} else {
+			page = "신고";
+			list = new ReportService().selectType(currentPage, limit);
+		}
 		
-		System.out.println("문의 : "+list);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		new Gson().toJson(list, response.getWriter());
+		
 	}
 
 	/**

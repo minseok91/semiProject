@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.admin.report.model.vo.Report;
@@ -119,10 +120,10 @@ public class ReportDao {
 		return list;
 	}
 
-	public Report selectOne(Connection con, String reportId) {
+	public HashMap<String, Object> selectOne(Connection con, String reportId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		Report list = null;
+		HashMap<String, Object> list = null;
 		
 		String query = prop.getProperty("selectOne");
 		
@@ -132,17 +133,19 @@ public class ReportDao {
 			
 			rset = pstmt.executeQuery();
 			
-			list = new Report();
+			list = new HashMap<String, Object>();
 			while(rset.next()) {
-				/*
-				 * list.setReportId(rset.getString("REPORT_ID"));
-				 * list.setReporting(rset.getString("REPORTING"));
-				 * list.setReported(rset.getString("REPORTED"));
-				 * list.setReportcontent(rset.getString("REPORT_CONTENT"));
-				 * list.setReportDate(rset.getDate("REPORT_DATE"));
-				 * list.setReport_subject(rset.getString("REPORT_TYPE"));
-				 * list.setReportType(rset.getString("BOARD_TYPE"));
-				 */
+				
+				list.put("boardId", rset.getInt("REPORT_ID"));
+				list.put("boardTitle", rset.getString("BOARD_TITLE"));
+				list.put("boardContent",rset.getString("REPORT_CONTENT"));
+				list.put("boardDate", rset.getDate("REPORT_DATE"));
+				list.put("boardTYPE", rset.getString("BOARD_TYPE"));
+				list.put("boardIntoType", rset.getString("REPORT_TYPE"));
+				list.put("reporting", rset.getString("REPORTING"));
+				list.put("reported", rset.getString("REPORTED"));
+				
+				 
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -151,7 +154,6 @@ public class ReportDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list);
 		
 		return list;
 	}
@@ -182,6 +184,53 @@ public class ReportDao {
 		
 		
 		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectType(int currentPage, int limit, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hm = null;
+		
+		String query = prop.getProperty("reportSelectType");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow = (startRow + limit - 1);
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<HashMap<String, Object>>();
+			while(rset.next()) {
+				hm = new HashMap<>();
+				hm.put("Rnum", rset.getInt("RNUM"));
+				hm.put("boardId", rset.getInt("REPORT_ID")); 
+				hm.put("MemberName", rset.getString("MEMBER_NAME")); 
+				hm.put("REPORTED_MEMBER_NO",rset.getInt("REPORTED_MEMBER_NO")); 
+				hm.put("boardContent",rset.getString("REPORT_CONTENT")); 
+				hm.put("boardDate",rset.getDate("REPORT_DATE")); 
+				hm.put("Report_board",rset.getInt("REPORT_BOARD")); 
+				hm.put("Report_reply",rset.getInt("REPORT_REPLY")); 
+				hm.put("boardStatus",rset.getString("REPORT_TYPE")); 
+				hm.put("boardTitle",rset.getString("BOARD_TITLE"));
+				 
+			
+				list.add(hm);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+
+		
+		
+		return list;
 	}
 
 }
