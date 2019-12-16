@@ -123,21 +123,22 @@
 	width: 100%;
 }
 
-.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
+.contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
+	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
+	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
-
-.contentArea>table>tbody>tr>td>img {
+.container>.contents>#contentArea>#tableArea> {
+	width: 200px;
+}
+td>img {
 	width: 100px;
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
-	font-size: 12px;
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
@@ -190,8 +191,9 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table>
-				<tr>
+			<table id="tableArea" border="1">
+				<thead id="tableHeadArea">
+					<tr>
 					<th>경매번호</th>
 					<th>상품사진</th>
 					<th>상품명</th>
@@ -200,6 +202,8 @@
 					<th>결제금액</th>
 					<th>상태<br>(결제완료/환불진행중/환불완료)</th>
 				</tr>
+				</thead>
+				<tbody id="tableBodyArea">
 				<tr>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
@@ -212,25 +216,8 @@
 						<button id="refund">환불하기</button>
 					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>환불진행중</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td>환불완료</td>
-				</tr>
-			</table>
+				</tbody>
+			</table> <!-- tableArea End -->
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->

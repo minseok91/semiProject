@@ -1,5 +1,15 @@
+<%@page import="com.kh.lp.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+//	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+/* 	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); */
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -196,17 +206,31 @@ td>.content {
                <% } %>
          </table>
       </div> <!-- watchList End -->
-      <div class="pagingArea">
-         <button><<처음</button>
-         <button><이전</button>
-         <button>1</button>
-         <button>2</button>
-         <button>3</button>
-         <button>4</button>
-         <button>5</button>
-         <button>다음></button>
-         <button>마지막>></button>
-      </div>
+<%-- 	<div class="pagingArea" align="center">	
+		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
+			<% if(currentPage <= 1){ %>
+			<button disabled><</button>
+			<% } else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage){
+			%>
+				<button disabled><%= p %></button>
+			<% }else{ %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"><%= p %></button>
+			<% }
+			} %>
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></button>
+			<% } %>
+			
+		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage%>'">></button>
+		</div> <!-- pagingArea End --> --%>
       
 <%--       <div class="pagingArea" align="center">
 			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"><<</button>
