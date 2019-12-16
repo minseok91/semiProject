@@ -148,7 +148,7 @@ td>img {
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>LauXion</title>
 </head>
-<body>
+<body onload="selectTable()">
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
@@ -236,9 +236,7 @@ td>img {
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			});
 		});
-		
-		
-		
+
 		$('#check>button').click(function() {
 			const num=$(this).parents('tr').children().eq(0).text();
 			
@@ -246,6 +244,52 @@ td>img {
 			// 형식 : location.href = "<%= request.getContextPath() %>/selectOne.tn?num=" + num;
 		})
 		
+		function selectTable(){
+			console.log("페이지 로드 될때마다 실행");
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectWin.wi",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>
+				},
+				success: function(data){
+					console.log(data);
+					var arr = data.split("#");
+					for(i in arr){
+						console.log(arr[i]);
+						var arr2 = arr[i].split("::");
+						$("#tableArea > #tableBodyArea:last").append("<tr>");
+						for(j in arr2){
+							console.log(arr2[j]);
+							if(j == 1){
+								$("#tableArea > #tableBodyArea:last").append("<td><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></td>");
+							} else{
+								$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+							}
+
+						}
+						$("#tableArea > #tableBodyArea:last").append("<td><button class='btn' onclick='startAuction()' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>");
+						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'>00 : 00 : 00</td>"); //웹소켓 또는 시간 흐르는 기능 표시
+						$("#tableArea > #tableBodyArea:last").append("</tr>");
+						
+					}
+				},
+				error: function(data){
+					console.log("테스트 실패");
+				}
+			});
+		}
+		
 	</script>
 </body>
 </html>
+
+<!-- -- 낙찰목록 보여지기
+SELECT WIN_AUCTION_ID AS "상품번호", AT.ATTACHMENT_RENAME AS "상품 사진", AR.AR1_BRAND || AR.AR1_MODEL AS "브랜드/모델명", W.WIN_PRICE AS "낙찰가", WSC.NAME AS "낙찰여부"
+FROM WIN W 
+JOIN WIN_STATUS_CODE WSC ON(W.WIN_STATUS=WSC.CODE)
+JOIN AUCTION AC ON(W.WIN_AUCTION_ID=AC.AUCTION_ID)
+JOIN AR1 AR ON(AC.AUCTION_ID=AR.AR1_ID)
+JOIN ATTACHMENT AT ON(AT.ATTACHMENT_REF_APP=AC.AUCTION_ID)
+JOIN MEMBER M ON(W.WIN_AUCTION_ID=M.MEMBER_ID)
+WHERE M.MEMBER_ID=?; -->
