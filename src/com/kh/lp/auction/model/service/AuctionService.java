@@ -32,6 +32,28 @@ public class AuctionService {
 		return listCount;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 16. 오후 8:52:41
+	 * @ModifyDate    : 2019. 12. 16. 오후 8:52:41
+	 * @Description   : 경매시작 시 진행되는 메소드
+	 * @param requestAuction
+	 * @return
+	 */
+	public int startAuction(Auction requestAuction) {
+		Connection con = getConnection();
+		
+		int result = new AuctionDao().startAuction(con, requestAuction);
+		
+		if(result > 0) {
+			int auctionHistory = new AuctionDao().insertAuctionHistory(con, requestAuction, "AHT2");
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		return result;
+
 	public HashMap<String, Object> selectOne(String appId) {
 		Connection con = getConnection();
 		

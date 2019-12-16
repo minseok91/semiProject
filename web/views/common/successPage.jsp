@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%
 	String msg = (String) request.getAttribute("msg");
+	String msg2 = request.getParameter("msg");
+	System.out.println(msg2);
 %>
 <!DOCTYPE html>
 <html>
@@ -30,6 +32,10 @@
 		<% } else if(msg == "successMemberYP") { %>
 			alert("회원정보 수정을 완료했습니다. 로그인을 다시 해주세요");
 			location.href="<%= request.getContextPath() %>/index.jsp";
+		<% } %>
+		<% if(msg2 == "success") { %>
+			alert("경매가 정상적으로 등록되었습니다.");
+			location.href = "<%= request.getContextPath() %>/views/myPage/sale/auctionList.jsp";
 		<% } %>
 		}
 	</script>

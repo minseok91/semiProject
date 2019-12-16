@@ -33,6 +33,16 @@ public class AuctionDao {
 		}
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 16. 오후 9:03:53
+	 * @ModifyDate    : 2019. 12. 16. 오후 9:03:53
+	 * @Description   : 
+	 * @param con
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
 	public ArrayList<AuctionList> AuPaging(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -105,6 +115,51 @@ public class AuctionDao {
 				
 		return result;
 	}
+
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 16. 오후 9:05:58
+	 * @ModifyDate    : 2019. 12. 16. 오후 9:05:58
+	 * @Description   : 경매 시작 메소드
+	 * @param con
+	 * @param requestAuction
+	 * @return
+	 */
+	public int startAuction(Connection con, Auction requestAuction) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("startAuction");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionStartPrice());
+			pstmt.setInt(2, requestAuction.getAuctionPeriod());
+			pstmt.setInt(3, requestAuction.getAuctionAppId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public int insertAuctionHistory(Connection con, Auction requestAuction, String type) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAuctionHistory");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, 13);
+			pstmt.setString(2, type);
+			pstmt.setInt(3, 4);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 
 	public HashMap<String, Object> selectOne(Connection con, String appId) {
 		PreparedStatement pstmt = null;

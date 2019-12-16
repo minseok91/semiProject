@@ -138,7 +138,7 @@
 .container>.contents>#contentArea>#tableArea> {
 	width: 200px;
 }
-td>img {
+td>a>img {
 	width: 100px;
 	height: 100px;
 }
@@ -203,6 +203,16 @@ td>img {
     	margin-right: 25px;
     	float: right;
 	}
+	.resLink {
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+	}
+	.resLink:hover{
+		cursor: pointer;
+		color: black;
+		text-decoration: none;
+	}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -265,8 +275,6 @@ td>img {
 				</thead>
 				<tbody id="tableBodyArea"></tbody>
 			</table>
-			
-		
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
@@ -276,24 +284,24 @@ td>img {
 		<div class="modalContents">
 			<div id="contentsArea">
 				<h2 align="center">경매 시작 전 정보 입력</h2>
-				<form id="modalForm" action="">
+				<form id="modalForm" action="" method="post" onsubmit="return doAuction()">
 					<table id="modalTableArea" align="center">
 						<tr>
 							<td><label for="">경매 상품</label></td>
-							<td><input type="text" value=""/></td>
+							<td><input id="itemName" type="text" value="" readonly/></td>
 						</tr>
 						<tr>
 							<td><label for="">감정가</label></td>
-							<td><input type="text" value=""/></td>
+							<td><input id="itemPrice" type="text" value="" readonly/></td>
 						</tr>
 						<tr>
 							<td><label for="">경매 시작가</label></td>
-							<td><input type="text" placeholder="감정가의 90%까지만 입력이 가능합니다."/></td>
+							<td><input id="itemStartPrice" type="text" name="itemStartPrice" placeholder="감정가의 90%까지만 입력이 가능합니다."/></td>
 						</tr>
 						<tr>
 							<td><label for="">경매기간</label></td>
 							<td>
-								<select name="" id="">
+								<select name="auctionDay" id="">
 									<option value="2">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
@@ -304,14 +312,16 @@ td>img {
 							</td>
 						</tr>
 				</table>
+				<input type="hidden" id="itemId" name="itemId" value=""/>
+				<div id="modalBtnArea" align="center">
+				<br />
+					<button class="btn" id="modalStartBtn" type="submit" style="padding-top: 3px;">시작하기</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<button class="btn" id="modalEndBtn" type="reset" style="padding-top: 3px;">취소하기</button>
+				</div>  <!-- modalBtnArea end -->
 			</form>
 			</div>  <!-- contentsArea end -->
-			<div id="modalBtnArea" align="center">
-				<br />
-				<button class="btn" id="modalStartBtn" type="submit" style="padding-top: 3px;">시작하기</button>
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button class="btn" id="modalEndBtn" type="reset" style="padding-top: 3px;">취소하기</button>
-			</div>  <!-- modalBtnArea end -->
+			
 		</div>  <!-- modalContents end -->
 	</div>  <!-- modalContainer end -->
 	
@@ -329,8 +339,9 @@ td>img {
 			})
 		});
 		
+		
+		
 		function selectTable(){
-			console.log("페이지 로드 될때마다 실행");
 			$.ajax({
 				url: "<%= request.getContextPath() %>/selectItemResult.app",
 				type: "post",
@@ -340,34 +351,44 @@ td>img {
 				success: function(data){
 					console.log(data);
 					var arr = data.split("#");
-					for(i in arr){
+					for(i in arr) {
+						temp = "";
 						console.log(arr[i]);
 						var arr2 = arr[i].split("::");
-						$("#tableArea > #tableBodyArea:last").append("<tr>");
-						for(j in arr2){
-							console.log(arr2[j]);
-							if(j == 1){
-								$("#tableArea > #tableBodyArea:last").append("<td><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></td>");
-							} else{
-								$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+						console.log(arr2);
+						for(j in arr2) {
+							if(j == 1) {
+								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
+							} else if(j == 3) {
+								temp += "<td><a class='resLink'>" + numberFormat(arr2[j]) + "원</a></td>";
+							} else {
+								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
 							}
-
+							
 						}
-						$("#tableArea > #tableBodyArea:last").append("<td><button class='btn' onclick='startAuction()' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>");
-						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'>00 : 00 : 00</td>"); //웹소켓 또는 시간 흐르는 기능 표시
-						$("#tableArea > #tableBodyArea:last").append("</tr>");
-						
+						temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>";
+						temp += "<td name='time" + i + "'>00 : 00 : 00</td>";
+						$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");
 					}
 				},
 				error: function(data){
 					console.log("테스트 실패");
 				}
 			});
-		}
+		};
 		
-		function startAuction(){
+		function startAuction(value){
+			var tr = $(value).parent().parent();
+			var td = $(tr).children();
+			$("#itemId").val(td.eq(0).text());
+			$("#itemName").val(td.eq(2).text());
+			$("#itemPrice").val(td.eq(3).text());
 			$("#modal1").show();
 		};
+		
+		$("#startBtn").click(function(){
+			console.log("test");
+		});
 		
 		function endAuction(){
 			console.log("경매를 취소합니다.");
@@ -376,6 +397,28 @@ td>img {
 		$("#modalEndBtn").click(function(){
 			$("#modal1").hide();
 		});
+		
+		function doAuction(){
+			var itemPrice = $("#itemPrice").val();
+			var itemStartPrice = $("#itemStartPrice").val();
+			alert(itemPrice);
+			alert(itemStartPrice);
+			if(itemStartPrice > (itemPrice * 0.9)) {
+				alert("경매 시작가가 감정가의 90%보다 높습니다.");
+				return false;
+			} else if(itemStartPrice == "") {
+				alert("경매 시작가를 입력해주세요");
+				return false;
+			} else{
+				$("#modalForm").attr("action", "<%= request.getContextPath() %>/startAuction.au");
+			}
+		}
+		
+		function numberFormat(inputNumber) {
+			   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		
+		
 	</script>
 </body>
 </html>
