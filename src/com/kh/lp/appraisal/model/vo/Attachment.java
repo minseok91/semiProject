@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Attachment implements java.io.Serializable{
-	private int atid;
-	private String atName;
-	private String atRename;
-	private String atPath;
-	private Date uploadDate;
-	private int fileLevel;
-	private int refItem;
-	private int refApp;
-	private int refBoard;
-	private String type;
+	private int attachmentId;
+	private String attachmentName;
+	private String attachmentRename;
+	private String attachmentPath;
+	private Date attachmentUploadDate;
+	private int attachmentFileLevel;
+	private int attachmentRefItem;
+	private int attachmentRefApp;
+	private int attachmentRefBoard;
+	private String attachmentType;
 }

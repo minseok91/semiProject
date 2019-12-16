@@ -138,7 +138,7 @@
 .container>.contents>#contentArea>#tableArea> {
 	width: 200px;
 }
-.contentArea>table>tbody>tr>td>img {
+td>img {
 	width: 100px;
 	height: 100px;
 }
@@ -147,7 +147,62 @@
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
+.btn {
+	border:1px solid #a07342;
+	background:#211f22;
+	color:#e2ceb8;
+	height:26px;
+	border-radius:5px;
+}
+.modalContainer {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+        /* Modal Content/Box */
+.modalContents {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */                          
+}
 
+#modalTableArea{
+		border-collapse: separate;
+    	border-spacing: 0 25px;
+	}
+	
+	td>input{
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 14px;
+    	width: 300px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	td>select{
+		font-family: sans-serif;
+		padding: 5px;
+    	font-size: 14px;
+    	width: 60px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	label{
+		margin: 5px;
+    	font-family: sans-serif;
+    	font-size: 15px;
+    	margin-right: 25px;
+    	float: right;
+	}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -203,7 +258,7 @@
 						<th>상품번호</th>
 						<th>상품사진</th>
 						<th>브랜드/모델명</th>
-						<th>감정 결과</th>
+						<th>감정가</th>
 						<th>경매 진행</th>
 						<th>남은 시간</th>
 					</tr>
@@ -211,43 +266,60 @@
 				<tbody id="tableBodyArea"></tbody>
 			</table>
 			
-			<div class="pagingArea" align="center">
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"><<</button>
-
-			<% if(currentPage <= 1) { %>
-				<button disabled><</button>
-			<% } else { %>
-				<button onclick="location.href='<%= request.getContextPath() %>'/selectList.bo?currentPage=<%= currentPage - 1 %>"><</button>
-			<% } %>
-
-			<% for (int p=startPage; p <= endPage; p++) {
-				if(p == currentPage) {
-			%>
-			<button disabled><%= p %></button>
-			<% } else { %>
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= p %>'"><%= p %></button>
-			<% } %>
-			<% } %>
-
-			<% if(currentPage >= maxPage) { %>
-			<button disabled>></button>
-			<% } else { %>
-			<button
-				onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage + 1 %>'">></button>
-			<% } %>
-
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">>></button>
-		</div>
 		
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
+	
+	<!-- modal -->
+	<div id="modal1" class="modalContainer">
+		<div class="modalContents">
+			<div id="contentsArea">
+				<h2 align="center">경매 시작 전 정보 입력</h2>
+				<form id="modalForm" action="">
+					<table id="modalTableArea" align="center">
+						<tr>
+							<td><label for="">경매 상품</label></td>
+							<td><input type="text" value=""/></td>
+						</tr>
+						<tr>
+							<td><label for="">감정가</label></td>
+							<td><input type="text" value=""/></td>
+						</tr>
+						<tr>
+							<td><label for="">경매 시작가</label></td>
+							<td><input type="text" placeholder="감정가의 90%까지만 입력이 가능합니다."/></td>
+						</tr>
+						<tr>
+							<td><label for="">경매기간</label></td>
+							<td>
+								<select name="" id="">
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+								</select>
+							</td>
+						</tr>
+				</table>
+			</form>
+			</div>  <!-- contentsArea end -->
+			<div id="modalBtnArea" align="center">
+				<br />
+				<button class="btn" id="modalStartBtn" type="submit" style="padding-top: 3px;">시작하기</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button class="btn" id="modalEndBtn" type="reset" style="padding-top: 3px;">취소하기</button>
+			</div>  <!-- modalBtnArea end -->
+		</div>  <!-- modalContents end -->
+	</div>  <!-- modalContainer end -->
+	
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
 	   } %>
 	<%@ include file="../../common/footer.jsp" %>
-
 	<script>
 		$(function() {
 			$('a').click(function() {
@@ -274,10 +346,15 @@
 						$("#tableArea > #tableBodyArea:last").append("<tr>");
 						for(j in arr2){
 							console.log(arr2[j]);
-							$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+							if(j == 1){
+								$("#tableArea > #tableBodyArea:last").append("<td><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></td>");
+							} else{
+								$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
+							}
+
 						}
-						$("#tableArea > #tableBodyArea:last").append("<td></td><td><button onclick='startAuction()'>경매시작</button><br><button onclick='endAuction()'>경매취소</button></td>");
-						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'></td>");
+						$("#tableArea > #tableBodyArea:last").append("<td><button class='btn' onclick='startAuction()' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>");
+						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'>00 : 00 : 00</td>"); //웹소켓 또는 시간 흐르는 기능 표시
 						$("#tableArea > #tableBodyArea:last").append("</tr>");
 						
 					}
@@ -289,12 +366,16 @@
 		}
 		
 		function startAuction(){
-			console.log("경매시작합니다.");
+			$("#modal1").show();
 		};
 		
 		function endAuction(){
 			console.log("경매를 취소합니다.");
 		};
+		
+		$("#modalEndBtn").click(function(){
+			$("#modal1").hide();
+		});
 	</script>
 </body>
 </html>
