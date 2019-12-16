@@ -2,6 +2,7 @@ package com.kh.lp.auction.model.service;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.lp.auction.model.dao.AuctionDao;
 import com.kh.lp.auction.model.vo.Auction;
@@ -29,6 +30,16 @@ public class AuctionService {
 		close(con);
 		
 		return listCount;
+	}
+
+	public HashMap<String, Object> selectOne(String appId) {
+		Connection con = getConnection();
+		
+		HashMap<String, Object> list = new AuctionDao().selectOne(con, appId);
+		
+		close(con);
+		
+		return list;
 	}
 
 }

@@ -114,9 +114,9 @@ public class AppraisalInsertServlet extends HttpServlet {
 		//전송 순서가 역순으로 들어왔기 때문에 반복문을 역순으로 돌여 arrayList에 담기
 		for(int i = originFiles.size() - 1 ; i >= 0; i--) {
 			Attachment at = new Attachment();
-			at.setAtPath(savePath);
-			at.setAtName(originFiles.get(i));
-			at.setAtRename(saveFiles.get(i));
+			at.setAttachmentPath(savePath);
+			at.setAttachmentName(originFiles.get(i));
+			at.setAttachmentRename(saveFiles.get(i));
 			
 //			at.setFilePath(savePath);
 //			at.setOriginName(originFiles.get(i));
@@ -203,10 +203,10 @@ public class AppraisalInsertServlet extends HttpServlet {
 			//시퀀스로 ar.setAppId(appId);
 			//시퀀스로 ar.setBagId(bagId);
 			//시퀀스로 ar.setWatchId(watchId);
-			ar.setBrand(multiBrand);
-			ar.setCondition(multiGrade);
-			ar.setModel(multiModel);
-			ar.setPrice(multiPrice);
+			ar.setAr1Brand(multiBrand);
+			ar.setAr1Condition(multiGrade);
+			ar.setAr1Model(multiModel);
+			ar.setAr1Price(multiPrice);
 			//확인 ar1 
 			System.out.println("ar1 : " + ar);
 			
@@ -218,7 +218,7 @@ public class AppraisalInsertServlet extends HttpServlet {
 			//판매자가 설정 au.setAuPeriod(auPeriod);
 			//판매자가 설정 au.setAuStartPrice(auStartPrice);
 			//판매자가 설정 au.setAuStartTime(auStartTime);
-			au.setCount(0);//초기값인데 재경매 일때 다시해야 되나? 
+			au.setAuctionCount(0);//초기값인데 재경매 일때 다시해야 되나? 
 			//au.setMemberNo(memberNo);//판매자 아이디 넣기 
 			System.out.println("au : "+ au);
 			//ih,ap,w,ar,fileList

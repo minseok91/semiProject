@@ -1,11 +1,15 @@
 package com.kh.lp.auction.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.lp.auction.model.service.AuctionService;
 
 /**
  * Servlet implementation class AuctionSelectOneServlet
@@ -36,16 +40,56 @@ public class AuctionSelectOneServlet extends HttpServlet {
 //		System.out.println("type : " + type);
 		System.out.println("status : " + status);
 		
-		
-		//Auction ac = new AuctionService().selectOne();
-		
 		String page = "";
+		
+		if(status.equals("1")) {
+			System.out.println("여긴 1번");
+			page = "/views/admin/admin_waitingForAuction.jsp";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+			System.out.println("ac :" + ac);
+			System.out.println("attach : " + ac.get("attach"));
+			System.out.println("auction :" + ac.get("auction"));
+		} else if(status.equals("2")) {
+			System.out.println("여긴 2번");
+			page = "/views/admin/admin_autionNotRunning.jsp";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		} else if(status.equals("3")) {
+			System.out.println("여긴 3번");
+			page = "/views/admin/AucBidding.jsp?";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		} else if (status.equals("4")) {
+			System.out.println("여긴 4번");
+			page = "/views/admin/AucResultSuccess.jsp";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		} else if(status.equals("5")) {
+			System.out.println("여긴 5번");
+			page = "/views/admin/AucResultFail.jsp";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		} else if(status.equals("6")) {
+			System.out.println("여긴 6번");
+			page = "";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		} else if(status.equals("7")) {
+			System.out.println("여긴 7번");
+			page = "/views/admin/AucAllResult.jsp";
+			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			request.setAttribute("list", ac);
+		}
+		
+		
 //		if(ac != null) {
 //			request.setAttribute("ac", ac);
 //			page = "";
 //		} else {
-//			
+//			request.setAttribute("msg", "상세 보기 " + status + " 실패 !" );
 //		}
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 	
 	
