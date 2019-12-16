@@ -10,9 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QNA {
+	private int rnum;
 	private int qnaId;
 	private int qnaMemberNo;
+	private String memberId;
 	private String qnaTitle;
 	private String qnaContent;
 	private Date qnaDate;
+	private String qnastatus;
 }
