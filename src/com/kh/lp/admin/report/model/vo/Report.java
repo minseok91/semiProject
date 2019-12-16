@@ -21,6 +21,10 @@ public class Report {
 	private int reportBoard;
 	private int reportReply;
 	private String reportType;
+	private String reportingName;
+	private String reportedName;
+	private String boardTitle;
+	private String boardType;
 	
 	public Report() {}
 }

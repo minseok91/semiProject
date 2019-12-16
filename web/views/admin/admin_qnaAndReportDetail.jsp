@@ -9,12 +9,14 @@
  * </pre>
  */
 --%>
+<%@page import="com.kh.lp.admin.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import = "com.kh.lp.admin.qnaAndReport.model.vo.*, com.kh.lp.common.*"
+    import = "com.kh.lp.admin.qnaAndReport.model.vo.*, com.kh.lp.common.*
+    			, java.util.*"
     %>
     <%
-    QNA list = (QNA)request.getAttribute("list");
+    	HashMap<String, Object> list = (HashMap<String, Object>)request.getAttribute("list");
     %>
 <!DOCTYPE html>
 <html>
@@ -168,39 +170,52 @@ margin-top: 27px;
 		<div id="contents" class="contents">
 			<div id="infoBox">
 				<form action="<%=request.getContextPath()%>/updateBoard.bo" method="post" onsubmit="return ok()">
-					<h3 align="center">문의 상세</h3>
+					<h3 align="center">
+						<% if(list.get("boardIntoType").toString().split(1,2) == "QHT") { %>
+							문의 상세
+						<% } else { %>
+							신고 상세
+						<% } %>
+					</h3>
 					<table id="infoTable">
 						<tr>
 							<td>제목</td>
-							<td><input type="text" name="title" value="<%=list.getQnaTitle()%>" readonly></td>
+							<td><input type="text" name="title" value="<%=list.get("boardTitle")%>" readonly></td>
 						</tr>
 						<tr>
 							<td>게시판 종류</td>
-							<td><% switch(list.getQnastatus()) { 
+							<td><% switch(list.get("boardIntoType").toString()) { 
 								case "QHT1" : %><input type="text" name="title" value="문의 접수" readonly><% 
 								;break;
 								case "QHT2" : %><input type="text" name="title" value="문의 확인" readonly><%
 								;break;
-								case "QHT#" : %><input type="text" name="title" value="문의 답변" readonly><%
-								}
+								case "QHT3" : %><input type="text" name="title" value="문의 답변" readonly><%
+								;break;
+								case "RT1" : %><input type="text" name="title" value="게시판" readonly><%
+								;break;
+								case "RT2" : %><input type="text" name="title" value="댓글" readonly><%
+							}
 								%>
 							</td>
 						</tr>
 						<tr>
 							<td>작성자</td>
 							<td><input type="text" name="writer"
-								value="<%=list.getMemberId()%>"readonly>
+								value="<%=list.get("reporting")%>"readonly>
 								</td>
 						</tr>
 						<tr>
 							<td>작성일</td>
-							<td id="today"><input type="text" id="today" name="date" value="<%= list.getQnaDate() %>"readonly></td>
+							<td id="today"><input type="text" id="today" name="date" value="<%= list.get("boardDate") %>"readonly></td>
 						</tr>
 						<tr>
 							<td>내용</td>
-							<td><textarea id="boardContents" name="content" readonly><%= list.getQnaContent() %></textarea></td>
+							<td><textarea id="boardContents" name="content" readonly><%= list.get("boardContent") %></textarea></td>
 						</tr>
-						<tr>
+					<%-- 	<% if() { %>
+						
+						<% } %> --%>
+							<tr>
 							<td colspan="2">댓글</td>
 						</tr>
 						<tr>

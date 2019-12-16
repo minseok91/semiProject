@@ -4,6 +4,7 @@ import static com.kh.lp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.lp.admin.qnaAndReport.model.dao.QNADao;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
@@ -88,10 +89,10 @@ public class QNAService {
 		return result;
 	}
 
-	public ArrayList<QNA> selectType(String type, int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectType( int currentPage, int limit) {
 		Connection con = getConnection();
 		
-		ArrayList<QNA> list = new QNADao().selectType(type, con, currentPage, limit);
+		ArrayList<HashMap<String, Object>> list = new QNADao().selectType( con, currentPage, limit);
 		
 		close(con);
 		

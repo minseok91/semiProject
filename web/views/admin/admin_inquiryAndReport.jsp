@@ -247,28 +247,82 @@ html, body {
 		</div>
 	</div>
 	<script>
-	$("#table  td").click(function(e) {
-		var qnaId = e.target.parentElement.children[0].children[0].value;
-		console.log(qnaId);
-	    location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+qnaId;
-		})
-		
-	$("#boardType").click(function(e) {
-		console.log(e.target.value);
-		
-		$.ajax({
-			url : "typeSelect.tr",
-			data : {type : e.target.value},
-			type : "GET",
-			success:function(date) {
-				console.log("전송 성공!");
-			}, error:function(error, status) {
-				console.log("전송 실패!");
-			}
-			
-		})
-		
+	count = 0;
+	$(function(){
+	
+		$("#boardType").click(function(e) {
+			var StartPage = <%= pi.getStartPage()%>;
+	
+			$.ajax({
+				url : "typeSelect.tr",
+				data : {type : e.target.value,
+						StartPage : <%=pi.getStartPage()%>,
+						endPage : <%=pi.getEndPage()%>,
+						limit : <%=pi.getLimit()%>,
+						ListCount : <%=pi.getListCount()%>,
+						MaxPage : <%=pi.getMaxPage()%>,
+						currentPage : <%=pi.getCurrentPage()%>
+				},
+				type : "GET",
+				success:function(data) {
+					$tableBody = $("#table tbody");
+					
+					$tableBody.html('');
+						
+						var $trh = $("<tr>");
+						var $Th = $("<th>번호</th><th>회원 아이디</th><th>문의제목</th><th>작성일</th><th>상태</th>");
+						$trh.append($Th);
+						$tableBody.append($trh);
+						
+						var type;
+						for(var i=0; i<data.length; i++){
+						var datatype = data[i].boardStatus;
+						var $tr = $("<tr>");
+						if(datatype == 'QHT1'){
+							type = '문의 접수';
+						} else if(datatype == 'QHT2') {
+							type = '문의 확인';
+						} else if(datatype == 'QHT3') {
+							type = '문의 답변';
+						} else if(datatype == 'RT1') {
+							type = '게시판';
+						} else {
+							type = '답글';
+						}
+						
+						var $noTd = $("<td>"+data[i].Rnum+"<input type='hidden' value="+data[i].boardId+"><input type='hidden' value="+data[i].boardStatus+"></td><td>"+data[i].MemberName+"</td><td>"+data[i].boardTitle+"</td><td>"+data[i].boardDate+"</td><td>"+type+"</td>")
+						
+						$tr.append($noTd);
+						$tableBody.append($tr);
+					}
+						var boardId = "";
+						var boardStatus = "";
+						$("#table td").click(function(e){
+							 boardId = e.target.parentNode.children[0].children[0].value;
+							 boardStatus = e.target.parentNode.children[0].children[1].value;
+							location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId+"&type="+boardStatus;
+							console.log(e);
+						});
+						
+				}, error:function(error, status) {
+					console.log("전송 실패!");
+				}
+			})
+				
+			});
+		if(count == 0){
+			$("#table td").click(function(e){
+				 boardId = e.target.parentNode.children[0].children[0].value;
+				location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId;
+				console.log(boardId);
+			});
+		}
 	})
+	
+	
+	</script>
+	<script>
+	
 	</script>
 </body>
 </html>

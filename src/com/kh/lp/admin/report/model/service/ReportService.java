@@ -4,6 +4,7 @@ import static com.kh.lp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.lp.admin.report.model.dao.ReportDao;
 import com.kh.lp.admin.report.model.vo.Report;
@@ -31,10 +32,10 @@ public class ReportService {
 		return list;
 	}
 
-	public Report selectOne(String reportId) {
+	public HashMap<String, Object> selectOne(String reportId) {
 		Connection con = getConnection();
 		
-		Report list = new ReportDao().selectOne(con, reportId);
+		HashMap<String, Object> list = new ReportDao().selectOne(con, reportId);
 		
 		close(con);
 		
@@ -49,6 +50,15 @@ public class ReportService {
 		close(con);
 		
 		return ReportCount;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectType(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<HashMap<String, Object>> list = new ReportDao().selectType(currentPage, limit, con);
+	
+				
+		return list;
 	}
 
 }

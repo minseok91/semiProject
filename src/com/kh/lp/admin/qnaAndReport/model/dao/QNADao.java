@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
@@ -148,11 +149,11 @@ public class QNADao {
 		
 		return result;
 	}
-	public ArrayList<QNA> selectType(String type, Connection con, int currentPage, int limit) {
+	public ArrayList<HashMap<String, Object>> selectType(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<QNA> list = null;
-		QNA q = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		HashMap<String, Object> hm = null;
 		
 		String query = admin_prop.getProperty("admin_selectAll");
 		
@@ -166,18 +167,19 @@ public class QNADao {
 		
 			rset = pstmt.executeQuery();
 			
-			list = new ArrayList<QNA>();
+			list = new ArrayList<HashMap<String, Object>>();
 			while(rset.next()) {
-				q = new QNA();
-				q.setRnum(rset.getInt("RNUM"));
-				q.setQnaId(rset.getInt("QNA_ID"));
-				q.setMemberId(rset.getString("MEMBER_ID"));
-				q.setQnaTitle(rset.getString("QNA_TITLE"));
-				q.setQnaContent(rset.getString("QNA_CONTENT"));
-				q.setQnaDate(rset.getDate("QNA_DATE"));
-				q.setQnastatus(rset.getString("QNA_STATUS"));
+				hm = new HashMap<>();
+				hm.put("Rnum", rset.getInt("RNUM"));
+				hm.put("boardId", rset.getInt("QNA_ID"));
+				hm.put("MemberName", rset.getString("MEMBER_ID"));
+				hm.put("boardTitle", rset.getString("QNA_TITLE"));
+				hm.put("boardContent", rset.getString("QNA_CONTENT"));
+				hm.put("boardDate", rset.getDate("QNA_DATE"));
+				hm.put("boardStatus", rset.getString("QNA_STATUS"));
 				
-				list.add(q);
+				
+				list.add(hm);
 				
 			}
 		
