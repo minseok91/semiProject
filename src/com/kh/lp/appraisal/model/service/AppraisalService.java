@@ -152,7 +152,7 @@ public class AppraisalService {
 			
 			for (int i = 0; i < fileList.size(); i++) {
 				
-				fileList.get(i).setRefApp(appId);
+				fileList.get(i).setAttachmentRefApp(appId);
 				
 			}
 		}
@@ -204,7 +204,7 @@ public class AppraisalService {
 			
 			for (int i = 0; i < fileList.size(); i++) {
 				
-				fileList.get(i).setRefApp(appId);
+				fileList.get(i).setAttachmentRefApp(appId);
 				
 			}
 		}
@@ -251,7 +251,7 @@ public class AppraisalService {
 			
 			for (int i = 0; i < fileList.size(); i++) {
 				
-				fileList.get(i).setRefApp(appId);
+				fileList.get(i).setAttachmentRefApp(appId);
 				
 			}
 		}

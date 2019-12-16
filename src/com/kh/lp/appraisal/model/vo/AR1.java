@@ -9,14 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AR1 implements java.io.Serializable {
 	
-	private int appId;
-	private String brand;
-	private String model;
-	private int price;
-	private int watchId;
-	private int bagId;
-	private String condition;
-	
-	
-	
+	private int ar1Id;
+	private String ar1Brand;
+	private String ar1Model;
+	private int ar1Price;
+	private int ar1WatchDetail;
+	private int ar1BagDetail;
+	private String ar1Condition;
 }

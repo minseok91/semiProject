@@ -379,10 +379,10 @@ public class AppraisalDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, ar.getBrand());
-			pstmt.setString(2, ar.getModel());
-			pstmt.setInt(3, ar.getPrice());
-			pstmt.setString(4, ar.getCondition());
+			pstmt.setString(1, ar.getAr1Brand());
+			pstmt.setString(2, ar.getAr1Model());
+			pstmt.setInt(3, ar.getAr1Price());
+			pstmt.setString(4, ar.getAr1Condition());
 			
 			result = pstmt.executeUpdate();
 			
@@ -430,9 +430,9 @@ public class AppraisalDao {
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, fileList.get(i).getAtName());
-			pstmt.setString(2, fileList.get(i).getAtRename());
-			pstmt.setString(3, fileList.get(i).getAtPath());
+			pstmt.setString(1, fileList.get(i).getAttachmentName());
+			pstmt.setString(2, fileList.get(i).getAttachmentRename());
+			pstmt.setString(3, fileList.get(i).getAttachmentPath());
 			
 			int level = 0;
 			if(i == 0) {
@@ -441,7 +441,7 @@ public class AppraisalDao {
 				level = 1;
 			}
 			pstmt.setInt(4, level);
-			pstmt.setInt(5, fileList.get(i).getRefApp());
+			pstmt.setInt(5, fileList.get(i).getAttachmentRefApp());
 			
 			result  += pstmt.executeUpdate();
 			}
@@ -546,10 +546,10 @@ public class AppraisalDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, ar.getBrand());
-			pstmt.setString(2, ar.getModel());
-			pstmt.setInt(3, ar.getPrice());
-			pstmt.setString(4, ar.getCondition());
+			pstmt.setString(1, ar.getAr1Brand());
+			pstmt.setString(2, ar.getAr1Model());
+			pstmt.setInt(3, ar.getAr1Price());
+			pstmt.setString(4, ar.getAr1Condition());
 			
 			result = pstmt.executeUpdate();
 			
@@ -592,7 +592,8 @@ public class AppraisalDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		App a = null;
-		Item i = null;
+		Attachment at = null;
+		AR1 ar = null;
 		
 		String query = prop.getProperty("selectItemResult");
 		
@@ -603,15 +604,18 @@ public class AppraisalDao {
 			app = new ArrayList<>();
 			while(rset.next()) {
 				a = new App();
-				i = new Item();
+				ar = new AR1();
+				at = new Attachment();
 				ArrayList<Object> list = new ArrayList<>();
 				
 				a.setAppId(rset.getInt("APP_ID"));
-				i.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
-				a.setAppResult(rset.getString("NAME"));
+				ar.setAr1Brand(rset.getString("AR1_BRAND"));
+				ar.setAr1Price(rset.getInt("AR1_PRICE"));
+				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				
 				list.add(a);
-				list.add(i);
+				list.add(ar);
+				list.add(at);
 				app.add(list);
 				
 			}
