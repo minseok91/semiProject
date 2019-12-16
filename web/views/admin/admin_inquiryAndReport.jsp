@@ -17,7 +17,6 @@
 <meta content="text/html;">
 <title>Insert title here</title>
 </head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
-<link rel="stylesheet" type="text/css" href="css/admin_userDetailPage.css">
 <meta content="text/html;">
 <style>
 html, body {
@@ -41,7 +40,7 @@ html, body {
 }
 #container_Box > div:first-child {
 	width: 94%;
-	height: 120px;
+	height: 45px;
 	margin: 0 auto;
 
 }
@@ -66,23 +65,19 @@ html, body {
 	padding-top: 5px;
 } 
 #search_Box {
-	width: 100%;
+	width: 300px;
 	height: 100%;
 	border: none;
-	border-collapse: collapse;
 	margin-top: 10px;
+	float: right;
 	
 }
 #search_Box tr td:nth-of-type(1) {
 	width: 150px;
-	border: 1px solid;
 	margin-right: 0px; 
 	text-align: center;
-	border: 1px solid gray;
 }
 #search_Box tr td {
-	border: 1px solid ;
-	border: 1px solid gray;
 }
 
 #container_Box > div > p, h3 {
@@ -135,18 +130,21 @@ html, body {
 	text-align: center;
 }
 #idSearch {
+	margin-top: 1px;
 	width: 130px;
-	height: 30px;
-	margin-left: 8px;
-	border: 1px solid gray;
-	border-radius: 5px;
+	height: 25px;
+	border: none;
+	box-shadow: 2px 2px 6px 1px gray;
 }
 #idSearchBtn {
-	width: 50px;
-	height: 30px;
-	background: rgb(160, 115, 66);
-	color: #e2ceb8;
-	border: 1px solid rgb(160, 115, 66);
+	width: 65px;
+	height: 31px;
+	margin-left: 2%;
+	float: right;
+	background: rgb(33, 31, 34);
+	border: 2px solid rgb(160, 115, 66);
+	color: rgb(160, 115, 66);
+	margin-top: 2px;
 }
 #NoticeNumber > p {
 	width: 101px;
@@ -161,6 +159,10 @@ html, body {
 	margin-top: 17px;
 	float: left;
 }
+#boardType {
+	width: 70px;
+	height: 30px;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>회원정보 관리 상세</title>
@@ -169,32 +171,22 @@ html, body {
 	<%@ include file="headerPage.jsp" %>
 	<div id="container">
 		<div id="container_Box">
-			<div>
 				<div>
-					<table id="search_Box">
-						<tr>
-							<td>아이디 검색</td>
-							<td>
-								<input type="text" id="idSearch">
-								<button id="idSearchBtn">검색</button>
+				<table id="search_Box">
+					<tr>
+						<td><select id="boardType" name="boardType">
+								<option value="BT1" >문의</option>
+								<option value="BT2">신고</option>
+						</select>
+						</td>
+						<td>
+							 <input type="text" id="idSearch">
+						</td>
+						<td>
+							<button id="idSearchBtn">검색</button>
 							</td>
-						</tr>
-					</table>
-				</div>
-				<div>
-					<table id="search_Box">
-							<tr>
-								<td>검색판명 선택</td>
-								<td>
-								<select>
-									<option> -- 선택 -- </option>
-									<option> 신고 게시판 </option>
-									<option> 문의 게시판 </option>
-								</select>
-								</td>
-							</tr>
-						</table>
-				</div>
+					</tr>
+				</table>
 			</div>
 			<div>
 			<div id="NoticeNumber">

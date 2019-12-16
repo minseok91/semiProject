@@ -158,11 +158,11 @@
 			var userId = e.target.parentElement.children[1].innerHTML;
 				if(e.target.innerHTML == '탈퇴'){
 					var userId = e.target.attributes.value.value;
-					location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userId="+userId+"&type=MS3";
+					location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userId="+userId+"&type=MS3";
 					console.log(e.target.innerHTML);
 				} else if(e.target.innerHTML == '해제'){
 					var userId = e.target.attributes.value.value;
-					location.href="<%=request.getContextPath()%>/userTypeUpdate.me?userId="+userId+"&type=MS1";
+					location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userId="+userId+"&type=MS1";
 					console.log(e.target.innerHTML);
 				} else {
 					console.log(e.target.parentElement.children[1].innerHTML);

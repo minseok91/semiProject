@@ -22,7 +22,7 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
+<title>FAQ 상세</title>
 <style>
 html, body {
 	padding: 0;
@@ -79,7 +79,7 @@ input:nth-of-type(text) {
 
 #buttonBox {
 	margin-top: 30px;
-	width: 159px;
+	width: 225px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -181,7 +181,9 @@ margin-top: 27px;
 						</tr>
 						<tr>
 							<td>게시판 종류</td>
-							<td><input type="text" name="category" value="BT4" readonly></td>
+							<td><input type="hidden" name="category" value="BT4" readonly>
+								<input type="text"  value="FAQ" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>작성자</td>
