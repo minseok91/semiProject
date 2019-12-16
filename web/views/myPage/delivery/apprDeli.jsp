@@ -123,20 +123,22 @@
 	width: 81%;
 }
 
-.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
+.contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
+	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
 	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
-
-.contentArea>table>tbody>tr>td>img {
+.container>.contents>#contentArea>#tableArea> {
+	width: 200px;
+}
+td>img {
 	width: 100px;
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
@@ -188,8 +190,9 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table>
-				<tr>
+			<table id="tableArea" border="1">
+				<thead id="tableHeadArea">
+					<tr>
 					<th>카테고리</th>
 					<th>상품번호</th>
 					<th>상품사진</th>
@@ -197,23 +200,9 @@
 					<th>배송상태</th>
 					<th>비고</th>
 				</tr>
-				<tr>
-					<td>감정대기중</td>
-					<td>1</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>배송중</td>
-					<td></td>
-				</tr>
-				<tr>
-					<td>환불</td>
-					<td>2</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>배송완료</td>
-					<td></td>
-				</tr>
-			</table>
+				</thead>
+				<tbody id="tableBodyArea"></tbody>
+			</table> <!-- tableArea End -->
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->

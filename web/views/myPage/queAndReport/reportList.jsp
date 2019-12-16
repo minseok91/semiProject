@@ -10,8 +10,18 @@
  */
 --%>
 
+<%@page import="com.kh.lp.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+//	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
+/* 	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage(); */
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,15 +127,19 @@
     width: 81%;
 }
 
-.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
+.contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
+	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
 	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
 
-.contentArea>table>tbody>tr>th  {
+.container>.contents>#contentArea>#tableArea> {
+	width: 200px;
+}
+
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
@@ -177,28 +191,51 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table>
-				<tr>
+			<table id="tableArea" border="1">
+				<thead id="tableHeadArea">
+					<tr>
 					<th>신고번호</th>
 					<th>제목</th>
 					<th>작성날짜</th>
 					<th>답변여부</th>
 				</tr>
+				</thead>
+				<tbody id="tableBodyArea">
 				<tr>
 					<td>1</td>
 					<td>배송하긴 한건가요</td>
 					<td>2019-12-06</td>
 					<td>답변완료</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>낙찰취소 정말 불가능한건가요</td>
-					<td>2019-12-06</td>
-					<td>답변대기</td>
-				</tr>
+				</tbody>
 			</table>
 			<button>신고하기</button>
 		</div> <!-- contentArea End -->
+		<div class="pagingArea" align="center">	
+		<%-- <button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
+			<% if(currentPage <= 1){ %>
+			<button disabled><</button>
+			<% } else{ %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><</button>
+			<% } %>
+			
+			<% for(int p = startPage; p <= endPage; p++){ 
+				if(p == currentPage){
+			%>
+				<button disabled><%= p %></button>
+			<% }else{ %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"><%= p %></button>
+			<% }
+			} %>
+			
+			<% if(currentPage >= maxPage){ %>
+			<button disabled>></button>
+			<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></button>
+			<% } %>
+			
+		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage%>'">></button>
+		</div> <!-- pagingArea End --> --%>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {
