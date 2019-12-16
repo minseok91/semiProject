@@ -10,7 +10,12 @@
  */
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*" %>
+    
+<% HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list"); 
+ArrayList<Attachment> atList = (ArrayList<Attachment>) list.get("attach");
+System.out.println("atList : " + atList );
+Auction au = (Auction) list.get("auction");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -248,40 +253,26 @@
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<a id="wish" href="#">낙찰</a>
-						<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+						<label id="wish" href="#"><%if(au.getCount() == 0){ %> 
+							경매 준비
+							
+						<% } else if(au.getCount() == 1) {%>
+						경매중
+						<% } else if(au.getCount() == 2) {%>
+						재경매
+						<% } %>
+						</label>
+						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
+							<% for(int i = 1 ; i < atList.size(); i++){ %>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(i).getAttachmentRename() %>" alt="" >
 								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-							</tr>
+							<% } %>
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
