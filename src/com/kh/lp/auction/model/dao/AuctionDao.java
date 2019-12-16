@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.auction.model.vo.AuctionList;
 
 public class AuctionDao {
 	
@@ -30,10 +31,10 @@ public class AuctionDao {
 		}
 	}
 
-	public ArrayList<Auction> AuPaging(Connection con, int currentPage, int limit) {
+	public ArrayList<AuctionList> AuPaging(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Auction> list = null;
+		ArrayList<AuctionList> list = null;
 		
 		int startRow = (currentPage - 1) * limit + 1;
 		int endRow =  startRow + limit -1;
@@ -49,17 +50,21 @@ public class AuctionDao {
 			
 			list = new ArrayList<>();
 			while(rset.next()) {
-				Auction au = new Auction();
-				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
-				au.setAuctionId(rset.getInt("AUCTION_ID"));
-				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
-				au.setAuStartPrice(rset.getInt("AUCTION_START_PRICE"));
-				au.setAuStartTime(rset.getDate("AUCTION_START_TIME"));
-				au.setCount(rset.getInt("AUCTION_COUNT"));
-				au.setMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				AuctionList al = new AuctionList();
+				al.setAuctionCount(rset.getInt("AUCTION_COUNT"));
+				al.setAuctionId(rset.getInt("AUCTION_ID"));
+				al.setAuctionType(rset.getString("AUCTION_TYPE"));
+				
+//				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
+//				au.setAuctionId(rset.getInt("AUCTION_ID"));
+//				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
+//				au.setAuStartPrice(rset.getInt("AUCTION_START_PRICE"));
+//				au.setAuStartTime(rset.getDate("AUCTION_START_TIME"));
+//				au.setCount(rset.getInt("AUCTION_COUNT"));
+//				au.setMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
 				
 				
-				list.add(au);
+				list.add(al);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

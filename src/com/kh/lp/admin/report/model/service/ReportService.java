@@ -41,4 +41,14 @@ public class ReportService {
 		return list;
 	}
 
+	public int ReportCount() {
+		Connection con = getConnection();
+		
+		int ReportCount = new ReportDao().ReportCount(con);
+		
+		close(con);
+		
+		return ReportCount;
+	}
+
 }
