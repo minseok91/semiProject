@@ -12,7 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.item.model.vo.Item;
+import com.kh.lp.member.model.vo.Member;
 
 public class ItemDao {
 	Properties prop = new Properties();
@@ -144,4 +146,92 @@ public class ItemDao {
 		return item;
 	}
 
+	public int insertItemInfo(Connection con, Member loginMember, Item registItem) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("insertItem");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, registItem.getItemMemberNo());
+		
+			ITEM_ID
+			ITEM_MEMBER_NO
+			ITEM_TYPE
+			ITEM_BRAND_MODEL
+			ITEM_PUR_DATE
+			ITEM_WARRANTY_YN
+			ITEM_DETAIL
+			ITEM_APP_DATE
+			
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		return result;
+	}
+
+	public int insertItemPic(Connection con, Attachment itemPic) {
+
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("insertAttachment");
+		
+		
+		
+		
+		return result;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

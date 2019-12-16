@@ -9,14 +9,14 @@ public class Item implements java.io.Serializable {
 	private String itemMemberNo;
 	private String itemType;
 	private String itemBrandModel;
-	private Date itemPurDate;
+	private String itemPurDate;
 	private String itemWarrantyYn;
 	private String itemDetail;
 	private Date itemAppDate;
 	
 	public Item () {}
 
-	public Item(int itemId, String itemMemberNo, String itemType, String itemBrandModel, Date itemPurDate,
+	public Item(int itemId, String itemMemberNo, String itemType, String itemBrandModel, String itemPurDate,
 			String itemWarrantyYn, String itemDetail, Date itemAppDate) {
 		super();
 		this.itemId = itemId;
@@ -61,11 +61,11 @@ public class Item implements java.io.Serializable {
 		this.itemBrandModel = itemBrandModel;
 	}
 
-	public Date getItemPurDate() {
+	public String getItemPurDate() {
 		return itemPurDate;
 	}
 
-	public void setItemPurDate(Date itemPurDate) {
+	public void setItemPurDate(String itemPurDate) {
 		this.itemPurDate = itemPurDate;
 	}
 
