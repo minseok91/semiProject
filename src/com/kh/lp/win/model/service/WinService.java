@@ -25,4 +25,15 @@ public class WinService {
 		return map;
 	}
 
+	// 낙찰리스트 추출 테스트
+	public ArrayList<Win> selectListTest(int memberNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Win> list = new WinDao().selectListTest(con, memberNo);
+		
+		close(con);
+		
+		return list;
+	}
+
 }

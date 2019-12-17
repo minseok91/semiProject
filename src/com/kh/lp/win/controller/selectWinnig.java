@@ -40,7 +40,9 @@ public class selectWinnig extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		ArrayList<ArrayList<Object>> list = new WinService().selectList(memberNo);
+		log.debug(memberNo);
+		ArrayList<Win> list = new WinService().selectListTest(memberNo);
+		log.debug(list);
 		
 		String msg = "";
 		
@@ -48,23 +50,51 @@ public class selectWinnig extends HttpServlet {
 		
 		if(list != null) {
 			for(int n = 0; n < list.size(); n++) {
-				AR1 ar = (AR1) list.get(n).get(0);
-				Attachment at = (Attachment) list.get(n).get(1);
-				Win w = (Win) list.get(n).get(2);
-				if(n == list.size() - 1) {
-					msg += w.getWinAuctionId() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + 
-							"::" + ar.getAr1Model() + "::" + w.getWinPrice() + "::" + w.getWinStatus() + "::" + w.get;
-				} else {
-					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + ar.getAr1Price() + "#";
-				}
+				Win w = list.get(n);
+				if(n == list.size() - 1)
+					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
+						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
+						+ "::" + w.getAttRename() + "::" + w.getWinDate();
+				else 
+					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
+						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
+						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "#";
 			}
+			log.debug(msg);
 			out.append(msg);
-		}  else {
+		} else {
 			log.debug("실패");
 			out.append("fail");
 		}
+		
 		out.flush();
 		out.close();
+		
+//		ArrayList<ArrayList<Object>> list = new WinService().selectList(memberNo);
+//		
+//		String msg = "";
+//		
+//		PrintWriter out = response.getWriter();
+//		
+//		if(list != null) {
+//			for(int n = 0; n < list.size(); n++) {
+//				AR1 ar = (AR1) list.get(n).get(0);
+//				Attachment at = (Attachment) list.get(n).get(1);
+//				Win w = (Win) list.get(n).get(2);
+//				if(n == list.size() - 1) {
+//					msg += w.getWinAuctionId() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + 
+//							"::" + ar.getAr1Model() + "::" + w.getWinPrice() + "::" + w.getWinStatus() + "::" + w.get;
+//				} else {
+//					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + ar.getAr1Price() + "#";
+//				}
+//			}
+//			out.append(msg);
+//		}  else {
+//			log.debug("실패");
+//			out.append("fail");
+//		}
+//		out.flush();
+//		out.close();
 	}
 
 	/**
