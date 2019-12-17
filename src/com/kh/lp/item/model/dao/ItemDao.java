@@ -146,6 +146,15 @@ public class ItemDao {
 		return item;
 	}
 
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 16
+	 * @ModifyDate    : 2019. 12. 16
+	 * @Description   :  감정신청상품 등록하는 메소드 - 아이템 테이블에 인서트
+	 * @param
+	 * @return
+	 */
 	public int insertItemInfo(Connection con, Member loginMember, Item registItem) {
 		
 		int result = 0;
@@ -178,9 +187,49 @@ public class ItemDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 16
+	 * @ModifyDate    : 2019. 12. 16
+	 * @Description   :  감정신청상품 등록하는 메소드 - attachment테이블에 입력할때 fk 연결을 위해 아이템테이블에 입력된 아이템id값 가져오는 메소드
+	 * @param
+	 * @return
+	 */
+	public int getItemNo(Connection con) {
+		
+		int itemNo=0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getItemNo");
+		
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			itemNo = rset.getInt(1);
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		
+		return itemNo;
+	}
 	
-	
-	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 16
+	 * @ModifyDate    : 2019. 12. 16
+	 * @Description   :  감정신청상품 등록하는 메소드 - attachment 테이블에 첨부파일정보 인서트하는 메소드
+	 * @param
+	 * @return
+	 */
 	public int insertItemPic(Connection con, Attachment itemPic) {
 
 		int result = 0;
@@ -209,32 +258,6 @@ public class ItemDao {
 		return result;
 	}
 
-	public int getItemNo(Connection con) {
-
-		int itemNo=0;
-		Statement stmt = null;
-		ResultSet rset = null;
-		String query = prop.getProperty("getItemNo");
-		
-		
-		try {
-			stmt = con.createStatement();
-			
-			rset = stmt.executeQuery(query);
-			itemNo = rset.getInt(1);
-			
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(stmt);
-		}
-		
-		
-		return itemNo;
-	}
 
 }
 

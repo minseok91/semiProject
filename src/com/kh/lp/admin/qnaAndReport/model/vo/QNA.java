@@ -19,3 +19,7 @@ public class QNA {
 	private Date qnaDate;
 	private String qnaStatus;
 }
+
+
+
+

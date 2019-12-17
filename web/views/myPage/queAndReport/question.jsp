@@ -10,8 +10,9 @@
  */
 --%>
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,9 +22,9 @@
 	padding-bottom: 10px;
 }
 
-.contents{
-	height:650px;
-	width:inherit;
+.contents {
+	height: 650px;
+	width: inherit;
 	margin-top: 30px;
 }
 
@@ -33,7 +34,7 @@
 	border-right: 2px solid black;
 	display: inline-block;
 	float: left;
-	margin-right:10px;
+	margin-right: 10px;
 	margin-top: 10px;
 }
 
@@ -94,25 +95,25 @@
 	height: 54px;
 	background-color: lightgray;
 	padding-left: 25px;
-    padding-top: 18px;
+	padding-top: 18px;
 }
 
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
-    color: #f00;
-    font-weight: bold;
+	color: #f00;
+	font-weight: bold;
 }
 
 .contentArea {
-    text-align: center;
-    position: absolute;
-    width: 72%;
-    margin-top: 75px;
-    left: 28%;
+	text-align: center;
+	position: absolute;
+	width: 72%;
+	margin-top: 75px;
+	left: 28%;
 }
 
 /* 1920px 전용(작업용) */
-@media(min-width: 1919px) {
+@media ( min-width : 1919px) {
 	.contentArea {
 		left: 32%;
 		width: 59%;
@@ -132,128 +133,132 @@
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
+.contentArea>table>tbody>tr>th {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
-#queNoti{
-	border:1px solid black;
-	width:700px;
-	background:#f9faf1;
-	margin-left:210px;
+
+#queNoti {
+	border: 1px solid black;
+	width: 700px;
+	background: #f9faf1;
+	margin-left: 210px;
 }
-li{
-	list-style:none;
-	width:20%;
-	display:inline-block;
-	margin:0;
-	padding-left:0;
-	float:left;
-}
-.textArea{
-	background:#f6f6f6;
+
+.textArea {
+	background: #f6f6f6;
 }
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
 <body>
-	<%@ include file="../../common/header.jsp" %>
-	<%@ include file="../../common/nav.jsp" %>
-	<% if(loginMember != null) { %>
+	<%@ include file="../../common/header.jsp"%>
+	<%@ include file="../../common/nav.jsp"%>
+	<%
+		if (loginMember != null) {
+	%>
 	<div class="container">
-	<div class="contents">
-		<div id="myPageMenu">
-			<h3 id="h3" align="center">마이페이지</h3>
-			<dl>
-				<dt>§  구매정보</dt>
-				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
-				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
-				
-				<dt>§  판매정보</dt>
-				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
-				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
-				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
-				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
-				
-				<dt>§  결제/배송조회</dt>
-				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
-				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
-				
-				<dt>§  문의 및 신고</dt>
-				<dd><a value="queAndReport/questionList" id="selectMenu">▶  문의 내역</a></dd>
-				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
-				
-				<dt>§  회원정보</dt>
-				<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
-				<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
-				
-			</dl>
-		</div>  <!-- myPageMenu end -->
-		<div class="menuStatus">
-			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;문의 상세 &nbsp;>&nbsp;</h3>
-			</div>  <!-- status1 end -->
-			<div class="status2">
-				<p>문의하신 내용과 답변입니다.</p>
-			</div>  <!-- status2 end -->
-		</div>  <!-- menuStatus end -->
-		<div class="contentArea">
-		<table cellspacing="0" cellpadding="0" class="tb_sosmail mgt15">
-						<colgroup><col width="85">
-						</colgroup><tbody><tr>
-						<hr>
-							<th class="con">제목</th>
-							<td class="con">
-								<input type="text" class="border_popep textArea" style="width:560px;height:20px;" name="sosTitle" value="">
-							</td>
-						</tr>
+		<div class="contents">
+			<div id="myPageMenu">
+				<h3 id="h3" align="center">마이페이지</h3>
+				<dl>
+					<dt>§ 구매정보</dt>
+					<dd>
+						<a value="buy/wishList">▶ 위시리스트</a>
+					</dd>
+					<dd>
+						<a value="buy/biddingList">▶ 입찰리스트</a>
+					</dd>
+					<dd>
+						<a value="buy/winningBid">▶ 낙찰리스트</a>
+					</dd>
+
+					<dt>§ 판매정보</dt>
+					<dd>
+						<a value="sale/productAppRequest">▶ 상품감정 신청</a>
+					</dd>
+					<dd>
+						<a value="sale/goodsEnrollList">▶ 등록상품 관리</a>
+					</dd>
+					<dd>
+						<a value="sale/auctionList">▶ 경매 진행 상품 관리</a>
+					</dd>
+					<dd>
+						<a value="sale/auctionDeadline">▶ 경매 마감 상품 관리</a>
+					</dd>
+
+					<dt>§ 결제/배송조회</dt>
+					<dd>
+						<a value="delivery/paymentList">▶ 결제 내역</a>
+					</dd>
+					<dd>
+						<a value="delivery/apprDeli">▶ 감정 상품 배송 조회</a>
+					</dd>
+					<dd>
+						<a value="delivery/sellDeli">▶ 구매 상품 배송 조회</a>
+					</dd>
+
+					<dt>§ 문의 및 신고</dt>
+					<dd>
+						<a value="queAndReport/questionList" id="selectMenu">▶ 문의 내역</a>
+					</dd>
+					<dd>
+						<a value="queAndReport/reportList">▶ 신고 내역</a>
+					</dd>
+
+					<dt>§ 회원정보</dt>
+					<dd>
+						<a value="memberChange/userInfoChange">▶ 회원정보 변경</a>
+					</dd>
+					<dd>
+						<a value="memberChange/userDelete">▶ 회원 탈퇴</a>
+					</dd>
+
+				</dl>
+			</div>
+			<!-- myPageMenu end -->
+			<div class="menuStatus">
+				<div class="status1">
+					<h3>&nbsp;&nbsp;<&nbsp;문의 상세 &nbsp;>&nbsp;</h3>
+				</div>
+				<!-- status1 end -->
+				<div class="status2">
+					<p>문의하신 내용과 답변입니다.</p>
+				</div>
+				<!-- status2 end -->
+			</div>
+			<!-- menuStatus end -->
+			
+			
+			
+			
+			
+			<form action="<%=request.getContextPath()%>/qnaSend.qr" method="post">
+			<div class="contentArea">
+				<table cellspacing="0" cellpadding="0" class="tb_sosmail mgt15">
+					<colgroup>
+						<col width="85">
+					</colgroup>
+					<tbody>
 						<tr>
-							<th class="con">세부분류</th>
-							<td class="con">
-								<ul class="soskind_list">
-									<li><input type="radio" name="majorTp" value="CST0102" onclick="chg_kindcon(1);">주문</li>
-									<li><input type="radio" name="majorTp" value="CST0130" onclick="chg_kindcon(2);">결제</li>
-									<li><input type="radio" name="majorTp" value="CST0105" onclick="chg_kindcon(3);">환불</li>
-									<li><input type="radio" name="majorTp" value="CST0106" onclick="chg_kindcon(4);">회원</li>
-									<li><input type="radio" name="majorTp" value="CST0107" onclick="chg_kindcon(5);">GiftCard</li>
-									<li><input type="radio" name="majorTp" value="CST0140" onclick="chg_kindcon(6);">I-Point</li>
-									<li><input type="radio" name="majorTp" value="CST0108" onclick="chg_kindcon(7);">서비스</li>
-									<li><input type="radio" name="majorTp" value="CST0131" onclick="chg_kindcon(8);">배송</li>
-									<li><input type="radio" name="majorTp" value="CST0112" onclick="chg_kindcon(9);">반품</li>
-									<li><input type="radio" name="majorTp" value="CST0113" onclick="chg_kindcon(10);">교환</li>
-									<li><input type="radio" name="majorTp" value="CST0118" onclick="chg_kindcon(11);">판매관련</li>
-									<li><input type="radio" name="majorTp" value="CST0121" onclick="chg_kindcon(0);">고객제안</li>
-								</ul>
-							</td>
+							<hr>
+							<th class="con">제목</th>
+							<td class="con"><input type="text" class="border_popep textArea" style="width: 560px; height: 20px;" name="qnaTitle"></td>
 						</tr>
+
 						<tr>
 							<th class="con">문의내용</th>
-							<td class="con">
-								<ul class="soskind_list">
-									<li>
-									<textarea rows="10" cols="120" class="textArea"></textarea>
-									</li>
-								</ul>
-							</td>
+							<td class="con"><textarea rows="10" cols="120" class="textArea" style="resize:none;" name="qnaContent"></textarea></td>
 						</tr>
-						<tr>
-							<th class="con">답변내용</th>
-							<td class="con">
-								<ul class="soskind_list">
-									<li>
-									<textarea rows="10" cols="120" class="textArea"></textarea>
-									</li>
-								</ul>
-							</td>
-						</tr>
+						
 					</tbody>
-					</table>
-					
-					
-			<!-- <div id="queNoti">
+				</table>
+				<br><br>
+				<button id="sendQuestion" align="center">등록하기</button>
+
+
+				<!-- <div id="queNoti">
 				<ul>
 					<li>도서 관련 문의는 도서 > 고객센터로 문의해주세요.</li>
 					<li>마트 관련 문의는 마트 > 고객센터로 문의해주세요.</li>
@@ -286,23 +291,33 @@ li{
 				</textarea>
 			</div>
 			<button type="submit">문의하기</button> -->
-			
-			
-		</div> <!-- contentArea End -->
-		</div> <!-- contents End -->
-	</div> <!-- container End -->
-	<% } else {
-		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
-		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
-	   } %>
-	<%@ include file="../../common/footer.jsp" %>
+
+
+			</div>
+			<!-- contentArea End -->
+			</form>
+		</div>
+		<!-- contents End -->
+		
+	</div>
+	<!-- container End -->
+	<%
+		} else {
+			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+			request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
+		}
+	%>
+	<%@ include file="../../common/footer.jsp"%>
 
 	<script>
 		$(function() {
-			$('a').click(function() {
-				let values=$(this).attr('value');
-				console.log(values);
-				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+			$('a')
+					.click(
+							function() {
+								let values = $(this).attr('value');
+								console.log(values);
+								location.href = '
+	<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		});
 	</script>
