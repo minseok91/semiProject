@@ -94,10 +94,10 @@ public class QNADao {
 		
 		return list;
 	}
-	public QNA selectOne(Connection con, String qnaId) {
+	public HashMap<String, Object> selectOne(Connection con, String qnaId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		QNA q = null;
+		HashMap<String, Object> q = null;
 		
 		String query = admin_prop.getProperty("admin_selectOne");
 		
@@ -107,14 +107,16 @@ public class QNADao {
 			
 			rset = pstmt.executeQuery();
 			
-			q = new QNA();
+			q = new HashMap<String, Object>();
 			if(rset.next()) {
-				q.setQnaId(rset.getInt("QNA_ID"));
-				q.setMemberId(rset.getString("MEMBER_ID"));
-				q.setQnaTitle(rset.getString("QNA_TITLE"));
-				q.setQnaContent(rset.getString("QNA_CONTENT"));
-				q.setQnaDate(rset.getDate("QNA_DATE"));
-				q.setQnastatus(rset.getString("QNA_STATUS"));
+				
+				q.put("boardId", rset.getInt("QNA_ID"));
+				q.put("boardTitle", rset.getString("QNA_TITLE"));
+				q.put("boardContent",rset.getString("QNA_CONTENT"));
+				q.put("boardDate", rset.getDate("QNA_DATE"));
+				q.put("boardIntoType", rset.getString("QNA_STATUS"));
+				q.put("memberId", rset.getString("MEMBER_ID"));
+				q.put("memberNo", rset.getInt("MEMBERNO"));
 			}
 			
 		} catch (SQLException e) {
@@ -175,7 +177,7 @@ public class QNADao {
 				hm.put("MemberName", rset.getString("MEMBER_ID"));
 				hm.put("boardTitle", rset.getString("QNA_TITLE"));
 				hm.put("boardContent", rset.getString("QNA_CONTENT"));
-				hm.put("boardDate", rset.getDate("QNA_DATE"));
+				hm.put("boardDate", rset.getString("QNA_DATE").substring(0,10));
 				hm.put("boardStatus", rset.getString("QNA_STATUS"));
 				
 				
@@ -190,6 +192,38 @@ public class QNADao {
 			close(pstmt);
 			close(rset);
 		}
+		
+		return list;
+	}
+	public QNA selectQnaReply(Connection con, String qnaId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		QNA list = null;
+		
+		String query = admin_prop.getProperty("admin_selectQNAReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(qnaId));
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				list = new QNA();
+				list.setQnaId(rset.getInt("QNA_REPLY_ID"));
+				list.setQnaContent(rset.getString("QNA_REPLY_COMMENT"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
 		
 		return list;
 	}

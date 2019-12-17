@@ -77,6 +77,7 @@ public class typeSelectServlet extends HttpServlet {
 			list = new ReportService().selectType(currentPage, limit);
 		}
 		
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(list, response.getWriter());

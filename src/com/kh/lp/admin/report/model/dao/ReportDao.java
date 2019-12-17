@@ -144,7 +144,7 @@ public class ReportDao {
 				list.put("boardIntoType", rset.getString("REPORT_TYPE"));
 				list.put("reporting", rset.getString("REPORTING"));
 				list.put("reported", rset.getString("REPORTED"));
-				
+				list.put("reportedMemberNo", rset.getInt("REPORTED_MEMBER_NO"));
 				 
 			}
 		} catch (SQLException e) {
@@ -211,7 +211,7 @@ public class ReportDao {
 				hm.put("MemberName", rset.getString("MEMBER_NAME")); 
 				hm.put("REPORTED_MEMBER_NO",rset.getInt("REPORTED_MEMBER_NO")); 
 				hm.put("boardContent",rset.getString("REPORT_CONTENT")); 
-				hm.put("boardDate",rset.getDate("REPORT_DATE")); 
+				hm.put("boardDate",rset.getString("REPORT_DATE").substring(0,10)); 
 				hm.put("Report_board",rset.getInt("REPORT_BOARD")); 
 				hm.put("Report_reply",rset.getInt("REPORT_REPLY")); 
 				hm.put("boardStatus",rset.getString("REPORT_TYPE")); 

@@ -53,9 +53,18 @@ public class ItemService {
 		Connection con = getConnection();
 		
 		int resultItemInfo = new ItemDao().insertItemInfo(con, loginMember, registItem);
+		System.out.println("아이템테이블 인서트 : " + resultItemInfo);
+		
+		
+		
+		int itemNo = new ItemDao().getItemNo(con);
+		System.out.println("itemNo" + itemNo);
+		
+		itemPic.setAttachmentRefItem(itemNo);
+		
 		
 		int resultItemPic = new ItemDao().insertItemPic(con, itemPic);
-		
+		System.out.println("첨부파일테이블 인서트 : " + resultItemInfo);
 		
 		if(resultItemInfo>0 && resultItemPic>0) {
 			result = 1;
@@ -68,6 +77,7 @@ public class ItemService {
 		
 		
 		close(con);
+		
 		
 		
 		return result;

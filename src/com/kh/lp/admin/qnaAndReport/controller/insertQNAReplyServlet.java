@@ -1,33 +1,26 @@
-package com.kh.lp.admin.report.controller;
+package com.kh.lp.admin.qnaAndReport.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
-import com.google.gson.Gson;
-import com.kh.lp.admin.report.model.service.ReportService;
-import com.kh.lp.admin.report.model.vo.Report;
-
-import jdk.nashorn.api.scripting.JSObject;
+import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
+import com.kh.lp.admin.reply.model.service.ReplyService;
 
 /**
- * Servlet implementation class userReportDetailServlet
+ * Servlet implementation class insertQNAReplyServlet
  */
-@WebServlet("/userReportDetail.me")
-public class ReportDetailServlet extends HttpServlet {
+@WebServlet("/insertQNAReply.qr")
+public class insertQNAReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportDetailServlet() {
+    public insertQNAReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,20 +29,20 @@ public class ReportDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String reportId = request.getParameter("reportId");
+		int QNAId = Integer.parseInt(request.getParameter("boardId"));
+		String comment = request.getParameter("comment");
+
 		
-		System.out.println(reportId);
-		 HashMap<String, Object> list = new ReportService().selectOne(reportId);
+		int result = new ReplyService().insertReply(QNAId, comment);
 		
+		QNA QNAReport = new ReplyService().selectQNAReply(QNAId);
 		
+		String page = "views/admin/admin_qnaAndReportDetail.jsp";
+		if(QNAReport != null) {
+			request.setAttribute("QNAReport", QNAReport);
+			request.getRequestDispatcher(page).forward(request, response);
+		}
 		
-		
-		
-		
-		  response.setContentType("application/json");
-		  response.setCharacterEncoding("UTF-8"); 
-		  new Gson().toJson(list, response.getWriter());
-		 
 	}
 
 	/**

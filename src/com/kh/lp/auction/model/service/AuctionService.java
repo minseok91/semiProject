@@ -56,11 +56,21 @@ public class AuctionService {
 		close(con);
 		return result;
 	}
-	
+
 	public HashMap<String, Object> selectOne(String appId) {
 		Connection con = getConnection();
 		
+		//시계인지 가방인지 판별
+		//boolean isWatch = new AuctionDao().isWatch(con, appId);
+		
 		HashMap<String, Object> list = new AuctionDao().selectOne(con, appId);
+//		if(isWatch) {
+//			//시계일때
+//			list = new AuctionDao().selectOne(con, appId);
+//		} else {
+//			//가방일때
+//			list = new AuctionDao().selectOne(con, appId);
+//		}
 		
 		close(con);
 		

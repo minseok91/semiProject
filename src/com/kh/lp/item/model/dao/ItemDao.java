@@ -156,31 +156,31 @@ public class ItemDao {
 		try {
 			
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, registItem.getItemMemberNo());
-		
-			ITEM_ID
-			ITEM_MEMBER_NO
-			ITEM_TYPE
-			ITEM_BRAND_MODEL
-			ITEM_PUR_DATE
-			ITEM_WARRANTY_YN
-			ITEM_DETAIL
-			ITEM_APP_DATE
+			pstmt.setInt(1, loginMember.getMemberNo());
+			pstmt.setString(2, registItem.getItemType());
+			pstmt.setString(3, registItem.getItemBrandModel());
+			pstmt.setString(4, registItem.getItemPurDate());
+			pstmt.setString(5, registItem.getItemWarrantyYn());
+			pstmt.setString(6, registItem.getItemDetail());
 			
+			result = pstmt.executeUpdate();
 			
 			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
-		
-		
 		
 		
 		return result;
 	}
 
+	
+	
+	
 	public int insertItemPic(Connection con, Attachment itemPic) {
 
 		int result = 0;
@@ -188,10 +188,52 @@ public class ItemDao {
 		
 		String query = prop.getProperty("insertAttachment");
 		
-		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, itemPic.getAttachmentName());
+			pstmt.setString(2, itemPic.getAttachmentRename());
+			pstmt.setString(3, itemPic.getAttachmentPath());
+			pstmt.setInt(4, itemPic.getAttachmentRefItem());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		
 		
 		return result;
+	}
+
+	public int getItemNo(Connection con) {
+
+		int itemNo=0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		String query = prop.getProperty("getItemNo");
+		
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			itemNo = rset.getInt(1);
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		
+		return itemNo;
 	}
 
 }

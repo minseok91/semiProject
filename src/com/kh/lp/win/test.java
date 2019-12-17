@@ -1,4 +1,4 @@
-package com.kh.lp.test;
+package com.kh.lp.win;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
