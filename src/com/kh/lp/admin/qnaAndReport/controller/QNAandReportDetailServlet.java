@@ -1,6 +1,7 @@
 package com.kh.lp.admin.qnaAndReport.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -45,20 +46,31 @@ public class QNAandReportDetailServlet extends HttpServlet {
 			status = "";
 		}
 
+		//신고글 리스트 읽어오는 곳
 		if(status.equals("RT1") || status.equals("RT2")) {
 			HashMap<String, Object> list = new ReportService().selectOne(qnaId);
 			request.setAttribute("list", list);
+			log.debug(list);
 		} else {
+			//문의글 리스트 읽어오는 곳
+			//문의 읽으면 답변확인으로 상태 변경
 			int update = new QNAService().updateStatus(qnaId);
 
 			if(update > 0) {
-
-				QNA list = new QNAService().selectOne(qnaId);
-
+				
+				System.out.println(qnaId);
+				HashMap<String, Object> list = new QNAService().selectOne(qnaId);
+				QNA qnareply = new QNAService().selectQnaReply(qnaId);
+				
+				
+				
+				
 				if(list != null) { 
 
 					request.setAttribute("list", list); 
+					request.setAttribute("qnareply", qnareply);
 				}
+				
 			} 
 		} 
 		request.getRequestDispatcher(page).forward(request, response);

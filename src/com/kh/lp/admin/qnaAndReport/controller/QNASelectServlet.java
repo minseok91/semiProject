@@ -64,6 +64,7 @@ public class QNASelectServlet extends HttpServlet {
 		ArrayList<QNA> list = new QNAService().selectAll(currentPage, limit);
 		String page = "";
 		
+		
 		System.out.println(list);
 		
 		if(list != null) {

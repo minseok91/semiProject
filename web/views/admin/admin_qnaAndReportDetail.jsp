@@ -17,6 +17,11 @@
     %>
     <%
     	HashMap<String, Object> list = (HashMap<String, Object>)request.getAttribute("list");
+    	QNA QNAReport = null;
+    	if(request.getAttribute("qnareply") != null){
+    	 QNAReport = (QNA)request.getAttribute("qnareply");
+    	}
+    	
     %>
 <!DOCTYPE html>
 <html>
@@ -163,6 +168,11 @@ padding-left: 136px;
 #comment div:nth-child(3){
 margin-top: 27px; 
 }
+#blackText {
+	width: 99%;
+	height: 200px;
+	resize: none;
+}
 </style>
 <body>
 <%@ include file="headerPage.jsp"%>
@@ -171,7 +181,7 @@ margin-top: 27px;
 			<div id="infoBox">
 				<form action="<%=request.getContextPath()%>/updateBoard.bo" method="post" onsubmit="return ok()">
 					<h3 align="center">
-						<% if(list.get("boardIntoType").toString().split(1,2) == "QHT") { %>
+						<% if(list.get("boardIntoType").toString().substring(0, 2).equals("QH")) { %>
 							문의 상세
 						<% } else { %>
 							신고 상세
@@ -200,9 +210,13 @@ margin-top: 27px;
 						</tr>
 						<tr>
 							<td>작성자</td>
-							<td><input type="text" name="writer"
-								value="<%=list.get("reporting")%>"readonly>
-								</td>
+							<td>
+								<% if(list.get("boardIntoType").toString().substring(0, 2).equals("QH")) { %>
+									<input type="text" name="writer" value="<%=list.get("memberId")%>"readonly>
+								<% } else { %>
+									<input type="text" name="writer" value="<%=list.get("reporting")%>"readonly>
+								<% } %>	
+							</td>
 						</tr>
 						<tr>
 							<td>작성일</td>
@@ -215,29 +229,48 @@ margin-top: 27px;
 					<%-- 	<% if() { %>
 						
 						<% } %> --%>
+						<% if(list.get("boardIntoType").toString().substring(0, 2).equals("QH")) { %>
 							<tr>
 							<td colspan="2">댓글</td>
 						</tr>
-						<tr>
+							<tr>
 							<td colspan="2" id="comment_top">
+								<% if(request.getAttribute("qnareply") != null) { %>
 								<div id="comment_div">
-									<%-- <% for(int i=0; i<rList.size(); i++)  {%>
 										<div id="comment">
-											<div>작성자 : <%= rList.get(i).getReplyMemberName() %></div>
-											<div>작성일 : <%= rList.get(i).getReplyDate() %></div>
-											<div><%= rList.get(i).getReplyContent() %></div>
+											<div>작성자 : 관리자</div>
+											<div><%= QNAReport.getQnaContent() %></div>
 											<hr>
 										</div>
-									<% } %> --%>
 								</div>
+								<% } else { %>
+								<div id="comment_div">
+										<div id="comment">
+											<div>작성자 : 관리자</div>
+											<hr>
+										</div>
+								</div>
+								<% } %>
 							</td>
 						</tr>
 						<tr>
+							<% if(request.getAttribute("qnareply") == null) { %>
 							<td colspan="2" id="comment_bottom">
 							<textarea rows="" cols="" id="comment_text"></textarea>
 							<button id="comment_btn">작성하기</button>
 							</td>
+							<% } %>
 						</tr>
+						<% } else {%>
+							<tr>
+								<td colspan="2"><textarea id="blackText"></textarea></td>
+							</tr>
+							<tr>
+								<td colspan="2"><button id="updateBlack">블랙회원으로 변경</button></td>
+							</tr>
+						
+						<% } %>
+						
 					</table>
 					<div id="buttonBox">
 						<button id="back">뒤로 가기</button>
@@ -277,15 +310,14 @@ margin-top: 27px;
 			}
 	</script>
 	<script>
-		<%-- $(function(){
+		$(function(){
 			
 			$("#comment_btn").click(function(){
 					var comment = $("#comment_text")[0].value;
 					console.log(comment);
 				$.ajax({
-					url:"insertReply.re",
-					data : { boardId : <%= list.getBoardId() %>,
-							 memberId : <%= list.getBoardMemberNo()%>,	
+					url:"insertQNAReply.qr",
+					data : { boardId : <%= list.get("boardId") %>,
 							 comment : comment
 					},
 					type : "GET",
@@ -311,7 +343,16 @@ margin-top: 27px;
 				})
 				$("#comment_text").val('');	
 			})
-		}) --%>
+		})
+		
+		$("#updateBlack").click(function(){
+			var text = $("#blackText").val();
+			console.log(text);
+			var userid = '<%=list.get("reported")%>';
+			
+			console.log(userid); 
+			<%-- location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userId=<%=QNAReport.getQnaMemberNo()%>"; --%>
+		})	
 	</script>
 </body>
 </html>
