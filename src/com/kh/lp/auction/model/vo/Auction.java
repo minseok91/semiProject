@@ -13,6 +13,9 @@ public class Auction implements java.io.Serializable {
 	private int auctionId;
 	private int auctionCount;
 	private int auctionStartPrice;
+	private int auctionDoPrice;
+	private int auctionBiddingCount;
+	private int endTime;
 	private int auctionMemberNo;
 	private Date auctionStartTime;
 	private int auctionPeriod;

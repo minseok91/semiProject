@@ -19,13 +19,12 @@ import com.kh.lp.appraisal.model.vo.AppResult;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.GenDetail;
-import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.item.model.vo.Item;
 
 import lombok.extern.log4j.Log4j2;
-import oracle.net.aso.i;
 
 @Log4j2
 public class AppraisalDao {
