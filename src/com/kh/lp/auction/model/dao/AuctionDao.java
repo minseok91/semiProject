@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.lp.common.Attachment;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
+import com.kh.lp.common.Attachment;
 
 public class AuctionDao {
 	
@@ -135,7 +135,7 @@ public class AuctionDao {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, requestAuction.getAuctionStartPrice());
 			pstmt.setInt(2, requestAuction.getAuctionPeriod());
-			pstmt.setInt(3, requestAuction.getAuctionAppId());
+			pstmt.setInt(3, requestAuction.getAuctionAr1Id());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -144,23 +144,33 @@ public class AuctionDao {
 		return result;
 	}
 
-	public int insertAuctionHistory(Connection con, Auction requestAuction, String type) {
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 16. 오후 10:18:20
+	 * @ModifyDate    : 2019. 12. 16. 오후 10:18:20
+	 * @Description   : 경매이력에 이력추가 메소드
+	 * @param con
+	 * @param requestAuction
+	 * @param typeCode
+	 * @return
+	 */
+	public int insertAuctionHistory(Connection con, Auction requestAuction, String typeCode) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
 		String query = prop.getProperty("insertAuctionHistory");
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, 13);
-			pstmt.setString(2, type);
-			pstmt.setInt(3, 4);
+			pstmt.setString(1, typeCode);
+			pstmt.setInt(2, requestAuction.getAuctionAr1Id());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return result;
-
+	}
+	
 	public HashMap<String, Object> selectOne(Connection con, String appId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -182,13 +192,13 @@ public class AuctionDao {
 				atList.add(at);
 				
 				
-				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
+				au.setAuctionAr1Id(rset.getInt("AUCTION_APP_ID"));
 				au.setAuctionId(rset.getInt("AUCTION_ID"));
-				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
-				au.setAuStartPrice(rset.getInt("AUCTION_START_PRICE"));
-				au.setAuStartTime(rset.getDate("AUCTION_START_TIME"));
-				au.setCount(rset.getInt("AUCTION_COUNT"));
-				au.setMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				au.setAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				au.setAuctionStartPrice(rset.getInt("AUCTION_START_PRICE"));
+				au.setAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				au.setAuctionCount(rset.getInt("AUCTION_COUNT"));
+				au.setAuctionMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
 				
 			
 			}

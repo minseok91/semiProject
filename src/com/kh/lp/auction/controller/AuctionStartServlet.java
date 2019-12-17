@@ -37,20 +37,20 @@ public class AuctionStartServlet extends HttpServlet {
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String auctionStartPrice = request.getParameter("itemStartPrice");
 		String auctionPeriod = request.getParameter("auctionDay");
-		int auctionAppId = Integer.parseInt(request.getParameter("itemId"));
+		int auctionAr1Id = Integer.parseInt(request.getParameter("itemId"));
 		
-		log.debug(auctionAppId);
+		log.debug(auctionAr1Id);
 		log.debug(auctionStartPrice);
 		log.debug(auctionPeriod);
 		
 		Auction requestAuction = new Auction();
-		requestAuction.setAuctionAppId(auctionAppId);
+		requestAuction.setAuctionAr1Id(auctionAr1Id);
 		requestAuction.setAuctionStartPrice(Integer.parseInt(auctionStartPrice));
 		requestAuction.setAuctionPeriod(Integer.parseInt(auctionPeriod));
 		
 		int result = new AuctionService().startAuction(requestAuction);
 		if(result > 0) {
-			response.sendRedirect("views/common/successPage.jsp?msg=success");
+			response.sendRedirect("views/common/successAuction.jsp");
 		} else {
 			request.setAttribute("msg", "failAuctionStart");
 			request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);

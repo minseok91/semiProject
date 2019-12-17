@@ -160,8 +160,8 @@ public class AppraisalDao {
 				item.setItemAppDate(rset.getDate("ITEM_APP_DATE"));
 				item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
-				item.setItemId(itemId);
-				item.setItemMemberNo(rset.getString("ITEM_MEMBER_NO"));
+				item.setItemId(Integer.parseInt(itemId));
+				item.setItemMemberNo(rset.getInt("ITEM_MEMBER_NO"));
 				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
@@ -591,9 +591,9 @@ public class AppraisalDao {
 		ArrayList<ArrayList<Object>> app = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		App a = null;
-		Attachment at = null;
+		Item i = null;
 		AR1 ar = null;
+		Attachment at = null;
 		
 		String query = prop.getProperty("selectItemResult");
 		
@@ -603,12 +603,13 @@ public class AppraisalDao {
 			rset = pstmt.executeQuery();
 			app = new ArrayList<>();
 			while(rset.next()) {
+				i = new Item();
 				ar = new AR1();
 				at = new Attachment();
 				ArrayList<Object> list = new ArrayList<>();
 				
-				ar.setAr1Id(rset.getInt("AR1_ID"));
-				ar.setAr1Brand(rset.getString("AR1_BRAND"));
+				i.setItemId(rset.getInt("ITEM_ID"));
+				i.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				ar.setAr1Price(rset.getInt("AR1_PRICE"));
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				

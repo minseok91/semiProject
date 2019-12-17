@@ -11,6 +11,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+	<% if(msg2 == "success") { %>
+		alert("경매가 정상적으로 등록되었습니다.");
+		location.href = "<%= request.getContextPath() %>/views/myPage/sale/auctionList.jsp";
+	<% } %>
+</script>
 </head>
 <body>
 <!-- 성공페이지 -->
@@ -33,10 +39,7 @@
 			alert("회원정보 수정을 완료했습니다. 로그인을 다시 해주세요");
 			location.href="<%= request.getContextPath() %>/index.jsp";
 		<% } %>
-		<% if(msg2 == "success") { %>
-			alert("경매가 정상적으로 등록되었습니다.");
-			location.href = "<%= request.getContextPath() %>/views/myPage/sale/auctionList.jsp";
-		<% } %>
+		
 		}
 	</script>
 </body>

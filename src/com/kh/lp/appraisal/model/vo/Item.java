@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item implements java.io.Serializable {
-	private String itemId;
-	private String itemMemberNo;
+	private int itemId;
+	private int itemMemberNo;
 	private String itemType;
 	private String itemBrandModel;
 	private Date itemPurDate;

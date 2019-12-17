@@ -46,14 +46,17 @@ public class AuctionService {
 		int result = new AuctionDao().startAuction(con, requestAuction);
 		
 		if(result > 0) {
-			int auctionHistory = new AuctionDao().insertAuctionHistory(con, requestAuction, "AHT2");
-			commit(con);
+			int auctionHistoryResult = new AuctionDao().insertAuctionHistory(con, requestAuction, "AHT2");
+			if(auctionHistoryResult > 0) {
+				commit(con);
+			}
 		} else {
 			rollBack(con);
 		}
 		close(con);
 		return result;
-
+	}
+	
 	public HashMap<String, Object> selectOne(String appId) {
 		Connection con = getConnection();
 		
