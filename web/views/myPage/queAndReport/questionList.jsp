@@ -219,7 +219,10 @@ td>img {
 				</tr>
 				</tbody>
 			</table> <!-- tableArea End -->
-			<button>문의하기</button>
+			<button><a href="question.jsp">문의하기</a></button>
+			
+			
+			
 		</div> <!-- contentArea End -->
 		<div class="pagingArea" align="center">	
 <%-- 		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
@@ -248,6 +251,7 @@ td>img {
 		</div> <!-- pagingArea End --> --%>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
+	</div>
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);

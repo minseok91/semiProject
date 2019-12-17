@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import com.kh.lp.admin.qnaAndReport.model.dao.QNADao;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
+import com.kh.lp.member.model.vo.Member;
 
 public class QNAService {
 
@@ -125,5 +126,73 @@ public class QNAService {
 		
 		return list;
 	}
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 17
+	 * @ModifyDate    : 2019. 12. 17
+	 * @Description   :  관리자에게 문의 보내는 메소드
+	 * @param
+	 * @return
+	 */
+	public int qnaSend(Member loginMember, QNA sendQNA) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = new QNADao().qnaSend(con, loginMember, sendQNA);
+		
+		close(con);
+		
+		return result;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -237,6 +237,7 @@
 		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage%>'">></button>
 		</div> <!-- pagingArea End --> --%>
 		</div> <!-- contents End -->
+		</div>
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");

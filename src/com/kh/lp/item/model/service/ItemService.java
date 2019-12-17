@@ -44,6 +44,19 @@ public class ItemService {
 		
 		return item;
 	}
+	
+	
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 16
+	 * @ModifyDate    : 2019. 12. 16
+	 * @Description   :  감정신청상품 등록하는 메소드
+	 * @param
+	 * @return
+	 */
 
 	public int itemRegister(Member loginMember, Item registItem, Attachment itemPic) {
 

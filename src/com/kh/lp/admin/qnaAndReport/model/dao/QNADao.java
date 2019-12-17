@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
+import com.kh.lp.member.model.vo.Member;
 
 import static com.kh.lp.common.JDBCTemplate.*;
 
@@ -72,13 +73,13 @@ public class QNADao {
 			list = new ArrayList<QNA>();
 			while(rset.next()) {
 				q = new QNA();
-				q.setRnum(rset.getInt("RNUM"));
+				q.setRowNum(rset.getInt("RNUM"));
 				q.setQnaId(rset.getInt("QNA_ID"));
-				q.setMemberId(rset.getString("MEMBER_ID"));
+				q.setQnaMemberId(rset.getString("MEMBER_ID"));
 				q.setQnaTitle(rset.getString("QNA_TITLE"));
 				q.setQnaContent(rset.getString("QNA_CONTENT"));
 				q.setQnaDate(rset.getDate("QNA_DATE"));
-				q.setQnastatus(rset.getString("QNA_STATUS"));
+				q.setQnaStatus(rset.getString("QNA_STATUS"));
 				
 				list.add(q);
 				
@@ -227,5 +228,91 @@ public class QNADao {
 		
 		return list;
 	}
+	
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 17
+	 * @ModifyDate    : 2019. 12. 17
+	 * @Description   :  관리자에게 문의 보내는 메소드
+	 * @param
+	 * @return
+	 */
+	public int qnaSend(Connection con, Member loginMember, QNA sendQNA) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = admin_prop.getProperty("qnaSend");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMember.getMemberNo());
+			pstmt.setString(2, sendQNA.getQnaTitle());
+			pstmt.setString(3, sendQNA.getQnaContent());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
