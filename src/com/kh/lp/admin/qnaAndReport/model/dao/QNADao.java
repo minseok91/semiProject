@@ -72,13 +72,13 @@ public class QNADao {
 			list = new ArrayList<QNA>();
 			while(rset.next()) {
 				q = new QNA();
-				q.setRnum(rset.getInt("RNUM"));
+				q.setRowNum(rset.getInt("RNUM"));
 				q.setQnaId(rset.getInt("QNA_ID"));
-				q.setMemberId(rset.getString("MEMBER_ID"));
+				q.setQnaMemberId(rset.getString("MEMBER_ID"));
 				q.setQnaTitle(rset.getString("QNA_TITLE"));
 				q.setQnaContent(rset.getString("QNA_CONTENT"));
 				q.setQnaDate(rset.getDate("QNA_DATE"));
-				q.setQnastatus(rset.getString("QNA_STATUS"));
+				q.setQnaStatus(rset.getString("QNA_STATUS"));
 				
 				list.add(q);
 				
@@ -129,7 +129,7 @@ public class QNADao {
 		
 		return q;
 	}
-	public int updateStatus(Connection con, String qnaId) {
+	public int updateStatus(Connection con, String qnaId, String type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -137,7 +137,8 @@ public class QNADao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(qnaId));
+			pstmt.setString(1, (type));
+			pstmt.setInt(2, Integer.parseInt(qnaId));
 			
 			result = pstmt.executeUpdate();
 	

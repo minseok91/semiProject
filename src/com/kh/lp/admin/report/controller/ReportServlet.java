@@ -63,7 +63,7 @@ public class ReportServlet extends HttpServlet {
 		System.out.println(reportList);
 		String page = "";
 		if(reportList != null) {
-			page = "views/admin/admin_reportHistory.jsp";
+			page = "views/admin/QNAAndReport/Report/admin_reportHistory.jsp";
 			request.setAttribute("reportList", reportList);
 			request.setAttribute("pi", pi);
 		} else {
