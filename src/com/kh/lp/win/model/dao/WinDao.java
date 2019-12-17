@@ -1,24 +1,21 @@
 package com.kh.lp.win.model.dao;
 
+import static com.kh.lp.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.lp.appraisal.model.dao.AppraisalDao;
 import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.win.model.vo.Win;
 
 import lombok.extern.log4j.Log4j2;
-
-import static com.kh.lp.common.JDBCTemplate.*;
 
 @Log4j2
 public class WinDao {
@@ -85,6 +82,7 @@ public class WinDao {
 		return win;
 	}
 
+	// 낙찰리스트 추출 테스트
 	public ArrayList<Win> selectListTest(Connection con, int memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -127,6 +125,32 @@ public class WinDao {
 		
 		log.debug(list);
 		return list;
+	}
+
+	// 갯수 확인 테스트
+	public int getListCountTest(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCountTest");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberNo);
+			
+			if(rset.next()) 
+				listCount = rset.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 
 }
