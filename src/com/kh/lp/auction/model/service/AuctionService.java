@@ -77,4 +77,13 @@ public class AuctionService {
 		return list;
 	}
 
+	public ArrayList<ArrayList<Object>> doAuction(int memberNo) {
+		Connection con = getConnection();
+		
+		ArrayList<ArrayList<Object>> list = new AuctionDao().doAuction(con, memberNo);
+		close(con);
+		
+		return list;
+	}
+
 }
