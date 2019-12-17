@@ -199,7 +199,7 @@ public class AuctionDao {
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				atList.add(at);
 				
-				au.setAuctionAr1Id(rset.getInt("AUCTION_APP_ID"));
+				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 				au.setAuctionAppDate(rset.getDate("AUCTION_APP_DATE"));
 				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 				au.setAuctionId(rset.getInt("AUCTION_ID"));

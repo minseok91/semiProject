@@ -64,7 +64,7 @@ public class AppraisalSelectAllServlet extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/admin/appRequestCom.jsp";
+			page = "views/admin/Goods/appRequestCom.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
