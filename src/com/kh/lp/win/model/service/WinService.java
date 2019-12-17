@@ -36,4 +36,13 @@ public class WinService {
 		return list;
 	}
 
+	// 낙찰리스트 갯수 확인 테스트
+	public int getListCountTest(int memberNo) {
+		Connection con = getConnection();
+		
+		int result = new WinDao().getListCountTest(con, memberNo);
+		
+		close(con);
+		return result;
+	}
 }
