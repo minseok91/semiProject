@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-<%@ include file="headerPage.jsp" %>
+<%@ include file="../common/headerPage.jsp" %>
 	<div id="container">
 		<div id="container_Box">
 			<div>
@@ -179,59 +179,27 @@
 	$(function(){
 		var $tableTr = $("#table tr");
 		
-		console.log($tableTr.length);
 		$.each($tableTr, function(index, val){
-			//$tableTrTd = $("#table tr td").last();
-			if(index !== 0 ){
-				console.log("val : " + val.children[4].children[0].innerHTML);
-				console.log(val.children[4].children[0].innerHTML);
-				var delNum = val.children[4].children[0].innerHTML;	
-			}
-			var hello = "helo";
 			var $delTd = val.children[4];
-			console.log(delNum);
-			console.log("$delTd" + $delTd);
 			/* ajax로 데이터 가져오는 부분 */
 			$.ajax({
 				url:"https://apis.tracker.delivery/carriers/" + "kr.cjlogistics" + "/tracks/" + 354952299354,
 				type:"get",
 				success:function(data){
-					console.log("서버전송 성공 택배사 정보! ");
-					console.log(data);
-					console.log(hello);
 					var stateInfo = data.state.text;
-					alert(stateInfo);
 					
-					console.log("여기에는 무슨 정보가 :" + stateInfo);
+					var div2 = document.createElement( 'div' );
 					
-					/* $delTd = ""; */
-					console.log("deltd : " + $delTd);
-					var $div = $("<td>").html("qkqh");
-					//var $noTd = $("<td>").text(value.userNo);
-					var $td = $("<div>");
-					$td.text("바보세요 ?");
-					console.log("$td :" + $td.html() );
-					//var $noTd = $("<td>").text(stateInfo);
-					//console.log("$div : " + $div.html())
-					$delTd.append($td);
-					//$tableBody.append($noTd);
+					div2.innerHTML = stateInfo;
+					
+					if(index !== 0 ){
+						$delTd.append(div2);
+					}
 				},
 				error:function(error, status){
 					console.log("서버 전송 실패 !");
-				},
-				complete:function(){
-					console.log("무조건 호출되는 함수");
-					
 				}
 			})
-			/* var $deliTd = $tableTr[1].val.children[4] */
-			
-			/* var status = */ 
-			if(index !== 0 ){
-				console.log("index : " + index);
-				console.log("val : " + val.children[4].children[0].innerHTML);
-				
-			}
 		})
 	})
 	
@@ -255,66 +223,11 @@
 	})
 	
 	$(".detail").click(function(){
-		//window.open("https://tracker.delivery/#/kr.cjlogistics/354952299354", "배송정보", "width=600, height=400, left=100, top=50");
-		//var delNum = 232192872730;
-		var delNum = $("#delNum").text();
+		var delNum = $(this).parent().parent().children().eq(4).children().eq(0).html();
 		console.log(delNum);
-		var delName = $("#delName").val();
-		var $del = $("#del");  
-		
-		/* $.ajax({
-			url:"https://apis.tracker.delivery/carriers",
-			type:"get",
-			success:function(data){
-				console.log("서버전송 성공 택배사 정보! ");
-				console.log(data);
-				var state = data.state.text;
-				alert(state);/* 
-				$.ajax({
-					url:"",
-					type:"",
-					success:,
-					error:
-				
-				}) */
-			/*},
-			error:function(error, status){
-				console.log("서버 전송 실패 !");
-			},
-			complete:function(){
-				console.log("무조건 호출되는 함수");
-				
-			}
-		}) */
-		
-		$.ajax({
-			url:"https://apis.tracker.delivery/carriers/" + delName + "/tracks/" + delNum,
-			type:"get",
-			success:function(data){
-				console.log("서버전송 성공 ! ");
-				console.log(data);
-				var state = data.state.text;
-				alert(state);
-				var $td = $("<div>").html(state);
-				/* 
-				$.ajax({
-					url:"",
-					type:"",
-					success:,
-					error:
-				
-				}) */
-				$del.append($td);
-				
-			},
-			error:function(error, status){
-				console.log("서버 전송 실패 !");
-			},
-			complete:function(){
-				console.log("무조건 호출되는 함수");
-				
-			}
-		})
+		var delName = $(this).parent().parent().children().eq(4).children().eq(2).val();
+		console.log(delName);
+		window.open("https://tracker.delivery/#/"+ delName + "/" + delNum, "배송정보", "width=600, height=400, left=100, top=50");
 	})
 	
 	</script>

@@ -41,6 +41,7 @@ public class selectWinnig extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		log.debug(memberNo);
+		
 		ArrayList<Win> list = new WinService().selectListTest(memberNo);
 		log.debug(list);
 		

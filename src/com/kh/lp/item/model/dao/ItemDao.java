@@ -92,7 +92,7 @@ public class ItemDao {
 				//item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
 				item.setItemId(rset.getInt("ITEM_ID"));
-				item.setItemMemberNo(rset.getString("MEMBER_ID"));
+				item.setItemMemberNo(rset.getInt("MEMBER_NO"));
 //				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 //				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
@@ -130,7 +130,7 @@ public class ItemDao {
 				item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
 				item.setItemId(rset.getInt("ITEM_ID"));
-				item.setItemMemberNo(rset.getString("MEMBER_ID"));
+				item.setItemMemberNo(rset.getInt("MEMBER_ID"));
 				//item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
@@ -151,11 +151,11 @@ public class ItemDao {
 	 * @Author         : 오수민
 	 * @CreateDate    : 2019. 12. 16
 	 * @ModifyDate    : 2019. 12. 16
-	 * @Description   :  감정신청상품 등록하는 메소드 - 아이템 테이블에 인서트
+	 * @Description   :  ITEM 테이블에 인서트하는 메소드
 	 * @param
 	 * @return
 	 */
-	public int insertItemInfo(Connection con, Member loginMember, Item registItem) {
+	public int insertItem(Connection con, Member loginMember, Item registItem) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -191,24 +191,26 @@ public class ItemDao {
 	 * @Author         : 오수민
 	 * @CreateDate    : 2019. 12. 16
 	 * @ModifyDate    : 2019. 12. 16
-	 * @Description   :  감정신청상품 등록하는 메소드 - attachment테이블에 입력할때 fk 연결을 위해 아이템테이블에 입력된 아이템id값 가져오는 메소드
+	 * @Description   :  ITEM_HISTORY 테이블, ATTACHMENT 테이블에 입력할때 FK 연결을 위해 ITEM 테이블에 입력된 ITEM_ID값 가져오는 메소드
 	 * @param
 	 * @return
 	 */
-	public int getItemNo(Connection con) {
+	public int getItemId(Connection con) {
 		
-		int itemNo=0;
+		int itemId=0;
 		Statement stmt = null;
 		ResultSet rset = null;
-		String query = prop.getProperty("getItemNo");
+		String query = prop.getProperty("getItemId");
 		
 		
 		try {
 			stmt = con.createStatement();
 			
 			rset = stmt.executeQuery(query);
-			itemNo = rset.getInt(1);
 			
+			if(rset.next()) {
+				itemId = rset.getInt(1);
+			}
 			
 			
 		} catch (SQLException e) {
@@ -216,21 +218,22 @@ public class ItemDao {
 			e.printStackTrace();
 		}finally {
 			close(stmt);
+			close(rset);
 		}
 		
 		
-		return itemNo;
+		return itemId;
 	}
 	
 	/**
 	 * @Author         : 오수민
 	 * @CreateDate    : 2019. 12. 16
 	 * @ModifyDate    : 2019. 12. 16
-	 * @Description   :  감정신청상품 등록하는 메소드 - attachment 테이블에 첨부파일정보 인서트하는 메소드
+	 * @Description   :  ATTACHMENT 테이블에 첨부파일정보 인서트하는 메소드
 	 * @param
 	 * @return
 	 */
-	public int insertItemPic(Connection con, Attachment itemPic) {
+	public int insertAttachment(Connection con, Attachment itemPic) {
 
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -258,6 +261,44 @@ public class ItemDao {
 		return result;
 	}
 
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 16
+	 * @ModifyDate    : 2019. 12. 16
+	 * @Description   :  ITEM_HISTORY 테이블에 인서트하는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public int insertItemHistory(Connection con, Item registItem) {
+		
+		int result=0;
+		PreparedStatement pstmt = null;
+		
+		String query = prop.getProperty("insertItemHistory");
+		
+		
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, registItem.getItemId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 
 }
 

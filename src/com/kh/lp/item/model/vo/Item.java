@@ -1,6 +1,7 @@
 package com.kh.lp.item.model.vo;
 
 import java.sql.Date;
+import com.kh.lp.item.model.vo.Item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

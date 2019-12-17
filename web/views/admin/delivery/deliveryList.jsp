@@ -53,7 +53,7 @@
 </style>
 </head>
 <body>
-<%@ include file="headerPage.jsp" %>
+<%@ include file="../common/headerPage.jsp" %>
 	<div id="container">
 		<div id="container_Box">
 			<div>

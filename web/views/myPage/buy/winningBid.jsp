@@ -134,7 +134,7 @@
 .container>.contents>#contentArea>#tableArea> {
 	width: 200px;
 }
-td>img {
+td>a>img {
 	width: 100px;
 	height: 100px;
 }
@@ -248,27 +248,34 @@ td>img {
 					for(i in arr){
 						console.log(arr[i]);
 						var arr2 = arr[i].split("::");
-						let temp = "";
-						$("#tableBodyArea:last").append("<tr>");
+						let temp = "<tr>";
 						for(j in arr2){
 							console.log(arr2[j]);
 							if(j == 0)
-								temp += "<td><a class='resLink'>"+arr2[j]+"</a></td>";
+								temp += "<td>"+arr2[j]+"</td>";
 							else if(j == 1) 
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[6] + "'></a></td>";
 							else if(j == 2) 
-								temp += "<td><a class='resLink'>" + 'null' + "</a></td>";
+								temp += "<td>" + 'null' + "</td>";
 							else if(j == 3)
-								temp += "<td><a class='resLink'>" + numberFormat(arr2[2]) + "원</a></td>";
-							else if(j == 4)
-								temp += "<td><a class='resLink'>" + arr2[5] + "</a></td>";
+								temp += "<td>" + numberFormat(arr2[2]) + "원</td>";
+							else if(j == 4) {
+								let result="";
+								if(arr2[5] === "낙찰") {
+									temp += "<td><button>결제하기</button></td>";
+								} else {
+									temp += "<td>" + arr2[5] + "</td>";
+								}
+							}
 							else if(j == 5) 
-								temp += "<td><a class='resLink'>" + arr2[7] + "</a></td>";
-							else break;
+								temp += "<td>" + arr2[7] + "</td>";
+							else if(j == 6)
+								temp += "</tr>";
+							else continue;
 								
 							console.log(temp);
 						}
-						$("#tableBodyArea:last").append("</tr>");
+						$("#tableBodyArea").append(temp);
 						
 					}
 				},
@@ -278,6 +285,12 @@ td>img {
 			});
 		}
 		
+		$('td>button').click(function() {
+			//let num=$(this).
+			// 이것부터 고치자
+			// location.href= <%= request.getContextPath() %>/views/goods/paymentBefore.jsp?auctionId='+arr2[j]+'&img='<%= request.getContextPath() %>/img/appraisal/' + arr2[6] + '&price='+arr2[2]'
+		});
+		
 		function numberFormat(inputNumber) {
 			   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
@@ -286,12 +299,3 @@ td>img {
 </body>
 </html>
 
-<!-- -- 낙찰목록 보여지기
-SELECT WIN_AUCTION_ID AS "상품번호", AT.ATTACHMENT_RENAME AS "상품 사진", AR.AR1_BRAND || AR.AR1_MODEL AS "브랜드/모델명", W.WIN_PRICE AS "낙찰가", WSC.NAME AS "낙찰여부"
-FROM WIN W 
-JOIN WIN_STATUS_CODE WSC ON(W.WIN_STATUS=WSC.CODE)
-JOIN AUCTION AC ON(W.WIN_AUCTION_ID=AC.AUCTION_ID)
-JOIN AR1 AR ON(AC.AUCTION_ID=AR.AR1_ID)
-JOIN ATTACHMENT AT ON(AT.ATTACHMENT_REF_APP=AC.AUCTION_ID)
-JOIN MEMBER M ON(W.WIN_AUCTION_ID=M.MEMBER_ID)
-WHERE M.MEMBER_ID=?; -->
