@@ -2,7 +2,6 @@ package com.kh.lp.appraisal.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.AR1;
-import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.appraisal.model.vo.Item;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -63,12 +62,13 @@ public class AppraisalSelectItemResultServlet extends HttpServlet {
 		String msg = "";
 		if(app != null) {
 			for(int n = 0; n < app.size(); n++) {
-				AR1 ar = (AR1) app.get(n).get(0);
+				Item i = (Item) app.get(n).get(0);
 				Attachment at = (Attachment) app.get(n).get(1);
+				AR1 ar = (AR1) app.get(n).get(2);
 				if(n == app.size() - 1) {
-					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + (ar.getAr1Price());
+					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price();
 				} else {
-					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + ar.getAr1Price() + "#";
+					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price() + "#";
 				}
 			}
 			out.append(msg);

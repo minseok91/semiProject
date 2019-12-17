@@ -222,60 +222,60 @@ td>a>img {
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
 	<div class="container">
-	<div class="contents">
-		<div id="myPageMenu">
-			<h3 id="h3" align="center">마이페이지</h3>
-			<dl>
-				<dt>§  구매정보</dt>
-				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
-				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
-				
-				<dt>§  판매정보</dt>
-				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
-				<dd><a value="sale/goodsEnrollList" id="selectMenu">▶  등록상품 관리</a></dd>
-				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
-				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
-				
-				<dt>§  결제/배송조회</dt>
-				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
-				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
-				
-				<dt>§  문의 및 신고</dt>
-				<dd><a value="queAndReport/questionList">▶  문의 내역</a></dd>
-				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
-				
-				<dt>§  회원정보</dt>
-				<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
-				<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
-				
-			</dl>
-		</div>  <!-- myPageMenu end -->
-		<div class="menuStatus">
-			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;등록상품 관리 &nbsp;>&nbsp;</h3>
-			</div>  <!-- status1 end -->
-			<div class="status2">
-				<p>진품 보증 및 상품 감정이 완료되어 경매 진행이 가능한 상품 리스트 및 감정 결과를 볼 수 있는 공간입니다.</p>
-				<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
-			</div>  <!-- status2 end -->
-		</div>  <!-- menuStatus end -->
-		<div class="contentArea">
-			<table id="tableArea" border="1">
-				<thead id="tableHeadArea">
-					<tr>
-						<th>상품번호</th>
-						<th>상품사진</th>
-						<th>브랜드/모델명</th>
-						<th>감정가</th>
-						<th>경매 진행</th>
-						<th>남은 시간</th>
-					</tr>
-				</thead>
-				<tbody id="tableBodyArea"></tbody>
-			</table>
-		</div> <!-- menuStatus End -->
+		<div class="contents">
+			<div id="myPageMenu">
+				<h3 id="h3" align="center">마이페이지</h3>
+				<dl>
+					<dt>§  구매정보</dt>
+					<dd><a value="buy/wishList">▶   위시리스트</a></dd>
+					<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
+					<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
+					
+					<dt>§  판매정보</dt>
+					<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
+					<dd><a value="sale/goodsEnrollList" id="selectMenu">▶  등록상품 관리</a></dd>
+					<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
+					<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
+					
+					<dt>§  결제/배송조회</dt>
+					<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
+					<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
+					<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
+					
+					<dt>§  문의 및 신고</dt>
+					<dd><a value="queAndReport/questionList">▶  문의 내역</a></dd>
+					<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
+					
+					<dt>§  회원정보</dt>
+					<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
+					<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
+					
+				</dl>
+			</div>  <!-- myPageMenu end -->
+			<div class="menuStatus">
+				<div class="status1">
+					<h3>&nbsp;&nbsp;<&nbsp;등록상품 관리 &nbsp;>&nbsp;</h3>
+				</div>  <!-- status1 end -->
+				<div class="status2">
+					<p>진품 보증 및 상품 감정이 완료되어 경매 진행이 가능한 상품 리스트 및 감정 결과를 볼 수 있는 공간입니다.</p>
+					<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
+				</div>  <!-- status2 end -->
+			</div>  <!-- menuStatus end -->
+			<div class="contentArea">
+				<table id="tableArea" border="1">
+					<thead id="tableHeadArea">
+						<tr>
+							<th>상품번호</th>
+							<th>상품사진</th>
+							<th>브랜드/모델명</th>
+							<th>감정가</th>
+							<th>경매 진행</th>
+							<th>남은 시간</th>
+						</tr>
+					</thead>
+					<tbody id="tableBodyArea"></tbody>
+				</table>
+			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	
@@ -349,13 +349,10 @@ td>a>img {
 					memberNo: <%= loginMember.getMemberNo() %>
 				},
 				success: function(data){
-					console.log(data);
 					var arr = data.split("#");
 					for(i in arr) {
 						temp = "";
-						console.log(arr[i]);
 						var arr2 = arr[i].split("::");
-						console.log(arr2);
 						for(j in arr2) {
 							if(j == 1) {
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
