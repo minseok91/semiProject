@@ -98,7 +98,8 @@
 						<td>pr001</td>
 						<td>adh5677</td>
 						<td>배송전<br>(목록에추간된시간)</td>
-						<td>354952299354<br>
+						<td id="del">
+							<div id="delNum">354952299354</div><br>
 							<select id="delName">
 								<option value="kr.cjlogistics">CJ대한통운</option>
 								<option value="kr.epost">우체국 택배</option>
@@ -112,14 +113,28 @@
 						<td>pr002</td>
 						<td>kingminseok</td>
 						<td>배송중<br>(시작시간)</td>
-						<td>354952299354<br><a href="https://tracker.delivery/#/kr.cjlogistics/354952299354" target="_blank">배송조회</a></td>
+						<td id="del"><div id="delNum">6892110658249</div><br>
+							<select id="delName">
+								<option value="kr.cjlogistics">CJ대한통운</option>
+								<option value="kr.epost">우체국 택배</option>
+								<option value="kr.lotte">롯데택배</option>
+							</select>
+							<button class="detail">배송정보</button>
+						</td>
 					</tr>
 					 <tr>
 						<td>3</td>
 						<td>pr003</td>
 						<td>관리자</td>
 						<td>배송완료<br>(완료된시간)</td>
-						<td>354952299354<br><button class="detail">배송정보</button></td>
+						<td id="del"><div id="delNum">232192872730</div><br>
+							<select id="delName">
+								<option value="kr.cjlogistics">CJ대한통운</option>
+								<option value="kr.epost">우체국 택배</option>
+								<option value="kr.lotte">롯데택배</option>
+							</select>
+							<button class="detail">배송정보</button>
+						</td>
 					</tr>
 					
 				</table>
@@ -161,6 +176,65 @@
     </div>
         <!--End Modal-->
 	<script>
+	$(function(){
+		var $tableTr = $("#table tr");
+		
+		console.log($tableTr.length);
+		$.each($tableTr, function(index, val){
+			//$tableTrTd = $("#table tr td").last();
+			if(index !== 0 ){
+				console.log("val : " + val.children[4].children[0].innerHTML);
+				console.log(val.children[4].children[0].innerHTML);
+				var delNum = val.children[4].children[0].innerHTML;	
+			}
+			var hello = "helo";
+			var $delTd = val.children[4];
+			console.log(delNum);
+			console.log("$delTd" + $delTd);
+			/* ajax로 데이터 가져오는 부분 */
+			$.ajax({
+				url:"https://apis.tracker.delivery/carriers/" + "kr.cjlogistics" + "/tracks/" + 354952299354,
+				type:"get",
+				success:function(data){
+					console.log("서버전송 성공 택배사 정보! ");
+					console.log(data);
+					console.log(hello);
+					var stateInfo = data.state.text;
+					alert(stateInfo);
+					
+					console.log("여기에는 무슨 정보가 :" + stateInfo);
+					
+					/* $delTd = ""; */
+					console.log("deltd : " + $delTd);
+					var $div = $("<td>").html("qkqh");
+					//var $noTd = $("<td>").text(value.userNo);
+					var $td = $("<div>");
+					$td.text("바보세요 ?");
+					console.log("$td :" + $td.html() );
+					//var $noTd = $("<td>").text(stateInfo);
+					//console.log("$div : " + $div.html())
+					$delTd.append($td);
+					//$tableBody.append($noTd);
+				},
+				error:function(error, status){
+					console.log("서버 전송 실패 !");
+				},
+				complete:function(){
+					console.log("무조건 호출되는 함수");
+					
+				}
+			})
+			/* var $deliTd = $tableTr[1].val.children[4] */
+			
+			/* var status = */ 
+			if(index !== 0 ){
+				console.log("index : " + index);
+				console.log("val : " + val.children[4].children[0].innerHTML);
+				
+			}
+		})
+	})
+	
 	function close_pop(flag) {
 	      $('#myModal').hide();
 	 };	
@@ -183,8 +257,11 @@
 	$(".detail").click(function(){
 		//window.open("https://tracker.delivery/#/kr.cjlogistics/354952299354", "배송정보", "width=600, height=400, left=100, top=50");
 		//var delNum = 232192872730;
-		var delNum =;
+		var delNum = $("#delNum").text();
+		console.log(delNum);
 		var delName = $("#delName").val();
+		var $del = $("#del");  
+		
 		/* $.ajax({
 			url:"https://apis.tracker.delivery/carriers",
 			type:"get",
@@ -217,7 +294,9 @@
 				console.log("서버전송 성공 ! ");
 				console.log(data);
 				var state = data.state.text;
-				alert(state);/* 
+				alert(state);
+				var $td = $("<div>").html(state);
+				/* 
 				$.ajax({
 					url:"",
 					type:"",
@@ -225,6 +304,8 @@
 					error:
 				
 				}) */
+				$del.append($td);
+				
 			},
 			error:function(error, status){
 				console.log("서버 전송 실패 !");
