@@ -142,7 +142,30 @@ public class QNAService {
 		
 		Connection con = getConnection();
 		
-		result = new QNADao().qnaSend(con, loginMember, sendQNA);
+		//QNA테이블에 인서트할 dao메소드 불러오기
+		int qnaResult = new QNADao().insertQna(con, loginMember, sendQNA);
+		
+		
+		//QNA테이블에 인서트된 정보 중 QNA_ID값 가져오는 dao메소드 불러오기
+		int qnaId = new QNADao().getQnaId(con);
+		
+		
+		//가져온 QNA_ID값을 sendQNA 객체에 넣어주기
+		sendQNA.setQnaId(qnaId);
+		
+		
+		//QNA_HISTORY 테이블에 인서트할 dao메소드 불러오기
+		int qnaHistoryResult = new QNADao().insertQnaHistory(con, loginMember, sendQNA);
+		
+		
+		//QNA테이블과 QNA_HISTORY테이블에 둘 다 정상적으로 인서트 됐을때만 result=1로 반환하고 커밋, 아니면 롤백
+		if(qnaResult>0 && qnaHistoryResult>0) {
+			result = 1;
+			commit(con);
+		}else {
+			rollBack(con);
+		}
+		
 		
 		close(con);
 		

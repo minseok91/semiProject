@@ -237,11 +237,11 @@ public class QNADao {
 	 * @Author         : 오수민
 	 * @CreateDate    : 2019. 12. 17
 	 * @ModifyDate    : 2019. 12. 17
-	 * @Description   :  관리자에게 문의 보내는 메소드
+	 * @Description   :  QNA테이블에 문의정보 인서트하는 메소드
 	 * @param
 	 * @return
 	 */
-	public int qnaSend(Connection con, Member loginMember, QNA sendQNA) {
+	public int insertQna(Connection con, Member loginMember, QNA sendQNA) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -264,6 +264,84 @@ public class QNADao {
 		}finally {
 			close(pstmt);
 		}
+		
+		
+		return result;
+	}
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 17
+	 * @ModifyDate    : 2019. 12. 17
+	 * @Description   :  QNA테이블에 기록된 정보 중 QNA_ID 값 가져오는 메소드
+	 * @param
+	 * @return
+	 */
+	public int getQnaId(Connection con) {
+		
+		int qnaId = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = admin_prop.getProperty("getQnaId");
+		
+		
+		
+		try {
+			
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				qnaId = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return qnaId;
+	}
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 17
+	 * @ModifyDate    : 2019. 12. 17
+	 * @Description   :  QNA_HISTORY테이블에 인서트하는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public int insertQnaHistory(Connection con, Member loginMember, QNA sendQNA) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = admin_prop.getProperty("insertQnaHistory");
+		
+		
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, sendQNA.getQnaId());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
 		
 		
 		return result;
