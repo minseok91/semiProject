@@ -1,4 +1,4 @@
-package com.kh.lp.admin.qnaAndReport.controller;
+package com.kh.lp.admin.board.controller.FAQ;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
-import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
-import com.kh.lp.admin.reply.model.service.ReplyService;
+import com.kh.lp.admin.board.model.service.BoardService;
+import com.kh.lp.admin.board.model.vo.Board;
 
 /**
- * Servlet implementation class insertQNAReplyServlet
+ * Servlet implementation class BoardFAQInsertServlet
  */
-@WebServlet("/insertQNAReply.qr")
-public class insertQNAReplyServlet extends HttpServlet {
+@WebServlet("/InsertFAQ.bo")
+public class BoardFAQInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertQNAReplyServlet() {
+    public BoardFAQInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,23 +29,25 @@ public class insertQNAReplyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int QNAId = Integer.parseInt(request.getParameter("boardId"));
-		String comment = request.getParameter("comment");
-
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		Board b = new Board();
+		b.setBoardTitle(title);
+		b.setBoardMemberNo(1);
+		b.setBoardType("BT4");
+		b.setBoardContent(content);
 		
-		int result = new ReplyService().insertReply(QNAId, comment);
+		int insertFAQ = new BoardService().insertFAQ(b);
 		
-		String qna = QNAId+"";
-		String type = "QHT3";
-		int update = new QNAService().updateStatus(qna, type);
-		
-		QNA QNAReport = new ReplyService().selectQNAReply(QNAId);
-		
-		String page = "views/admin/admin_qnaAndReportDetail.jsp";
-		if(QNAReport != null) {
-			request.setAttribute("QNAReport", QNAReport);
-			request.getRequestDispatcher(page).forward(request, response);
+		String page = "";
+		if(insertFAQ > 0) {
+			page = "selectFAQ.bo";
+			response.sendRedirect(page);
+		} else {
+			//실패 에러 페이지
 		}
+		
+		
 		
 	}
 

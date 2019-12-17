@@ -129,7 +129,7 @@ public class ReplyDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				list.setMemberId(rset.getString("QNA_REPLY_ID"));
+				list.setQnaMemberId(rset.getString("QNA_REPLY_ID"));
 				list.setQnaContent(rset.getString("QNA_REPLY_COMMENT"));
 			}
 			

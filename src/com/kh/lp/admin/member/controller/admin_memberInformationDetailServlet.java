@@ -49,7 +49,7 @@ public class admin_memberInformationDetailServlet extends HttpServlet {
 		//user.setPurchasehistory(purchaseCount) ;
 		String page = "";
 		if(user != null) {
-			page = "views/admin/admin_memberDetailPage.jsp";
+			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
 			request.setAttribute("user", user);
 			request.setAttribute("userInfo","1");
 			request.setAttribute("resportCount", resportCount);

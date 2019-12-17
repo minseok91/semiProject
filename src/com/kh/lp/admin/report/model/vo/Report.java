@@ -12,11 +12,11 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class Report {
-	private int rnum;
+	private int rowNum;
 	private int reportId;
-	private int reporting;
-	private int reported;
-	private String reportcontent;
+	private int reportingMemberId;
+	private int reportedMemberId;
+	private String reportContent;
 	private Date reportDate;
 	private int reportBoard;
 	private int reportReply;

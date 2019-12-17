@@ -63,7 +63,7 @@ public class admin_blackListServlet extends HttpServlet {
 		String page = "";
 		System.out.println(list);
 		if(list != null) {
-			page = "views/admin/admin_blackList.jsp";
+			page = "views/admin/Member/blackList/admin_blackList.jsp";
 			request.setAttribute("blackList", list);
 			request.setAttribute("pi",pi);
 		} else {
