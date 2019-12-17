@@ -40,13 +40,16 @@ public class admin_memberTypeUpdateServlet extends HttpServlet {
 		memberHistory.setMemberHistoryType(type);
 		memberHistory.setMemberHistoryDetail(text);
 		
-		int result = new MemberService().typeUpdate(userId,type);
-		int historyUpdate = 0;
-		  if(result > 0) { 
-			  
-			   historyUpdate = new MemberService().historyUpdate(memberHistory); 
-			  
-		  }
+		
+		  int result = new MemberService().typeUpdate(userId,type); 
+		  int historyUpdate =0; 
+		  
+		  if(result > 0) {
+		  
+		  historyUpdate = new MemberService().historyUpdate(memberHistory);
+		 
+		 }
+		 
 		 
 		System.out.println("ser"+userId);
 		

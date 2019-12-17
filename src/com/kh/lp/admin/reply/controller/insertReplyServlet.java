@@ -36,15 +36,11 @@ public class insertReplyServlet extends HttpServlet {
 		int memberId = Integer.parseInt(request.getParameter("memberId"));
 		String comment = request.getParameter("comment");
 		
-		System.out.println(boardId);
-		System.out.println(memberId);
-		System.out.println(comment);
 		
 		
 		int inserReply = new ReplyService().inserReply(boardId, comment, memberId);
 		ArrayList<Reply> list = new ReplyService().selectAll(boardId);
 		Reply r = list.get(list.size()-1);
-		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(r, response.getWriter());

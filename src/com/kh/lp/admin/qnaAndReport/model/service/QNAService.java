@@ -55,10 +55,10 @@ public class QNAService {
 	 * @param qnaId
 	 * @return
 	 */
-	public QNA selectOne(String qnaId) {
+	public HashMap<String, Object> selectOne(String qnaId) {
 		Connection con = getConnection();
 		
-		QNA list = new QNADao().selectOne(con, qnaId);
+		HashMap<String, Object> list = new QNADao().selectOne(con, qnaId);
 		
 		close(con);
 		
@@ -89,10 +89,37 @@ public class QNAService {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 17. 오후 1:41:09
+	 * @ModifyDate    : 2019. 12. 17. 오후 1:41:09
+	 * @Description   : 
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
 	public ArrayList<HashMap<String, Object>> selectType( int currentPage, int limit) {
 		Connection con = getConnection();
 		
 		ArrayList<HashMap<String, Object>> list = new QNADao().selectType( con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
+	}
+
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 17. 오후 1:40:30
+	 * @ModifyDate    : 2019. 12. 17. 오후 1:40:30
+	 * @Description   :  문의 페이지에서 댓글 읽어오는 메소드
+	 * @param qnaId
+	 * @return
+	 */
+	public QNA selectQnaReply(String qnaId) {
+		Connection con = getConnection();
+		
+		QNA list = new QNADao().selectQnaReply(con, qnaId);
 		
 		close(con);
 		
