@@ -286,9 +286,9 @@ td>a>img {
 		}
 		
 		$('td>button').click(function() {
-			let num=$(this).
+			//let num=$(this).
 			// 이것부터 고치자
-			location.href= <%= request.getContextPath() %>/views/goods/paymentBefore.jsp?auctionId='+arr2[j]+'&img='<%= request.getContextPath() %>/img/appraisal/' + arr2[6] + '&price='+arr2[2]'
+			// location.href= <%= request.getContextPath() %>/views/goods/paymentBefore.jsp?auctionId='+arr2[j]+'&img='<%= request.getContextPath() %>/img/appraisal/' + arr2[6] + '&price='+arr2[2]'
 		});
 		
 		function numberFormat(inputNumber) {
