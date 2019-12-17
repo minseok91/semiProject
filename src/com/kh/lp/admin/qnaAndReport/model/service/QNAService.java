@@ -74,10 +74,10 @@ public class QNAService {
 	 * @param qnaId
 	 * @return
 	 */
-	public int updateStatus(String qnaId) {
+	public int updateStatus(String qnaId, String type) {
 		Connection con = getConnection();
 		
-		int result = new QNADao().updateStatus(con, qnaId);
+		int result = new QNADao().updateStatus(con, qnaId, type);
 		
 		close(con);
 		

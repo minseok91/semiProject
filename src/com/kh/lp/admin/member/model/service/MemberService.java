@@ -92,10 +92,10 @@ public class MemberService {
 		return list;
 	}
 
-	public int typeUpdate(String userId, String status) {
+	public int typeUpdate(int MemberNo, String status) {
 		Connection con = getConnection();
 		
-		int result = new MemberDao().typeUpdate(con, userId, status);
+		int result = new MemberDao().typeUpdate(con, MemberNo, status);
 		
 		if(result > 0) {
 			commit(con);
@@ -131,8 +131,11 @@ public class MemberService {
 		
 		int resutl = new MemberDao().historyUpdate(con, memberHistory);
 		
-		System.out.println("서비스"+memberHistory);
-		close(con);
+		if(resutl > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
 		
 		return resutl;
 	}

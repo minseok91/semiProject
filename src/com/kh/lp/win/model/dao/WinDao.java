@@ -85,4 +85,48 @@ public class WinDao {
 		return win;
 	}
 
+	public ArrayList<Win> selectListTest(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Win> list = null;
+		Win w = null;
+		
+		String query = prop.getProperty("winListTest");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, memberNo);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				w = new Win();
+				
+				w.setWinAuctionId(rset.getInt("WIN_AUCTION_ID"));
+				w.setWinMemberNo(rset.getInt("WIN_MEMBER_NO"));
+				w.setWinPrice(rset.getInt("WIN_PRICE"));
+				w.setWinSecondMemberNo(rset.getInt("WIN_SECOND_MEMBER_NO"));
+				w.setWinsecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				w.setWinStatus(rset.getString("WIN_STATUS"));
+				w.setAttRename(rset.getString("ATTACHMENT_RENAME"));
+				w.setWinDate(rset.getDate("WIN_DATE"));
+				
+				list.add(w);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		log.debug(list);
+		return list;
+	}
+
 }

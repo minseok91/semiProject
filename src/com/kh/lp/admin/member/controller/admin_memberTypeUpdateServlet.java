@@ -34,6 +34,7 @@ public class admin_memberTypeUpdateServlet extends HttpServlet {
 		int MemberNo = Integer.parseInt(request.getParameter("MemberNo"));
 		String type = request.getParameter("type");
 		String text = request.getParameter("text");
+		String status = request.getParameter("status");
 		
 		memberHistory memberHistory = new memberHistory();
 		memberHistory.setMemberNo(MemberNo);
@@ -41,7 +42,7 @@ public class admin_memberTypeUpdateServlet extends HttpServlet {
 		memberHistory.setMemberHistoryDetail(text);
 		
 		
-		  int result = new MemberService().typeUpdate(userId,type); 
+		  int result = new MemberService().typeUpdate(MemberNo,type); 
 		  int historyUpdate =0; 
 		  
 		  if(result > 0) {
@@ -56,7 +57,12 @@ public class admin_memberTypeUpdateServlet extends HttpServlet {
 		String page = "";
 		
 		  if(historyUpdate > 0) { 
-			  page = "blackList.me"; 
+			  
+			  if(status == null) {
+				  page = "blackList.me"; 
+			  } else {
+				  page = "QNASelect.qr"; 
+			  }
 			  
 		  } else {
 			  // 회원 타입변경 히스토리 저장 실패

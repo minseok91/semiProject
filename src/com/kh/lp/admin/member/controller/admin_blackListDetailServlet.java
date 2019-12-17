@@ -37,7 +37,7 @@ public class admin_blackListDetailServlet extends HttpServlet {
 		
 		String page = "";
 		if(user != null) {
-			page = "views/admin/admin_memberDetailPage.jsp";
+			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
 			request.setAttribute("user", user);
 			request.setAttribute("userInfo","2");
 		} else {

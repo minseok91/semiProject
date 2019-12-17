@@ -14,7 +14,9 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.Bag;
+import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
@@ -270,5 +272,39 @@ public class AuctionDao {
 		}
 		
 		return isWatch;
+	}
+
+	public ArrayList<ArrayList<Object>> doAuction(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ArrayList<Object>> list = null;
+		Item i = null;
+		App a = null;
+		Attachment at = null;
+		Auction au = null;
+		
+		String query = prop.getProperty("doAuction");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				i = new Item();
+				a = new App();
+				at = new Attachment();
+				au = new Auction();
+				
+				ArrayList<Object> list2 = new ArrayList<>();
+				au.setAuctionId(rset.getInt("AUCTION_ID"));
+				i.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
+				au.setAuctionStartPrice(rset.getInt("AUCTION_START_PRICE"));
+				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

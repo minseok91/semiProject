@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.admin.reply.model.service.ReplyService;
 
@@ -34,6 +35,10 @@ public class insertQNAReplyServlet extends HttpServlet {
 
 		
 		int result = new ReplyService().insertReply(QNAId, comment);
+		
+		String qna = QNAId+"";
+		String type = "QHT3";
+		int update = new QNAService().updateStatus(qna, type);
 		
 		QNA QNAReport = new ReplyService().selectQNAReply(QNAId);
 		

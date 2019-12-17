@@ -41,7 +41,7 @@ public class QNAandReportDetailServlet extends HttpServlet {
 		String status = request.getParameter("type");
 
 
-		String page = "views/admin/admin_qnaAndReportDetail.jsp";
+		String page = "views/admin/QNAAndReport/admin_qnaAndReportDetail.jsp";
 		if(status == null) {
 			status = "";
 		}
@@ -54,7 +54,8 @@ public class QNAandReportDetailServlet extends HttpServlet {
 		} else {
 			//문의글 리스트 읽어오는 곳
 			//문의 읽으면 답변확인으로 상태 변경
-			int update = new QNAService().updateStatus(qnaId);
+			String type = "QHT2";
+			int update = new QNAService().updateStatus(qnaId,type);
 
 			if(update > 0) {
 				

@@ -207,16 +207,7 @@ td>img {
 						<th>남은 시간</th>
 					</tr>
 				</thead>
-				<tbody id="tableBodyArea">
-				<tr>
-					<td>1</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td id="price">1,600,000</td>
-					<td id="check">낙찰 실패</td>
-					<td></td>
-				</tr>
-				</tbody>
+				<tbody id="tableBodyArea"></tbody>
 			</table> <!-- tableArea End -->
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
@@ -253,24 +244,31 @@ td>img {
 					memberNo: <%= loginMember.getMemberNo() %>
 				},
 				success: function(data){
-					console.log(data);
 					var arr = data.split("#");
 					for(i in arr){
 						console.log(arr[i]);
 						var arr2 = arr[i].split("::");
-						$("#tableArea > #tableBodyArea:last").append("<tr>");
+						let temp = "";
+						$("#tableBodyArea:last").append("<tr>");
 						for(j in arr2){
 							console.log(arr2[j]);
-							if(j == 1){
-								$("#tableArea > #tableBodyArea:last").append("<td><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></td>");
-							} else{
-								$("#tableArea > #tableBodyArea:last").append("<td>" + arr2[j] + "</td>");
-							}
-
+							if(j == 0)
+								temp += "<td><a class='resLink'>"+arr2[j]+"</a></td>";
+							else if(j == 1) 
+								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[6] + "'></a></td>";
+							else if(j == 2) 
+								temp += "<td><a class='resLink'>" + 'null' + "</a></td>";
+							else if(j == 3)
+								temp += "<td><a class='resLink'>" + numberFormat(arr2[2]) + "원</a></td>";
+							else if(j == 4)
+								temp += "<td><a class='resLink'>" + arr2[5] + "</a></td>";
+							else if(j == 5) 
+								temp += "<td><a class='resLink'>" + arr2[7] + "</a></td>";
+							else break;
+								
+							console.log(temp);
 						}
-						$("#tableArea > #tableBodyArea:last").append("<td><button class='btn' onclick='startAuction()' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>");
-						$("#tableArea > #tableBodyArea:last").append("<td name='a" + i + "'>00 : 00 : 00</td>"); //웹소켓 또는 시간 흐르는 기능 표시
-						$("#tableArea > #tableBodyArea:last").append("</tr>");
+						$("#tableBodyArea:last").append("</tr>");
 						
 					}
 				},
@@ -278,6 +276,10 @@ td>img {
 					console.log("테스트 실패");
 				}
 			});
+		}
+		
+		function numberFormat(inputNumber) {
+			   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 		
 	</script>

@@ -130,7 +130,7 @@ public class QNADao {
 		
 		return q;
 	}
-	public int updateStatus(Connection con, String qnaId) {
+	public int updateStatus(Connection con, String qnaId, String type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -138,7 +138,8 @@ public class QNADao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(qnaId));
+			pstmt.setString(1, (type));
+			pstmt.setInt(2, Integer.parseInt(qnaId));
 			
 			result = pstmt.executeUpdate();
 	

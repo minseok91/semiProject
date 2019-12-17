@@ -68,7 +68,7 @@ public class QNASelectServlet extends HttpServlet {
 		System.out.println(list);
 		
 		if(list != null) {
-			page = "views/admin/admin_inquiryAndReport.jsp";
+			page = "views/admin/QNAAndReport/admin_QNAAndReport.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {

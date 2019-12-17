@@ -232,7 +232,7 @@ public class MemberDao {
 	 * @param status
 	 * @return
 	 */
-	public int typeUpdate(Connection con, String userId, String status) {
+	public int typeUpdate(Connection con, int MemberNo, String status) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -241,7 +241,7 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, status);
-			pstmt.setString(2, userId);
+			pstmt.setInt(2, MemberNo);
 			
 			result = pstmt.executeUpdate();
 			
