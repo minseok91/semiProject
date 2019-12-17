@@ -91,24 +91,35 @@
 						<th>상품ID</th>
 						<th>판매자ID</th>
 						<th>배송상태</th>
+						<th>운송장번호</th>
 					</tr>
 					 <tr>
 						<td>1</td>
 						<td>pr001</td>
 						<td>adh5677</td>
 						<td>배송전<br>(목록에추간된시간)</td>
+						<td>354952299354<br>
+							<select id="delName">
+								<option value="kr.cjlogistics">CJ대한통운</option>
+								<option value="kr.epost">우체국 택배</option>
+								<option value="kr.lotte">롯데택배</option>
+							</select>
+							<button class="detail">배송정보</button>
+						</td>
 					</tr>
 					 <tr>
 						<td>2</td>
 						<td>pr002</td>
 						<td>kingminseok</td>
 						<td>배송중<br>(시작시간)</td>
+						<td>354952299354<br><a href="https://tracker.delivery/#/kr.cjlogistics/354952299354" target="_blank">배송조회</a></td>
 					</tr>
 					 <tr>
 						<td>3</td>
 						<td>pr003</td>
 						<td>관리자</td>
 						<td>배송완료<br>(완료된시간)</td>
+						<td>354952299354<br><button class="detail">배송정보</button></td>
 					</tr>
 					
 				</table>
@@ -167,6 +178,62 @@
             var option = "width = 500, height = 500, top = 100, left = 200, location = no"
             window.open(url, name, option); */
 		})	
+	})
+	
+	$(".detail").click(function(){
+		//window.open("https://tracker.delivery/#/kr.cjlogistics/354952299354", "배송정보", "width=600, height=400, left=100, top=50");
+		//var delNum = 232192872730;
+		var delNum =;
+		var delName = $("#delName").val();
+		/* $.ajax({
+			url:"https://apis.tracker.delivery/carriers",
+			type:"get",
+			success:function(data){
+				console.log("서버전송 성공 택배사 정보! ");
+				console.log(data);
+				var state = data.state.text;
+				alert(state);/* 
+				$.ajax({
+					url:"",
+					type:"",
+					success:,
+					error:
+				
+				}) */
+			/*},
+			error:function(error, status){
+				console.log("서버 전송 실패 !");
+			},
+			complete:function(){
+				console.log("무조건 호출되는 함수");
+				
+			}
+		}) */
+		
+		$.ajax({
+			url:"https://apis.tracker.delivery/carriers/" + delName + "/tracks/" + delNum,
+			type:"get",
+			success:function(data){
+				console.log("서버전송 성공 ! ");
+				console.log(data);
+				var state = data.state.text;
+				alert(state);/* 
+				$.ajax({
+					url:"",
+					type:"",
+					success:,
+					error:
+				
+				}) */
+			},
+			error:function(error, status){
+				console.log("서버 전송 실패 !");
+			},
+			complete:function(){
+				console.log("무조건 호출되는 함수");
+				
+			}
+		})
 	})
 	
 	</script>

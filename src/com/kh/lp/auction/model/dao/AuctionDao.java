@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.lp.common.Attachment;
+import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.appraisal.model.vo.Bag;
+import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
+import com.kh.lp.common.Attachment;
 
 public class AuctionDao {
 	
@@ -160,6 +163,7 @@ public class AuctionDao {
 			e.printStackTrace();
 		}
 		return result;
+	}
 
 	public HashMap<String, Object> selectOne(Connection con, String appId) {
 		PreparedStatement pstmt = null;
@@ -167,7 +171,7 @@ public class AuctionDao {
 		HashMap<String, Object> list = null;
 		
 		String query = prop.getProperty("selectOne");
-		
+		System.out.println("appId :" + appId );
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, Integer.parseInt(appId));
@@ -176,22 +180,49 @@ public class AuctionDao {
 			list = new HashMap<>();
 			ArrayList<Attachment> atList = new ArrayList<>();
 			Auction au = new Auction();
+			AR1 ar1 = new AR1();
+			Watch w = new Watch();
+			Bag b = new Bag();
 			while(rset.next()) {
 				Attachment at = new Attachment();
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				atList.add(at);
 				
-				
-				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
+				au.setAuctionAppDate(rset.getDate("AUCTION_APP_DATE"));
+				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 				au.setAuctionId(rset.getInt("AUCTION_ID"));
-				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
-				au.setAuStartPrice(rset.getInt("AUCTION_START_PRICE"));
-				au.setAuStartTime(rset.getDate("AUCTION_START_TIME"));
-				au.setCount(rset.getInt("AUCTION_COUNT"));
-				au.setMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				au.setAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				au.setAuctionStartPrice(rset.getInt("AUCTION_START_PRICE"));
+				au.setAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				au.setAuctionCount(rset.getInt("AUCTION_COUNT"));
+				au.setAuctionMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				
+				
+				ar1.setAr1BagDetail(rset.getInt("AR1_BAG_DETAIL"));
+				ar1.setAr1Brand(rset.getString("AR1_BRAND"));
+				ar1.setAr1Condition(rset.getString("AR1_CONDITION"));
+				ar1.setAr1Id(rset.getInt("AR1_ID"));
+				ar1.setAr1Model(rset.getString("AR1_MODEL"));
+				ar1.setAr1Price(rset.getInt("AR1_PRICE"));
+				ar1.setAr1WatchDetail(rset.getInt("AR1_WATCH_DETAIL"));
+				
+				w.setWatchBoxYn(rset.getString("WATCH_BOX_YN"));
+				w.setWatchChronograph(rset.getString("WATCH_CHRONOGRAPH"));
+				w.setWatchGuaranteeYn(rset.getString("WATCH_GUARANTEE_YN"));
+				w.setWatchId(rset.getInt("WATCH_ID"));
+				w.setWatchMaterial(rset.getString("WATCH_MATERIAL"));
+				w.setWatchMovement(rset.getString("WATCH_MOVEMENT"));
+				
+				b.setBagId(rset.getInt("BAG_ID"));
+				b.setBagSize(rset.getString("BAG_SIZE"));
+				b.setBagStrap(rset.getString("BAG_STRAP"));
+				b.setGender(rset.getString("BAG_GENDER"));
 				
 			
 			}
+			list.put("b", b);
+			list.put("w", w);
+			list.put("ar1", ar1);
 			list.put("attach", atList);
 			list.put("auction", au);
 		} catch (SQLException e) {
@@ -203,5 +234,31 @@ public class AuctionDao {
 		}
 		
 		return list;
+	}
+
+	public boolean isWatch(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		boolean isWatch = false;
+		
+		String query = prop.getProperty("isWatch");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				System.out.println("여기 워치애용 ? ");
+				isWatch = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return isWatch;
 	}
 }
