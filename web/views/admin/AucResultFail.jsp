@@ -254,12 +254,12 @@ Auction au = (Auction) list.get("auction");
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<label id="wish" href="#"><%if(au.getCount() == 0){ %> 
+						<label id="wish" href="#"><%if(au.getAuctionCount() == 0){ %> 
 							경매 준비
 							
-						<% } else if(au.getCount() == 1) {%>
+						<% } else if(au.getAuctionCount() == 1) {%>
 						경매중
-						<% } else if(au.getCount() == 2) {%>
+						<% } else if(au.getAuctionCount() == 2) {%>
 						재경매
 						<% } %>
 						</label>
@@ -301,6 +301,7 @@ Auction au = (Auction) list.get("auction");
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
 				<div id="detailContent">
+				<label><% %></label>
 					<label>상품 상세</label>
 					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
 				</div>
