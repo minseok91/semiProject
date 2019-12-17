@@ -136,7 +136,7 @@
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
@@ -144,7 +144,7 @@
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
-<body onload="doAuction()">
+<body onload="doAuction(), getWebsocket()">
 <%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -228,13 +228,91 @@
 				memberNo: <%= loginMember.getMemberNo() %>
 			},
 			success: function(data) {
-				console.log("ajax성공");
+				console.log(data);
+				var arr = data.split("#");
+				for(i in arr) {
+					temp = "";
+					var arr2 = arr[i].split("::");			//  0: 경매번호, 1: 사진, 2: 브랜드/모델명, 3: 현재입찰가, 4: 입찰인원, 5: 남은 시간, 6: 상세보기
+					for(j in arr2) {
+						if(j == 1){
+							if(arr2[j] != "null"){
+								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
+							}else {
+								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/noImage.png'></a></td>";
+							}
+						}else if(j == 3){
+							
+						} else if(j == 6) {
+							temp += "<td>" + changeTime(arr2[j]) + "</td>";
+						} else {
+							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
+						}
+					}
+					temp += "<td><button>상세보기</button></td>";
+					$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");
+				}
 			},
 			error: function(data) {
 				console.log("ajax실패");
 			}
 		});
 	}
+	
+	function changeTime(time) {
+		var day = Math.floor(time / (60 * 60 * 24));
+		var hour = Math.floor((time - day * 60 * 60 * 24) / (60 * 60));
+		var min = Math.floor((time - day * 60 * 60 * 24 - hour * 3600) / 60);
+		var sec = time % 60;
+		
+		return day + "일" + hour + "시간" + min + "분" + sec + "초";
+	}
+	
+	function getWebsocket() {
+		//보조메소드 = 자체제작메소드
+		
+		//new를 통해 웹소켓을 불러온다.
+		ws = new WebSocket("ws://localhost:8010/lp/endTime");
+		
+		//웹소켓 연결될 때 실행되는 메소드
+		ws.onopen = function(event) {
+			
+		}
+		
+		//웹소켓으로부터 메세지를 받을 때 실행되는 메소드
+		ws.onmessage = function(event) {
+			
+		}
+		
+		//서버에서 에러가 발생할 경우 동작할 메소드
+		ws.onerror = function(event) {
+			
+		}
+
+		//서버와의 연결이 종료될 경우 동작하는 메소드
+		ws.onclose = function(event) {
+			
+		}
+		
+		//웹소켓 보조 메소드 - 메세지 받을 때 동작할 메소드
+		function onMessage(event) {
+			
+		}
+		
+		//웹소켓 보조 메소드 - 웹소켓에 메세지 보내는 메소드
+		function send(msg) {
+			ws.send(msg);
+		}
+		
+		//웹소켓 보조 메소드 - 웹소켓 에러 관련 메소드
+		function onError(event) {
+			alert(event.data);
+		}
+		
+		//웹소켓 보조 메소드 - 웹소켓 닫혔을 때 관련 메소드
+		function onClose(event) {
+			alert(event);
+		}
+	} //getWebsocket() end
 </script>
 </body>
 </html>
