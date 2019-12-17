@@ -14,10 +14,10 @@ import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Bag;
-import com.kh.lp.appraisal.model.vo.Item;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.item.model.vo.Item;
 
 public class AppraisalService {
 

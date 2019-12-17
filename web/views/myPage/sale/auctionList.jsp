@@ -144,7 +144,7 @@
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
-<body onload="doAuction(), getWebsocket()">
+<body onload="doAuction()">
 <%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -212,6 +212,7 @@
 <%@ include file="../../common/footer.jsp" %>
 
 <script>
+	var tempTime = 0;
 	$(function() {
 		$('a').click(function() {
 			let values=$(this).attr('value');
@@ -219,6 +220,10 @@
 			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 		})
 	});
+	
+	function getSecTime(time) {
+		tempTime = time;
+	}
 	
 	function doAuction() {
 		$.ajax({
@@ -243,6 +248,7 @@
 						}else if(j == 3){
 							
 						} else if(j == 6) {
+							tempTime = arr2[j];
 							temp += "<td>" + changeTime(arr2[j]) + "</td>";
 						} else {
 							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
@@ -251,12 +257,13 @@
 					temp += "<td><button>상세보기</button></td>";
 					$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");
 				}
+				getWebsocket();
 			},
 			error: function(data) {
 				console.log("ajax실패");
 			}
 		});
-	}
+	}//---doAuction() endPoint---
 	
 	function changeTime(time) {
 		var day = Math.floor(time / (60 * 60 * 24));
@@ -265,22 +272,26 @@
 		var sec = time % 60;
 		
 		return day + "일" + hour + "시간" + min + "분" + sec + "초";
-	}
+	}//---changeTime() endPoint---
+	
 	
 	function getWebsocket() {
+		console.log("웹소켓 실행합니다");
 		//보조메소드 = 자체제작메소드
-		
+		var url = "ws://localhost:8010/lp/endTime/<%= loginMember.getMemberId() %>";
 		//new를 통해 웹소켓을 불러온다.
-		ws = new WebSocket("ws://localhost:8010/lp/endTime");
+		ws = new WebSocket(url);
 		
 		//웹소켓 연결될 때 실행되는 메소드
 		ws.onopen = function(event) {
-			
+			send(tempTime);
 		}
 		
 		//웹소켓으로부터 메세지를 받을 때 실행되는 메소드
 		ws.onmessage = function(event) {
-			
+			send(event.data);
+			$("table>tbody>tr>td").eq(5).text(changeTime(event.data));
+			console.log(changeTime(event.data));
 		}
 		
 		//서버에서 에러가 발생할 경우 동작할 메소드
@@ -290,6 +301,11 @@
 
 		//서버와의 연결이 종료될 경우 동작하는 메소드
 		ws.onclose = function(event) {
+			
+		}
+		
+		//웹소켓 보조 메소드 - 웹소켓 연결 되었을 때 동작할 메소드
+		function onOpen(event) {
 			
 		}
 		
@@ -312,7 +328,7 @@
 		function onClose(event) {
 			alert(event);
 		}
-	} //getWebsocket() end
+	}//---getWebsocket() endPoint---
 </script>
 </body>
 </html>
