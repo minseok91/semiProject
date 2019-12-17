@@ -25,6 +25,7 @@ import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
 
 import lombok.extern.log4j.Log4j2;
+import oracle.net.aso.i;
 
 @Log4j2
 public class AppraisalDao {
@@ -592,8 +593,10 @@ public class AppraisalDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Item i = null;
+		App a = null;
 		AR1 ar = null;
 		Attachment at = null;
+		Auction au = null;
 		
 		String query = prop.getProperty("selectItemResult");
 		
@@ -604,17 +607,25 @@ public class AppraisalDao {
 			app = new ArrayList<>();
 			while(rset.next()) {
 				i = new Item();
+				a = new App();
 				ar = new AR1();
 				at = new Attachment();
+				au = new Auction();
 				ArrayList<Object> list = new ArrayList<>();
 				
 				i.setItemId(rset.getInt("ITEM_ID"));
 				i.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
+				a.setAppResult(rset.getString("NAME"));
 				ar.setAr1Price(rset.getInt("AR1_PRICE"));
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				au.setAuctionCount(rset.getInt("AUCTION_COUNT"));
 				
+				list.add(i);
+				list.add(a);
 				list.add(ar);
 				list.add(at);
+				list.add(au);
+				
 				app.add(list);
 				
 			}

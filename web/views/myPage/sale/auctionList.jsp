@@ -144,7 +144,7 @@
 <meta charset="UTF-8">
 <title>LauXion</title>
 </head>
-<body>
+<body onload="doAuction()">
 <%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -219,6 +219,22 @@
 			location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 		})
 	});
+	
+	function doAuction() {
+		$.ajax({
+			url: "<%= request.getContextPath() %>/selectDoAuction.au",
+			type: "post",
+			data: {
+				memberNo: <%= loginMember.getMemberNo() %>
+			},
+			success: function(data) {
+				console.log("ajax성공");
+			},
+			error: function(data) {
+				console.log("ajax실패");
+			}
+		});
+	}
 </script>
 </body>
 </html>

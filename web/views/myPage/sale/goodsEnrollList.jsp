@@ -116,6 +116,7 @@
     text-align: center;
     position: absolute;
     width: auto;
+    height: 700px;
     margin-top: 75px;
     left: 28%; 
 }
@@ -261,7 +262,7 @@ td>a>img {
 					<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
-			<div class="contentArea">
+			<div class="contentArea" style="overflow:scroll">
 				<table id="tableArea" border="1">
 					<thead id="tableHeadArea">
 						<tr>
@@ -349,21 +350,40 @@ td>a>img {
 					memberNo: <%= loginMember.getMemberNo() %>
 				},
 				success: function(data){
-					var arr = data.split("#");
+					var arr = data.split("#");			//객체별로 스플릿
 					for(i in arr) {
 						temp = "";
-						var arr2 = arr[i].split("::");
+						var arr2 = arr[i].split("::");		//0: 아이템번호, 1: 사진이름, 2: 브랜드, 3: 감정가, 4: 감정여부,  5: 경매카운트
 						for(j in arr2) {
-							if(j == 1) {
-								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
-							} else if(j == 3) {
-								temp += "<td><a class='resLink'>" + numberFormat(arr2[j]) + "원</a></td>";
+							if(j == 1) {	//사진 여부
+								if(arr2[j] != "null"){
+									temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
+								}else {
+									temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/noImage.png'></a></td>";
+								}
+							} else if(j == 3) {		//감정가
+								if(arr2[j] != 0) {
+									temp += "<td><a class='resLink'>" + numberFormat(arr2[j]) + "원</a></td>";
+								} else {
+									temp += "<td><a class='resLink'></a></td>";
+								}
+							} else if(j == 4) {
+								if(arr2[j] == "진품1" || arr2[j] == "진품2") {
+									temp += "<td>경매<br>진행 중</td>";
+								} else if(arr2[j] == "진품0") {
+									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>";
+								} else if(arr2[j] == "가품") {
+									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td>";
+								} else {
+									temp += "<td>감정 중</td>";
+								}
+							} else if(j == 5) {
+								
 							} else {
 								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
 							}
 							
 						}
-						temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>";
 						temp += "<td name='time" + i + "'>00 : 00 : 00</td>";
 						$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");
 					}

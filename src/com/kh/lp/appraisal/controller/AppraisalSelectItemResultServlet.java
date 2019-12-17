@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Item;
+import com.kh.lp.auction.model.vo.Auction;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -63,12 +65,15 @@ public class AppraisalSelectItemResultServlet extends HttpServlet {
 		if(app != null) {
 			for(int n = 0; n < app.size(); n++) {
 				Item i = (Item) app.get(n).get(0);
-				Attachment at = (Attachment) app.get(n).get(1);
+				App a = (App) app.get(n).get(1);
 				AR1 ar = (AR1) app.get(n).get(2);
+				Attachment at = (Attachment) app.get(n).get(3);
+				Auction au = (Auction) app.get(n).get(4);
+				
 				if(n == app.size() - 1) {
-					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price();
+					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price() + "::" + a.getAppResult() + au.getAuctionCount();
 				} else {
-					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price() + "#";
+					msg += i.getItemId() + "::" + at.getAttachmentRename() + "::" + i.getItemBrandModel() + "::" + ar.getAr1Price() + "::" + a.getAppResult() + au.getAuctionCount() + "#";
 				}
 			}
 			out.append(msg);
