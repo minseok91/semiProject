@@ -146,7 +146,7 @@
 	
 	
 	.titles, .inputs {
-		border: 1px solid red;
+		/* border: 1px solid red; */
 		display: inline-block;
 	}
 	
@@ -166,19 +166,21 @@
 	.row1 {
 		margin-top: 25px;
 	}
-	.row1,.row2,.row3,.row4,.row5,.row6 {
-		border: 1px solid blue;
+	 .row1,.row2,.row3,.row4,.row5,.row6 {
+		/* border: 1px solid blue; */
 		height: 35px;
 	}
 	
 	.row6 {
-		border: 1px solid blue;
+		/* border: 1px solid blue; */
 		height: 70px;
-	}
+	} 
 	
 	#detailLabel, #detailText {
 		height: 65px;
 	}
+	
+	#
 	
 	#detailLabel {
 		height: 30px;
@@ -237,7 +239,7 @@
 		
 		
 		
-		<form action="<%=request.getContextPath()%>/productRegist.me" method="post" encType="multipart/form-data">
+		<form action="<%=request.getContextPath()%>/itemRegister.it" method="post" encType="multipart/form-data">
 		<div class="contentArea">
 			<div id="picArea">
 			<p>※상품 사진은 상품 식별이 가능하도록 찍어주세요.</p>
@@ -348,11 +350,11 @@
 			</div>
 			
 			<div class="row6">
-			<div class="titles" id="detailLabel">
+			<div class="titles" id="detailLabel" style="vertical-align: middle; line-height: 0px;">
 			<label>상세설명</label>
 			</div>
 			<div class="inputs" id="detailText">
-			<textarea name="itemDetail" style="width: 500px; height:50px; resize:none;" ></textarea>
+			<textarea  name="itemDetail" style="width: 500px; height:65px; resize:none;" ></textarea>
 			</div>
 			</div>
 			
@@ -403,39 +405,3 @@
 	</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
