@@ -74,7 +74,7 @@ public class ItemRegisterServlet extends HttpServlet {
 			}
 			String purYear = multiRequest.getParameter("purYear");
 			String purMonth = multiRequest.getParameter("purMonth");
-			String purDate = purYear+purMonth;
+			String purDate = purYear+ " " + purMonth;
 			String warrYN = multiRequest.getParameter("warrYN");
 			String itemDetail = multiRequest.getParameter("itemDetail");
 
@@ -97,11 +97,13 @@ public class ItemRegisterServlet extends HttpServlet {
 			itemPic.setAttachmentFileLevel(1);
 			itemPic.setAttachmentType("AT1");
 
+			
 			//로그인돼있는 회원 Member객체에 담기
 			Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
-
-			int result = new ItemService().itemRegister(loginMember, registItem, itemPic);
 			
+			
+			//결과처리
+			int result = new ItemService().itemRegister(loginMember, registItem, itemPic);
 			
 			if(result>0) {
 				response.sendRedirect(request.getContextPath() + "/views/myPage/sale/goodsEnrollList.jsp");

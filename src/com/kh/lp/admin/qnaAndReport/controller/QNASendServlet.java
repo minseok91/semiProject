@@ -26,14 +26,18 @@ public class QNASendServlet extends HttpServlet {
 		String qnaTitle = request.getParameter("qnaTitle");
 		String qnaContent = request.getParameter("qnaContent");
 		
+		
 		//QNA 객체 생성
 		QNA sendQNA = new QNA();
 		sendQNA.setQnaTitle(qnaTitle);
 		sendQNA.setQnaContent(qnaContent);
 		
+		
 		//로그인돼있는 회원 Member객체에 담기
 		Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
-
+		
+		
+		//결과처리
 		int result = new QNAService().qnaSend(loginMember, sendQNA);
 		
 		if(result>0) {
@@ -42,9 +46,6 @@ public class QNASendServlet extends HttpServlet {
 			request.setAttribute("msg", "관리자문의 등록 실패");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
 		}
-		
-		
-		
 		
 		
 	}

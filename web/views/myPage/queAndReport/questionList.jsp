@@ -223,6 +223,13 @@ td>img {
 			
 			
 			
+			
+			
+			
+			
+			
+			
+			
 		</div> <!-- contentArea End -->
 		<div class="pagingArea" align="center">	
 <%-- 		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
