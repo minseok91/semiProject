@@ -38,7 +38,7 @@ public class BoardSelectOneServlet extends HttpServlet {
 		Board b = new BoardService().selectOne(boardId);
 		String page = "";
 		if(b != null) {
-			page = "views/admin/Board/board/admin_noticeUpdatePage.jsp";
+			page = "views/admin/Board/board/admin_boardUpdatePage.jsp";
 			b.setBoardMemberName(memberName);
 			request.setAttribute("b", b);
 		} else {

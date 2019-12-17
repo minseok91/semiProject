@@ -169,7 +169,6 @@ html, body {
 }
 
 #NoticeNumber>h4 {
-	width: 34px;
 	margin-bottom: 0px;
 	margin-top: 17px;
 	float: left;
@@ -260,11 +259,10 @@ html, body {
 		<% } %>
 		
 		
-		<% for(int p = startPage ; p <= endPage; p++){ 
-				if(p == currentPage){
+		<% for(int p = 1 ; p <= maxPage; p++){ 
 		%>			
 					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>	
-		<% }
+		<% 
 		} %>
 		
 		<% if(currentPage >= maxPage){ %>
@@ -280,7 +278,7 @@ html, body {
 		</div>
 	</div>
 	<script>
-	$("td").click(function(e) {
+	$("table > td").click(function(e) {
 				var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;
 				var boardId = e.target.parentNode.parentNode.children[0].children[0].value;
 			if(e.target.innerHTML == '수정'){
@@ -296,6 +294,24 @@ html, body {
 		})
 		$("#insertBoard").click(function(){
 			location.href="views/admin/Board/board/insertNotice.jsp";
+		})
+		
+		$(function(){
+			
+			$("#boardType").click(function(e){
+				
+				$.ajax({
+					url : "BoardSelectType.bo",
+					data : {
+						type : e.target.value,
+						currentPage : <%=pi.getCurrentPage()%>
+					},
+					type : "GET",
+					success:function(data) {
+						console.log("전송 성공");
+					}
+				})
+			})
 		})
 		
 	</script>
