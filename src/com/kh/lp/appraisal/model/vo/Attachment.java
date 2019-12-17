@@ -14,12 +14,13 @@ public class Attachment implements java.io.Serializable{
 	private String attachmentName;
 	private String attachmentRename;
 	private String attachmentPath;
-	private Date attachmentUploadDate;
-	private int attachmentFileLevel;
+	private Date attachmentDate;
+	private int attachmentLevel;
 	private int attachmentRefItem;
 	private int attachmentRefApp;
 	private int attachmentRefBoard;
 	private String attachmentType;
+	
 }
 
 

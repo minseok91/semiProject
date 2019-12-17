@@ -36,7 +36,7 @@ public class ItemSelectOneServlet extends HttpServlet {
 		
 		String page = "";
 		if(item != null) {
-			page = "views/admin/appRequestDetail.jsp";
+			page = "views/admin/Auction/appRequestDetail.jsp";
 			request.setAttribute("item", item);
 			
 		} else {

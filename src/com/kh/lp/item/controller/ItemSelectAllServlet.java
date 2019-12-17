@@ -68,7 +68,7 @@ public class ItemSelectAllServlet extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/admin/appRequest.jsp";
+			page = "views/admin/Goods/appRequest.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {

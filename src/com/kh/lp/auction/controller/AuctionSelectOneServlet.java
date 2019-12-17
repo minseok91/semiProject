@@ -44,7 +44,7 @@ public class AuctionSelectOneServlet extends HttpServlet {
 		
 		if(status.equals("1")) {
 			System.out.println("여긴 1번");
-			page = "/views/admin/admin_waitingForAuction.jsp";
+			page = "/views/admin/Auction/admin_waitingForAuction.jsp";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 			System.out.println("ac :" + ac);
@@ -52,22 +52,22 @@ public class AuctionSelectOneServlet extends HttpServlet {
 			System.out.println("auction :" + ac.get("auction"));
 		} else if(status.equals("2")) {
 			System.out.println("여긴 2번");
-			page = "/views/admin/admin_autionNotRunning.jsp";
+			page = "/views/admin/Auction/admin_autionNotRunning.jsp";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 		} else if(status.equals("3")) {
 			System.out.println("여긴 3번");
-			page = "/views/admin/AucBidding.jsp?";
+			page = "/views/admin/Auction/AucBidding.jsp?";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 		} else if (status.equals("4")) {
 			System.out.println("여긴 4번");
-			page = "/views/admin/AucResultSuccess.jsp";
+			page = "/views/admin/Auction/AucResultSuccess.jsp";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 		} else if(status.equals("5")) {
 			System.out.println("여긴 5번");
-			page = "/views/admin/AucResultFail.jsp";
+			page = "/views/admin/Auction/AucResultFail.jsp";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 		} else if(status.equals("6")) {
@@ -77,7 +77,7 @@ public class AuctionSelectOneServlet extends HttpServlet {
 			request.setAttribute("list", ac);
 		} else if(status.equals("7")) {
 			System.out.println("여긴 7번");
-			page = "/views/admin/AucAllResult.jsp";
+			page = "/views/admin/Auction/AucAllResult.jsp";
 			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
 			request.setAttribute("list", ac);
 		}

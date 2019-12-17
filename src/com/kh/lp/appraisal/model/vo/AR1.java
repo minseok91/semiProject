@@ -16,4 +16,5 @@ public class AR1 implements java.io.Serializable {
 	private int ar1WatchDetail;
 	private int ar1BagDetail;
 	private String ar1Condition;
+	
 }

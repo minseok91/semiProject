@@ -92,7 +92,7 @@ public class ItemDao {
 				//item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
 				item.setItemId(rset.getInt("ITEM_ID"));
-				item.setItemMemberNo(rset.getString("MEMBER_ID"));
+				item.setItemMemberNo(rset.getInt("MEMBER_NO"));
 //				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 //				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
@@ -130,7 +130,7 @@ public class ItemDao {
 				item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
 				item.setItemId(rset.getInt("ITEM_ID"));
-				item.setItemMemberNo(rset.getString("MEMBER_ID"));
+				item.setItemMemberNo(rset.getInt("MEMBER_ID"));
 				//item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
