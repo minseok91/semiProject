@@ -76,7 +76,6 @@ public class AppraisalInsertServlet extends HttpServlet {
 		
 		
 		//감정아이템정보 가져오기 시작
-		System.out.println("itemId :" + "이놈이 문제야 문제!!");
 		int itemId = Integer.parseInt(multiRequest.getParameter("itemId"));
 		System.out.println("itemId :" + itemId);
 		
@@ -252,10 +251,6 @@ public class AppraisalInsertServlet extends HttpServlet {
 			ap.setAppResult("N");
 			//확인 APP
 			System.out.println("ap :" + ap);
-			
-			
-			
-			System.out.println("여긴 가품일때");
 			
 			result = new AppraisalService().insertIsFake(ih, ap , fileList);
 		}
