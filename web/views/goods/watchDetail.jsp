@@ -237,20 +237,6 @@
 									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-							</tr>
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
@@ -344,6 +330,7 @@
 	
 	<script type="text/javascript">
 		$(function() {
+			
 			const title = $('#title').attr('src');
 			$('#detailImg img').mouseover(function() {
 				$('#title').attr('src', $(this).attr('src'));

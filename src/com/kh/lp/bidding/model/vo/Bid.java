@@ -17,6 +17,7 @@ public class Bid {
 	private String bidAttachment; // 이미지이름(변경된 이름 기준)
 	private String bidBrand;
 	private String bidModel;
-	private Date bidTime; // 남은시간
+	private Date bidAuctionStartTime; // 경매시작시간
+	private int bidAuctionPeriod; // 경매기간
 	private String bidUserId;
 }

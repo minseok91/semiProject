@@ -2,6 +2,7 @@ package com.kh.lp.bidding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,17 +17,17 @@ import com.kh.lp.bidding.model.vo.Bid;
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class watchSelectList
+ * Servlet implementation class watchDetail
  */
-@WebServlet("/watchList.wa")
+@WebServlet("/watchDetail.wa")
 @Log4j2
-public class watchSelectList extends HttpServlet {
+public class watchDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public watchSelectList() {
+    public watchDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,19 +36,11 @@ public class watchSelectList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Bid> list = new bidService().watchSelectList();
+		int num = Integer.parseInt(request.getParameter("num"));
+		log.debug(num);
 		
-		String page = "";
-		
-		if(list != null) {
-			page="views/goods/watchList.jsp";
-			request.setAttribute("list", list);
-		} else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+		ArrayList<HashMap<String, Object>> list = new bidService().selectWatchDetail(num);
+		ArrayList<Bid> bidList = new bidService().bidUserSelectList();
 	}
 
 	/**
