@@ -57,13 +57,11 @@ public class AuctionSelectAllServlet extends HttpServlet {
 		
 		
 		PageInfo pi = new PageInfo(currentPage, limit, startPage, endPage , maxPage, listCount);
-		System.out.println("pi : "+ pi);
 		
 		
 		
 		
 		ArrayList<AuctionList> list = new AuctionService().AuPaging(currentPage, limit);
-		
 		String page = "";
 		if(list != null) {
 			page = "views/admin/Auction/itemAuc.jsp";

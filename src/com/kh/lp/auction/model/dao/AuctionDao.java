@@ -18,8 +18,10 @@ import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
+import com.kh.lp.auction.model.vo.BiddingHistory;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
+import com.kh.lp.member.model.vo.Member;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -316,5 +318,146 @@ public class AuctionDao {
 		}
 		log.debug(list);
 		return list;
+	}
+
+	public HashMap<String, Object> selectOneBid(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		HashMap<String, Object> list = null;
+		
+		String query = prop.getProperty("selectOneBid");
+		System.out.println("appId :" + appId );
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			list = new HashMap<>();
+			ArrayList<Attachment> atList = new ArrayList<>();
+			Auction au = new Auction();
+			AR1 ar1 = new AR1();
+			Watch w = new Watch();
+			Bag b = new Bag();
+			while(rset.next()) {
+				Attachment at = new Attachment();
+				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				atList.add(at);
+				
+				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
+				au.setAuctionAppDate(rset.getDate("AUCTION_APP_DATE"));
+				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
+				au.setAuctionId(rset.getInt("AUCTION_ID"));
+				au.setAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				au.setAuctionStartPrice(rset.getInt("AUCTION_START_PRICE"));
+				au.setAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				au.setAuctionCount(rset.getInt("AUCTION_COUNT"));
+				au.setAuctionMemberNo(rset.getInt("AUCTION_MEMBER_NO"));
+				
+				
+				ar1.setAr1BagDetail(rset.getInt("AR1_BAG_DETAIL"));
+				ar1.setAr1Brand(rset.getString("AR1_BRAND"));
+				ar1.setAr1Condition(rset.getString("AR1_CONDITION"));
+				ar1.setAr1Id(rset.getInt("AR1_ID"));
+				ar1.setAr1Model(rset.getString("AR1_MODEL"));
+				ar1.setAr1Price(rset.getInt("AR1_PRICE"));
+				ar1.setAr1WatchDetail(rset.getInt("AR1_WATCH_DETAIL"));
+				
+				w.setWatchBoxYn(rset.getString("WATCH_BOX_YN"));
+				w.setWatchChronograph(rset.getString("WATCH_CHRONOGRAPH"));
+				w.setWatchGuaranteeYn(rset.getString("WATCH_GUARANTEE_YN"));
+				w.setWatchId(rset.getInt("WATCH_ID"));
+				w.setWatchMaterial(rset.getString("WATCH_MATERIAL"));
+				w.setWatchMovement(rset.getString("WATCH_MOVEMENT"));
+				
+				b.setBagId(rset.getInt("BAG_ID"));
+				b.setBagSize(rset.getString("BAG_SIZE"));
+				b.setBagStrap(rset.getString("BAG_STRAP"));
+				b.setGender(rset.getString("BAG_GENDER"));
+				
+			
+			}
+			list.put("b", b);
+			list.put("w", w);
+			list.put("ar1", ar1);
+			list.put("attach", atList);
+			list.put("auction", au);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<BiddingHistory> getBiddingList(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		ArrayList<BiddingHistory> bdList = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getBiddingList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			bdList = new ArrayList<BiddingHistory>();
+			while(rset.next()) {
+				BiddingHistory bd = new  BiddingHistory();
+				bd.setBiddingAuctionId(rset.getInt("BIDDING_AUCTION_ID"));
+				bd.setBiddingCount(rset.getInt("BIDDING_COUNT"));
+				bd.setBiddingId(rset.getInt("BIDDING_ID"));
+				bd.setBiddingMemberId(rset.getString("MEMBER_ID"));
+				bd.setBiddingPrice(rset.getInt("BIDDING_PRICE"));
+				bd.setBiddingDate(rset.getDate("BIDDING_DATE"));
+				bd.setBiddingTime(rset.getTime("BIDDING_TIME"));
+				
+				bdList.add(bd);
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return bdList;
+	}
+
+	public Member getMemberId(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String query = prop.getProperty("getMemberId");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			
+			m = new Member();
+			if(rset.next()) {
+				m.setMemberId(rset.getString("MEMBER_ID"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return m;
 	}
 }
