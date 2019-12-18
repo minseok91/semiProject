@@ -38,6 +38,7 @@ public class AuctionStartServlet extends HttpServlet {
 		String auctionStartPrice = request.getParameter("itemStartPrice");
 		String auctionPeriod = request.getParameter("auctionDay");
 		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		int auctionMemberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
 		log.debug(itemId);
 		log.debug(auctionStartPrice);
@@ -45,6 +46,7 @@ public class AuctionStartServlet extends HttpServlet {
 		
 		Auction requestAuction = new Auction();
 		requestAuction.setAuctionAr1Id(itemId);
+		requestAuction.setAuctionMemberNo(auctionMemberNo);
 		requestAuction.setAuctionStartPrice(Integer.parseInt(auctionStartPrice));
 		requestAuction.setAuctionPeriod(Integer.parseInt(auctionPeriod));
 		

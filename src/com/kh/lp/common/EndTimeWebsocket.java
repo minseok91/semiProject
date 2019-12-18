@@ -36,27 +36,40 @@ public class EndTimeWebsocket {
 	//클라이언트가 웹소켓으로부터 메세지를 보냈을 때 서버측에서 실행하는 메소드
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
+		log.info(msg);
 		Timer t = new Timer();
 		TimerTask task = new TimerTask() {
 			
 			@Override
 			public void run() {
-				int sec = Integer.parseInt(msg);
-				sec -= 1;
+				String sendMsg = "";
+				String arr[] = msg.split(",");
+				for(int i = 0; i < arr.length; i++) {
+					int sec = Integer.parseInt(arr[i]);
+					sec -= 1;
+					log.info(sec);
+					if(i == arr.length - 1) {
+						sendMsg += sec;
+					} else {
+						sendMsg += sec + ",";
+					}
+				}
+				log.info(sendMsg);
+				
 				synchronized(clients) {
 					String memberId = session.getId();
 					Set<String> keys = clients.keySet();
 					for(String key : keys) {
 						if(memberId.equals(clients.get(key).getId())) {
 							try {
-								clients.get(key).getBasicRemote().sendText(String.valueOf(sec));
+								clients.get(key).getBasicRemote().sendText(sendMsg);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
 						}
 					}
 				}
-			}
+			}//---run endPoint---
 		};//---TimerTask endPoint---
 		t.schedule(task, 1000);	//1초마다 타이머 스케쥴 실행
 	}

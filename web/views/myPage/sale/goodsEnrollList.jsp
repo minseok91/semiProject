@@ -314,6 +314,7 @@ td>a>img {
 						</tr>
 				</table>
 				<input type="hidden" id="itemId" name="itemId" value=""/>
+				<input type="hidden" id="memberNo" name="memberNo" value="<%= loginMember.getMemberNo() %>"/>
 				<div id="modalBtnArea" align="center">
 				<br />
 					<button class="btn" id="modalStartBtn" type="submit" style="padding-top: 3px;">시작하기</button>

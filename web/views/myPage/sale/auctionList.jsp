@@ -131,7 +131,7 @@
 	text-align: center;
 }
 
-.contentArea>table>tbody>tr>td>img {
+td>a>img {
 	width: 100px;
 	height: 100px;
 }
@@ -213,6 +213,7 @@
 
 <script>
 	var tempTime = 0;
+	var timeArray = new Array();
 	$(function() {
 		$('a').click(function() {
 			let values=$(this).attr('value');
@@ -249,7 +250,7 @@
 							
 						} else if(j == 6) {
 							tempTime = arr2[j];
-							temp += "<td>" + changeTime(arr2[j]) + "</td>";
+							temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td>";
 						} else {
 							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
 						}
@@ -266,17 +267,28 @@
 	}//---doAuction() endPoint---
 	
 	function changeTime(time) {
-		var day = Math.floor(time / (60 * 60 * 24));
-		var hour = Math.floor((time - day * 60 * 60 * 24) / (60 * 60));
-		var min = Math.floor((time - day * 60 * 60 * 24 - hour * 3600) / 60);
-		var sec = time % 60;
+		var day = leadingZeros(Math.floor(time / (60 * 60 * 24)), 2);
+		var hour = leadingZeros(Math.floor((time - day * 60 * 60 * 24) / (60 * 60)), 2);
+		var min = leadingZeros(Math.floor((time - day * 60 * 60 * 24 - hour * 3600) / 60), 2);
+		var sec = leadingZeros(time % 60, 2);
 		
 		return day + "일" + hour + "시간" + min + "분" + sec + "초";
 	}//---changeTime() endPoint---
 	
+	function leadingZeros(date, num) {
+		 var zero = '';
+		 date = date.toString();
+		
+		 if (date.length < num) {
+		  for (i = 0; i < num - date.length; i++)
+		   zero += '0';
+		 }
+		 return zero + date;
+	}
 	
 	function getWebsocket() {
 		console.log("웹소켓 실행합니다");
+		var length = $("table>tbody>tr").length;
 		//보조메소드 = 자체제작메소드
 		var url = "ws://localhost:8010/lp/endTime/<%= loginMember.getMemberId() %>";
 		//new를 통해 웹소켓을 불러온다.
@@ -284,14 +296,12 @@
 		
 		//웹소켓 연결될 때 실행되는 메소드
 		ws.onopen = function(event) {
-			send(tempTime);
+			onOpen(event);
 		}
 		
 		//웹소켓으로부터 메세지를 받을 때 실행되는 메소드
 		ws.onmessage = function(event) {
-			send(event.data);
-			$("table>tbody>tr>td").eq(5).text(changeTime(event.data));
-			console.log(changeTime(event.data));
+			onMessage(event);
 		}
 		
 		//서버에서 에러가 발생할 경우 동작할 메소드
@@ -306,12 +316,26 @@
 		
 		//웹소켓 보조 메소드 - 웹소켓 연결 되었을 때 동작할 메소드
 		function onOpen(event) {
-			
+			for(var i = 0; i < length; i++) {
+				timeArray[i] = $("table>tbody>tr").eq(i).children().eq(5).children().eq(0).val();
+				console.log(timeArray[i]);
+			}
+				send(timeArray);
 		}
 		
 		//웹소켓 보조 메소드 - 메세지 받을 때 동작할 메소드
 		function onMessage(event) {
-			
+			/* send(event.data);
+			$("table>tbody>tr>td").eq(5).text(changeTime(event.data));
+			console.log(changeTime(event.data)); */
+			console.log(event.data);
+			var rarr = event.data.split(",");
+			for(var i = 0; i < length; i++) {
+				console.log(rarr[i]);
+				console.log($("table>tbody>tr").eq(i).children().eq(5).children().text());
+				$("table>tbody>tr").eq(i).children().eq(5).children().text(changeTime(rarr[i]));
+			}
+			send(event.data);
 		}
 		
 		//웹소켓 보조 메소드 - 웹소켓에 메세지 보내는 메소드

@@ -317,4 +317,22 @@ public class AuctionDao {
 		log.debug(list);
 		return list;
 	}
+
+	public int insertBiddingHistory(Connection con, Auction requestAuction) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertBiddingHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionMemberNo());
+			pstmt.setInt(2, requestAuction.getAuctionAr1Id());
+			pstmt.setInt(3, requestAuction.getAuctionMemberNo());
+			pstmt.setInt(4, requestAuction.getAuctionStartPrice());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
