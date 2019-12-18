@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.lp.bidding.controller.watchDetail;
 import com.kh.lp.bidding.model.vo.Bid;
 
 import lombok.extern.log4j.Log4j2;
@@ -19,11 +18,11 @@ import lombok.extern.log4j.Log4j2;
 import static com.kh.lp.common.JDBCTemplate.*;
 
 @Log4j2
-public class bidDao {
+public class BidDao {
 	Properties prop = new Properties();
 	
-	public bidDao() {
-		String fileName = bidDao.class.getResource("/sql/bid/bid-query.properties").getPath();
+	public BidDao() {
+		String fileName = BidDao.class.getResource("/sql/bid/bid-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(fileName));
@@ -126,7 +125,9 @@ public class bidDao {
 			while(rset.next()) {
 				Bid b = new Bid();
 				
-				b.setBidUserId(rset.getString("MEMBER_ID"));
+				// 아이디 가리기
+				String user = rset.getString("MEMBER_ID").substring(0, 3)+"******";
+				b.setBidUserId(user);
 				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
 				b.setBidAuctionStartTime(rset.getDate("BIDDING_TIME")); // 입찰시간
 				
