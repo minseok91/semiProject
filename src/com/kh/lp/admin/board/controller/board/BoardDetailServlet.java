@@ -41,7 +41,7 @@ public class BoardDetailServlet extends HttpServlet {
 		System.out.println(Rlist);
 		String page = "";
 		if(list != null) {
-			page = "views/admin/Board/board/admin_noticeDetail.jsp";
+			page = "views/admin/Board/board/admin_boardDetail.jsp";
 			list.setBoardMemberName(MemberName);
 			request.setAttribute("Rlist", Rlist);
 			request.setAttribute("list", list);

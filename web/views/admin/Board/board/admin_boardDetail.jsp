@@ -186,6 +186,8 @@ margin-top: 27px;
 							<td>게시판 종류</td>
 							<td><% if(list.getBoardType().equals("BT1")){ %>
 									<input type="text" value= "자유게시판" readonly>
+								<% } else if(list.getBoardType().equals("BT2")){ %>
+									<input type="text" value= "문의게시판" readonly>
 								<% } else { %>
 									<input type="text" value= "리뷰게시판" readonly>
 								<% } %>

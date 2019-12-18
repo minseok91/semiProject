@@ -24,6 +24,15 @@ public class ReplyDao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 17. 오후 6:19:09
+	 * @ModifyDate    : 2019. 12. 17. 오후 6:19:09
+	 * @Description   : 댓글 모두 검색
+	 * @param boardId
+	 * @param con
+	 * @return
+	 */
 	public ArrayList<Reply> selectAll(int boardId, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -61,6 +70,17 @@ public class ReplyDao {
 		
 		return rList;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 17. 오후 6:18:49
+	 * @ModifyDate    : 2019. 12. 17. 오후 6:18:49
+	 * @Description   : 댓글 추가
+	 * @param con
+	 * @param boardId
+	 * @param comment
+	 * @param memberId
+	 * @return
+	 */
 	public int insertReply(Connection con, int boardId, String comment, int memberId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -116,6 +136,15 @@ public class ReplyDao {
 
 		return reuslt;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 17. 오후 6:19:50
+	 * @ModifyDate    : 2019. 12. 17. 오후 6:19:50
+	 * @Description   : QNA댓글 검색
+	 * @param qNAId
+	 * @param con
+	 * @return
+	 */
 	public QNA selectQNAReply(int qNAId, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

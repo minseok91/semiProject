@@ -129,7 +129,7 @@ html, body {
 					</tr>
 					<% for(int i=0; i<userList.size(); i++) {%>
 						<tr>
-							<td><%= userList.get(i).getMemberNo()%></td>
+							<td><%= userList.get(i).getRowNum()%></td>
 							<td><%= userList.get(i).getMemberId()%></td>
 							<td><%= userList.get(i).getMemberName()%></td>
 							<td><%= userList.get(i).getMemberPhone()%></td>
@@ -142,7 +142,7 @@ html, body {
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
 					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
-					<% for(int p=1; p<=endPage; p++) { %>
+					<% for(int p=1; p<=MaxPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=endPage%>'">>></button>

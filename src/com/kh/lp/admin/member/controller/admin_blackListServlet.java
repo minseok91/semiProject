@@ -65,6 +65,7 @@ public class admin_blackListServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/admin/Member/blackList/admin_blackList.jsp";
 			request.setAttribute("blackList", list);
+			request.setAttribute("listCount", listCount);
 			request.setAttribute("pi",pi);
 		} else {
 			

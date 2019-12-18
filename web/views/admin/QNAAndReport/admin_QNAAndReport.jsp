@@ -251,7 +251,6 @@ html, body {
 	$(function(){
 	
 		$("#boardType").click(function(e) {
-			var StartPage = <%= pi.getStartPage()%>;
 	
 			$.ajax({
 				url : "typeSelect.tr",

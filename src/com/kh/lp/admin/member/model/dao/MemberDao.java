@@ -46,7 +46,8 @@ public class MemberDao {
 		int listCount = 0;
 		
 		String query = admin_prop.getProperty("admin_listCount");
-		log.debug(query);
+		System.out.println(status1);
+		System.out.println(status2);
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, status1);
@@ -98,6 +99,7 @@ public class MemberDao {
 			userList = new ArrayList<Member>();
 			while(rset.next()) {
 				m = new Member();
+				m.setRowNum(rset.getInt("RNUM"));
 				m.setMemberNo(rset.getInt("MEMBER_NO"));
 				m.setMemberId(rset.getString("MEMBER_ID"));
 				m.setMemberPwd(rset.getString("MEMBER_PWD"));

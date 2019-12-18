@@ -193,6 +193,7 @@ input[type="text"]:focus {
 							<td><select name="category" id="category">
 									<option value="BT1"<%if(list.getBoardType().equals("BT1")){%>selected<%} %>>자유게시판</option>
 									<option value="BT3"<%if(list.getBoardType().equals("BT3")){%>selected<%} %>>리뷰게시판</option>
+									<option value="BT3"<%if(list.getBoardType().equals("BT2")){%>selected<%} %>>건의게시판</option>
 							</select></td>
 						</tr>
 						<tr>

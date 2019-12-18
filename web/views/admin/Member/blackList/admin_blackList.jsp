@@ -45,7 +45,6 @@
 
 }
 .contents > div > p, h3 {
-	width: 80px;
 	margin: 0;
 	float: left;
 	
@@ -110,7 +109,7 @@
 		<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div>
-				<p>블랙 회원<h3><%= blackList.size() %>명</h3>
+				<p>블랙 회원<h3><%= request.getAttribute("listCount") %>명</h3>
 				<button id="sarchBoxBtn">검색</button>
 				<input type="text" id="searchBox">
 			</div>
@@ -127,7 +126,7 @@
 					</tr>
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
-							<td><%= blackList.get(i).getMemberNo()%></td>
+							<td><%= blackList.get(i).getRowNum()%></td>
 							<td><%= blackList.get(i).getMemberId()%></td>
 							<td><%= blackList.get(i).getMemberName()%></td>
 							<td><%= blackList.get(i).getMemberPhone()%></td>
