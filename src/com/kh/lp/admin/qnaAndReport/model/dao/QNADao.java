@@ -3,6 +3,7 @@ package com.kh.lp.admin.qnaAndReport.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -453,6 +454,59 @@ public class QNADao {
 		
 		
 		return memberQnaList;
+	}
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  현재 웹페이지에서 클릭한 관리자 문의 제목에 해당하는 상세정보를 QNA테이블, QNA_REPLY 테이블에서 가져오는 메소드
+	 * @param
+	 * @return
+	 */
+	public QNA selectOneQna(Connection con, int qnaId) {
+		
+		QNA selectedQnaDetail = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		//QNA테이블과 QNA_REPLY테이블에서 값 가져오는 쿼리문
+		String query = admin_prop.getProperty("selectOneQnaDetail");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, qnaId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				selectedQnaDetail = new QNA();
+				
+				selectedQnaDetail.setQnaId(qnaId);
+				selectedQnaDetail.setQnaTitle(rset.getString("QNA_TITLE"));
+				selectedQnaDetail.setQnaContent(rset.getString("QNA_CONTENT"));
+				selectedQnaDetail.setQnaDate(rset.getDate("QNA_DATE"));
+				selectedQnaDetail.setQnaStatus(rset.getString("QNA_STATUS"));
+				selectedQnaDetail.setQnaReply(rset.getString("QNA_REPLY_COMMENT"));
+				selectedQnaDetail.setQnaReplyDate(rset.getDate("QNA_REPLY_DATE"));
+				
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return selectedQnaDetail;
 	}
 	
 	

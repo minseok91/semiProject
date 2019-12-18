@@ -26,7 +26,6 @@
 	int maxPage = pInfo.getMaxPage();
 %>   
 
-<%System.out.println(startPage); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -151,6 +150,12 @@ td>img {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
+
+.detailLink {
+	cursor : pointer;
+}
+
+
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -215,7 +220,7 @@ td>img {
  				  <% for(QNA qna : memberQnaList){%>
 				<tr>
 					<td><%=qna.getRowNum() %></td>
-					<td><%= qna.getQnaTitle() %></td>
+					<td class="detailLink"><input type="hidden" id="qnaId" value=<%=qna.getQnaId()%>><%= qna.getQnaTitle() %></td>
 					<td><%= qna.getQnaDate() %></td>
 					<td>
 						<% switch(qna.getQnaStatus()) { 
@@ -281,6 +286,7 @@ td>img {
 	<%@ include file="../../common/footer.jsp" %>
 
 	<script>
+	
 		$(function() {
 			$('a').click(function() {
 				let values=$(this).attr('value');
@@ -289,6 +295,17 @@ td>img {
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		});
+		
+		
+		
+		$(document).on("click", ".detailLink" ,function() {
+			
+			var qnaId = $(this).children().val();
+			
+			location.href='<%= request.getContextPath() %>/questionDetail.qr?qnaId=' + qnaId;
+			
+		});
+		
 	</script>
 </body>
 </html>
