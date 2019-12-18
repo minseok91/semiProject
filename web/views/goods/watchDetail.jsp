@@ -264,7 +264,7 @@
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
-								<button onclick="insertBid()">입찰</button>
+								<button id="insertBid">입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
@@ -358,14 +358,23 @@
 			function numberFormat(inputNumber) {
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
-					
-			// 입찰등록하기 
-			function insertBid() {
-				console.log('test');
-			}
+			
+			$('#insertBid').click(function() {
+				const regex = /\d/g;
+				const bidPrice = $('#minPrice').val();
+				console.log(bidPrice);
+				
+				if(regex.test(bidPrice)) {
+					if(Number(bidPrice) <= minPrice) {
+						alert('최소 입찰금액보다 높아야 입찰이 가능합니다. ' + minPrice);
+					} else {
+						location.href="<%= request.getContextPath() %>/bidding.bi";
+					}
+				} else {
+					alert('입력내용을 다시 확인해주세요.');
+				}
+			})
 		}
-		
-
 	</script>
 </body>
 </html>
