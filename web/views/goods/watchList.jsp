@@ -10,6 +10,8 @@
  */
 --%>
 
+<%@page import="com.kh.lp.bidding.model.vo.Bid"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.lp.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -181,6 +183,9 @@ td>.content {
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
+	<%
+		ArrayList<Bid> list = (ArrayList<Bid>) request.getAttribute("list");
+	%>
 	<div class="container">
 	<div class="contents">
 		<div class="head">
@@ -198,19 +203,18 @@ td>.content {
 		
 		<div class="list">
 			<table>
-        	<% for(int i=0; i<2; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
+        	<% for(int i=0; i<list.size() / 5 + 1; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
             <tr>
-               <% for(int j=0; j<5; j++) { %> <!-- 5 고정 -->
-               <% for(Bidding b : list) { %>
+               <% for(Bid b : list) { %>
 				<td>
 					<div id="img">
-                  		<div class="price">￦2,314,000</div>
-                    	<img src="../../img/bag1.jpg" alt="" >
+                  		<div class="price"><%= b.getBidPrice() %></div>
+                    	<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
                   	</div>
-                 	<span class="content">Cartier Marcello De Cartier handbag Bro…</span>
-                 	<div class="time">End in 8h 55m</div>
+                 	<span class="content"><%= b.getBidBrand() + " " + b.getBidModel() %></span>
+                 	<div class="time"><%= b.getBidAuctionStartTime() %></div>
+                 	<div hidden><%= b.getBidAuctionId() %></div>
               	</td>
-              	<% } %>
                <% } %>
                </tr>
                <% } %>
@@ -244,5 +248,15 @@ td>.content {
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
+	
+	<script type="text/javascript">
+		$(function() {
+			$('td').css('cursor', 'pointer').click(function() {
+				const num = $(this).children().eq(3).text();
+				
+				location.href="<%= request.getContextPath() %>/watchDetail.wa?num="+num;
+			});
+		})
+	</script>
 </body>
 </html>
