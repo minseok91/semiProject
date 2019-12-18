@@ -220,6 +220,29 @@ public class QNAService {
 		return memberQnaList;
 	}
 
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  현재 웹페이지에서 클릭한 관리자 문의 제목에 해당하는 상세정보를 QNA테이블, QNA_REPLY 테이블에서 가져오는 메소드
+	 * @param
+	 * @return
+	 */
+	public QNA getQnaDetail(int qnaId) {
+		
+		QNA getQnaDetail = null;
+		
+		Connection con = getConnection();
+		
+		getQnaDetail = new QNADao().selectOneQna(con, qnaId);
+		
+		close(con);
+		
+		return getQnaDetail;
+	}
+
 }
 
 

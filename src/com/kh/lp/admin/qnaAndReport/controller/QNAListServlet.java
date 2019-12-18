@@ -72,23 +72,14 @@ public class QNAListServlet extends HttpServlet {
 		//해당 페이지에 들어갈  리스트 10개를 담아올 서비스 메소드 호출
 		ArrayList<QNA> memberQnaList = new QNAService().memberQnaList(loginMemberNo, currentPage, limit);
 		
-		System.out.println("memberQnaList : " + memberQnaList);
-		System.out.println("currentPage : " + currentPage);
-		System.out.println("maxPage : " + maxPage);
-		System.out.println("startPage : " + startPage);
-		System.out.println("endPage : " + endPage);
-		
 		String page = "";
-		
-		System.out.println("");
-		
 		
 		if(memberQnaList != null) {
 			page = "views/myPage/queAndReport/questionList.jsp";
 			request.setAttribute("memberQnaList", memberQnaList);
 			request.setAttribute("pInfo", pInfo);
 		} else {
-			request.setAttribute("msg", "상품감정신청 실패");
+			request.setAttribute("msg", "내 문의내역 불러오기 실패");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
 		}
 		request.getRequestDispatcher(page).forward(request, response);
