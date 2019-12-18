@@ -346,7 +346,7 @@ public class AuctionDao {
 		}
 		return result;
 	}
-	
+  
 	public HashMap<String, Object> selectOneBid(Connection con, String appId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

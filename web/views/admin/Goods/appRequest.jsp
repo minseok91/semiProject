@@ -108,7 +108,7 @@
 					<% int k = 1;
 					for(Item i :list) { %>
 					<tr>
-						<td><%= k %></td>
+						<td><%= i.getItemId() %></td>
 						<td><%= i.getItemId() %></td>
 						<td><%= i.getItemType().equals("W")?"시계" :"가방" %></td>
 						<td><%= i.getItemMemberNo() %></td>

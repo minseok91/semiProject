@@ -3,10 +3,12 @@ package com.kh.lp.bidding.model.dao;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.bidding.model.vo.Bid;
@@ -19,7 +21,7 @@ public class bidDao {
 		String fileName = bidDao.class.getResource("/sql/bid/bid-query.properties").getPath();
 		
 		try {
-			prop.load(new FileReader("fileName"));
+			prop.load(new FileReader(fileName));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,13 +44,15 @@ public class bidDao {
 			
 			while(rset.next()) {
 				Bid b = new Bid();
-				b.setBidAuctionId(rset.getInt("AC.AUCTION_ID"));
-				b.setBidId(rset.getInt("BID.BIDDING_ID"));
-				b.setBidPrice(rset.getInt("BID.BIDDING_PRICE"));
-				b.setBidAttachment(rset.getString("AT.ATTACHMENT_RENAME"));
-				b.setBidBrand(rset.getString("AR.AR1_BRAND"));
-				b.setBidModel(rset.getString("AR.AR1_MODEL"));
-				b.setBidTime(rset.getDate("AC.AUCTION_START_TIME+AC.AUCTION_PERIOD"));
+				
+				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+				b.setBidId(rset.getInt("BIDDING_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
+				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
 				
 				list.add(b);
 			}
@@ -59,6 +63,42 @@ public class bidDao {
 		} finally {
 			close(rset);
 			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectWatchDetail(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		String query = prop.getProperty("selectWatchDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			rset = pstmt.executeQuery(query);
+			
+			list = new ArrayList<>();
+			
+			if(rset.next()) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				hmap.put("memberId", rset.getString("MEMBER_ID"));
+				hmap.put("fileName", rset.getString("ATTACHMENT_RENAME"));
+				hmap.put("brand", rset.getString("AR1_BRAND"));
+				hmap.put("model", rset.getString("AR1_MODEL"));
+				
+				list.add(hmap);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return list;

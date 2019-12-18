@@ -87,7 +87,7 @@ public class ItemDao {
 			
 			while(rset.next()) {
 				Item item = new Item();
-				
+				//item.setItemId(rset.getInt("RNUM"));
 				item.setItemAppDate(rset.getDate("ITEM_APP_DATE"));
 				//item.setItemBrandModel(rset.getString("ITEM_BRAND_MODEL"));
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
