@@ -24,9 +24,6 @@ public class QuestionDetailServlet extends HttpServlet {
 		
 		QNA questionDetail = new QNAService().getQnaDetail(qnaId);
 		
-		System.out.println("questionDetail : " + questionDetail);
-		
-		
 		String page = "";
 		
 		if(questionDetail != null) {
