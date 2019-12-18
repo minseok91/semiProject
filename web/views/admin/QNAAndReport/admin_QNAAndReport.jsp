@@ -93,7 +93,7 @@ html, body {
 }
 
 #container_Box > div > p, h3 {
-	width: 90px;
+	
 	margin: 0;
 	float: left;
 	
@@ -166,7 +166,6 @@ html, body {
 }
 
 #NoticeNumber > h4 {
-	width: 34px;
 	margin-bottom: 0px;
 	margin-top: 17px;
 	float: left;
@@ -202,7 +201,7 @@ html, body {
 			</div>
 			<div>
 			<div id="NoticeNumber">
-				<p>총 게시판 수 :</p><h4><%=list.size() %>명</h4>
+				<p>총 게시판 수 :</p><h4><%= ListCount %>명</h4>
 			</div>
 				<table id="table">
 					<tr>
@@ -238,8 +237,18 @@ html, body {
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
 					<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=1'"><<</button>
-					<% for(int p=1; p<=endPage; p++) { %>
+								<% if(currentPage <= 1){ %>
+						<button disabled> < </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=currentPage-1%>'"><</button>
+					<% } %>
+					<% for(int p=startPage; p<=endPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+								<% if(currentPage >= MaxPage){ %>
+						<button disabled> > </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath()%>/QNASelect.qr?currentPage=<%=endPage%>'">>></button>
 				</div>
