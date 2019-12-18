@@ -53,7 +53,10 @@ public class AuctionService {
 		if(result > 0) {
 			int auctionHistoryResult = new AuctionDao().insertAuctionHistory(con, requestAuction, "AHT2");
 			if(auctionHistoryResult > 0) {
-				commit(con);
+				int biddingResult = new AuctionDao().insertBiddingHistory(con, requestAuction);
+				if(biddingResult > 0) {
+					commit(con);
+				}
 			}
 		} else {
 			rollBack(con);
