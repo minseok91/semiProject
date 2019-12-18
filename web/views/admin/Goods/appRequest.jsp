@@ -26,30 +26,59 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <meta content="text/html;">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="css/admin_appRequest.css">
- <style>
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
+<style>
+	.container {
+		width: 1080px;
+		margin: 0 auto;
+		padding: 6px 0px 0;
+	}
+	.contents{
+		height:650px;
+		width:inherit;
+	}
+	
+	#headArea {
+		width: inherit;
+	}
+	
+	#headSearchArea, #headBoardArea {
+		display: inline-block;
+		float: left;
+	}
+	
+	
+	.container>.contents>#boardArea {
+		width: inherit;
+	}
+	.container>.contents>#boardArea>#tableBoardArea {
+		width: inherit;
+	}
+	.container>.contents>#boardArea>#tableBoardArea>tr {
+		height: 30px;
+	}
+	
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
     
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%; /* Could be more or less, depending on screen size */                          
-        }
+     /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 30%; /* Could be more or less, depending on screen size */                          
+    }
  	#acpContent{
  		/* display:hidden; */
  	}
@@ -60,11 +89,11 @@
 </head>
 <body>
 <%@ include file="../common/headerPage.jsp" %>
-	<div id="container">
-		<div id="container_Box">
-			<div>
-				<div>
-					<table id="search_Box">
+	<div class="container">
+		<div class="contents">
+			<div id="headArea">
+				<div id="headSearchArea">
+					<table id="tableSearchArea" border="1">
 						<tr>
 							<td>아이디 검색</td>
 							<td>
@@ -72,29 +101,27 @@
 								<button id="idSearchBtn">검색</button>
 							</td>
 						</tr>
-					</table>
-				</div>
-				<div>
-					<table id="search_Box">
-							<tr>
-								<td>검색판명 선택</td>
-								<td>
+					</table>  <!-- tableSearchArea end -->
+				</div>  <!-- headSearchArea end -->
+				<div id="headBoardArea">
+					<table id="selectArea" border="1">
+						<tr>
+							<td>검색판명 선택</td>
+							<td>
 								<select>
 									<option> -- 선택 -- </option>
 									<option> 자유 게시판 </option>
 									<option> 건의 게시판 </option>
 									<option> 리뷰 게시판 </option>
 								</select>
-								</td>
-							</tr>
-						</table>
-				</div>
-			</div>
-			<div>
-			<div id="NoticeNumber">
-				<p>총 게시판 수 :</p><h4>4명</h4>
-			</div>
-				<table id="table">
+							</td>
+						</tr>
+					</table>  <!-- selectArea end -->
+				</div>  <!-- headBoardArea end -->
+			</div>  <!-- headArea end -->
+			<br /><br />
+			<div id="boardArea">
+				<table id="tableBoardArea" border="1">
 				<!-- 리스트번호,상품번호,상품종류,회원아이디.신청받은날짜.배송받은날짜,처리기한 -->
 					<tr>
 						<th>No.</th>
@@ -120,95 +147,91 @@
 						</td>
 					</tr>
 			<% k++; } %>
-					
-				</table>
-			</div>
+				</table>  <!-- tableBoardArea end -->
+			</div>  <!-- boardArea end -->
+			<br />
 			<div class="pagingArea" align="center">
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=1'"><<</button>
-		<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
-		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage-1%>'"><</button>
-		<% } %>
-		
-		
-		<% for(int p = startPage ; p <= endPage; p++){ 
-				if(p == currentPage){
-		%>
-				<button disabled><%=p %></button>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=1'"><<</button>
+				<% if(currentPage <= 1){ %>
+					<button disabled> < </button>
 				<% } else { %>
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=p%>'"><%=p %></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage-1%>'"><</button>
 				<% } %>
 			
-		<% } %>
-		
-		<% if(currentPage >= maxPage){ %>
-			<button disabled> > </button>
-		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage + 1 %>'"> > </button>
-		<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=maxPage%>'">>></button>
-		</div>  <!--  pagingArea End game -->
-			<!-- The Modal -->
-    <div id="myModal" class="modal">
- 
-      <!-- Modal content -->
-      <div class="modal-content">
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
-                <p style="text-align: center; line-height: 1.5;">
-                <form action="<%=request.getContextPath() %>/insert.app" method="post" encType="multipart/form-data">
-					<input type="radio" name="isGen" id="accept" value="Y" checked>
-					<label for="accept">진품</label>
-					<input type="radio" name="isGen" id="reject" value="N">
-					<label for="reject">가품</label>
-					<div id="acpContent">
-						여기는 진품일 시에 넣는 공간
-						<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
-    					<!--이건 생성된거를  APP_RESULT_NO NUMBER, -->
-    					<!--브랜드  BRAND VARCHAR2(50), -->
-    					<!--모델네임 MODEL_NAME VARCHAR2(50), -->
-    					<!-- 가격 APP_PRICE NUMBER -->
-    					<input type="text" name="brand" placeholder="브랜드">
-    					<input type="text" name="model" placeholder="모델명">
-    					<input type="text" name="price" placeholder="가격">
-						<input type="text" id="acpName" value="">
-						<label>진품입니까?</label>
-						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,2)">
-						<img width="120" height="100" id="contentImg1">
-						
-						<textarea name="comment" cols="40" rows="5"></textarea> 
-						<input type="submit" value="입력하기">
-					</div>
-					<div id="rejContent">
-					여기는 가품일 시에 넣는 공간
-					<br>
-						<label>제품ID</label>
-						<input type="text" id="rejName" name="rejName" value="">
-						<br>
-						<label>가품입니까?</label>
-						<textarea name="comment2" cols="40" rows="5"></textarea> 
-						<br>
-						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
-						<img width="120" height="100" id="titleImg">
-						<input type="submit" value="입력하기">
-					</div>
-				</form>
-				</p>
-                <p><br /></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;" >
-                     닫기
-                </span>
-            </div>
-      </div>
- 
-    </div>
-        <!--End Modal-->
-
-
 			
-		</div>
-	</div>
+				<% for(int p = startPage ; p <= endPage; p++){ 
+					if(p == currentPage){
+				%>
+						<button disabled><%=p %></button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=p%>'"><%=p %></button>
+					<% } %>
+				
+				<% } %>
+			
+				<% if(currentPage >= maxPage){ %>
+					<button disabled> > </button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=currentPage + 1 %>'"> > </button>
+				<% } %>
+				<button onclick="location.href='<%=request.getContextPath()%>/selectAll.it?currentPage=<%=maxPage%>'">>></button>
+			</div>  <!--  pagingArea end -->
+			
+			<!-- The Modal -->
+    		<div id="myModal" class="modal">
+      			<!-- Modal content -->
+      			<div class="modal-content">
+                	<p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
+                	<p style="text-align: center; line-height: 1.5;">
+                	<form action="<%=request.getContextPath() %>/insert.app" method="post" encType="multipart/form-data">
+						<input type="radio" name="isGen" id="accept" value="Y" checked>
+						<label for="accept">진품</label>
+						<input type="radio" name="isGen" id="reject" value="N">
+						<label for="reject">가품</label>
+						<div id="acpContent">
+							여기는 진품일 시에 넣는 공간
+							<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
+	    					<!--이건 생성된거를  APP_RESULT_NO NUMBER, -->
+	    					<!--브랜드  BRAND VARCHAR2(50), -->
+	    					<!--모델네임 MODEL_NAME VARCHAR2(50), -->
+	    					<!-- 가격 APP_PRICE NUMBER -->
+	    					<input type="text" name="brand" placeholder="브랜드">
+	    					<input type="text" name="model" placeholder="모델명">
+	    					<input type="text" name="price" placeholder="가격">
+							<input type="text" id="acpName" value="">
+							<label>진품입니까?</label>
+							<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,2)">
+							<img width="120" height="100" id="contentImg1">
+							<textarea name="comment" cols="40" rows="5"></textarea> 
+							<input type="submit" value="입력하기">
+						</div>  <!-- acpContent end -->
+						<div id="rejContent">
+							여기는 가품일 시에 넣는 공간
+							<br>
+							<label>제품ID</label>
+							<input type="text" id="rejName" name="rejName" value="">
+							<br>
+							<label>가품입니까?</label>
+							<textarea name="comment2" cols="40" rows="5"></textarea> 
+							<br>
+							<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
+							<img width="120" height="100" id="titleImg">
+							<input type="submit" value="입력하기">
+						</div>  <!-- rejContent end -->
+					</form>
+                	<p><br /></p>
+            		<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
+                		<span class="pop_bt" style="font-size: 13pt;" >
+                     	닫기
+               			</span>
+            		</div>
+      			</div>  <!-- modal-content end -->
+    		</div>  <!-- myModal end -->
+        	<!--End Modal-->
+        	
+		</div>  <!-- contents end -->
+	</div>  <!-- container end -->
+	
 	<script>
 	$(function(){
 		$("tr").click(function(){
@@ -274,7 +297,6 @@
 	      $('#myModal').hide();
 	 };	
 		
-	</script>
-	
+	</script>	
 </body>
 </html>
