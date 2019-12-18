@@ -10,12 +10,22 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,  com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*, com.kh.lp.appraisal.model.vo.*" %>
     
 <% HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list"); 
-ArrayList<Attachment> atList = (ArrayList<Attachment>) list.get("attach");
+ArrayList<com.kh.lp.common.Attachment> atList = (ArrayList<com.kh.lp.common.Attachment>) list.get("attach");
 System.out.println("atList : " + atList );
 Auction au = (Auction) list.get("auction");
+AR1 ar1 = (AR1) list.get("ar1");
+System.out.println("ar1 : " + ar1 );
+Watch w = (Watch) list.get("w");
+System.out.println("w : " + w );
+Bag b = (Bag) list.get("b");
+System.out.println("b : " + b );
+ArrayList<BiddingHistory> bhList  = (ArrayList<BiddingHistory>) list.get("bhList");
+System.out.println("bhList : " + bhList );
+String memberId = (String) list.get("memberId");
+System.out.println("memberId : " + memberId );
 %>
 <!DOCTYPE html>
 <html>
@@ -254,13 +264,13 @@ Auction au = (Auction) list.get("auction");
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<label id="wish" href="#"><%if(au.getCount() == 0){ %> 
+						<label id="wish" href="#">
+						<%if(au.getAuctionCount() == 0){ %> 
 							경매 준비
-							
-						<% } else if(au.getCount() == 1) {%>
-						경매중
-						<% } else if(au.getCount() == 2) {%>
-						재경매
+						<% } else if(au.getAuctionCount() == 1) {%>
+							경매중
+						<% } else if(au.getAuctionCount() == 2) {%>
+							재경매
 						<% } %>
 						</label>
 						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
@@ -279,15 +289,17 @@ Auction au = (Auction) list.get("auction");
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label><br>
+						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %> (442622)</label><br>
 						<label>경매 남은시간 : 20:00:14</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>판매자 ID : yoon1023</label>
+						<label>판매자 ID : <%=memberId %></label>
 						<button id="appDoc">보증서보기</button>
 					</div>
 					
 					<div id="biddingUsers">
-							<div><상위 입찰자><button id="detail">상세보기</button></div>
+							<div>
+								<상위 입찰자><button id="detail">상세보기</button>
+							</div>
 							
 							<table>
 								<tr>	
@@ -296,7 +308,16 @@ Auction au = (Auction) list.get("auction");
 									<th>입찰 금액</th>
 									<th>입찰 시간</th>
 								</tr>
+								<%int i = 1; for(BiddingHistory bh :bhList ){ %>
 								<tr>
+									<td><%=i%> 순위 </td>
+									<td><%=bh.getBiddingMemberId() %></td>
+									<td><%=bh.getBiddingPrice() %></td>
+									<td><%=bh.getBiddingDate() %> <%=bh.getBiddingTime() %></td>
+								</tr>
+								
+								<%i++; } %>
+								<!-- <tr>
 									<th>1순위</th>
 									<td>yang****</td>
 									<td>1,600,000원</td>
@@ -325,7 +346,7 @@ Auction au = (Auction) list.get("auction");
 									<td>gurw**</td>
 									<td>1,400,000원</td>
 									<td>3시간 전</td>
-								</tr>
+								</tr> -->
 								
 							</table>
 						</div>
@@ -335,39 +356,75 @@ Auction au = (Auction) list.get("auction");
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
 				<div id="detailContent">
-					<label>상품 상세</label>
-					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
-				</div>
-				
+				<label>상품 상세</label>
+					<div class="goods">
 				<div id="goods">
 					<label>상품 정보</label>
+					<table >
+						<tr>
+							<td>브랜드</td>
+							<td><%=ar1.getAr1Brand() %></td>
+						</tr>
+						<tr>
+							<td>모델명</td>
+							<td><%=ar1.getAr1Model() %></td>
+						</tr>
+						<tr>
+							<td>감정가</td>
+							<td><%=ar1.getAr1Price() %></td>
+						</tr>
+						<tr>
+							<td>등급</td>
+							<td><%= ar1.getAr1Condition() %></td>
+						</tr>
+					</table>
+					</div>
+				</div>
+				<% if(ar1.getAr1BagDetail() > 0){ %>
+				<div id="bagDetail" class="goods">
+					<label>상품 정보 상세</label>
 					<table>
 						<tr>
-							<td>보증서 유무</td>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
+							<td>끈 높이</td>
+							<td><%=b.getBagStrap() %></td>
 						</tr>
 						<tr>
-							<td>시리얼 넘버</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td>사이즈</td>
+							<td><%=b.getBagSize() %></td>
 						</tr>
 						<tr>
-							<td>오리지널 박스 유무</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>케이스 크기</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>재질</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>무브먼트 종류</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td>성별</td>
+							<td><%=b.getGender() %></td>
 						</tr>
 					</table>
 				</div>
+				<% } else{%>
+				<div id="watchDetail" class="goods">
+					<label>상품 정보 상세</label>
+					<table>
+						<tr>
+							<td>보증서 유무</td>
+							<td><%=w.getWatchGuaranteeYn() %></td>
+						</tr>
+						<tr>
+							<td>오리지널 박스 유무</td>
+							<td><%= w.getWatchBoxYn() %></td>
+						</tr>
+						<tr>
+							<td>재질</td>
+							<td><%=w.getWatchMaterial() %></td>
+						</tr>
+						<tr>
+							<td>무브먼트 종류</td>
+							<td><%=w.getWatchMovement() %></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><%=w.getWatchChronograph() %></td>
+						</tr>
+					</table>
+				</div>
+				<% } %>
 			</div> <!-- part2 End -->
 		</div> <!-- container End -->
 	</section>
