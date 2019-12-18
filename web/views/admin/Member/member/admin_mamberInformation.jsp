@@ -145,7 +145,7 @@ html, body {
 					<% for(int p=1; p<=MaxPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=endPage%>'">>></button>
+					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
 			</div>
 		</div>

@@ -33,10 +33,11 @@ public class BoardDeleteServlet extends HttpServlet {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String type = request.getParameter("type");
 		
-		
+		System.out.println("게시판 삭제 servlet : " + boardId);
 		int result = new BoardService().deleteBoard(boardId); 
 		String page = ""; 
 		if(result > 0) { 
+			//타입을 구분하여 삭제후 해당 게시판으로 이동한다.
 			if(type.equals("BT4")) {
 				page = "selectFAQ.bo";
 			} else {

@@ -24,64 +24,6 @@
 <head>
 <meta content="text/html;">
 </head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
-<title>Insert title here</title>
-<style>
-	html, body {
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	height: 100%;
-}
-.container {
-	width: 1080px;
-	height: 800px;
-	margin-left: auto;
-	margin-right: auto;
-}
-.contents{
-	width: 100%;
-	height: 90%;
-	margin-top: 10%;
-	
-}
-#infoBox {
-	width: 90%;
-	height: 100%;
-	margin: 0 auto;
-}
-#infoTable {
-	margin-top: 56px;
-	margin-left: 38%;	
-	width: 45%;
-	border-collapse: collapse;
-}
-#infoTable  td{
-	height: 60px;
-}
-td:nth-of-type(1) {
-	font-weight: bold;
-	color: #404040;
-}
-td:nth-of-type(2) {
-	color: #000000;
-}
-#infoBox > h3{
-	text-align: center;
-}
-#buttonBox {
-	margin-top: 30px;
-	width: 73.03px;
-	margin-left: auto;
-	margin-right: auto;
-}
-#buttonBox button {
-	background: rgb(33, 31, 34);
-	border: 1px solid rgb(33, 31, 34);
-	color: rgb(160, 115, 66);
-}
-</style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>회원정보 관리 상세</title>
 <style>
 html, body {
 	padding: 0;
@@ -158,6 +100,7 @@ input:nth-of-type(text) {
 	overflow: scroll;
 }
 input[type="text"] {
+	width: 90%;
 	margin-left: 30px;
 	border: hidden;
 }
@@ -206,7 +149,7 @@ input[type="text"]:focus {
 						</tr>
 						<tr>
 							<td>수정일</td>
-							<td id="today"><input type="text" id="today" name="date" value="<%= today %>"></td>
+							<td id="today"><input type="text" id="today" name="date" value="<%= today %>" readonly></td>
 						</tr>
 						<tr>
 							<td>내용</td>

@@ -65,10 +65,10 @@ public class BoardService {
 	 * @param num
 	 * @return
 	 */
-	public int deleteBoard(int num) {
+	public int deleteBoard(int boardId) {
 		Connection con = getConnection();
 		
-		int result = new BoardDao().deleteBoard(con, num);
+		int result = new BoardDao().deleteBoard(con, boardId);
 		
 		if(result > 0) {
 			commit(con);

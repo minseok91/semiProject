@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.admin.member.model.vo.memberHistory;
+import com.kh.lp.admin.member.model.vo.MemberHistory;
 
 
 /**
@@ -36,7 +36,7 @@ public class admin_memberTypeUpdateServlet extends HttpServlet {
 		String text = request.getParameter("text");
 		String status = request.getParameter("status");
 		
-		memberHistory memberHistory = new memberHistory();
+		MemberHistory memberHistory = new MemberHistory();
 		memberHistory.setMemberNo(MemberNo);
 		memberHistory.setMemberHistoryType(type);
 		memberHistory.setMemberHistoryDetail(text);

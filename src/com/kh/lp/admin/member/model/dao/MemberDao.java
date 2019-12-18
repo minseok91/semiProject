@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.admin.member.model.vo.Member;
-import com.kh.lp.admin.member.model.vo.memberHistory;
+import com.kh.lp.admin.member.model.vo.MemberHistory;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -199,6 +199,7 @@ public class MemberDao {
 			
 			while(rset.next()) {
 				m = new Member();
+				m.setRowNum(rset.getInt("RNUM"));
 				m.setMemberNo(rset.getInt("MEMBER_NO"));
 				m.setMemberId(rset.getString("MEMBER_ID"));
 				m.setMemberPwd(rset.getString("MEMBER_PWD"));
@@ -257,7 +258,7 @@ public class MemberDao {
 		
 		return result;
 	}
-	public int historyUpdate(Connection con, memberHistory memberHistory) {
+	public int historyUpdate(Connection con, MemberHistory memberHistory) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		

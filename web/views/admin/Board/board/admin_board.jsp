@@ -162,7 +162,6 @@ html, body {
 }
 
 #NoticeNumber>p {
-	width: 101px;
 	margin-bottom: 0px;
 	margin-top: 17px;
 	float: left;
@@ -189,7 +188,7 @@ html, body {
 				<table id="search_Box">
 					<tr>
 						<td><select id="boardType" name="boardType">
-								<option>-- 선택 --</option>
+								<option value="NO">-- 선택 --</option>
 								<option value="BT1">자유 게시판</option>
 								<option value="BT2">건의 게시판</option>
 								<option value="BT3">리뷰 게시판</option>
@@ -206,7 +205,7 @@ html, body {
 			</div>
 			<div>
 				<div id="NoticeNumber">
-					<p>총 게시판 글 :</p><h4><%= list.size() %>개</h4>
+					<p>총 게시판 글 :</p><h4><%= listCount %>건</h4>
 				</div>
 				<table id="table">
 					<tr>
@@ -278,14 +277,13 @@ html, body {
 		</div>
 	</div>
 	<script>
-	$("table > td").click(function(e) {
+	$("#table  td").click(function(e) {
 				var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;
 				var boardId = e.target.parentNode.parentNode.children[0].children[0].value;
 			if(e.target.innerHTML == '수정'){
 				 location.href="<%=request.getContextPath()%>/selectOne.bo?boardId="+boardId+"&MemberName="+MemberName
 			} else if(e.target.innerHTML == '삭제'){
-				location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId
-				console.log(e.target.innerHTML);
+				location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId+"&type=a"
 			} else {
 				var memberName = e.target.parentNode.children[0].children[1].value;
 				var boardId = e.target.parentNode.children[0].children[0].value;
@@ -297,20 +295,138 @@ html, body {
 		})
 		
 		$(function(){
-			
+			var type;
+			var datatype;
 			$("#boardType").click(function(e){
+				if($("#boardType")[0].value != "NO"){
+					$.ajax({
+						url : "BoardSelectType.bo",
+						data : {
+							type : e.target.value,
+						},
+						type : "GET",
+						success:function(data) {
+							$tableBody = $("#table tbody");
+							$Number = $("#NoticeNumber h4");
+							
+							$Number.html('');
+							$tableBody.html('');
+							
+							var $trh = $("<tr>");
+							var $Th = $("<th>No.</th><th>제목</th><th>작성자</th><th>작성일</th><th>수정일</th><th>게시판종류</th><th>조회수</th><th>기능</th>");
+							$trh.append($Th);
+							$tableBody.append($trh);
+							$Number.append(data[1].listCount+"건");
+							
+							datatype = data[0][0].BoardType;
+							
+							
+							switch(datatype){
+							case 'BT1' : type = '자유 게시판'; break;
+							case 'BT2' : type = '건의 게시판'; break;
+							case 'BT3' : type = '리뷰 게시판'; break;
+							}
+							for(var i=0; i<data[0].length; i++){
+								var $tr = $("<tr>");
+								var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='updateBtn'>수정</button> <button id='deleteBtn'>삭제</button></td>");
+								
+								$tr.append($noTd);
+								$tableBody.append($tr);
+							}
+							$nextPageBox = $("#nextPageBox");
+							$nextPageBox.html('');
+							
+							$PagingBtnMin = $('<button class="btn" value="1"><</button>');
+						    $PagingBtnMax = $('<button class="btn" value="'+data[1].maxPage+'">>');
+						    $nextPageBox.append($PagingBtnMin);	
+						    for(var i=1; i<=data[1].maxPage; i++) {
+								
+								var $btn = $('<button class="btn" value="'+i+'">'+i+'</button>');
+								
+								$nextPageBox.append($btn);
+							}
+						    console.log(data);
+							$nextPageBox.append($PagingBtnMax);
+							$("#table td").click(function(e){
+								var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;
+								var boardId = e.target.parentNode.parentNode.children[0].children[0].value;
+								console.log(e.target.innerHTML);
+								if(e.target.innerHTML == "수정"){
+									location.href="<%=request.getContextPath()%>/selectOne.bo?boardId="+boardId+"&MemberName="+MemberName
+								} else if(e.target.innerHTML == "삭제") {
+									location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId+"&type=a"
+								} else {
+									var boardId= e.target.parentNode.children[0].children[0].value;
+									var MemberName = e.target.parentNode.children[0].children[1].value;
+									location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+MemberName;
+									
+								}
+								
+								
+							})
+							
+							$(".btn").click(function(e){
+								
+								$.ajax({
+									url:  "BoardSelectType.bo" ,
+									data : {
+										type : datatype,
+										currentPage : e.target.value
+									},
+									type : "GET",
+									success:function(data) {
+										$tableBody = $("#table tbody");
+										$Number = $("#NoticeNumber h4");
+										
+										$Number.html('');
+										$tableBody.html('');
+										
+										var $trh = $("<tr>");
+										var $Th = $("<th>No.</th><th>제목</th><th>작성자</th><th>작성일</th><th>수정일</th><th>게시판종류</th><th>조회수</th><th>기능</th>");
+										$trh.append($Th);
+										$tableBody.append($trh);
+										$Number.append(data[1].listCount+"건");
+										
+										datatype = data[0][0].BoardType;
+										
+										
+										switch(datatype){
+										case 'BT1' : type = '자유 게시판'; break;
+										case 'BT2' : type = '건의 게시판'; break;
+										case 'BT3' : type = '리뷰 게시판'; break;
+										}
+										for(var i=0; i<data[0].length; i++){
+											var $tr = $("<tr>");
+											var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='updateBtn'>수정</button> <button id='deleteBtn'>삭제</button></td>");
+											
+											$tr.append($noTd);
+											$tableBody.append($tr);
+										}
+										$("#table td").click(function(e){
+											var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;
+											var boardId = e.target.parentNode.parentNode.children[0].children[0].value;
+											console.log(e.target.innerHTML);
+											if(e.target.innerHTML == "수정"){
+												location.href="<%=request.getContextPath()%>/selectOne.bo?boardId="+boardId+"&MemberName="+MemberName
+											} else if(e.target.innerHTML == "삭제") {
+												location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId+"&type=a"
+											} else {
+												var boardId= e.target.parentNode.children[0].children[0].value;
+												var MemberName = e.target.parentNode.children[0].children[1].value;
+												location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+MemberName;
+												
+											}
+											
+											
+										})
+									}
+								})
+							})
+						}
+						
+					})
+				}
 				
-				$.ajax({
-					url : "BoardSelectType.bo",
-					data : {
-						type : e.target.value,
-						currentPage : <%=pi.getCurrentPage()%>
-					},
-					type : "GET",
-					success:function(data) {
-						console.log("전송 성공");
-					}
-				})
 			})
 		})
 		

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import com.kh.lp.admin.member.model.dao.MemberDao;
 import com.kh.lp.admin.member.model.vo.Member;
-import com.kh.lp.admin.member.model.vo.memberHistory;
+import com.kh.lp.admin.member.model.vo.MemberHistory;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -116,7 +116,7 @@ public class MemberService {
 	 * @param memberHistory
 	 * @return
 	 */
-	public int historyUpdate(memberHistory memberHistory) {
+	public int historyUpdate(MemberHistory memberHistory) {
 		Connection con = getConnection();
 		
 		//타입을 멤버타입히스토리에 맞는 타입으로 변경

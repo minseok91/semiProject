@@ -48,8 +48,10 @@ public class admin_memberInformationServlet extends HttpServlet {
 		
 		int listCount = new MemberService().listCount("MS1","MS2");
 		maxPage = (int)((double)listCount/limit+0.9);
-		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
-		endPage = startPage + 10 - 1;
+		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
+		endPage = startPage + 5 - 1;
+		
+		
 		if(endPage >= maxPage) {
 			endPage = maxPage;
 		}
@@ -74,5 +76,5 @@ public class admin_memberInformationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
 }
