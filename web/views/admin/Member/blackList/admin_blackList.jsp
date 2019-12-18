@@ -122,7 +122,7 @@
 						<th>휴대폰번호</th>
 						<th>주소</th>
 						<th>이메일</th>
-						<th>설정</th>
+						<!-- <th>설정</th> -->
 					</tr>
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
@@ -132,10 +132,10 @@
 							<td><%= blackList.get(i).getMemberPhone()%></td>
 							<td style="width: 394px"><%= blackList.get(i).getMemberAddress()%></td>
 							<td><%= blackList.get(i).getMemberEmail() %></td>
-							<td>
+							<%-- <td>
 								<button class="withdraw" value="<%= blackList.get(i).getMemberId()%>">탈퇴</button>
 								<button class="release" value="<%= blackList.get(i).getMemberId()%>">해제</button>
-							</td>
+							</td> --%>
 						</tr>
 					<% } %>
 					

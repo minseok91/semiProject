@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.lp.admin.board.model.service.BoardService;
 import com.kh.lp.common.PageInfo;
 
@@ -47,14 +48,17 @@ public class BoardSelectTypeServlet extends HttpServlet {
 		}
 		limit = 10;
 		int listCount=0;
-
 		//게시판의 종류가 -- 선택 -- 이 아닌것을 선택하기 위해 
-		if(!type.equals("-- 선택 --")) {
+			
+		
 			listCount = new BoardService().selectCount(type);
+			
+			System.out.println(type);
 			
 			maxPage = (int)((double)listCount/limit+0.9);
 			startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 			endPage = startPage + 10 - 1;
+			
 			if(endPage >= maxPage) {
 				endPage = maxPage;
 			}
@@ -63,8 +67,15 @@ public class BoardSelectTypeServlet extends HttpServlet {
 			ArrayList<HashMap<String, Object>> list = new BoardService().selectType(currentPage, limit, type);
 			String page = "";
 			
+			ArrayList<Object> allList = new ArrayList<>();
+			allList.add(list);
+			allList.add(pi);
 			
-		}
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			new Gson().toJson(allList,response.getWriter());
+			
+			
 		
 		System.out.println(listCount);
 		

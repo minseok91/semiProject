@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class memberHistory {
+public class MemberHistory {
 	private String memberHistoryId;
 	private int memberNo;
 	private Date memberHistoryDate;

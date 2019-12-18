@@ -137,7 +137,7 @@ public class BoardDao {
 		return b;
 	}
 
-	public int deleteBoard(Connection con, int num) {
+	public int deleteBoard(Connection con, int boardId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -145,7 +145,7 @@ public class BoardDao {
 		
 		try {
 			pstmt  = con.prepareStatement(query);
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, boardId);
 			
 			result = pstmt.executeUpdate();
 			
@@ -356,13 +356,28 @@ public class BoardDao {
 			rset = pstmt.executeQuery();
 			
 			//  여기부터 ****
+			list = new ArrayList<>();
 			while(rset.next()) {
+				hm = new HashMap<>();
+				hm.put("Rnum", rset.getInt("RNUM"));
+				hm.put("BoardId", rset.getInt("BOARD_ID"));
+				hm.put("BoardMemberNo", rset.getInt("BOARD_MEMBER_NO"));
+				hm.put("MemberName", rset.getString("MEMBER_NAME"));
+				hm.put("BoardTitle", rset.getString("BOARD_TITLE"));
+				hm.put("BoardDate", rset.getString("BOARD_DATE").substring(0,10));
+				hm.put("BoardModifyDate", rset.getString("BOARD_MODIFY_DATE").substring(0,10));
+				hm.put("BoardType", rset.getString("BOARD_TYPE"));
+				hm.put("BoardCount", rset.getInt("BOARD_COUNT"));
 				
+				list.add(hm);
 			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
 		}
 		
 		
