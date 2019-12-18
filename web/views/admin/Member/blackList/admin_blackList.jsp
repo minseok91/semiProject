@@ -11,6 +11,7 @@
 	int limit = pi.getLimit();
 	int ListCount = pi.getListCount();
 	int MaxPage = pi.getMaxPage();
+	System.out.println("JSP : "+pi);
 %>
 <!DOCTYPE html>
 <html>
@@ -144,8 +145,18 @@
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
 					<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=1'"><<</button>
-					<% for(int p=1; p<=endPage; p++) { %>
+					<% if(currentPage <= 1){ %>
+						<button disabled> < </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+					<% } %>
+					<% for(int p= startPage; p<=endPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+					<% if(currentPage >= MaxPage){ %>
+						<button disabled> > </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=endPage%>'">>></button>
 				</div>

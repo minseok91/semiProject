@@ -84,6 +84,7 @@ html, body {
 	height: 100%;
 	border: none;
 	margin-top: 10px;
+	float: right;
 }
 
 #search_Box tr td:nth-of-type(1) {
@@ -258,7 +259,7 @@ html, body {
 		<% } %>
 		
 		
-		<% for(int p = 1 ; p <= maxPage; p++){ 
+		<% for(int p = startPage ; p <= maxPage; p++){ 
 		%>			
 					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>	
 		<% 

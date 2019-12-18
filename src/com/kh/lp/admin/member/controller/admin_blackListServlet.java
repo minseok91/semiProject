@@ -51,13 +51,14 @@ public class admin_blackListServlet extends HttpServlet {
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		
+		
 		endPage = startPage + 10 - 1;
 		
-		if(endPage <= maxPage) {
+		if(endPage >= maxPage) {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, listCount, limit,maxPage,startPage,endPage);
+		PageInfo pi = new PageInfo(currentPage, limit, startPage, endPage , maxPage, listCount);
 		ArrayList<Member> list = new MemberService().selectBlackList(currentPage, limit);
 		
 		String page = "";
