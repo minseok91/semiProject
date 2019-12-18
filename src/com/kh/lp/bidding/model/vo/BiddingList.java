@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BiddingList {
 	
-	private int biddingId;
-	private int biddingAuctionId;
 	private int biddingMemberNo;
+	private int biddingAuctionId;
 	private int biddingMemberPrice;
-	private int biddingHighestPrice;
-	private String brandModel;
+	private String model;
+	private String brand;
 	private String thumbnailRename;
+	private int biddingMaxPrice;
 	
 }
 
