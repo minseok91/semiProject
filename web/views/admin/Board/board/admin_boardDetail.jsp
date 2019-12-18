@@ -307,7 +307,7 @@ input[type="text"]:focus {
 	<script>
 		$(function(){
 			
-			$("#comment_btn").click(function(){
+			$("#comment_btn").click(function click(){
 					var comment = $("#comment_text")[0].value;
 					console.log(comment);
 					
@@ -343,7 +343,7 @@ input[type="text"]:focus {
 		
 		
 		$(".dropbtn").click(function(e){
-			console.log(e.target.value);
+			console.log(e.target.parentNode.parentNode)
 			$("#comment_text").val('');	
 			 $.ajax({
 				url : "BoardDeleteReply.bo",
@@ -353,36 +353,16 @@ input[type="text"]:focus {
 				},
 				type : "GET",
 				success:function(data) {
-					$("#comment_div").html('');	
-						console.log(data);
-						
-						
-					for(var i=0; i<data.length; i++) {
+					/* $("#comment_div").html('');	 */
+					/* for(var i=0; i<data.length; i++) {
 						 if(data[i].replyStatus == "Y"){
 							 $("#comment_div").append("<div id='comment'><div>작성자 : "+data[i].replyMemberName+"</div><div>작성일 : "+data[i].replyDate+"<button class='dropbtn' value='"+data[i].replyId+"'>댓글 삭제</button></div><div>"+data[i].replyContent+"</div><hr></div>");
 						 } else {
 							 $("#comment_div").append("<div id='comment'>삭제된 댓글입니다.<hr></div>");
 						} 
-					}
-					
-					//
-					$(".dropbtn").click(function(e){
-					console.log(e.target.value);
-							 $.ajax({
-								url : "BoardDeleteReply.bo",
-								data : {
-									replyId : e.target.value,
-									boardId : <%=list.getBoardId()%>
-								},
-								type : "GET",
-								success:function(data) {
-										console.log(data);
-								}
-				
-							})
-									})
-								}
-
+					} */
+					e.target.parentNode.parentNode.remove();
+				}
 			}) 	
 		})
 	</script>
