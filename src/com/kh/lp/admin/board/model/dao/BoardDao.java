@@ -32,6 +32,14 @@ public class BoardDao {
 		
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:22:22
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:22:22
+	 * @Description   : 게시판 갯수 조회
+	 * @param con
+	 * @return
+	 */
 	public int listCount(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -57,6 +65,16 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:21:51
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:21:51
+	 * @Description   : 페이징 포함한 게시판 검색
+	 * @param con
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
 	public ArrayList<Board> BoardPaging(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -104,6 +122,15 @@ public class BoardDao {
 		return list;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:21:26
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:21:26
+	 * @Description   : 게시판 상세로 들어가기 위한 필요한 정보 조회
+	 * @param con
+	 * @param bid
+	 * @return
+	 */
 	public Board selectOneBoard(Connection con, int bid) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -137,6 +164,15 @@ public class BoardDao {
 		return b;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:21:15
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:21:15
+	 * @Description   : 게시물 제거
+	 * @param con
+	 * @param boardId
+	 * @return
+	 */
 	public int deleteBoard(Connection con, int boardId) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -160,6 +196,15 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:20:55
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:20:55
+	 * @Description   : 게시물 추가
+	 * @param con
+	 * @param b
+	 * @return
+	 */
 	public int insertBoard(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -184,6 +229,15 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:20:36
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:20:36
+	 * @Description   : 게시판 작성자 번호 가져오기
+	 * @param con
+	 * @param writer
+	 * @return
+	 */
 	public int selectMn(Connection con, String writer) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -211,6 +265,15 @@ public class BoardDao {
 		return memberNo;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:20:07
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:20:07
+	 * @Description   : 게시판 수정하기
+	 * @param con
+	 * @param b
+	 * @return
+	 */
 	public int updateBoard(Connection con, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -262,6 +325,16 @@ public class BoardDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:19:56
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:19:56
+	 * @Description   : FAQ 검색
+	 * @param con
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
 	public ArrayList<Board> selectFAQ(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -336,6 +409,17 @@ public class BoardDao {
 		return FAQListCount;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:19:37
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:19:37
+	 * @Description   : 타입을 이용한 게시판 검색
+	 * @param currentPage
+	 * @param limit
+	 * @param con
+	 * @param type
+	 * @return
+	 */
 	public ArrayList<HashMap<String, Object>> selectType(int currentPage, int limit, Connection con, String type) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -385,6 +469,15 @@ public class BoardDao {
 		return list;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 18. 오후 7:19:17
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:19:17
+	 * @Description   : 게시판 갯수 읽어오기
+	 * @param type
+	 * @param con
+	 * @return
+	 */
 	public int selectCount(String type, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

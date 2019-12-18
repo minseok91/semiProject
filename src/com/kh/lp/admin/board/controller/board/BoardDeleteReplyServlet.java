@@ -35,7 +35,7 @@ public class BoardDeleteReplyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardReply = Integer.parseInt(request.getParameter("replyId"));
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
-		/* int deleteBoardReply = new ReplyService().deleteBoardReply(boardReply); */
+		int deleteBoardReply = new ReplyService().deleteBoardReply(boardReply);
 		
 		ArrayList<Reply> list = new ReplyService().selectAll(boardId);
 		
