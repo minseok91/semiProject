@@ -346,7 +346,120 @@ public class QNADao {
 		
 		return result;
 	}
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  QNA테이블에서 로그인돼있는 멤버의 QNA 리스트 갯수를 반환하는 메소드
+	 * @param
+	 * @return
+	 */
+	public int memberQnaCount(Connection con, int loginMemberNo) {
+		int result = 0;
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		
+		
+		String query = admin_prop.getProperty("selectMemberQnaCount");
+		
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			
+			while(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
 
+	
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  QNA테이블에서 현재 로그인 되어있는 유저가 작성한 QNA리스트 중 현재 페이지에 해당하는 리스트 10개 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public ArrayList<QNA> memberQnaList(Connection con, int loginMemberNo, int currentPage, int limit) {
+		ArrayList<QNA> memberQnaList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		QNA qna = null;
+		
+		//현재  페이지에서의 리스트 시작번호
+		int startRow = (currentPage -1) * limit + 1;
+		//현재 페이지에서의 리스트 마지막번호
+		int endRow = (startRow + limit -1);
+		
+		
+		String query = admin_prop.getProperty("selectQnaList");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			memberQnaList = new ArrayList<QNA>();
+			
+			while(rset.next()) {
+				
+				qna = new QNA();
+				qna.setRowNum(rset.getInt("RNUM"));
+				qna.setQnaId(rset.getInt("QNA_ID"));
+				qna.setQnaTitle(rset.getString("QNA_TITLE"));
+				qna.setQnaContent(rset.getString("QNA_CONTENT"));
+				qna.setQnaDate(rset.getDate("QNA_DATE"));
+				qna.setQnaStatus(rset.getString("QNA_STATUS"));
+				
+				memberQnaList.add(qna);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		
+		return memberQnaList;
+	}
+	
+	
+	
+	
+	
+	
 }
 
 

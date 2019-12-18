@@ -10,19 +10,23 @@
  */
 --%>
 
-<%@page import="com.kh.lp.common.PageInfo"%>
+
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% 
-//	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-/* 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage(); */
-%>
+    pageEncoding="UTF-8" import = "com.kh.lp.admin.qnaAndReport.model.vo.*, java.util.*, com.kh.lp.common.*"%>
+
+  <% 
+	ArrayList<QNA> memberQnaList = (ArrayList<QNA>)(request.getAttribute("memberQnaList"));
+	PageInfo pInfo = (PageInfo)request.getAttribute("pInfo");
+	int startPage = pInfo.getStartPage();
+	int currentPage = pInfo.getCurrentPage();
+	int endPage = pInfo.getEndPage();
+	int limit = pInfo.getLimit();
+	int listCount = pInfo.getListCount();
+	int maxPage = pInfo.getMaxPage();
+%>   
+
+<%System.out.println(startPage); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -177,7 +181,7 @@ td>img {
 				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
-				<dd><a value="queAndReport/questionList" id="selectMenu">▶  문의 내역</a></dd>
+				<dd><a value="../../qnaList.qr" id="selectMenu">▶  문의 내역</a></dd>
 				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
 				
 				<dt>§  회원정보</dt>
@@ -186,6 +190,9 @@ td>img {
 				
 			</dl>
 		</div>  <!-- myPageMenu end -->
+		
+		
+		
 		<div class="menuStatus">
 			<div class="status1">
 				<h3>&nbsp;&nbsp;<&nbsp;문의 내역 &nbsp;>&nbsp;</h3>
@@ -205,21 +212,27 @@ td>img {
 				</tr>
 				</thead>
 				<tbody id="tableBodyArea">
+ 				  <% for(QNA qna : memberQnaList){%>
 				<tr>
-					<td>1</td>
-					<td>배송하긴 한건가요</td>
-					<td>2019-12-06</td>
-					<td>답변완료</td>
+					<td><%=qna.getRowNum() %></td>
+					<td><%= qna.getQnaTitle() %></td>
+					<td><%= qna.getQnaDate() %></td>
+					<td>
+						<% switch(qna.getQnaStatus()) { 
+						case "QHT1" : %>문의 접수<% 
+						;break;
+						case "QHT2" : %>문의 확인<%
+						;break;
+						case "QHT3" : %>문의 답변<%;break;
+						}
+						%>
+					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>낙찰취소 정말 불가능한건가요</td>
-					<td>2019-12-06</td>
-					<td>답변대기</td>
-				</tr>
+				<%} %>   
 				</tbody>
 			</table> <!-- tableArea End -->
-			<button><a href="question.jsp">문의하기</a></button>
+			<br><br>
+			<button><a href="views/myPage/queAndReport/question.jsp">문의하기</a></button>
 			
 			
 			
@@ -230,35 +243,37 @@ td>img {
 			
 			
 			
-		</div> <!-- contentArea End -->
 		<div class="pagingArea" align="center">	
-<%-- 		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
-			<% if(currentPage <= 1){ %>
+		
+		  <button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=1'"><<</button>
+		<%if(currentPage==1) {%>
 			<button disabled><</button>
-			<% } else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><</button>
-			<% } %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
-				if(p == currentPage){
-			%>
+		<%}else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage-1%>'"><</button>
+		<%} %>
+		
+		<% for(int p = startPage; p<=endPage; p++) {
+			if(p==currentPage){%>
 				<button disabled><%= p %></button>
-			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"><%= p %></button>
-			<% }
-			} %>
-			
-			<% if(currentPage >= maxPage){ %>
+			<%}else { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=p%>'"><%=p %></button>
+			<%}
+		}%>
+		<% if(currentPage >= maxPage) { %>
 			<button disabled>></button>
-			<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></button>
-			<% } %>
-			
-		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage%>'">></button>
-		</div> <!-- pagingArea End --> --%>
-		</div> <!-- contents End -->
-	</div> <!-- container End -->
-	</div>
+		<%} else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage+1%>'">></button>
+		<%} %>
+		
+		<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=maxPage%>'">>></button>
+		
+		
+
+		</div> <!-- pagingArea End -->
+		</div> <!-- contentArea End -->
+		
+	</div> <!-- contents End -->
+	</div><!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
@@ -270,9 +285,30 @@ td>img {
 			$('a').click(function() {
 				let values=$(this).attr('value');
 				console.log(values);
+				console.log('이거 '+'<%= request.getContextPath() %>/views/myPage/'+values+'.jsp');
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		});
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
