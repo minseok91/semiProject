@@ -11,9 +11,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.lp.bidding.controller.watchDetail;
 import com.kh.lp.bidding.model.vo.Bid;
+
+import lombok.extern.log4j.Log4j2;
+
 import static com.kh.lp.common.JDBCTemplate.*;
 
+@Log4j2
 public class bidDao {
 	Properties prop = new Properties();
 	
@@ -68,31 +73,65 @@ public class bidDao {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectWatchDetail(Connection con, int num) {
+	public ArrayList<Bid> selectWatchDetail(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<HashMap<String, Object>> list = null;
+		ArrayList<Bid> list = null;
 		
 		String query = prop.getProperty("selectWatchDetail");
 		
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, num);
-			rset = pstmt.executeQuery(query);
 			
+			rset = pstmt.executeQuery();
 			list = new ArrayList<>();
 			
-			if(rset.next()) {
-				HashMap<String, Object> hmap = new HashMap<String, Object>();
+			while(rset.next()) {
+				Bid b = new Bid();
 				
-				hmap.put("memberId", rset.getString("MEMBER_ID"));
-				hmap.put("fileName", rset.getString("ATTACHMENT_RENAME"));
-				hmap.put("brand", rset.getString("AR1_BRAND"));
-				hmap.put("model", rset.getString("AR1_MODEL"));
+				b.setBidUserId(rset.getString("MEMBER_ID"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
 				
-				list.add(hmap);
+				list.add(b);
 			}
 			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Bid> selectListBidUser(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Bid> list = null;
+		
+		String query = prop.getProperty("selectListBidUser");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Bid b = new Bid();
+				
+				b.setBidUserId(rset.getString("MEMBER_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAuctionStartTime(rset.getDate("BIDDING_TIME")); // 입찰시간
+				
+				list.add(b);
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

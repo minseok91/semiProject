@@ -21,19 +21,24 @@ public class bidService {
 		return list;
 	}
 
-	public ArrayList<HashMap<String, Object>> selectWatchDetail(int num) {
+	public ArrayList<Bid> selectWatchDetail(int num) {
 		Connection con = getConnection();
 		
-		ArrayList<HashMap<String, Object>> list = new bidDao().selectWatchDetail(con, num);
+		ArrayList<Bid> list = new bidDao().selectWatchDetail(con, num);
 		
 		close(con);
 		
 		return list;
 	}
 
-	public ArrayList<Bid> bidUserSelectList() {
+	public ArrayList<Bid> selectListBidUser(int num) {
 		Connection con = getConnection();
-		return null;
+		
+		ArrayList<Bid> list = new bidDao().selectListBidUser(con, num);
+		
+		close(con);
+		
+		return list;
 	}
 
 }

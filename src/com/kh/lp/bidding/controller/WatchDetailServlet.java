@@ -37,10 +37,27 @@ public class watchDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
-		log.debug(num);
 		
-		ArrayList<HashMap<String, Object>> list = new bidService().selectWatchDetail(num);
-		ArrayList<Bid> bidList = new bidService().bidUserSelectList();
+		ArrayList<Bid> list = new bidService().selectWatchDetail(num);
+		ArrayList<Bid> bidList = new bidService().selectListBidUser(num);
+		
+		String page = "";
+		
+		if(list != null) {
+			page = "views/goods/watchDetail.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("bidList", bidList);
+		} else {
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+		}
+		
+		log.debug(list);
+		log.debug(list.size());
+		log.debug(bidList);
+		log.debug(bidList.size());
+		
+		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

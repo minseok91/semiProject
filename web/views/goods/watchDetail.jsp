@@ -1,3 +1,5 @@
+<%@page import="com.kh.lp.bidding.model.vo.Bid"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -210,7 +212,10 @@
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<section>
+	<%
+		ArrayList<Bid> watchDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
+		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
+	%>
 		<div class="container">
 		<div class="contents">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
@@ -224,35 +229,28 @@
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
+							<% for(Bid b : watchDetailInfo) { %>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
 								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
+							<% } %>
 							</tr>
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
-						<label>판매자</label>
+						<label><%= watchDetailInfo.get(0).getBidBrand() +" "+ watchDetailInfo.get(0).getBidModel() %></label>
+						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
 					</div>
 					<div id=set>
 						<div id="price">
 							<label>현재 가격</label>
-							<label>￦1,600,000</label>
+							<label><!-- 리스트에서 긁어오기 --></label>
 						</div>
 						<div id="biddingApply">
 						<form action="" post="get">
-							<label>입찰 단위 : ￦ 80,000</label><br>
+							<label>입찰 단위 : <!-- 최대값의 5% --></label><br>
 							<input type="text" name="bidding" size="25" placeholder="1,680,000원 이상 작성하세요.">
 							<input type="submit" value="입찰">
 						</form>
@@ -266,21 +264,13 @@
 									<th>입찰 금액</th>
 									<th>입찰 시간</th>
 								</tr>
+								<% for(Bid b : watchBiddingUser) { %>
 								<tr>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
+									<td><%= b.getBidUserId() %></td>
+									<td><%= b.getBidPrice() %></td>
+									<td><%= b.getBidAuctionStartTime() %></td> <!-- 입찰한 시간 -->
 								</tr>
-								<tr>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
+								<% } %>
 							</table>
 						</div>
 				</span> <!-- contents End -->
@@ -325,12 +315,11 @@
 			</div> <!-- part2 End -->
 			</div>
 		</div> <!-- container End -->
-	</section>
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script type="text/javascript">
 		$(function() {
-			
+			// 이것도...
 			const title = $('#title').attr('src');
 			$('#detailImg img').mouseover(function() {
 				$('#title').attr('src', $(this).attr('src'));
