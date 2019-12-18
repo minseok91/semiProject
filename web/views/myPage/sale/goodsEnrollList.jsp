@@ -350,6 +350,7 @@ td>a>img {
 					memberNo: <%= loginMember.getMemberNo() %>
 				},
 				success: function(data){
+					console.log(data);
 					var arr = data.split("#");			//객체별로 스플릿
 					for(i in arr) {
 						temp = "";

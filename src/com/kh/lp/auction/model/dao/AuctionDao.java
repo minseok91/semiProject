@@ -21,6 +21,9 @@ import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class AuctionDao {
 	
 	Properties prop = new Properties();
@@ -145,6 +148,7 @@ public class AuctionDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		log.debug(result);
 		return result;
 	}
 
@@ -285,16 +289,14 @@ public class AuctionDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, memberNo);
-			pstmt.setInt(2, memberNo);
-			pstmt.setInt(3, memberNo);
 			rset = pstmt.executeQuery();
 			list = new ArrayList<>();
 			while(rset.next()) {
 				i = new Item();
 				at = new Attachment();
 				au = new Auction();
-				
 				ArrayList<Object> list2 = new ArrayList<>();
+				
 				au.setAuctionId(rset.getInt(1));
 				at.setAttachmentRename(rset.getString(2));
 				i.setItemBrandModel(rset.getString(3));
@@ -312,6 +314,7 @@ public class AuctionDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		log.debug(list);
 		return list;
 	}
 }

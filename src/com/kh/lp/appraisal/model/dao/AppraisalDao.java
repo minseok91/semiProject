@@ -17,7 +17,6 @@ import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
 import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Bag;
-import com.kh.lp.appraisal.model.vo.GenDetail;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
@@ -516,6 +515,15 @@ public class AppraisalDao {
 		return result;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 18. 오전 3:10:47
+	 * @ModifyDate    : 2019. 12. 18. 오전 3:10:47
+	 * @Description   : 등록상품 select 메소드
+	 * @param con
+	 * @param memberNo
+	 * @return
+	 */
 	public ArrayList<ArrayList<Object>> selectItemResult(Connection con, int memberNo) {
 		ArrayList<ArrayList<Object>> app = null;
 		PreparedStatement pstmt = null;

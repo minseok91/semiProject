@@ -45,6 +45,7 @@ public class AuctionDoSelectServlet extends HttpServlet {
 		String msg = "";
 		if(list != null) {
 			for(int n = 0; n < list.size(); n++) {
+				log.debug(list.size());
 				Item i = (Item) list.get(n).get(0);
 				Attachment at = (Attachment) list.get(n).get(1);
 				Auction au = (Auction) list.get(n).get(2);

@@ -1,5 +1,10 @@
 package com.kh.lp.auction.model.service;
 
+import static com.kh.lp.common.JDBCTemplate.close;
+import static com.kh.lp.common.JDBCTemplate.commit;
+import static com.kh.lp.common.JDBCTemplate.getConnection;
+import static com.kh.lp.common.JDBCTemplate.rollBack;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,8 +12,6 @@ import java.util.HashMap;
 import com.kh.lp.auction.model.dao.AuctionDao;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
-
-import static com.kh.lp.common.JDBCTemplate.*;
 
 public class AuctionService {
 
