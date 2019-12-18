@@ -14,12 +14,7 @@ public class ReplyService {
 		
 		ArrayList<Reply> Rlist = new ReplyDao().selectAll(boardId, con);
 		
-		if(Rlist != null) {
-			commit(con);
-		} else {
-			rollBack(con);
-		}
-		
+		close(con);
 		
 		return Rlist;
 	}
@@ -61,6 +56,19 @@ public class ReplyService {
 		close(con);
 		
 		return list;
+	}
+	public int deleteBoardReply(int boardReply) {
+		Connection con = getConnection();
+		
+		int result = new ReplyDao().deleteBoardReply(con, boardReply);
+		
+		if(result>0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		
+		return result;
 	}
 
 }
