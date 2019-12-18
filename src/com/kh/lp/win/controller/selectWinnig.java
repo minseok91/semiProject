@@ -70,32 +70,6 @@ public class selectWinnig extends HttpServlet {
 		
 		out.flush();
 		out.close();
-		
-//		ArrayList<ArrayList<Object>> list = new WinService().selectList(memberNo);
-//		
-//		String msg = "";
-//		
-//		PrintWriter out = response.getWriter();
-//		
-//		if(list != null) {
-//			for(int n = 0; n < list.size(); n++) {
-//				AR1 ar = (AR1) list.get(n).get(0);
-//				Attachment at = (Attachment) list.get(n).get(1);
-//				Win w = (Win) list.get(n).get(2);
-//				if(n == list.size() - 1) {
-//					msg += w.getWinAuctionId() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + 
-//							"::" + ar.getAr1Model() + "::" + w.getWinPrice() + "::" + w.getWinStatus() + "::" + w.get;
-//				} else {
-//					msg += ar.getAr1Id() + "::" + at.getAttachmentRename() + "::" + ar.getAr1Brand() + "::" + ar.getAr1Price() + "#";
-//				}
-//			}
-//			out.append(msg);
-//		}  else {
-//			log.debug("실패");
-//			out.append("fail");
-//		}
-//		out.flush();
-//		out.close();
 	}
 
 	/**

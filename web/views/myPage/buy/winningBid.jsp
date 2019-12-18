@@ -148,7 +148,7 @@ td>a>img {
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <title>LauXion</title>
 </head>
-<body onload="selectTable()">
+<body>
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
@@ -226,17 +226,7 @@ td>a>img {
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			});
-		});
 
-		$('#check>button').click(function() {
-			const num=$(this).parents('tr').children().eq(0).text();
-			
-			location.href="<%= request.getContextPath() %>/views/goods/paymentBefore.jsp";
-			// 형식 : location.href = "<%= request.getContextPath() %>/selectOne.tn?num=" + num;
-		})
-		
-		function selectTable(){
-			console.log("페이지 로드 될때마다 실행");
 			$.ajax({
 				url: "<%= request.getContextPath() %>/selectWin.wi",
 				type: "post",
@@ -250,19 +240,22 @@ td>a>img {
 						var arr2 = arr[i].split("::");
 						let temp = "<tr>";
 						for(j in arr2){
-							console.log(arr2[j]);
 							if(j == 0)
 								temp += "<td>"+arr2[j]+"</td>";
-							else if(j == 1) 
+							else if(j == 1) { 
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[6] + "'></a></td>";
+								temp += "<td hidden>"+ arr2[6] +"</td>";
+							}
 							else if(j == 2) 
 								temp += "<td>" + 'null' + "</td>";
-							else if(j == 3)
+							else if(j == 3) {
 								temp += "<td>" + numberFormat(arr2[2]) + "원</td>";
+								temp += "<td hidden>"+ arr2[2] +"</td>";
+							}
 							else if(j == 4) {
 								let result="";
 								if(arr2[5] === "낙찰") {
-									temp += "<td><button>결제하기</button></td>";
+									temp += "<td><button class='pay'>결제하기</button></td>";
 								} else {
 									temp += "<td>" + arr2[5] + "</td>";
 								}
@@ -272,27 +265,33 @@ td>a>img {
 							else if(j == 6)
 								temp += "</tr>";
 							else continue;
-								
-							console.log(temp);
 						}
 						$("#tableBodyArea").append(temp);
 						
 					}
+					
+					// 결제하기 버튼 클릭 시 결제 전 페이지로 이동
+					$('.pay').click(function() {
+						const num=$(this).parents('tr').children().eq(0).text(); // 경매번호
+						const image=$(this).parents('tr').children().eq(2).text(); // 사진
+						const fullName=$(this).parents('tr').children().eq(3).text(); // 브랜드명+모델명
+						const price=$(this).parents('tr').children().eq(5).text(); // 가격
+
+						console.log(image);
+						
+						const URL = "<%= request.getContextPath() %>/paymentBefore.pay?auctionId="+num+"&image="+image+"&price="+price;
+						
+						location.href= URL;
+					});
 				},
 				error: function(data){
 					console.log("테스트 실패");
 				}
 			});
-		}
-		
-		$('td>button').click(function() {
-			//let num=$(this).
-			// 이것부터 고치자
-			// location.href= <%= request.getContextPath() %>/views/goods/paymentBefore.jsp?auctionId='+arr2[j]+'&img='<%= request.getContextPath() %>/img/appraisal/' + arr2[6] + '&price='+arr2[2]'
 		});
 		
 		function numberFormat(inputNumber) {
-			   return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		}
 		
 	</script>
