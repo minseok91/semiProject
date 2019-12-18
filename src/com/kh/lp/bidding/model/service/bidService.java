@@ -32,7 +32,7 @@ public class bidService {
 	}
 
 	public ArrayList<Bid> bidUserSelectList() {
-		Connection 
+		Connection con = getConnection();
 		return null;
 	}
 
