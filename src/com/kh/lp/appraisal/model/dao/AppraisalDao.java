@@ -90,7 +90,7 @@ public class AppraisalDao {
 				item.setItemDetail(rset.getString("ITEM_DETAIL"));
 				item.setItemId(Integer.parseInt(itemId));
 				item.setItemMemberNo(rset.getInt("ITEM_MEMBER_NO"));
-				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
+//				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
 				
