@@ -101,6 +101,7 @@ input:nth-of-type(text) {
 	height: 350px;
 	resize: none;
 	overflow: hidden;
+	border: none;
 }
 input[type="text"] {
 	margin-left: 30px;
@@ -218,7 +219,7 @@ margin-top: 27px;
 									<% for(int i=0; i<rList.size(); i++)  {%>
 										<div id="comment">
 											<div>작성자 : <%= rList.get(i).getReplyMemberName() %></div>
-											<div>작성일 : <%= rList.get(i).getReplyDate() %></div>
+											<div>작성일 : <%= rList.get(i).getReplyDate() %><button class='dropbtn' value="<%=rList.get(i).getReplyId()%>">댓글 삭제</button></div>
 											<div><%= rList.get(i).getReplyContent() %></div>
 											<hr>
 										</div>
@@ -290,7 +291,7 @@ margin-top: 27px;
 						console.log(date);
 						var $comment = $("<div id='comment'>")
 						var $div1 = $("<div>작성자 : "+data.replyMemberName+"</div>");
-						var $div2 = $("<div>작성일 : "+data.replyDate+"</div>");
+						var $div2 = $("<div>작성일 : "+data.replyDate+"<button>삭제</button></div>");
 						var $div3 = $("<div>"+data.replyContent+"</div>")
 						$comment.append($div1);
 						$comment.append($div2);
@@ -305,6 +306,22 @@ margin-top: 27px;
 				})
 				$("#comment_text").val('');	
 			})
+		})
+		$(".dropbtn").click(function(e){
+			console.log(e.target.value);
+			
+			 $.ajax({
+				url : "BoardDeleteReply.bo",
+				data : {
+					replyId : e.target.value,
+					boardId : <%=list.getBoardId()%>
+				},
+				type : "GET",
+				success:function(data) {
+					console.log(data);
+				}
+
+			}) 	
 		})
 	</script>
 </body>

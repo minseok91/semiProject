@@ -58,12 +58,12 @@ public class AuctionSelectOneServlet extends HttpServlet {
 		} else if(status.equals("3")) {
 			System.out.println("여긴 3번");
 			page = "/views/admin/Auction/AucBidding.jsp?";
-			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			HashMap<String,Object> ac = new AuctionService().selectOneBid(appId);
 			request.setAttribute("list", ac);
 		} else if (status.equals("4")) {
 			System.out.println("여긴 4번");
 			page = "/views/admin/Auction/AucResultSuccess.jsp";
-			HashMap<String,Object> ac = new AuctionService().selectOne(appId);
+			HashMap<String,Object> ac = new AuctionService().selectOneBid(appId);
 			request.setAttribute("list", ac);
 		} else if(status.equals("5")) {
 			System.out.println("여긴 5번");

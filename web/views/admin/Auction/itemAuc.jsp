@@ -13,6 +13,7 @@
     pageEncoding="UTF-8" import="java.util.*, com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
  <% ArrayList<AuctionList> list = (ArrayList<AuctionList>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	System.out.println("list : " + list);
 	int startPage = pi.getStartPage();
 	int endPage = pi.getMaxPage();
 	int currentPage = pi.getCurrentPage();
@@ -117,7 +118,7 @@
 						<th>경매기간</th>
 						<!-- <th>시작가</th> -->
 						<th>상태</th>
-						<th>시작시간</th>1
+						<th>시작시간</th>
 						<th>상태</th>
 						<th>상세보기</th>
 					</tr>
@@ -127,21 +128,29 @@
 						<td><%= al.getAuctionId() %></td>
 						<td><%= al.getAuctionCount() %></td>
 						<td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td>
-						<td><% if(al.getAuctionCount() == 0 && al.getAuctionType() == null) { %>
-						 경매 준비<button id="ready">상세보기</button>
-						<% } else if(al.getAuctionCount() == 0 && al.getAuctionType().equals("1")) { %>
-						경매 미실행(유찰)<button id="noAct">상세보기</button>
-						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("2")) {%>
-						경매 시작<button id="start">상세보기</button>
-						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("3")) {%>
-						경매 완료(낙찰)<button id="win">상세보기</button>
-						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("4")) {%>
-						경매 완료(유찰)<button id="noBid">상세보기</button>
-						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("5")) {%>
-						낙찰 상품 결제 완료<button id="payed">상세보기</button>
-						<% } else if(al.getAuctionCount() == 1 && al.getAuctionType().equals("6")) {%>
-						낙찰 상품 미결제 유찰<button id="noPayed">상세보기</button>
-						<%} %>
+						<td><%if(al.getAuctionType() == null) { %>
+							<% if(al.getAuctionCount() == 0) { %>
+						 	경매 준비<button id="ready">상세보기</button>
+						 		<%=al.getAuctionType() %>
+							
+ 							<% } %>
+ 						<% } else { %>
+ 							<%  if(al.getAuctionCount() == 0 && al.getAuctionType().equals("1") ) { %>
+							경매 미실행(유찰)<button id="noAct">상세보기</button>
+							 <% } else if(/* al.getAuctionCount() == 1 &&  */al.getAuctionType().equals("2") ) {%>
+							경매 시작<button id="start" class="start">상세보기</button>
+							<% } else if(/* al.getAuctionCount() == 1 && */ al.getAuctionType().equals("3") ) {%>
+							경매 완료(낙찰)<button id="win">상세보기</button>
+							<% } else if(/* al.getAuctionCount() == 1 &&  */al.getAuctionType().equals("4")  ) {%>
+							경매 완료(유찰)<button id="noBid">상세보기</button>
+							<% } else if(/* al.getAuctionCount() == 1 && */ al.getAuctionType().equals("5") ) {%>
+							낙찰 상품 결제 완료<button id="payed">상세보기</button>
+							<% } else if(/* al.getAuctionCount() == 1 && */ al.getAuctionType().equals("6") ) {%>
+							낙찰 상품 미결제 유찰<button id="noPayed">상세보기</button>
+							<%} else { %> 
+								이건 아무것도 없는 것이다 
+ 							<%} 
+ 							} %>
 						</td>
 						
 						<%-- <td><%= au.getAuStartPrice() %></td>
@@ -318,7 +327,7 @@
 			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId + "&status=2";
 		})
 		
-		$("#start").click(function(){
+		$(".start").click(function(){
 			var aucId = $(this).parent().parent().children().eq(0).text()
 			location.href="<%=request.getContextPath()%>/selectOne.au?appId=" + aucId+ "&status=3";
 		})

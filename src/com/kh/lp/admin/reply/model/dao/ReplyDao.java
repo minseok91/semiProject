@@ -166,10 +166,28 @@ public class ReplyDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
-		
 		return list;
+	}
+	public int deleteBoardReply(Connection con, int boardReply) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("admin_deleteBoardReply");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardReply);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 
 }

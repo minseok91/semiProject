@@ -22,6 +22,8 @@ Watch w = (Watch) list.get("w");
 System.out.println("w : " + w );
 Bag b = (Bag) list.get("b");
 System.out.println("b : " + b );
+ArrayList<BiddingHistory> bhList  = (ArrayList<BiddingHistory>) list.get("bhList");
+System.out.println("bhList : " + bhList );
 %>
 <!DOCTYPE html>
 <html>
@@ -425,95 +427,20 @@ System.out.println("b : " + b );
 					<div id="deliNum">
 						<table>
 								<tr>
+									<th>순위</th>
 									<th>입찰자</th>
 									<th>입찰 금액</th>
 									<th>입찰 시간</th>
 								</tr>
+								<%int i = 1; for(BiddingHistory bh :bhList ){ %>
 								<tr>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
+									<td><%=i%> 순위 </td>
+									<td><%=bh.getBiddingMemberId() %></td>
+									<td><%=bh.getBiddingPrice() %></td>
+									<td><%=bh.getBiddingDate() %> <%=bh.getBiddingTime() %></td>
 								</tr>
-								<tr>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
+								
+								<%i++; } %>
 							</table>
 					</div>
 				</p>

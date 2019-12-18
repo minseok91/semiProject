@@ -12,6 +12,8 @@ import java.util.HashMap;
 import com.kh.lp.auction.model.dao.AuctionDao;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
+import com.kh.lp.auction.model.vo.BiddingHistory;
+import com.kh.lp.member.model.vo.Member;
 
 public class AuctionService {
 
@@ -87,6 +89,34 @@ public class AuctionService {
 		Connection con = getConnection();
 		
 		ArrayList<ArrayList<Object>> list = new AuctionDao().doAuction(con, memberNo);
+		close(con);
+		
+		return list;
+	}
+
+	public HashMap<String, Object> selectOneBid(String appId) {
+Connection con = getConnection();
+		
+		//시계인지 가방인지 판별
+		//boolean isWatch = new AuctionDao().isWatch(con, appId);
+		
+		//아이템 정보 가져오기
+		Member memberId = new AuctionDao().getMemberId(con, appId);
+		//입찰이력
+		ArrayList<BiddingHistory> bhList = new AuctionDao().getBiddingList(con, appId);
+		
+		System.out.println("입찰이력 : " + bhList);
+		HashMap<String, Object> list = new AuctionDao().selectOneBid(con, appId);
+//		if(isWatch) {
+//			//시계일때
+//			list = new AuctionDao().selectOne(con, appId);
+//		} else {
+//			//가방일때
+//			list = new AuctionDao().selectOne(con, appId);
+//		}
+		list.put("memberId", memberId.getMemberId());
+		list.put("bhList", bhList);
+		
 		close(con);
 		
 		return list;

@@ -386,11 +386,20 @@
 			})
 		});
 		
+		$('#regist').click(function(){
+			
+			if($('#type').val()==='W'){
+				$('#bagBrand').val(0);
+			}else{
+				$('#watchBrand').val(0);
+			}
+			
+		});
 		
 		
 		function watchBag(){
 						
-			if($("#type").val() === 'W'){
+			if($('#type').val() === 'W'){
 				$('#bagBrand').hide();
 				$('#watchBrand').show();
 			}else {
