@@ -174,7 +174,7 @@ td>a>img {
 				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
-				<dd><a value="queAndReport/questionList">▶  문의 내역</a></dd>
+				<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>
 				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
 				
 				<dt>§  회원정보</dt>

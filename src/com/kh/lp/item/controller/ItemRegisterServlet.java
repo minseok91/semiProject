@@ -94,7 +94,7 @@ public class ItemRegisterServlet extends HttpServlet {
 			itemPic.setAttachmentName(itemPicOriginName);
 			itemPic.setAttachmentRename(itemPicRename);
 			itemPic.setAttachmentPath(savePath);
-			itemPic.setAttachmentFileLevel(1);
+			itemPic.setAttachmentLevel(1);
 			itemPic.setAttachmentType("AT1");
 
 			

@@ -16,7 +16,7 @@ public class Item implements java.io.Serializable {
 	private int itemMemberNo;
 	private String itemType;
 	private String itemBrandModel;
-	private Date itemPurDate;
+	private String itemPurDate;
 	private String itemWarrantyYn;
 	private String itemDetail;
 	private Date itemAppDate;

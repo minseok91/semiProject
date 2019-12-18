@@ -153,7 +153,6 @@ public class QNAService {
 		//가져온 QNA_ID값을 sendQNA 객체에 넣어주기
 		sendQNA.setQnaId(qnaId);
 		
-		
 		//QNA_HISTORY 테이블에 인서트할 dao메소드 불러오기
 		int qnaHistoryResult = new QNADao().insertQnaHistory(con, loginMember, sendQNA);
 		
@@ -170,6 +169,55 @@ public class QNAService {
 		close(con);
 		
 		return result;
+	}
+
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  QNA테이블에서 현재 로그인 되어있는 유저가 작성한 QNA들의 갯수를 세는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public int memberQnaCount(int loginMemberNo) {
+		
+		int result = 0;
+		
+		Connection con = getConnection();
+		
+		result = new QNADao().memberQnaCount(con, loginMemberNo);
+		
+		close(con);
+		
+		return result;
+		
+
+	}
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   :  QNA테이블에서 현재 로그인 되어있는 유저가 작성한 QNA리스트 중 현재 페이지에 해당하는 리스트 10개 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public ArrayList<QNA> memberQnaList(int loginMemberNo, int currentPage, int limit) {
+		
+		ArrayList<QNA> memberQnaList = null;
+		
+		Connection con = getConnection();
+		
+		memberQnaList = new QNADao().memberQnaList(con, loginMemberNo, currentPage, limit);
+		
+		close(con);
+		
+		return memberQnaList;
 	}
 
 }

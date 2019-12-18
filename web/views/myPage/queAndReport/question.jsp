@@ -201,7 +201,7 @@
 
 					<dt>§ 문의 및 신고</dt>
 					<dd>
-						<a value="queAndReport/questionList" id="selectMenu">▶ 문의 내역</a>
+						<a value="../../qnaList.qr" id="selectMenu">▶ 문의 내역</a>
 					</dd>
 					<dd>
 						<a value="queAndReport/reportList">▶ 신고 내역</a>
@@ -316,8 +316,7 @@
 							function() {
 								let values = $(this).attr('value');
 								console.log(values);
-								location.href = '
-	<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+								location.href = '<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
 		});
 	</script>

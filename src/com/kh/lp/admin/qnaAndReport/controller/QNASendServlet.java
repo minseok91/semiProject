@@ -41,7 +41,7 @@ public class QNASendServlet extends HttpServlet {
 		int result = new QNAService().qnaSend(loginMember, sendQNA);
 		
 		if(result>0) {
-			response.sendRedirect(request.getContextPath() + "/views/mypage/queAndReport/questionList.jsp");
+			response.sendRedirect(request.getContextPath() + "/qnaList.qr.jsp");
 		}else {
 			request.setAttribute("msg", "관리자문의 등록 실패");
 			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
@@ -50,7 +50,6 @@ public class QNASendServlet extends HttpServlet {
 		
 	}
 
-	
 	
 	
 	
