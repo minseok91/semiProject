@@ -170,6 +170,9 @@
 	<%@ include file="../common/header.jsp" %>
 	<%
 		String[] addr = loginMember.getMemberAddress().split("/");
+		String num = (String) request.getAttribute("num");
+		String image = (String) request.getAttribute("image");
+		String price = (String) request.getAttribute("price");
 	%>
 	<%@ include file="../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -232,17 +235,15 @@
 			<p>상품 정보</p>
 			
 			<div id="goodsContents">
-				<img src="<%= request.getContextPath() %>/img/bag1.jpg">
+				<img>
 				<div id="goodsTitle">
-					<label>상품 번호 : </label>
-					<label>상품 명 : </label>
+					<label>경매 번호 : </label>
 					<label>브랜드 명 : </label>
 					<label>모델 명 : </label>
 				</div>
 				
 				<div id="goodsTitle">
-					<input type="text" id="aucNum" disabled> <!-- AUCTION_ID -->
-					<input type="text" disabled>
+					<input type="text" id="aucNum" value="<%= num %>" disabled> <!-- AUCTION_ID -->
 					<input type="text" disabled>
 					<input type="text" disabled>
 				</div>
@@ -254,7 +255,7 @@
 			<table>
 				<tr>
 					<td><label>낙찰가 : </label></td>
-					<td><input type="text" id="win" value="500" disabled></td>
+					<td><input type="text" id="win" value="<%= price %>" disabled></td>
 				</tr>
 				
 				<tr>
@@ -288,6 +289,11 @@
 
 			var IMP = window.IMP; // 생략가능
 			IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+			
+			const img="<%= request.getContextPath() %>/img/appraisal/";
+			const fullImage = img+"<%= image %>";
+			
+			$('#goodsContents>img').attr('src', fullImage);
 			
 		// 결제 버튼 누를 시 진행 동의안했으면 동의하게 함
 		$('#payment').click(function() {
