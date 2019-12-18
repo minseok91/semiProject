@@ -10,6 +10,8 @@ import com.kh.lp.admin.qnaAndReport.model.dao.QNADao;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.member.model.vo.Member;
 
+import lombok.extern.log4j.Log4j2;
+
 public class QNAService {
 
 	/**
