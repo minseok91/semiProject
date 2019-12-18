@@ -12,9 +12,10 @@
 <%@page import="com.kh.lp.admin.reply.model.vo.Reply"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.lp.admin.board.model.vo.*
+	pageEncoding="UTF-8"
+	import="com.kh.lp.admin.board.model.vo.*
 	,java.util.*"%>
-    <%
+<%
     Board list = (Board)request.getAttribute("list");
     ArrayList<Reply> rList = (ArrayList<Reply>)request.getAttribute("Rlist");
 	Date day = new Date();
@@ -25,7 +26,9 @@
 <html>
 <head>
 <meta content="text/html;">
-</head><link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+</head>
+<link rel="icon" type="image/png" sizes="32x32"
+	href="image/loginimg(2).png">
 <title>게시판 상세</title>
 <style>
 html, body {
@@ -74,9 +77,11 @@ td:nth-of-type(2) {
 	color: #000000;
 	border-bottom: 1px solid;
 }
+
 input:nth-of-type(text) {
 	border: hidden;
 }
+
 #infoBox>h3 {
 	text-align: center;
 }
@@ -93,9 +98,11 @@ input:nth-of-type(text) {
 	border: 1px solid rgb(33, 31, 34);
 	color: rgb(160, 115, 66);
 }
-#infoTable td:nth-child(1){
+
+#infoTable td:nth-child(1) {
 	width: 200px;
 }
+
 #boardContents {
 	width: 783px;
 	height: 350px;
@@ -103,30 +110,37 @@ input:nth-of-type(text) {
 	overflow: hidden;
 	border: none;
 }
+
 input[type="text"] {
 	margin-left: 30px;
 	border: hidden;
 	width: 90%;
 }
+
 input[type="text"]:focus {
 	outline: none;
 }
+
 #category {
 	margin-left: 30px;
 	height: 30px;
 }
+
 #today {
 	color: #404040;
 }
+
 #comment_top {
 	border-bottom: none;
-		background: white;
-}
-#comment_bottom {
-	border-top: none;
-	text-align:right;
 	background: white;
 }
+
+#comment_bottom {
+	border-top: none;
+	text-align: right;
+	background: white;
+}
+
 #comment_btn {
 	margin-right: 30px;
 	width: 75px;
@@ -135,6 +149,7 @@ input[type="text"]:focus {
 	border: 1px solid rgb(33, 31, 34);
 	color: rgb(160, 115, 66);
 }
+
 #comment_div {
 	margin: 0 auto;
 	width: 986px;
@@ -142,30 +157,33 @@ input[type="text"]:focus {
 	background: white;
 	overflow: scroll;
 }
+
 #comment_text {
 	width: 861px;
 	float: left;
 	border: 1px solid;
 	height: 45px;
-	margin-left:10px;
-	resize: none; 
-	
+	margin-left: 10px;
+	resize: none;
 }
+
 #comment {
 	width: 99%;
 	height: 60px;
 	margin-top: 28px;
 	text-align: left;
 }
-#comment div:nth-child(1){
-float: left; 
 
+#comment div:nth-child(1) {
+	float: left;
 }
-#comment div:nth-child(2){
-padding-left: 136px; 
+
+#comment div:nth-child(2) {
+	padding-left: 136px;
 }
-#comment div:nth-child(3){
-margin-top: 27px; 
+
+#comment div:nth-child(3) {
+	margin-top: 27px;
 }
 </style>
 <script
@@ -176,35 +194,37 @@ margin-top: 27px;
 	<div id="container" class="contents">
 		<div id="contents" class="contents">
 			<div id="infoBox">
-				<form action="<%=request.getContextPath()%>/updateBoard.bo" method="post" onsubmit="return ok()">
+				<form action="<%=request.getContextPath()%>/updateBoard.bo"
+					method="post" onsubmit="return ok()">
 					<h3 align="center">게시판 상세</h3>
 					<table id="infoTable">
 						<tr>
 							<td>제목</td>
-							<td><input type="text" name="title" value="<%=list.getBoardTitle()%>" readonly></td>
+							<td><input type="text" name="title"
+								value="<%=list.getBoardTitle()%>" readonly></td>
 						</tr>
 						<tr>
 							<td>게시판 종류</td>
-							<td><% if(list.getBoardType().equals("BT1")){ %>
-									<input type="text" value= "자유게시판" readonly>
-								<% } else if(list.getBoardType().equals("BT2")){ %>
-									<input type="text" value= "건의게시판" readonly>
-								<% } else { %>
-									<input type="text" value= "리뷰게시판" readonly>
-								<% } %>
+							<td>
+								<% if(list.getBoardType().equals("BT1")){ %> <input type="text"
+								value="자유게시판" readonly> <% } else if(list.getBoardType().equals("BT2")){ %>
+								<input type="text" value="건의게시판" readonly> <% } else { %>
+								<input type="text" value="리뷰게시판" readonly> <% } %>
 							</td>
 						</tr>
 						<tr>
 							<td>작성자</td>
 							<td><input type="text" name="writer"
-								value="<%=list.getBoardMemberName()%>"readonly>
-								<input type="hidden" name="memberNo" value="<%= list.getBoardMemberNo()%>">
-								<input type="hidden" name="boardId" value="<%= list.getBoardId() %>">
-								</td>
+								value="<%=list.getBoardMemberName()%>" readonly> <input
+								type="hidden" name="memberNo"
+								value="<%= list.getBoardMemberNo()%>"> <input
+								type="hidden" name="boardId" value="<%= list.getBoardId() %>">
+							</td>
 						</tr>
 						<tr>
 							<td>작성일</td>
-							<td id="today"><input type="text" id="today" name="date" value="<%= today %>"readonly></td>
+							<td id="today"><input type="text" id="today" name="date"
+								value="<%= today %>" readonly></td>
 						</tr>
 						<tr>
 							<td>내용</td>
@@ -216,22 +236,35 @@ margin-top: 27px;
 						<tr>
 							<td colspan="2" id="comment_top">
 								<div id="comment_div">
-									<% for(int i=0; i<rList.size(); i++)  {%>
-										<div id="comment">
-											<div>작성자 : <%= rList.get(i).getReplyMemberName() %></div>
-											<div>작성일 : <%= rList.get(i).getReplyDate() %><button class='dropbtn' value="<%=rList.get(i).getReplyId()%>">댓글 삭제</button></div>
-											<div><%= rList.get(i).getReplyContent() %></div>
-											<hr>
+									<% for(int i=0; i<rList.size(); i++)  {
+										if(rList.get(i).getReplyStatus().equals("Y")){
+									%>
+									<div id="comment">
+										<div>
+											작성자 :
+											<%= rList.get(i).getReplyMemberName() %></div>
+										<div>
+											작성일 :
+											<%= rList.get(i).getReplyDate() %><button class='dropbtn'
+												value="<%=rList.get(i).getReplyId()%>">댓글 삭제</button>
 										</div>
-									<% } %>
+										<div><%= rList.get(i).getReplyContent() %></div>
+										<hr>
+									</div>
+									<% } else { %>
+									<div id="comment">
+										삭제된 댓글입니다.
+										<hr>
+									</div>
+									<%} 
+									} %>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2" id="comment_bottom">
-							<textarea rows="" cols="" id="comment_text"></textarea>
-							<button id="comment_btn">작성하기</button>
-							</td>
+							<td colspan="2" id="comment_bottom"><textarea rows=""
+									cols="" id="comment_text"></textarea>
+								<button id="comment_btn">작성하기</button></td>
 						</tr>
 					</table>
 					<div id="buttonBox">
@@ -277,6 +310,7 @@ margin-top: 27px;
 			$("#comment_btn").click(function(){
 					var comment = $("#comment_text")[0].value;
 					console.log(comment);
+					
 				$.ajax({
 					url:"insertReply.re",
 					data : { boardId : <%= list.getBoardId() %>,
@@ -285,13 +319,12 @@ margin-top: 27px;
 					},
 					type : "GET",
 					success:function(data) {
+					
 					 $comment_div = $("#comment_div");
 						var date = data.replyDate;
-						console.log(data);
-						console.log(date);
 						var $comment = $("<div id='comment'>")
 						var $div1 = $("<div>작성자 : "+data.replyMemberName+"</div>");
-						var $div2 = $("<div>작성일 : "+data.replyDate+"<button>삭제</button></div>");
+						var $div2 = $("<div>작성일 : "+data.replyDate+"<button class='dropbtn' value=''>댓글 삭제</button></div>");
 						var $div3 = $("<div>"+data.replyContent+"</div>")
 						$comment.append($div1);
 						$comment.append($div2);
@@ -304,12 +337,14 @@ margin-top: 27px;
 						
 					}
 				})
-				$("#comment_text").val('');	
+				
 			})
 		})
+		
+		
 		$(".dropbtn").click(function(e){
 			console.log(e.target.value);
-			
+			$("#comment_text").val('');	
 			 $.ajax({
 				url : "BoardDeleteReply.bo",
 				data : {
@@ -318,8 +353,35 @@ margin-top: 27px;
 				},
 				type : "GET",
 				success:function(data) {
-					console.log(data);
-				}
+					$("#comment_div").html('');	
+						console.log(data);
+						
+						
+					for(var i=0; i<data.length; i++) {
+						 if(data[i].replyStatus == "Y"){
+							 $("#comment_div").append("<div id='comment'><div>작성자 : "+data[i].replyMemberName+"</div><div>작성일 : "+data[i].replyDate+"<button class='dropbtn' value='"+data[i].replyId+"'>댓글 삭제</button></div><div>"+data[i].replyContent+"</div><hr></div>");
+						 } else {
+							 $("#comment_div").append("<div id='comment'>삭제된 댓글입니다.<hr></div>");
+						} 
+					}
+					
+					//
+					$(".dropbtn").click(function(e){
+					console.log(e.target.value);
+							 $.ajax({
+								url : "BoardDeleteReply.bo",
+								data : {
+									replyId : e.target.value,
+									boardId : <%=list.getBoardId()%>
+								},
+								type : "GET",
+								success:function(data) {
+										console.log(data);
+								}
+				
+							})
+									})
+								}
 
 			}) 	
 		})

@@ -55,6 +55,7 @@ public class ReplyDao {
 				r.setReplyMemberName(rset.getString("MEMBER_NAME"));
 				r.setReplyDate(rset.getString("REPLY_DATE"));
 				r.setReplyContent(rset.getString("REPLY_CONTENT"));
+				r.setReplyStatus(rset.getString("REPLY_STATUS"));
 				
 				rList.add(r);
 				
