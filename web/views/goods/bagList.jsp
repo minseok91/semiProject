@@ -193,6 +193,7 @@ td>.content {
          <% for(int i=0; i<2; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
             <tr>
                <% for(int j=0; j<5; j++) { %> <!-- 5 고정 -->
+               <% for(Bidding b : list) { %>
 				<td>
 					<div id="img">
                   		<div class="price">￦2,314,000</div>
@@ -201,6 +202,7 @@ td>.content {
                  	<span class="content">Cartier Marcello De Cartier handbag Bro…</span>
                  	<div class="time">End in 8h 55m</div>
               	</td>
+              	<% } %>
                <% } %>
                </tr>
                <% } %>
