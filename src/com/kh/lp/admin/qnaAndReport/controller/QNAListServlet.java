@@ -29,7 +29,7 @@ public class QNAListServlet extends HttpServlet {
 		Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
 		int loginMemberNo = loginMember.getMemberNo();
 		
-		System.out.println("loginMemberNo : " + loginMemberNo);
+		
 		
 		//----------------------------------------------페이징 처리 로직------------------------------------------------
 		//페이징 처리를 위한 변수들 선언
@@ -67,6 +67,8 @@ public class QNAListServlet extends HttpServlet {
 		PageInfo pInfo = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
 		
 		//-------------------------------------------------------------------------------------------------------
+		
+		
 		
 		
 		//해당 페이지에 들어갈  리스트 10개를 담아올 서비스 메소드 호출

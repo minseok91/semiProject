@@ -172,7 +172,7 @@
 
 .list>table {
 	border-collapse: separate;
-	border-spacing: 40px;
+	border-spacing: 65px;
 	margin-top: 14px;
 }
 
@@ -240,6 +240,7 @@ td>.content {
 	background: none;
 	margin: 0 3px;
 }
+
 </style>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon"/>
 </head>
@@ -254,7 +255,7 @@ td>.content {
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
-				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
+				<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
