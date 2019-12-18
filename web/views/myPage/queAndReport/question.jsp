@@ -168,7 +168,7 @@
 						<a value="buy/wishList">▶ 위시리스트</a>
 					</dd>
 					<dd>
-						<a value="buy/biddingList">▶ 입찰리스트</a>
+						<a value="../../biddingList.bi">▶ 입찰리스트</a>
 					</dd>
 					<dd>
 						<a value="buy/winningBid">▶ 낙찰리스트</a>
