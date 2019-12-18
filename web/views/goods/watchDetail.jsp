@@ -319,7 +319,7 @@
 	
 	<script type="text/javascript">
 		$(function() {
-			
+			// 이것도...
 			const title = $('#title').attr('src');
 			$('#detailImg img').mouseover(function() {
 				$('#title').attr('src', $(this).attr('src'));
