@@ -267,10 +267,14 @@ td>a>img {
 	}//---doAuction() endPoint---
 	
 	function changeTime(time) {
-		var day = leadingZeros(Math.floor(time / (60 * 60 * 24)), 2);
-		var hour = leadingZeros(Math.floor((time - day * 60 * 60 * 24) / (60 * 60)), 2);
-		var min = leadingZeros(Math.floor((time - day * 60 * 60 * 24 - hour * 3600) / 60), 2);
-		var sec = leadingZeros(time % 60, 2);
+		var second = time;
+		
+		var day = leadingZeros(Math.floor(second / (60 * 60 * 24)), 2);
+		var hour = leadingZeros(Math.floor((second - day * 60 * 60 * 24) / (60 * 60)), 2);
+		var min = leadingZeros(Math.floor((second - day * 60 * 60 * 24 - hour * 3600) / 60), 2);
+		var sec = leadingZeros(second % 60, 2);
+		
+		
 		
 		return day + "일" + hour + "시간" + min + "분" + sec + "초";
 	}//---changeTime() endPoint---
@@ -297,22 +301,22 @@ td>a>img {
 		//웹소켓 연결될 때 실행되는 메소드
 		ws.onopen = function(event) {
 			onOpen(event);
-		}
+		};
 		
 		//웹소켓으로부터 메세지를 받을 때 실행되는 메소드
 		ws.onmessage = function(event) {
 			onMessage(event);
-		}
+		};
 		
 		//서버에서 에러가 발생할 경우 동작할 메소드
 		ws.onerror = function(event) {
 			
-		}
+		};
 
 		//서버와의 연결이 종료될 경우 동작하는 메소드
 		ws.onclose = function(event) {
 			
-		}
+		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 연결 되었을 때 동작할 메소드
 		function onOpen(event) {
@@ -321,7 +325,7 @@ td>a>img {
 				console.log(timeArray[i]);
 			}
 				send(timeArray);
-		}
+		};
 		
 		//웹소켓 보조 메소드 - 메세지 받을 때 동작할 메소드
 		function onMessage(event) {
@@ -331,27 +335,31 @@ td>a>img {
 			console.log(event.data);
 			var rarr = event.data.split(",");
 			for(var i = 0; i < length; i++) {
-				console.log(rarr[i]);
-				console.log($("table>tbody>tr").eq(i).children().eq(5).children().text());
-				$("table>tbody>tr").eq(i).children().eq(5).children().text(changeTime(rarr[i]));
+				if(rarr[i] == 0) {
+					console.log
+				} else {
+					console.log(rarr[i]);
+					console.log($("table>tbody>tr").eq(i).children().eq(5).children().text());
+					$("table>tbody>tr").eq(i).children().eq(5).children().text(changeTime(rarr[i]));
+				}
 			}
 			send(event.data);
-		}
+		};
 		
 		//웹소켓 보조 메소드 - 웹소켓에 메세지 보내는 메소드
 		function send(msg) {
 			ws.send(msg);
-		}
+		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 에러 관련 메소드
 		function onError(event) {
 			alert(event.data);
-		}
+		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 닫혔을 때 관련 메소드
 		function onClose(event) {
 			alert(event);
-		}
+		};
 	}//---getWebsocket() endPoint---
 </script>
 </body>

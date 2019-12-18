@@ -29,6 +29,10 @@
 		width:inherit;
 	}
 	
+	.imgBox {
+		margin-top: 50px;
+	}
+	
 	#part1 {
 		display: flex;
 		margin-bottom: 50px;
@@ -82,6 +86,8 @@
 	}
 	
 	#contents>#head {
+		margin-top: 50px;
+		width: 660px;
 		border-bottom: 1px solid #3e2d1a;
 	}
 	
@@ -223,122 +229,123 @@
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
 		<div class="container">
-		<div class="contents">
-			<!-- 사진, 상품명, 입찰가, 등록칸 -->
-			<span id="part1">
-				<span class="imgBox">
-					<div class="title">
-						<a id="wish" href="#">♡</a>
-						<img id="title" src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-					</div>
-					<div id="detailImg">
-						<table>
-						<!-- 사진 갯수에 따라서 조율가능 -->
-							<tr>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-								</td>
-							</tr>
-						</table>
-					</div> <!-- detailImg End -->
-				</span> <!-- imgBox End -->
-				<span id="contents">
-					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
-						<label>판매자</label>
-					</div>
-					<div id=set>
-						<div id="price">
-							<label>현재 가격</label>
-							<label>￦1,600,000</label>
-							<% if(loginMember == null) { %>
-									<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
-							<% } %>
+			<div class="contents">
+				<!-- 사진, 상품명, 입찰가, 등록칸 -->
+				<span id="part1">
+					<span class="imgBox">
+						<div class="title">
+							<a id="wish" href="#">♡</a>
+							<img id="title" src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
 						</div>
-						<% if(loginMember != null) { %>
-						<div id="biddingApply">
-						<form action="" post="get">
-							<label>입찰 단위 : ￦ 80,000</label><br>
-							<input type="text" name="bidding" size="25" placeholder="1,680,000원 이상 작성하세요.">
-							<input type="submit" value="입찰">
-						</form>
-						<label>※경매 수수료 : 낙찰가의 15%</label>
-					</div>
-					<% } %>
-					</div>
-					<div id="biddingUsers">
+						<div id="detailImg">
 							<table>
+							<!-- 사진 갯수에 따라서 조율가능 -->
 								<tr>
-									<th>입찰자</th>
-									<th>입찰 금액</th>
-									<th>입찰 시간</th>
-								</tr>
-								<tr>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
-								</tr>
-								<tr>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
+									<td>
+										<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									</td>
+									<td>
+										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+									</td>
+									<td>
+										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+									</td>
+									<td>
+										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+									</td>
 								</tr>
 							</table>
+						</div> <!-- detailImg End -->
+					</span> <!-- imgBox End -->
+					<span id="contents">
+						<div id="head">
+							<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
+							<label>판매자</label>
+							<label id="endTime"></label>
 						</div>
-				</span> <!-- contents End -->
-			</span> <!-- part1 End -->
-
-			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
-			<div id="part2">
-				<div id="detailContent">
-					<label>상품 상세</label>
-					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
-				</div>
-				
-				<div id="goods">
-					<label>상품 정보</label>
-					<table>
-						<tr>
-							<td>보증서 유무</td>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
-						</tr>
-						<tr>
-							<td>사이즈</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>끈높이</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>컬러</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>재질</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>북렛</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-					</table>
-				</div>
-			</div> <!-- part2 End -->
+						<div id=set>
+							<div id="price">
+								<label>현재 가격</label>
+								<label>￦1,600,000</label>
+								<% if(loginMember == null) { %>
+										<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
+								<% } %>
+							</div>
+							<% if(loginMember != null) { %>
+							<div id="biddingApply">
+							<form action="" post="get">
+								<label>입찰 단위 : ￦ 80,000</label><br>
+								<input type="text" name="bidding" size="25" placeholder="1,680,000원 이상 작성하세요.">
+								<input type="submit" value="입찰">
+							</form>
+							<label>※경매 수수료 : 낙찰가의 15%</label>
+						</div>
+						<% } %>
+						</div>
+						<div id="biddingUsers">
+								<table>
+									<tr>
+										<th>입찰자</th>
+										<th>입찰 금액</th>
+										<th>입찰 시간</th>
+									</tr>
+									<tr>
+										<td>yang****</td>
+										<td>1,600,000원</td>
+										<td>20분 전</td>
+									</tr>
+									<tr>
+										<td>mins***</td>
+										<td>1,520,000원</td>
+										<td>1시간 전</td>
+									</tr>
+									<tr>
+										<td>gurw**</td>
+										<td>1,400,000원</td>
+										<td>3시간 전</td>
+									</tr>
+								</table>
+							</div>
+					</span> <!-- contents End -->
+				</span> <!-- part1 End -->
+	
+				<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
+				<div id="part2">
+					<div id="detailContent">
+						<label>상품 상세</label>
+						<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
+					</div>
+					
+					<div id="goods">
+						<label>상품 정보</label>
+						<table>
+							<tr>
+								<td>보증서 유무</td>
+								<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
+							</tr>
+							<tr>
+								<td>사이즈</td>
+								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							</tr>
+							<tr>
+								<td>끈높이</td>
+								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							</tr>
+							<tr>
+								<td>컬러</td>
+								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							</tr>
+							<tr>
+								<td>재질</td>
+								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							</tr>
+							<tr>
+								<td>북렛</td>
+								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							</tr>
+						</table>
+					</div>
+				</div> <!-- part2 End -->
 			</div> <!-- contents End -->
 		</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
@@ -351,7 +358,49 @@
 			}).mouseout(function() {
 				$('#title').attr('src', title);
 			});
-		})
+		});
+		
+		function getWebsocket(){
+			var url = "ws://localhost:8010/endTime";
+			var ws = new WebSocket(url);
+			
+			ws.onopen = function(event) {
+				onOpen(event);
+			};
+			
+			ws.onmessage = function(event) {
+				onMessage(event);
+			};
+			
+			ws.onclose = function(event) {
+				onClose(event);
+			};
+			
+			ws.onerror = function(event) {
+				onError(event);
+			};
+			
+			function onOpen(event) {
+				
+			};
+			
+			function onMessage(event) {
+				
+			};
+			
+			function onClose(event) {
+				
+			};
+			
+			function onError(event) {
+				
+			};
+			
+			function send(msg) {
+				ws.send(msg);
+			};
+		};
+		
 	</script>
 </body>
 </html>
