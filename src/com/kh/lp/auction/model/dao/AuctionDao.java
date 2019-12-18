@@ -42,16 +42,7 @@ public class AuctionDao {
 		}
 	}
 
-	/**
-	 * @Author	      : gurwns
-	 * @CreateDate    : 2019. 12. 16. 오후 9:03:53
-	 * @ModifyDate    : 2019. 12. 16. 오후 9:03:53
-	 * @Description   : 
-	 * @param con
-	 * @param currentPage
-	 * @param limit
-	 * @return
-	 */
+	
 	public ArrayList<AuctionList> AuPaging(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -279,6 +270,15 @@ public class AuctionDao {
 		return isWatch;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 18. 오후 7:22:11
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:22:11
+	 * @Description   : 진행경매 불러오는 메소드
+	 * @param con
+	 * @param memberNo
+	 * @return
+	 */
 	public ArrayList<ArrayList<Object>> doAuction(Connection con, int memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -320,6 +320,15 @@ public class AuctionDao {
 		return list;
 	}
 
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 18. 오후 7:21:59
+	 * @ModifyDate    : 2019. 12. 18. 오후 7:21:59
+	 * @Description   : 입찰이력 등록하는 메소드
+	 * @param con
+	 * @param requestAuction
+	 * @return
+	 */
 	public int insertBiddingHistory(Connection con, Auction requestAuction) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -337,6 +346,7 @@ public class AuctionDao {
 		}
 		return result;
 	}
+  
 	public HashMap<String, Object> selectOneBid(Connection con, String appId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
