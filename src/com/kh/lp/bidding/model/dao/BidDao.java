@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Properties;
 
 import com.kh.lp.bidding.model.vo.Bid;
+import com.kh.lp.bidding.model.vo.BiddingList;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -143,5 +144,186 @@ public class BidDao {
 		
 		return list;
 	}
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   : 로그인돼있는 회원이 지금까지 입찰한 BIDDING_ID 셀렉트해오는 메소드
+	 * @param
+	 * @return
+	 */
+
+	public ArrayList<Integer> selectBiddingAuctionIds(Connection con, int loginMemberNo) {
+		
+		ArrayList<Integer> selectedBiddingAuctionIds = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectMemberBiddingAuctionIds");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			selectedBiddingAuctionIds = new ArrayList<>();
+			
+			while(rset.next()) {
+				selectedBiddingAuctionIds.add(rset.getInt(1));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return selectedBiddingAuctionIds;
+		
+	}
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   : 로그인돼있는 회원이 입찰한 상품 목록을 하나씩 반환하는 메소드 (현재입찰최고가 정보 제외)
+	 * @param
+	 * @return
+	 */
+
+	public BiddingList selectEachBiddingList(Connection con, Integer memberBiddingAuctionId) {
+		
+		BiddingList oneBiddingList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectOneBiddingList");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberBiddingAuctionId);
+			pstmt.setInt(2, memberBiddingAuctionId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				oneBiddingList = new BiddingList();
+				oneBiddingList.setBiddingAuctionId(rset.getInt("BIDDING_AUCTION_ID"));
+				oneBiddingList.setBiddingMemberPrice(rset.getInt("BIDDING_PRICE"));
+				oneBiddingList.setBrand(rset.getString("AR1_BRAND"));
+				oneBiddingList.setModel(rset.getString("AR1_MODEL"));
+				oneBiddingList.setThumbnailRename(rset.getString("ATTACHMENT_RENAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return oneBiddingList;
+	}
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 18
+	 * @ModifyDate    : 2019. 12. 18
+	 * @Description   : 로그인돼있는 회원이 입찰한 상품 하나에 대한 현재최고입찰가격 조회하는 메소드 
+	 * @param
+	 * @return
+	 */
+
+	public int selectBiddingMaxPrice(Connection con, int biddingAuctionId) {
+		
+		int maxBiddingPrice = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectMaxBiddingPrice");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, biddingAuctionId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				maxBiddingPrice = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return maxBiddingPrice;
+	}
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

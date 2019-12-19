@@ -10,6 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 
+/**
+ * @Author         : 오수민
+ * @CreateDate    : 2019. 12. 18
+ * @ModifyDate    : 2019. 12. 18
+ * @Description   :  유저페이지> 마이페이지 > 문의및신고 > 문의내역 리스트 클릭 > 상세보기 창에 정보 띄우는 서블렛
+ * @param
+ * @return
+ */
+
 @WebServlet("/questionDetail.qr")
 public class QuestionDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,8 +39,8 @@ public class QuestionDetailServlet extends HttpServlet {
 			page = "views/myPage/queAndReport/questionDetail.jsp";
 			request.setAttribute("questionDetail", questionDetail);
 		} else {
+			page = "/views/common/errorPage.jsp";
 			request.setAttribute("msg", "문의내역 상세정보 가져오기 실패");
-			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

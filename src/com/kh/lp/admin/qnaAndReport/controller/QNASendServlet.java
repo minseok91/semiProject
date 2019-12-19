@@ -12,6 +12,17 @@ import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.item.model.service.ItemService;
 import com.kh.lp.member.model.vo.Member;
 
+
+
+/**
+ * @Author         : 오수민
+ * @CreateDate    : 2019. 12. 17
+ * @ModifyDate    : 2019. 12. 17
+ * @Description   :  유저페이지 > 마이페이지 > 문의및신고 > 문의내역 > 문의하기버튼 > 문의내용 입력창에서 정보 가져오는 서블렛
+ * @param
+ * @return
+ */
+
 @WebServlet("/qnaSend.qr")
 public class QNASendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
