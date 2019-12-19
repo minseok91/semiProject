@@ -145,12 +145,6 @@
         border: 1px solid #888;
         width: 30%; /* Could be more or less, depending on screen size */                          
     }
- 	#acpContent{
- 		/* display:hidden; */
- 	}
- 	#rejContent{
- 		display:none;
- 	}
  	
 </style>
 </head>
@@ -204,7 +198,7 @@
 						</tr>
 					</thead>
 					<tbody id="tableBody">
-						<% int k = 1;
+						<% 
 						for(Item i :list) { %>
 							<tr>
 								<td><%= i.getItemId() %></td>
@@ -218,7 +212,7 @@
 									<button class="insertApp btn2">정보입력</button>
 								</td>
 							</tr>
-						<% k++; } %>
+						<% } %>
 					</tbody>
 				</table>  <!-- tableBoardArea end -->
 			</div>  <!-- boardArea end -->

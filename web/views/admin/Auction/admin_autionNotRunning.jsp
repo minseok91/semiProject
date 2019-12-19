@@ -281,12 +281,12 @@ Auction au = (Auction) list.get("auction");
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<label id="wish" href="#"><%if(au.getCount() == 0){ %> 
+						<label id="wish" href="#"><%if(au.getAuctionCount() == 0){ %> 
 							경매 준비
 							
-						<% } else if(au.getCount() == 1) {%>
+						<% } else if(au.getAuctionCount() == 1) {%>
 						경매중
-						<% } else if(au.getCount() == 2) {%>
+						<% } else if(au.getAuctionCount() == 2) {%>
 						재경매
 						<% } %>
 						</label>
