@@ -128,7 +128,7 @@
 				<li class="cursor">회사 관리</li>
 				<li>회원 정보</li>
 				<li id="goods_li">상품 관리</li>
-				<li>경매 관리</li>
+				<li id="auctionManagement">경매 관리</li>
 				<li id="">매출 관리</li>
 				<li>게시판 관리</li>
 				<li id="inquiryAndReport">문의 및 신고</li>
@@ -195,6 +195,9 @@
 	$("#appraisal_req").click(function(){
 		location.href="<%= request.getContextPath()%>/selectAll.it";
 	})
+	$("#appraisal_com").click(function(){
+		location.href="<%= request.getContextPath()%>/selectAll.app";
+	})
 	$("#inquiryAndReport").click(function(){
 		location.href="<%= request.getContextPath()%>/QNASelect.qr";
 	})
@@ -206,6 +209,9 @@
 	})
 	$("#blackList").click(function(){
 		location.href="<%=request.getContextPath()%>/blackList.me";
+	})
+	$("#auctionManagement").click(function(){
+		location.href="<%=request.getContextPath()%>/selectAll.au";
 	})
  	$(".cursor").mouseover(function(){
 		$(".cursor").css('cursor','pointer');
