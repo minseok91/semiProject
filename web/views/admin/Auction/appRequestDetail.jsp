@@ -11,14 +11,7 @@
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.lp.item.model.vo.*, com.kh.lp.common.*"%>
-<% 
-	Item item = (Item) request.getAttribute("item");
-	String[] brandModel = item.getItemBrandModel().split("/");
- 	String brand = brandModel[0];
- 	String model = brandModel[1];
- 	int itemId = item.getItemId();
-	Attachment at = (Attachment) request.getAttribute("at");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,9 +51,13 @@
 			border-left: 1px solid #CCCCCC;
 			border-bottom: 3px double black;
 		}
-		#part1Area>#part1ImgArea>img {
+		#part1Area>#part1ImgArea>#tableImgArea {
+			height: inherit;
 			width: inherit;
-			height: 300px;
+		}
+		#part1Area>#part1ImgArea>#tableImgArea>#tableImgBodyArea>tr>td>img {
+			height: 284px;
+			width: 350px;
 		}
 		#part1Area>#part1InfoArea {
 			display: inline-block;
@@ -317,11 +314,50 @@
 				<!-- 사진, 상품명, 입찰가, 등록칸 -->
 				<div id="part1Area">
 					<div id="part1ImgArea">
-						<h3 align="center" style="border-bottom: 1px solid black;">감정 신청한 상품의 사진</h3>
-						<img src="<%= request.getContextPath() %>/img/userItemPic/<%= at.getAttachmentRename() %>" alt="" />
+						<table id="tableImgArea">
+							<tbody id="tableImgBodyArea">
+								<tr>
+									<td><h3 align="center">감정 신청한 상품의 사진</h3></td>
+								</tr>
+								<tr>
+									<td><img src="<%= request.getContextPath() %>/img/userItemPic/2019121720423183607.png" alt="" /></td>
+								</tr>
+							</tbody>  <!-- tableImgBodyArea end -->
+						</table>  <!-- tableImgArea end -->
 					</div>  <!-- part1ImgArea end -->
 					<div id="part1InfoArea">
-					
+						<table id="tableInfoArea" border="1">
+							<tbody id=tableInfoBodyArea>
+								<tr>
+									<td>상품명 : </td>
+									<td>상품명이 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>판매자 : </td>
+									<td>판매자 아이디 또는 이름이 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>구입 시기 :</td>
+									<td>구입 시기가 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>감정 신청 접수일 : </td>
+									<td>감정 신청 접수일이 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>보증서 유무 : </td>
+									<td>보증서의 유무가 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>배송 받은 날짜 : </td>
+									<td>배송 받은 날짜가 들어가는 공간입니다.</td>
+								</tr>
+								<tr>
+									<td>처리 기한 : </td>
+									<td>감정신청 처리기한이 들어가는 공간입니다.</td>
+								</tr>
+							</tbody>
+						</table>  <!-- tableInfoArea end -->
 					</div>  <!-- part1InfoArea end -->
 				</div>  <!-- part1Area end -->
 				<div id="part2Area">
@@ -337,243 +373,7 @@
 	
 	
 	
-	<!-- The Modal -->
-    <div id="myModal" class="modal">
- 
-      <!-- Modal content -->
-      <div class="modal-content">
-                <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
-                <p style="text-align: center; line-height: 1.5;">
-                <form action="<%=request.getContextPath()%>/insert.app" method="post" encType="multipart/form-data">
-                   <div class="center">
-					<input type="radio" name="isGen" id="accept" value="Y" checked>
-					<label for="accept">진품</label>
-					<input type="radio" name="isGen" id="reject" value="N">
-					<label for="reject">가품</label>
-				   </div>
-				   <input type="hidden" value="<%=itemId%>" name="itemId">
-				   <input type="hidden" value="<%=item.getItemMemberNo()%>" name="memberNo">
-					<div id="acpContent">
-						여기는 진품일 시에 넣는 공간
-						<!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
-    					<!--이건 생성된거를  APP_RESULT_NO NUMBER, -->
-    					<!--브랜드  BRAND VARCHAR2(50), -->
-    					<!--모델네임 MODEL_NAME VARCHAR2(50), -->
-    					<!-- 가격 APP_PRICE NUMBER -->
-    					<div id="goods">
-					<label>상품 정보</label>
-					<table>
-						<tr>
-							<td>상품ID</td>
-							<td><input type="text" id="acpName" value="<%=itemId%>"></td>
-						</tr>
-						<tr>
-							<td>브랜드</td>
-							<td><input type="text" name="brand" placeholder="브랜드"></td>
-						</tr>
-						<tr>
-							<td>모델명</td>
-							<td><input type="text" name="model" value="<%=model %>" placeholder="모델명"></td>
-						</tr>
-						<tr>
-							<td>감정가</td>
-							<td><input type="text" name="price" placeholder="가격"></td>
-						</tr>
-						<tr>
-							<td>상태</td>
-							<td><!-- <input type="text" name="status" placeholder="상태"> -->
-								<select name="status" id="status">
-									<option value="S">S</option>
-									<option value="A+">A+</option>
-									<option value="A">A</option>
-									<option value="B+">B+</option>
-									<option value="B">B</option>
-								</select>
-							</td>
-						</tr>
-					</table>
-					<textarea name="comment" cols="40" rows="5"></textarea> 
-				</div>   					
-    					<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
-						<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this ,2)">
-						<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this ,3)">
-						<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this ,4)">
-						<input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this ,5)">
-						<img width="120" height="100" id="titleImg">
-						<img width="120" height="100" id="contentImg1">
-						<img width="120" height="100" id="contentImg2">
-						<img width="120" height="100" id="contentImg3">
-						<img width="120" height="100" id="contentImg4">
-						
-						
-						<div id="c-type">
-						
-						<input type="radio" id="watch" name="type" value="W">
-						<label for="watch">시계</label>
-						<input type="radio" id="bag" name="type" value="B">
-						<label for="bag">가방</label>
-						</div>
-				<div id="watchDetail" class="watchDetail">
-					<label>상품 정보 상세</label>
-					<table>
-						<tr>
-							<td>보증서 유무</td>
-							<td><input type="text" name="guaranteeYn" id="guaranteeYn" ></td>
-						</tr>
-						<tr>
-							<td>오리지널 박스 유무</td>
-							<td><input type="text" name="boxYn" id="boxYn" ></td>
-						</tr>
-						<tr>
-							<td>재질</td>
-							<td><input type="text" name="matertial" id="matertial" ></td>
-						</tr>
-						<tr>
-							<td>무브먼트 종류</td>
-							<td><input type="text" name="movement" id="movement" ></td>
-						</tr>
-						<tr>
-							<td>크로노그래프</td>
-							<td><input type="text" name="chronograph" id="chronograph" ></td>
-						</tr>
-					</table>
-				</div>
-				<div id="bagDetail" class="bagDetail">
-					<label>상품 정보 상세</label>
-					<table>
-						<tr>
-							<td>끈 높이</td>
-							<td><input type="text" name="strap" id="strap" ></td>
-						</tr>
-						<tr>
-							<td>사이즈</td>
-							<td><input type="text" name="size" id="size" ></td>
-						</tr>
-						<tr>
-							<td>성별</td>
-							<td><input type="radio" name="gender" id="Male" value="M"><label for="Male">남</label></td>
-							<td><input type="radio" name="gender" id="FeMale" value="F"><label for="FeMale">여</label></td>
-						</tr>
-					</table>
-				</div>
-						<!-- <button id="insertGen">확인하기</button> -->
-						<input type="submit" id="insertGen" value="입력하기">
-					</div>
-					<div id="rejContent">
-					여기는 가품일 시에 넣는 공간
-					<br>
-						<label>제품ID</label>
-						<input type="text" id="rejName" name="rejName" value="<%=itemId%>">
-						<br>
-						<label>가품입니까?</label>
-						<textarea name="comment2" cols="40" rows="5"></textarea> 
-						<br>
-						<input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
-						<input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this ,2)">
-						<input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this ,3)">
-						<input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this ,4)">
-						<input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this ,5)">
-						<img width="120" height="100" id="titleImg">
-						<img width="120" height="100" id="contentImg1">
-						<img width="120" height="100" id="contentImg2">
-						<img width="120" height="100" id="contentImg3">
-						<img width="120" height="100" id="contentImg4">
-						<!-- <input type="submit" value="입력하기"> -->
-						
-						<input type="submit" id="insertGen" value="입력하기">
-					</div>
-				</form>
-				</p>
-                <p><br /></p>
-            <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
-                <span class="pop_bt" style="font-size: 13pt;" >
-                     닫기
-                </span>
-            </div>
-      </div>
- 
-    </div>
-        <!--End Modal-->
-	<script>
-		function close_pop(flag) {
-		      $('#myModal').hide();
-		 };	
 	
-		 function close_pop2(flag) {
-		      $('#myModal2').hide();
-		 };	
-		
-		 function loadImg(value ,num){
-			if(value.files && value.files[0]){
-				var reader = new FileReader();
-				reader.onload = function(e){
-					switch(num){
-					case 1 : $("#titleImg").attr("src", e.target.result); break;
-					case 2 : $("#contentImg1").attr("src", e.target.result); break;
-					case 3 : $("#contentImg2").attr("src", e.target.result); break;
-					case 4 : $("#contentImg3").attr("src", e.target.result); break;
-					case 5 : $("#contentImg4").attr("src", e.target.result); break;
-					}
-				};
-				reader.readAsDataURL(value.files[0]);
-			}
-		};
-		
-		$(function(){
-			$(".insertApp").click(function(){
-				$('#myModal').show();
-				var pr = $(this).parent().parent('tr').children().eq(1).text();
-				$("#acpName").val(pr);
-				$("#rejName").val(pr);
-				console.log("pr : "  + pr );
-			});
-			
-			$("#accept").click(function(){
-				
-				$("#acpContent").show();
-				$("#rejContent").hide();
-			});
-			
-			$("#reject").click(function(){
-				
-				$("#rejContent").show();
-				$("#acpContent").hide();
-			});
-			
-			$("#bag").click(function(){
-				
-				$("#bagDetail").show();
-				$("#watchDetail").hide();
-			});
-			
-			$("#watch").click(function(){
-				
-				$("#watchDetail").show();
-				$("#bagDetail").hide();
-			});
-			
-			$("#appDoc").click(function(){
-				$('#myModal').show();
-			});
-			
-			$("#detail").click(function(){
-				$('#myModal2').show();
-			});
-			
-			$("#insertGen").click(function(){
-				var files = [];
-				var file = $("input[type=file]");
-				var imges = $("img");
-				
-				for(var i = 0; i < file.length; i++){
-					if(file[i].value === ''){
-						console.log(file[i].value);
-						file[i].remove(); 
-					};
-				}
-				console.log(file.length);
-			});
-		});
-	</script>
+	
 </body>
 </html>
