@@ -6,6 +6,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @Author         : 오수민
+ * @CreateDate    : 2019. 12. 18
+ * @ModifyDate    : 2019. 12. 18
+ * @Description   :  유저페이지 입찰리스트용 vo
+ * @param
+ * @return
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

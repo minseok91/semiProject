@@ -13,6 +13,9 @@ import com.kh.lp.auction.model.dao.AuctionDao;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.auction.model.vo.BiddingHistory;
+import com.kh.lp.auction.model.vo.ClosedAuction;
+import com.kh.lp.bidding.model.dao.BidDao;
+import com.kh.lp.bidding.model.vo.BiddingList;
 import com.kh.lp.member.model.vo.Member;
 
 public class AuctionService {
@@ -122,4 +125,92 @@ Connection con = getConnection();
 		return list;
 	}
 
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 19
+	 * @ModifyDate    : 2019. 12. 19
+	 * @Description   : 로그인된 유저의 경매마감된 판매상품 AUCTION_ID 불러와서 ArrayList<Integer>에 담는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public ArrayList<Integer> memberClosedAuctionIds(int loginMemberNo) {
+		
+		ArrayList<Integer> selectedClosedAuctionIds = null;
+		
+		Connection con = getConnection();
+		
+		selectedClosedAuctionIds = new AuctionDao().selectClosedAuctionIds(con, loginMemberNo);
+		
+		close(con);
+		
+		return selectedClosedAuctionIds;
+	}
+	
+	
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 19
+	 * @ModifyDate    : 2019. 12. 19
+	 * @Description   : 현재 로그인 되어있는 유저가 판매중인 경매마감상품 리스트 중 현재 페이지에 해당하는 리스트 5개 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public ArrayList<ClosedAuction> memberClosedAuctionList(int loginMemberNo, int currentPage, int limit) {
+		
+		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
+		
+		Connection con = getConnection();
+		
+		selectedClosedAuctionList = new ArrayList<>();
+
+		
+
+
+		close(con);
+		
+		return null;
+	}
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

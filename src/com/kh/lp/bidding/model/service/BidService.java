@@ -91,13 +91,14 @@ public class BidService {
 		
 		selectedBiddingList = new ArrayList<>();
 		
-		//로그인된 회원의 입찰아이디들을 하나씩 DAO 메소드로 보내서 처리
+		//로그인된 회원의 입찰아이디(BiddingAuctionId)들을 하나씩 DAO 메소드로 보내서 해당 아이디에 대한 입찰 정보를 가져와 selectedBiddingList에 담기
 		for(int i = 0; i < memberBiddingAuctionIds.size(); i++) {
 			
+			//로그인돼있는 회원이 입찰한 상품 목록을 하나씩 반환해서 eachBiddingList 객체에 담는 메소드 (현재입찰최고가 정보 제외)
 			BiddingList eachBiddingList = new BidDao().selectEachBiddingList(con, memberBiddingAuctionIds.get(i));
-			
+			//위에서 가져온 상품의 현재 입찰최고가격을 반환하는 메소드
 			int maxPrice = new BidDao().selectBiddingMaxPrice(con, eachBiddingList.getBiddingAuctionId());
-			
+			//위의 eachBidddingList에 입찰최고가격정보 추가
 			eachBiddingList.setBiddingMaxPrice(maxPrice);
 			
 			selectedBiddingList.add(eachBiddingList);
