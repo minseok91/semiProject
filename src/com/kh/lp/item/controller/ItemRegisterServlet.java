@@ -18,25 +18,24 @@ import com.kh.lp.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
- * Servlet implementation class ItemRegisterServlet
+ * @Author         : 오수민
+ * @CreateDate    : 2019. 12. 16
+ * @ModifyDate    : 2019. 12. 16
+ * @Description   :  유저페이지 > 마이페이지 > 판매정보 > 상품감정신청 > 판매시작버튼 > 상품등록 창에서 입력값들 받아오는 서블렛
+ * @param
+ * @return
  */
+
 @WebServlet("/itemRegister.it")
 public class ItemRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ItemRegisterServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
 
@@ -116,19 +115,10 @@ public class ItemRegisterServlet extends HttpServlet {
 				request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
 				
 			}
-		
-			
 		}
-		
-		
 	}
-	
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

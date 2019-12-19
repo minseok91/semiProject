@@ -1,3 +1,5 @@
+<%@page import="com.kh.lp.bidding.model.vo.Bid"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,7 +20,7 @@
 	
 	#part1 {
 		display: flex;
-		margin-bottom: 50px;
+		padding-top: 10%;
 	}
 
 	.title>img {
@@ -78,6 +80,10 @@
 		margin: 0;
 	}
 	
+	.contents>#head>label:nth-of-type(2) {
+		margin-left: 34%;
+	}
+	
 	/* 최고입찰가와 입찰가 입력 컨테이너를 묶음 */
 	#set {
 		display: flex;
@@ -86,6 +92,7 @@
 	#price {
 		margin-top: 50px;
 	    display: grid;
+	    width: 400px;
 	}
 	
 	#price>label:nth-of-type(1) {
@@ -106,23 +113,23 @@
    		margin-top: 59px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th {
+	#biddingUsers>table>thead>tr>th {
 		background: #f2f2f2;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(1) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(1) {
 		width: 150px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(2) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(2) {
 		width: 200px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(3) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(3) {
 		width: 100px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th, #biddingUsers>table>tbody>tr>td {
+	#biddingUsers>table>thead>tr>th, #biddingUsers>table>tbody>tr>td {
 		border: 1px solid #d9d9d9;
 		padding: 5px;
 		font-size: 15px;
@@ -131,17 +138,17 @@
 	
 	#biddingApply {
 		margin-top: 100px;
-		margin-left: 68px;
+		margin-left: 85px;
 	}
 	
-	#biddingApply>form>label {
+	#biddingApply>label {
 		font-size: 20px;
 		color: #3e2d1a;
 		border-left: 5px solid #3e2d1a;
 		padding-left: 10px;
 	}
 	
-	#biddingApply>form>input[type="text"] {
+	#biddingApply>input[type="text"] {
 		font-size: 2rem;
     	font-weight: 100;
 		border: none;
@@ -152,7 +159,7 @@
 		text-align: right;
 	}
 	
-	#biddingApply>form>input[type="submit"] {
+	#biddingApply>button {
 		font-size: 2rem;
 		color: #cca071;
 		background: #211f24;
@@ -162,7 +169,8 @@
 		border-radius: 3px;
 	}
 	
-	#biddingApply>label {
+	#biddingApply>label:nth-of-type(2) {
+		border: none;
 		font-size: 1.7rem;
 		margin-left: 7px;
 		color: #ff0000;
@@ -207,94 +215,63 @@
 </style>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
-<body>
+<body onload="onload()">
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<section>
+	<%
+		ArrayList<Bid> watchDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
+		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
+		String img = (String) request.getAttribute("img");
+		int num = (Integer) request.getAttribute("num");
+	%>
 		<div class="container">
 		<div class="contents">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
 			<span id="part1">
 				<span class="imgBox">
 					<div class="title">
-						<a id="wish" href="#">♡</a>
-						<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+					<% if(loginMember != null) { %>
+						<a id="wish">♡</a>
+					<% } %>
+						<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
+							<% for(Bid b : watchDetailInfo) { %>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+									<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
 								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-								</td>
+							<% } %>
 							</tr>
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
-						<label>판매자</label>
+						<label><%= watchDetailInfo.get(0).getBidBrand() +" "+ watchDetailInfo.get(0).getBidModel() %></label>
+						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
 					</div>
 					<div id=set>
 						<div id="price">
 							<label>현재 가격</label>
-							<label>￦1,600,000</label>
+							<label id="maxPrice"></label>
+							<% if(loginMember == null) { %>
+								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
+							<% } %>
+							</div>
+							<% if(loginMember != null) { %>
+							<div id="biddingApply">
+								<label id="unit"></label><br>
+								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
+								<button id="insertBid">입찰</button>
+							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
-						<div id="biddingApply">
-						<form action="" post="get">
-							<label>입찰 단위 : ￦ 80,000</label><br>
-							<input type="text" name="bidding" size="25" placeholder="1,680,000원 이상 작성하세요.">
-							<input type="submit" value="입찰">
-						</form>
-						<label>※경매 수수료 : 낙찰가의 15%</label>
-					</div>
+						<% } %>
 					</div>
 					<div id="biddingUsers">
 							<table>
-								<tr>
-									<th>입찰자</th>
-									<th>입찰 금액</th>
-									<th>입찰 시간</th>
-								</tr>
-								<tr>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
-								</tr>
-								<tr>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
 							</table>
 						</div>
 				</span> <!-- contents End -->
@@ -339,18 +316,67 @@
 			</div> <!-- part2 End -->
 			</div>
 		</div> <!-- container End -->
-	</section>
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script type="text/javascript">
-		$(function() {
+		function onload() {
 			const title = $('#title').attr('src');
 			$('#detailImg img').mouseover(function() {
 				$('#title').attr('src', $(this).attr('src'));
 			}).mouseout(function() {
 				$('#title').attr('src', title);
 			});
-		})
+			
+			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+			
+			<% for(Bid b : watchBiddingUser) { %>
+				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidAuctionStartTime() %></td></tr>"
+			<% } %>
+				temp+="</tbody>";
+				$("#biddingUsers > table").append(temp);
+				
+			// 입찰리스트에서 최댓값 추출
+			let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(2).text();
+			$('#maxPrice').text(numberFormat(maxPrice)+'원');
+			
+			// 최댓값기준 입찰단위
+			let unit = maxPrice*0.05;
+			$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+			
+			// 최소입찰금액
+			let minPrice = maxPrice*1.05;
+			$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+			
+			// 위시리스트 추가
+			$('#wish').click(function() {
+				const wish=confirm('위시리스트에 추가하시겠습니까?');
+
+				if(wish) {
+					
+				}
+			})
+			
+			function numberFormat(inputNumber) {
+				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			
+			$('#insertBid').click(function() {
+				const regex = /\d/g;
+				const bidPrice = $('#minPrice').val();
+				console.log(bidPrice);
+				
+				if(regex.test(bidPrice)) {
+					if(Number(bidPrice) <= minPrice) {
+						alert('최소 입찰금액보다 높아야 입찰이 가능합니다. ' + minPrice);
+					} else {
+						const URL = "<%= request.getContextPath() %>/bidding.bi?auctionId=<%= num %>&bidPrice="+bidPrice+"&memberNo=<%= loginMember.getMemberNo() %>";
+						location.href=URL;
+					}
+				} else {
+					alert('입력내용을 다시 확인해주세요.');
+				}
+			})
+		}
 	</script>
 </body>
 </html>

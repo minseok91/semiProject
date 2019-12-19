@@ -168,7 +168,7 @@
 						<a value="buy/wishList">▶ 위시리스트</a>
 					</dd>
 					<dd>
-						<a value="buy/biddingList">▶ 입찰리스트</a>
+						<a value="../../biddingList.bi">▶ 입찰리스트</a>
 					</dd>
 					<dd>
 						<a value="buy/winningBid">▶ 낙찰리스트</a>
@@ -242,7 +242,6 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<hr>
 							<th class="con">제목</th>
 							<td class="con"><input type="text" class="border_popep textArea" style="width: 560px; height: 20px;" name="qnaTitle"></td>
 						</tr>
@@ -251,6 +250,8 @@
 							<th class="con">문의내용</th>
 							<td class="con"><textarea rows="10" cols="120" class="textArea" style="resize:none;" name="qnaContent"></textarea></td>
 						</tr>
+						
+						
 						
 					</tbody>
 				</table>

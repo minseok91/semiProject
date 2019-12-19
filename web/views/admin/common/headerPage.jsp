@@ -6,23 +6,28 @@
 <meta content="text/html;">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
-</head>
 <style>
+	html, body {
+		padding: 0;
+		margin: 0;
+		width: 100%;
+	}
 	#header {
 		background: rgb(33, 31, 34);
+		position: relative;
 		width: 100%;
-		height: 70px;
+		height: 110px;
 	}
 	#header_box {
 		margin-left: auto;
 		margin-right: auto;
 		background: rgb(33, 31, 34);
+		position: relative;
 		width: 1080px;
 		height: 100%;
-		position: relative;
 	}
 	#bottom {
-		position: absolute;
+		position: relative;
 		width: 100%;
 	}
 	#header_box > ul {
@@ -115,7 +120,7 @@
 		margin: 0 auto;
 	}
 </style>
-<body>
+</head>
 	<div id="header">
 		<div id="header_box">
 			<ul>
@@ -123,13 +128,13 @@
 				<li class="cursor">회사 관리</li>
 				<li>회원 정보</li>
 				<li id="goods_li">상품 관리</li>
-				<li>경매 관리</li>
+				<li id="auctionManagement">경매 관리</li>
 				<li id="">매출 관리</li>
 				<li>게시판 관리</li>
 				<li id="inquiryAndReport">문의 및 신고</li>
 			</ul>
-		</div>
-	</div>
+		</div>  <!-- header_box end -->
+	</div>  <!-- header end -->
 	<div id="bottom">
 		<div id="bottom_box">
 			<ul id="usermit">
@@ -144,8 +149,9 @@
 				<li id="appraisal_req" class="cursor">감정 신청 물품</li>
 				<li id="appraisal_com" class="cursor">감정 완료 물품</li>
 			</ul>
-		</div>
-	</div>
+		</div>  <!-- bottom_box end -->
+	</div>  <!-- bottom end -->
+	
 	<script>
 	$(function(){
 		$(document).mouseover(function(e){
@@ -189,6 +195,9 @@
 	$("#appraisal_req").click(function(){
 		location.href="<%= request.getContextPath()%>/selectAll.it";
 	})
+	$("#appraisal_com").click(function(){
+		location.href="<%= request.getContextPath()%>/selectAll.app";
+	})
 	$("#inquiryAndReport").click(function(){
 		location.href="<%= request.getContextPath()%>/QNASelect.qr";
 	})
@@ -201,10 +210,11 @@
 	$("#blackList").click(function(){
 		location.href="<%=request.getContextPath()%>/blackList.me";
 	})
+	$("#auctionManagement").click(function(){
+		location.href="<%=request.getContextPath()%>/selectAll.au";
+	})
  	$(".cursor").mouseover(function(){
 		$(".cursor").css('cursor','pointer');
 	});
 	</script>
-	
-</body>
 </html>

@@ -48,7 +48,7 @@ public class LoginMemberServlet extends HttpServlet {
 		if(loginMember.getMemberId() != null) {
 			if(loginMember.getMemberId().equals("admin")) {
 				request.getSession().setAttribute("loginMember", loginMember);
-				response.sendRedirect(request.getContextPath() + "/views/admin/admin_mainPage.jsp");
+				response.sendRedirect(request.getContextPath() + "/views/admin/main/admin_mainPage.jsp");
 			} else {
 				request.getSession().setAttribute("loginMember", loginMember);
 				response.sendRedirect(request.getContextPath() + "/index.jsp");

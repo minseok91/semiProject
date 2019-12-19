@@ -75,49 +75,64 @@ public class AppraisalService {
 		Connection con = getConnection();
 		
 		int result = 0;
+		
 		//IH처리
 		int resultIh = new AppraisalDao().insertIh(con, ih);
-		
 		System.out.println("resultIh" + resultIh);
-		//app 처리
-		int resultApp = new AppraisalDao().insertApp(con, ap);
-		System.out.println("resultApp" + resultApp);
-		//W 처리
-		int resultW = new AppraisalDao().insertW(con, w);
-		System.out.println("resultW" + resultW);
-		//Ar 처리
-		int resultAr = new AppraisalDao().insertArW(con, ar);
-		System.out.println("resultAr" + resultAr);
-		result = resultIh + resultApp + resultW + resultAr;
-		System.out.println("result : "+ result);
-		if (result> 3) {
-			
-			int appId = new AppraisalDao().selectCurrvalApp(con);
-			
-			System.out.println("appId :" + appId);
-			
-			for (int i = 0; i < fileList.size(); i++) {
-				
-				fileList.get(i).setAttachmentRefApp(appId);
-				
+		if(resultIh > 0) {
+			//app 처리
+			int resultApp = new AppraisalDao().insertApp(con, ap);
+			System.out.println("resultApp" + resultApp);
+			if(resultApp > 0) {
+				//W 처리
+				int resultW = new AppraisalDao().insertW(con, w);
+				System.out.println("resultW" + resultW);
+				if(resultW > 0) {
+					//Ar 처리
+					int resultAr = new AppraisalDao().insertArB(con, ar);
+					System.out.println("resultAr" + resultAr);
+					
+					if(resultAr > 0) {
+						int appId = new AppraisalDao().selectCurrvalApp(con);
+						
+						System.out.println("appId :" + appId);
+						
+						for (int i = 0; i < fileList.size(); i++) {
+							
+							fileList.get(i).setAttachmentRefApp(appId);
+							
+						}
+						
+						
+						int resultAt = new AppraisalDao().insertAttachment(con, fileList);
+						System.out.println("resultAt" + resultAt);
+						if(resultAt > 0) {
+							int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
+							
+							int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
+							System.out.println("resultAu" + resultAu);
+							if(resultAu > 0) {
+								commit(con);
+								result = 1;
+							} else {
+								rollBack(con);
+							}
+						} else {
+							rollBack(con);
+						}
+					} else {
+						rollBack(con);
+					}
+				} else {
+					rollBack(con);
+				}
+			} else {
+				rollBack(con);
 			}
-		}
-		
-		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
-		result = resultIh + resultApp + resultW + resultAr + resultAt;
-		
-		int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
-		
-		int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
-		
-		result += resultAu;
-		System.out.println(result);
-		
-		if(result > 5) {
-			commit(con);
 		} else {
 			rollBack(con);
 		}
+		
 		close(con);
 		
 		return result;
@@ -130,46 +145,61 @@ public class AppraisalService {
 		//IH처리
 		int resultIh = new AppraisalDao().insertIh(con, ih);
 		System.out.println("resultIh" + resultIh);
-		//app 처리
-		int resultApp = new AppraisalDao().insertApp(con, ap);
-		System.out.println("resultApp" + resultApp);
-		//W 처리
-		int resultB = new AppraisalDao().insertB(con, b);
-		System.out.println("resultB" + resultB);
-		//Ar 처리
-		int resultAr = new AppraisalDao().insertArB(con, ar);
-		System.out.println("resultAr" + resultAr);
-		result = resultIh + resultApp + resultB + resultAr;
-		System.out.println("result : "+ result);
-		if (result> 3) {
-			
-			int appId = new AppraisalDao().selectCurrvalApp(con);
-			
-			System.out.println("appId :" + appId);
-			
-			for (int i = 0; i < fileList.size(); i++) {
-				
-				fileList.get(i).setAttachmentRefApp(appId);
-				
+		if(resultIh > 0) {
+			//app 처리
+			int resultApp = new AppraisalDao().insertApp(con, ap);
+			System.out.println("resultApp" + resultApp);
+			if(resultApp > 0) {
+				//W 처리
+				int resultB = new AppraisalDao().insertB(con, b);
+				System.out.println("resultB" + resultB);
+				if(resultB > 0) {
+					//Ar 처리
+					int resultAr = new AppraisalDao().insertArB(con, ar);
+					System.out.println("resultAr" + resultAr);
+					
+					if(resultAr > 0) {
+						int appId = new AppraisalDao().selectCurrvalApp(con);
+						
+						System.out.println("appId :" + appId);
+						
+						for (int i = 0; i < fileList.size(); i++) {
+							
+							fileList.get(i).setAttachmentRefApp(appId);
+							
+						}
+						
+						
+						int resultAt = new AppraisalDao().insertAttachment(con, fileList);
+						System.out.println("resultAt : " + resultAt);
+						if(resultAt > 0) {
+							int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
+							
+							int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
+							System.out.println("resultAu : " +resultAu);
+							if(resultAu > 0) {
+								commit(con);
+								result = 1;
+							} else {
+								rollBack(con);
+							}
+						} else {
+							rollBack(con);
+						}
+					} else {
+						rollBack(con);
+					}
+				} else {
+					System.out.println("rollbackc");
+					rollBack(con);
+				}
+			} else {
+				rollBack(con);
 			}
-		}
-		
-		int resultAt = new AppraisalDao().insertAttachment(con, fileList);
-		
-		result = resultIh + resultApp + resultB + resultAr + resultAt;
-		
-		int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
-		
-		int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
-		
-		result += resultAu;
-		
-		
-		if(result > 5) {
-			commit(con);
 		} else {
 			rollBack(con);
 		}
+		
 		close(con);
 		
 		return result;

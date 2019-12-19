@@ -159,7 +159,7 @@ td>img {
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
-				<dd><a value="buy/biddingList">▶   입찰리스트</a></dd>
+				<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>

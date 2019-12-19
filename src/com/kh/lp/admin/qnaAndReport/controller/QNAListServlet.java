@@ -14,6 +14,15 @@ import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.common.PageInfo;
 import com.kh.lp.member.model.vo.Member;
 
+/**
+ * @Author         : 오수민
+ * @CreateDate    : 2019. 12. 18
+ * @ModifyDate    : 2019. 12. 18
+ * @Description   :  유저페이지 > 마이페이지 > 문의및신고 > 문의내역에서 유저 문의 리스트 띄우는 서블렛
+ * @param
+ * @return
+ */
+
 @WebServlet("/qnaList.qr.jsp")
 public class QNAListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +38,7 @@ public class QNAListServlet extends HttpServlet {
 		Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
 		int loginMemberNo = loginMember.getMemberNo();
 		
-		System.out.println("loginMemberNo : " + loginMemberNo);
+		
 		
 		//----------------------------------------------페이징 처리 로직------------------------------------------------
 		//페이징 처리를 위한 변수들 선언
@@ -69,8 +78,12 @@ public class QNAListServlet extends HttpServlet {
 		//-------------------------------------------------------------------------------------------------------
 		
 		
+		
+		
 		//해당 페이지에 들어갈  리스트 10개를 담아올 서비스 메소드 호출
 		ArrayList<QNA> memberQnaList = new QNAService().memberQnaList(loginMemberNo, currentPage, limit);
+		
+		
 		
 		String page = "";
 		
@@ -79,9 +92,10 @@ public class QNAListServlet extends HttpServlet {
 			request.setAttribute("memberQnaList", memberQnaList);
 			request.setAttribute("pInfo", pInfo);
 		} else {
+			page = "/views/common/errorPage.jsp";
 			request.setAttribute("msg", "내 문의내역 불러오기 실패");
-			request.getRequestDispatcher("/views/common/errorPage.jsp").forward(request, response);	
 		}
+		
 		request.getRequestDispatcher(page).forward(request, response);
 		
 		

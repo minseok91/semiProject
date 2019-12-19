@@ -11,7 +11,12 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.lp.bidding.model.vo.*, java.util.*, com.kh.lp.common.*"%>
+<%
+	ArrayList<BiddingList> memberBiddingList = (ArrayList<BiddingList>)request.getAttribute("memberBiddingList");
+%>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -153,7 +158,7 @@ td>img {
 			<dl>
 				<dt>§  구매정보</dt>
 				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
-				<dd><a value="buy/biddingList" id="selectMenu">▶   입찰리스트</a></dd>
+				<dd><a value="../../biddingList.bi" id="selectMenu">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
 				<dt>§  판매정보</dt>
@@ -187,29 +192,41 @@ td>img {
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table id="tableArea" border="1">
-				<thead id="tableHeadArea">
-					<tr>
-						<th>상품번호</th>
-						<th>상품사진</th>
-						<th>브랜드/모델명</th>
-						<th>최고 입찰가</th>
-						<th>내 입찰가</th>
-						<th>남은 시간</th>
-					</tr>
-				</thead>
-				<tbody id="tableBodyArea">
-				<tr>
-					<td>1</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td>1,520,000</td>
-					<td>23시간 35분 전</td>
-				</tr>
-				</tbody>
-			</table><!-- tableArea End -->
-		</div> <!-- menuStatus End -->
+				<table id="tableArea" border="1">
+					<thead id="tableHeadArea">
+						<tr>
+							<th>상품번호</th>
+							<th>상품사진</th>
+							<th>브랜드/모델명</th>
+							<th>최고 입찰가</th>
+							<th>내 입찰가</th>
+							<th>남은 시간</th>
+							<th>비 고</th>
+						</tr>
+					</thead>
+
+
+					<tbody id="tableBodyArea">
+						<%
+							for (BiddingList bl : memberBiddingList) {
+						%>
+						<tr>
+							<td><%=bl.getBiddingAuctionId()%></td>
+							<td><img src="<%=request.getContextPath()%>/img/appraisal/<%=bl.getThumbnailRename()%>"></td>
+							<td><%=bl.getBrand()%> / <br><%=bl.getModel()%></td>
+							<td><%=bl.getBiddingMaxPrice()%></td>
+							<td><%=bl.getBiddingMemberPrice()%></td>
+							<td>23시간 35분 전</td>
+							<td><button>상세보기</button></td>
+						</tr>
+						<%
+							}
+						%>
+
+					</tbody>
+				</table>
+				<!-- tableArea End -->
+			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	

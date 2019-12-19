@@ -28,39 +28,164 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="css/admin_appRequest.css">
  <style>
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-    
-        /* Modal Content/Box */
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto; /* 15% from the top and centered */
-            padding: 20px;
-            border: 1px solid #888;
-            width: 30%; /* Could be more or less, depending on screen size */                          
-        }
- 	#acpContent{
- 		/* display:hidden; */
+        table {
+		border-collapse: collapse;
+    	text-align: center;
+	}
+	
+	input{
+		font-family: sans-serif;
+    	font-size: 15px;
+    	width: 150px;
+    	border: none;
+    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+	}
+	
+	.container {
+		width: 1080px;
+		margin: 0 auto;
+		padding: 6px 0px 0;
+	}
+	.contents{
+		height:660px;
+		width:inherit;
+		margin-top: 5%;
+		border: 1px solid;
+		border-radius: 10px; 
+	}
+	
+	#headArea {
+		width: inherit;
+	}
+	
+	 #headBoardArea {
+		display: inline-block;
+		float: left;
+	}
+	
+	 #headSearchArea {
+		display: inline-block;
+		float: right;
+	}
+	#tableSearchArea {
+		height: 48px;
+		margin-right: 37px;
+	}
+	#tableSelectArea {
+		height: 48px;
+		margin-left: 37px;
+	}
+	
+	#selectBoard {
+		height: 21px;
+	}
+	
+	.container>.contents>#boardArea {
+		width: inherit;
+	}
+	.container>.contents>#boardArea>#tableBoardArea {
+		width: 1000px;
+		height: 500px;
+		border-top: 1px solid #211f22;
+ 		border-bottom: 1px solid #211f22;
+	}
+	
+	#tableBoardArea>#tableHead>tr>th {
+		background: #e2ceb8;
+		color: #211f22;
+		font-size: 1.2em;
+		height: 32px;
+		border-top: 1px solid #211f22;
+ 		border-bottom: 1px solid #211f22;
+	}
+	#tableBoardArea>#tableBody>tr>td {
+ 		border-top: 1px solid #CCCCCC;
+ 		border-bottom: 1px solid #CCCCCC;
  	}
- 	#rejContent{
- 		display:none;
- 	}
+ 	
+	.btn{
+		border:1px solid white;
+		background:white;
+		color:black;
+		height:23px;
+		border-radius:5px;
+		font-size:17px;
+		cursor: pointer;
+	}
+	.btn2 {
+		border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
 <%@ include file="../common/headerPage.jsp" %>
-	<div id="container">
+	<div class="container">
+		<div class="contents">
+			<div id="headArea">
+			<br /><br />
+				<div id="headSearchArea" align="left">
+					<table id="tableSearchArea">
+						<tr>
+							<td>아이디 검색 &nbsp;:&nbsp;</td>
+							<td>
+								<input type="text" id="idSearch">
+								&nbsp;
+								<button id="idSearchBtn" class="btn2">검색</button>
+							</td>
+						</tr>
+					</table>  <!-- tableSearchArea end -->
+				</div>  <!-- headSearchArea end -->
+				<div id="headBoardArea" align="right">
+					<table id="tableSelectArea">
+						<tr>
+							<td>검색판명 선택</td>
+							<td>
+								<select id="selectBoard">
+									<option> -- 선택 -- </option>
+									<option> 자유 게시판 </option>
+									<option> 건의 게시판 </option>
+									<option> 리뷰 게시판 </option>
+								</select>
+							</td>
+						</tr>
+					</table>  <!-- selectArea end -->
+				</div>  <!-- headBoardArea end -->
+			</div>  <!-- headArea end -->
+			<div id="boardArea" align="center">
+				<table id="tableBoardArea">
+				<!-- 리스트번호,상품번호,상품종류,회원아이디.신청받은날짜.배송받은날짜,처리기한 -->
+					<thead id="tableHead">
+						<tr>
+							<th>No.</th>
+							<th>상품ID</th>
+							<th>상품종류</th>
+							<th>판매자ID</th>
+							<th>감정완료날짜</th>
+							<th>감정결과</th>
+						</tr>
+					</thead>
+					<tbody id="tableBody">
+						<% for(AppCom ac :list) { %>
+					<tr>
+						<td><%= ac.getItemId() %></td>
+						<td><%= ac.getItemId() %></td>
+						<td><%= ac.getItemType().equals("W")?"시계" :"가방" %></td>
+						<td><%= ac.getItemMemberNo() %></td>
+						<td><%= ac.getItemAppDate() %></td>
+						<td><%= ac.getAppResult().equals("AR1")?"진품":"가품"%></td>
+					</tr>
+						<% } %>
+					</tbody>
+				</table>  <!-- tableBoardArea end -->
+			</div>  <!-- boardArea end -->
+	<%-- <div id="container">
 		<div id="container_Box">
 			<div>
 				<div>
@@ -117,7 +242,7 @@
 			<% k++; } %>
 					
 				</table>
-			</div>
+			</div> --%>
 			<div class="pagingArea" align="center">
 			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.app?currentPage=1'"><<</button>
 		<% if(currentPage <= 1){ %>
@@ -147,7 +272,7 @@
 			<!-- The Modal -->
     <div id="myModal" class="modal">
  
-      <!-- Modal content -->
+     <%--  <!-- Modal content -->
       <div class="modal-content">
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정정보 입력</span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;">
@@ -197,7 +322,7 @@
             </div>
       </div>
  
-    </div>
+    </div> --%>
         <!--End Modal-->
 
 
