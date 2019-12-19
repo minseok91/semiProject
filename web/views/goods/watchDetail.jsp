@@ -22,7 +22,7 @@
 	#part1 {
 		display: flex;
 		padding-top: 10%;
-		height: 544px;
+		height: 612px;
 	}
 
 	.title>img {
@@ -94,7 +94,7 @@
 	#price {
 		margin-top: 50px;
 	    display: grid;
-	    width: 400px;
+	    width: 326px;
 	}
 	
 	#price>label:nth-of-type(1) {

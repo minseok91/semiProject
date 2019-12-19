@@ -11,6 +11,9 @@ import com.kh.lp.bidding.model.dao.BidDao;
 import com.kh.lp.bidding.model.vo.Bid;
 import com.kh.lp.bidding.model.vo.BiddingList;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class BidService {
 
 	// 시계 목록 불러오기
@@ -119,16 +122,23 @@ public class BidService {
 		// count값 확인 -> 기존에 했는지 안했는지 체크
 		int count = new BidDao().checkWish(con, b);
 		
+		log.debug(count);
+		
 		if(count == 0) 
 			result = new BidDao().insertWish(b, con); // 없다면 바로 데이터 삽입
 		else {
 			status = new BidDao().checkWishStatus(b, con); // 있다면 일단 상태를 먼저 확인
-			if(status == "Y")
+			log.debug(status);
+			if(status.equals("Y"))
 				result = new BidDao().changeWishN(b, con); // 상태가 Y라면 N으로 변경
-			else {
+			else 
 				result = new BidDao().changeWishY(b, con); // 상태가 N이라면 Y로 변경
-			}
 		}
+		
+		if(result > 0) 
+			commit(con);
+		else 
+			rollBack(con);
 		
 		close(con);
 		
@@ -164,6 +174,28 @@ public class BidService {
 		close(con);
 		
 		return bag;
+	}
+
+	// 최근올라온 시계상품 -> 6개만 조회
+	public ArrayList<Bid> latelyWatch() {
+		Connection con = getConnection();
+		
+		ArrayList<Bid> latelyWatch = new BidDao().latelyWatch(con);
+		
+		close(con);
+		
+		return latelyWatch;
+	}
+
+	// 최근올라온 가방상품 -> 6개만 조회
+	public ArrayList<Bid> latelyBag() {
+		Connection con = getConnection();
+		
+		ArrayList<Bid> latelyBag = new BidDao().latelyBag(con);
+		
+		close(con);
+		
+		return latelyBag;
 	}
 
 }
