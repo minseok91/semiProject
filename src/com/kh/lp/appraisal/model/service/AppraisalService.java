@@ -105,12 +105,12 @@ public class AppraisalService {
 						
 						
 						int resultAt = new AppraisalDao().insertAttachment(con, fileList);
-						
+						System.out.println("resultAt" + resultAt);
 						if(resultAt > 0) {
 							int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
 							
 							int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
-							
+							System.out.println("resultAu" + resultAu);
 							if(resultAu > 0) {
 								commit(con);
 								result = 1;
@@ -176,7 +176,7 @@ public class AppraisalService {
 							int memberNo = new AppraisalDao().getMemberNo(con, ih.getItemId());
 							
 							int resultAu = new AppraisalDao().insertAuction(con, au, memberNo);
-							
+							System.out.println("resultAu : " +resultAu);
 							if(resultAu > 0) {
 								commit(con);
 								result = 1;
@@ -190,6 +190,7 @@ public class AppraisalService {
 						rollBack(con);
 					}
 				} else {
+					System.out.println("rollbackc");
 					rollBack(con);
 				}
 			} else {
