@@ -39,7 +39,8 @@ public class QNAandReportDetailServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String qnaId = request.getParameter("qnaId");
-		String status = request.getParameter("type");
+		String status = request.getParameter("status");
+		String boardtype = request.getParameter("boardType");
 
 
 		String page = "views/admin/QNAAndReport/admin_qnaAndReportDetail.jsp";
@@ -57,13 +58,15 @@ public class QNAandReportDetailServlet extends HttpServlet {
 			//문의글 리스트 읽어오는 곳
 			//문의 읽으면 답변확인으로 상태 변경
 			String type = "QHT2";
-			int update = new QNAService().updateStatus(qnaId,type);
+			//문의 접수 일경우 상태 변화하는 것
+			if(boardtype == "문의 접수") {
+				int update = new QNAService().updateStatus(qnaId,type);
+				
 				if(update > 0) {
 					//관리자가 게시판 읽으면 QAN히스토리에 값을 기록하는 것
 					int QNAHistoryUpdate = new QNAService().insertHistory(Integer.parseInt(qnaId), type);
 				}
-
-			if(update > 0) {
+			}
 				HashMap<String, Object> list = new QNAService().selectOne(qnaId);
 				QNA qnareply = new QNAService().selectQnaReply(qnaId);
 				
@@ -72,8 +75,6 @@ public class QNAandReportDetailServlet extends HttpServlet {
 					request.setAttribute("list", list); 
 					request.setAttribute("qnareply", qnareply);
 				}
-				
-			} 
 		} 
 		request.getRequestDispatcher(page).forward(request, response);
 	}

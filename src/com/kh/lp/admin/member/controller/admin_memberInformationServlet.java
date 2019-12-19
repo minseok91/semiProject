@@ -59,7 +59,7 @@ public class admin_memberInformationServlet extends HttpServlet {
 		ArrayList<Member> userList = new MemberService().selectUser(currentPage, limit);
 		String Page = "";
 		if(userList != null) {
-			 Page = "views/admin/Member/member/admin_mamberInformation.jsp";
+			 Page = "views/admin/Member/member/admin_memberInformation.jsp";
 			 request.setAttribute("list", userList);
 			 request.setAttribute("pi", pi);
 			 request.setAttribute("listCount", listCount);

@@ -309,9 +309,10 @@ html, body {
 						var boardId = "";
 						var boardStatus = "";
 						$("#table td").click(function(e){
+							 boardType = e.target.parentNode.children[4].innerText;
 							 boardId = e.target.parentNode.children[0].children[0].value;
 							 boardStatus = e.target.parentNode.children[0].children[1].value;
-							location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId+"&type="+boardStatus;
+							location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId+"&status="+boardStatus+"&boardType="+boardType;
 							console.log(e);
 						});
 						
@@ -324,8 +325,10 @@ html, body {
 		if(count == 0){
 			$("#table td").click(function(e){
 				 boardId = e.target.parentNode.children[0].children[0].value;
-				location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId;
-				console.log(boardId);
+				 boardType = e.target.parentNode.children[4].innerText;
+				 
+				 location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId+"&boardType="+boardType;
+				console.log(boardType);
 			});
 		}
 	})
