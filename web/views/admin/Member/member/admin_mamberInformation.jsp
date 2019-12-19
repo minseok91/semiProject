@@ -19,143 +19,190 @@
 <meta content="text/html;">
 <title>Insert title here</title>
 <link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+	<style>
+		input{
+			font-family: sans-serif;
+	    	font-size: 15px;
+	    	width: 150px;
+	    	border: none;
+	    	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+		}
+		
+		table {
+			border-collapse: collapse;
+	    	text-align: center;
+		}
+		
+		.container {
+			width: 1080px;
+			margin-left: auto;
+			margin-right: auto;
+			
+		}
+		.contents {
+			width: 100%;
+			margin-top: 5%;
+			border: 1px solid;
+			border-radius: 10px; 
+			
+		}
+		
+		.btn {
+			border:1px solid #a07342;
+			background:#211f22;
+			color:#e2ceb8;
+			height:24px;
+			border-radius:4px;
+			font-size:16px;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		
+		.btn2 {
+			border:1px solid white;
+			background:white;
+			color:black;
+			height:23px;
+			border-radius:5px;
+			font-size:17px;
+			cursor: pointer;
+		}
+		#memberCountArea {
+			width: inherit;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		#countArea {
+			display: inline-block;
+			float: left;
+			height: 48px;
+		}
+		
+		#searchArea {
+			display: inline-block;
+			float: right;
+			height: 48px;
+		}
+		
+		#tableCountArea {
+			height: 48px;
+			margin-left: 37px;
+		}
+		
+		#tableSearchArea {
+			height: 48px;
+			margin-right: 37px;
+		}
+		
+		#memberArea {
+			width: 1000px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		#tableArea {
+			width: 1000px;
+			height: 500px;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		#tableArea>#tableHeadArea>tr>th {
+			background: #e2ceb8;
+			color: #211f22;
+			font-size: 1.2em;
+			height: 32px;
+			border-top: 1px solid #211f22;
+	 		border-bottom: 1px solid #211f22;
+		}
+		
+		#tableArea>#tableBodyArea>tr>td {
+			border-top: 1px solid #CCCCCC;
+ 			border-bottom: 1px solid #CCCCCC;
+		}
+		
+		#pagingArea {
+			width: 100%;
+			height: 15%;
+			margin-bottom: 20px;
+			margin-top: 70px;
+		} 
+
+		#pagingAreaBox {
+			width: 80%;
+			height: 100%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
 </head>
-<style>
-html, body {
-	padding: 0;
-	margin: 0;
-	width: 100%;
-	height: 100%;
-}
-.container {
-	width: 1080px;
-	margin-left: auto;
-	margin-right: auto;
-	
-}
-.contents {
-	width: 100%;
-	margin-top: 10%;
-	border: 1px solid;
-	border-radius: 10px; 
-	
-}
-.contents > div:first-child {
-	width: 96%;
-	height: 25px;
-	padding: 20px;
 
-}
-.contents > div > p, h3 {
-	width: 80px;
-	margin: 0;
-	float: left;
-	
-}
-.contents > div > p {
-	padding-top: 1px;
-}
-.contents > div:nth-child(2) {
-	width: 95%;
-	height: 73.5%;
-	margin-top: 30px;
-	margin-left: auto;
-	margin-right: auto;
-}
-#table {
-	width: 100%;	
-	border-collapse: collapse;
-}
-#table th {
-	border-top: 1px solid;
-	background: #EAEAEA;
-	color: black;
-	border-top: 2px solid #CCCCCC;
-}
-#table th, td {
-	border-bottom: 1px solid #CCCCCC;
-	text-align: center;
-	padding-top: 5px;
-}
-#nextPage {
-	width: 100%;
-	height: 15%;
-	margin-bottom: 20px;
-	margin-top: 70px;
-} 
-#searchBoxBtn {
-	width: 65px;
-	height: 31px;
-	margin-left: 2%;
-	float: right;
-	background: rgb(33, 31, 34);
-	border: 2px solid rgb(160, 115, 66);
-	color: rgb(160, 115, 66);
-}
-#searchBox {
-	margin-top: 1px;
-	width: 130px;
-	height: 25px;
-	border: none;
-	box-shadow: 2px 2px 6px 1px gray;
-	float: right;
-}
-#nextPageBox {
-	width: 80%;
-	height: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-</style>
 <body>
 	<%@ include file="../../common/headerPage.jsp" %>
 	<div id="container" class="container">
 		<div id="contents" class="contents">
-			<div>
-				<p>전체 회원<h3><%= request.getAttribute("listCount") %>명</h3>
-				<button id="searchBoxBtn">검색</button>
-				<input type="text" id="searchBox">
-			</div>
-			<div>
-				<table id="table">
-					<tr>
-						<th>No.</th>
-						<th>아이디</th>
-						<th>이름</th>
-						<th>휴대폰번호</th>
-						<th>주소</th>
-						<th>이메일</th>
-					</tr>
-					<% for(int i=0; i<userList.size(); i++) {%>
+			<div id="memberCountArea">
+			<br /><br />
+				<div id="countArea">
+					<table id="tableCountArea">
 						<tr>
-							<td><%= userList.get(i).getRowNum()%></td>
-							<td><%= userList.get(i).getMemberId()%></td>
-							<td><%= userList.get(i).getMemberName()%></td>
-							<td><%= userList.get(i).getMemberPhone()%></td>
-							<td style="width: 394px"><%= userList.get(i).getMemberAddress()%></td>
-							<td><%= userList.get(i).getMemberEmail() %></td>
+							<td><label for="">전체 회원</label></td>
+							<td><h3><%= request.getAttribute("listCount") %>명</h3></td>
 						</tr>
-					<% } %>
-				</table>
-			</div>
-			<div id="nextPage">
-				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
+					</table>  <!-- tableCountArea end -->
+				</div>  <!-- countArea end -->
+				<div id="searchArea" align="right">
+					<table id="tableSearchArea">
+						<tr>
+							<td><input type="text" id="searchBox"></td>
+							<td>&nbsp;&nbsp;&nbsp;</td>
+							<td><button class="btn" id="searchBoxBtn">검색</button></td>
+						</tr>
+					</table>  <!-- tableSearchArea end -->
+				</div>  <!-- searchArea end -->
+			</div>  <!-- memberCountArea end -->
+			<div id="memberArea" align="center">
+				<table id="tableArea">
+					<thead id="tableHeadArea">
+						<tr>
+							<th>No.</th>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>휴대폰번호</th>
+							<th>주소</th>
+							<th>이메일</th>
+						</tr>
+					</thead>
+					<tbody id="tableBodyArea">
+						<% for(int i=0; i<userList.size(); i++) {%>
+							<tr>
+								<td><%= userList.get(i).getRowNum()%></td>
+								<td><%= userList.get(i).getMemberId()%></td>
+								<td><%= userList.get(i).getMemberName()%></td>
+								<td><%= userList.get(i).getMemberPhone()%></td>
+								<td style="width: 394px"><%= userList.get(i).getMemberAddress()%></td>
+								<td><%= userList.get(i).getMemberEmail() %></td>
+							</tr>
+						<% } %>
+					</tbody>	
+				</table>  <!-- tableArea end -->
+			</div>  <!-- memberArea end -->
+			<div id="pagingArea">
+				<div id="pagingAreaBox" align="center">
+					<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
 					<% for(int p=1; p<=MaxPage; p++) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
+						<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
-				</div>
-			</div>
-		</div>
-	</div>
+					<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
+				</div>  <!-- pagingAreaBox end -->
+			</div>  <!-- pagingArea end -->
+		</div>  <!-- contents end -->
+	</div>  <!-- container end -->
+	
 	<script>
 	$(function(){
-		
-		$("td").click(function(e) {
+		$("tr").css({"cursor":"pointer"}).click(function(e) {
 			var userId = e.target.parentElement.children[1].innerHTML;
-			console.log(userId)
+			console.log(userId);
 		    location.href="<%=request.getContextPath()%>/memberInfoDetail.me?userId="+userId;
 		})
 	});

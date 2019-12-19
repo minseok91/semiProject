@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 import com.kh.lp.member.model.vo.Member;
 
@@ -297,6 +297,38 @@ public class ItemDao {
 		
 		
 		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 19. 오전 3:35:47
+	 * @ModifyDate    : 2019. 12. 19. 오전 3:35:47
+	 * @Description   : 감정신청상품의 이미지를 불러오는 메소드
+	 * @param con
+	 * @param itemId
+	 * @return
+	 */
+	public Attachment selectImg(Connection con, String itemId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Attachment at = null;
+		String query = prop.getProperty("selectImg");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(itemId));
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				at = new Attachment();
+				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return at;
 	}
 
 }
