@@ -47,7 +47,7 @@ public class insertQNAReplyServlet extends HttpServlet {
 			//QNA상태 변경
 			int update = new QNAService().updateStatus(qna, type);
 			int insertHistory = new QNAService().insertHistory(QNAId,type);
-			if(insertHistory > 0) {
+			if(update > 0) {
 				System.out.println("답변 완료");
 			} else {
 				System.out.println("답변 실패");

@@ -37,6 +37,7 @@
 	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
+	margin-bottom: 50px;
 	
 }
 .contents > div:first-child {
@@ -74,6 +75,9 @@
 	border-bottom: 1px solid #CCCCCC;
 	text-align: center;
 	padding-top: 5px;
+}
+#table td {
+	height: 50px;
 }
 #nextPage {
 	width: 100%;

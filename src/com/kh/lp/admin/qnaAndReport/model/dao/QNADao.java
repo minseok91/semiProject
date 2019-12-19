@@ -172,6 +172,10 @@ public class QNADao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
+		System.out.println("QNA 아이디 : "+qnaId);
+		System.out.println("QNA type : "+type);
+		
+		
 		String query = admin_prop.getProperty("admin_updateStatus");
 		
 		try {
