@@ -148,56 +148,30 @@
 							<td><label for="">전체 회원</label></td>
 							<td><h3><%= request.getAttribute("listCount") %>명</h3></td>
 						</tr>
-					</table>  <!-- tableCountArea end -->
-				</div>  <!-- countArea end -->
-				<div id="searchArea" align="right">
-					<table id="tableSearchArea">
-						<tr>
-							<td><input type="text" id="searchBox"></td>
-							<td>&nbsp;&nbsp;&nbsp;</td>
-							<td><button class="btn" id="searchBoxBtn">검색</button></td>
-						</tr>
-					</table>  <!-- tableSearchArea end -->
-				</div>  <!-- searchArea end -->
-			</div>  <!-- memberCountArea end -->
-			<div id="memberArea" align="center">
-				<table id="tableArea">
-					<thead id="tableHeadArea">
-						<tr>
-							<th>No.</th>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>휴대폰번호</th>
-							<th>주소</th>
-							<th>이메일</th>
-						</tr>
-					</thead>
-					<tbody id="tableBodyArea">
-						<% for(int i=0; i<userList.size(); i++) {%>
-							<tr>
-								<td><%= userList.get(i).getRowNum()%></td>
-								<td><%= userList.get(i).getMemberId()%></td>
-								<td><%= userList.get(i).getMemberName()%></td>
-								<td><%= userList.get(i).getMemberPhone()%></td>
-								<td style="width: 394px"><%= userList.get(i).getMemberAddress()%></td>
-								<td><%= userList.get(i).getMemberEmail() %></td>
-							</tr>
-						<% } %>
-					</tbody>	
-				</table>  <!-- tableArea end -->
-			</div>  <!-- memberArea end -->
-			<div id="pagingArea">
-				<div id="pagingAreaBox" align="center">
-					<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
+					<% } %>
+				</table>
+			</div>
+			<div id="nextPage">
+				<div id="nextPageBox" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
+					<% if(currentPage <= 1){ %>
+						<button disabled> < </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage-1%>'"><</button>
+					<% } %>
 					<% for(int p=1; p<=MaxPage; p++) { %>
 						<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
-					<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
-				</div>  <!-- pagingAreaBox end -->
-			</div>  <!-- pagingArea end -->
-		</div>  <!-- contents end -->
-	</div>  <!-- container end -->
-	
+					<% if(currentPage >= MaxPage){ %>
+						<button disabled> > </button>
+					<% } else { %>
+						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage + 1 %>'"> > </button>
+					<% } %>
+					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script>
 	$(function(){
 		$("tr").css({"cursor":"pointer"}).click(function(e) {

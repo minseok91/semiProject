@@ -88,12 +88,7 @@
 	<div class="container">
 		<div class="contents">
 			<div id="tableArea">
-			<ul>
-				<li>자유게시판</li>
-				<li>문의게시판</li>
-				<li>리뷰게시판</li>
-				<li>FAQ게시판</li>
-			</ul>
+			
 				<table>
 				<tr>
 					<th class="title">게시물 번호</th>
@@ -102,93 +97,11 @@
 					<th class="title">작성일</th>
 					<th class="title">조회수</th>
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">낙찰 실패</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">낙찰 성공</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td id="check">차순위 낙찰</td>
-					<td>0</td>
-				</tr>
+				
 			</table>
 			</div> <!-- tableArea End -->
 		<div class="pagingArea">
-			<button><<처음</button>
-			<button><이전</button>
-			<button>1</button>
-			<button>2</button>
-			<button>3</button>
-			<button>4</button>
-			<button>5</button>
-			<button>6</button>
-			<button>7</button>
-			<button>8</button>
-			<button>9</button>
-			<button>10</button>
-			<button>다음></button>
-			<button>마지막>></button>
+			
 		</div>
 		</div>
 	</div>

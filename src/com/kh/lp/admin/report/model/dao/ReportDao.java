@@ -94,8 +94,10 @@ public class ReportDao {
 			
 			list = new ArrayList<Report>();
 			while(rset.next()) {
+				
+				  r = new Report(); 
 				/*
-				 * r = new Report(); r.setRnum(rset.getInt("RNUM"));
+				 * r.setInt(rset.getRow("RNUM")); 
 				 * r.setReportId(rset.getString("Report_ID"));
 				 * r.setReporting(rset.getString("REPORTING"));
 				 * r.setReported(rset.getString("REPORTED"));
@@ -104,6 +106,7 @@ public class ReportDao {
 				 * r.setReport_subject(rset.getString("REPORT_TYPE"));
 				 * r.setReportType(rset.getString("BOARD_TYPE"));
 				 */
+				 
 			
 				list.add(r);
 			}
@@ -120,6 +123,15 @@ public class ReportDao {
 		return list;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:30:56
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:30:56
+	 * @Description   : 신고목록 조회하는 메소드
+	 * @param con
+	 * @param reportId
+	 * @return
+	 */
 	public HashMap<String, Object> selectOne(Connection con, String reportId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -158,6 +170,14 @@ public class ReportDao {
 		return list;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:31:32
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:31:32
+	 * @Description   : 신고 갯수 조회
+	 * @param con
+	 * @return
+	 */
 	public int ReportCount(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -186,6 +206,16 @@ public class ReportDao {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:31:44
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:31:44
+	 * @Description   : 타입을 이용한 신고 이력 조회
+	 * @param currentPage
+	 * @param limit
+	 * @param con
+	 * @return
+	 */
 	public ArrayList<HashMap<String, Object>> selectType(int currentPage, int limit, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

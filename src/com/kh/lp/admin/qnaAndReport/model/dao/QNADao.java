@@ -27,6 +27,14 @@ public class QNADao {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:25:04
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:25:04
+	 * @Description   : QNA 게시판 갯수 조회
+	 * @param con
+	 * @return
+	 */
 	public int QNACount(Connection con) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -53,6 +61,16 @@ public class QNADao {
 		return result;
 	}
 	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:25:37
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:25:37
+	 * @Description   : QNA 게시물 조회
+	 * @param currentPage
+	 * @param limit
+	 * @param con
+	 * @return
+	 */
 	public ArrayList<QNA> QNASelectAll(int currentPage, int limit, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -96,6 +114,15 @@ public class QNADao {
 		
 		return list;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:26:13
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:26:13
+	 * @Description   : QNA상세 조회
+	 * @param con
+	 * @param qnaId
+	 * @return
+	 */
 	public HashMap<String, Object> selectOne(Connection con, String qnaId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -131,6 +158,16 @@ public class QNADao {
 		
 		return q;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:26:36
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:26:36
+	 * @Description   : QNA 상태 변경
+	 * @param con
+	 * @param qnaId
+	 * @param type
+	 * @return
+	 */
 	public int updateStatus(Connection con, String qnaId, String type) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -154,6 +191,16 @@ public class QNADao {
 		
 		return result;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:26:59
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:26:59
+	 * @Description   : QNA 상태를 이용한 QNA 조회
+	 * @param con
+	 * @param currentPage
+	 * @param limit
+	 * @return
+	 */
 	public ArrayList<HashMap<String, Object>> selectType(Connection con, int currentPage, int limit) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -198,6 +245,15 @@ public class QNADao {
 		
 		return list;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 2:27:25
+	 * @ModifyDate    : 2019. 12. 19. 오후 2:27:25
+	 * @Description   : QNA댓글 조회
+	 * @param con
+	 * @param qnaId
+	 * @return
+	 */
 	public QNA selectQnaReply(Connection con, String qnaId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

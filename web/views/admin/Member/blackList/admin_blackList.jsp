@@ -148,7 +148,7 @@
 					<% if(currentPage <= 1){ %>
 						<button disabled> < </button>
 					<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me??currentPage=<%=currentPage-1%>'"><</button>
 					<% } %>
 					<% for(int p= startPage; p<=endPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=p%>'"><%= p %></button>
@@ -156,7 +156,7 @@
 					<% if(currentPage >= MaxPage){ %>
 						<button disabled> > </button>
 					<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
+						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me??currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=endPage%>'">>></button>
 				</div>
