@@ -22,6 +22,7 @@
 <title>LauXion</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 	.container {
 		width: 1080px;
@@ -228,7 +229,7 @@
 	}
 </style>
 </head>
-<body>
+<body onload="getWebsocket2()">
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
 	<%
@@ -263,7 +264,7 @@
 					<span id="contents">
 						<div id="head">
 							<label><%= bagDetailInfo.get(0).getBidBrand() +" "+ bagDetailInfo.get(0).getBidModel() %></label>
-							<label>판매자 : <%= bagDetailInfo.get(0).getBidUserId() %></label>
+							<label style="float: right;">판매자 : <%= bagDetailInfo.get(0).getBidUserId() %></label>
 							<label id="endTime"></label>
 						</div>
 						<div id=set>
@@ -278,7 +279,7 @@
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
-								<button id="insertBid">입찰</button>
+								<button id="insertBid" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
@@ -386,7 +387,7 @@
 			});
 		});
 		
-		function getWebsocket(){
+		function getWebsocket() {	//시간흐르는거 보여주는 웹소켓
 			var url = "ws://localhost:8010/endTime";
 			var ws = new WebSocket(url);
 			
@@ -427,6 +428,48 @@
 			};
 		};
 		
+		function getWebsocket2() {	//입찰웹소켓
+			var url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding";
+			var ws = new WebSocket(url);
+			
+			ws.onopen = function(event) {
+				onOpen(event);
+			};
+			
+			ws.onmessage = function(event) {
+				onMessage(event);
+			};
+			
+			ws.onclose = function(event) {
+				onClose(event);
+			};
+			
+			ws.onerror = function(event) {
+				onError(event);
+			};
+			
+			function onOpen(event) {
+				console.log("웹소켓 접속 완료");
+				$("#insertBid").attr("disabled", false);
+			};
+			
+			function onMessage(event) {
+				
+			};
+			
+			function onClose(event) {
+				$("#insertBid").attr("disabled", true);
+			};
+			
+			function onError(event) {
+				alert(event.data);
+				$("#insertBid").attr("disabled", true);
+			};
+			
+			function send(msg) {
+				ws.send(msg);
+			};
+		};
 	</script>
 </body>
 </html>
