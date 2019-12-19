@@ -193,9 +193,6 @@
 							<!-- <th>판매자ID</th> -->
 							<th>경매상태</th>
 							<th>상세보기</th>
-							<th>배송받은날짜</th>
-							<th>처리기한</th>
-							<th>정보입력</th>
 						</tr>
 					</thead>
 					<tbody id="tableBody">
@@ -203,6 +200,7 @@
 						for(AuctionList al : list) { %>
 							<tr>
 								<td><%= al.getAuctionId() %></td>
+								<td></td>
 								<td><%= al.getAuctionCount() %></td>
 								<td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td>
 								<td><%if(al.getAuctionType() == null) { %>
@@ -226,10 +224,6 @@
 											이건 아무것도 없는 것이다 
 			 							<%} 
 		 							} %>
-								</td>
-								<td>받은 날짜 + 7일</td>
-								<td>
-									<button class="insertApp btn2">정보입력</button>
 								</td>
 							</tr>
 						<% } %>
@@ -298,84 +292,6 @@
 						</td>
 					</tr>
 					<% } %>
-				<!-- 	 <tr>
-						<td>1</td>
-						<td>pr001</td>
-						<td>adh5677</td>
-						<td>무슨무슨</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>경매준비</td>
-						<td>
-							<button class="detail">상세보기</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>2</td>
-						<td>커뮤니티</td>
-						<td>kingminseok</td>
-						<td>건의게시판</td>
-						<td>관리자</td>
-						<td>관리자</td>
-						<td>사용자</td>
-						<td>경매포기</td>
-						<td>
-							<button class="detail">상세보기</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>커뮤니티</td>
-						<td>관리자</td>
-						<td>공지</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>관리자</td>
-						<td>경매중</td>
-						<td>
-							<button id="bidding" class="detail">상세보기</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>커뮤니티</td>
-						<td>관리자</td>
-						<td>공지</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>관리자</td>
-						<td>경매완료(낙찰)</td>
-						<td>
-							<button id="resultSuccess" class="detail">상세보기</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>커뮤니티</td>
-						<td>관리자</td>
-						<td>공지</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>관리자</td>
-						<td>경매완료(유찰)</td>
-						<td>
-							<button id="resultFail" class="detail">상세보기</button>
-						</td>
-					</tr>
-					 <tr>
-						<td>3</td>
-						<td>커뮤니티</td>
-						<td>관리자</td>
-						<td>공지</td>
-						<td>전체</td>
-						<td>전체</td>
-						<td>관리자</td>
-						<td>경매완료(재경매유찰)</td>
-						<td>
-							<button id="allResult" class="detail">상세보기</button>
-						</td>
-					</tr> -->
 				</table>
 			</div>
 			<div class="pagingArea" align="center">
@@ -440,17 +356,6 @@
 	
 	
 	$(function(){
-		$(".detail").click(function(){
-			$('#myModal').show();
-			var pr = $(this).parent().parent('tr').children().eq(1).text();
-			$("#delPName").val(pr);
-			$("#rejName").val(pr);
-			console.log("pr : "  + pr );
-			/* var url = "FAQList.jsp";
-            var name = "popup test";
-            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-            window.open(url, name, option); */
-		})
 		
 		$(".ready").click(function(){
 			var aucId = $(this).parent().parent().children().eq(0).text()
@@ -490,21 +395,6 @@
 		
 		
 		
-		$("#bidding").click(function(){
-			location.href="<%=request.getContextPath()%>/views/kms/AucBidding.jsp";
-		})
-		
-		$("#resultSuccess").click(function(){
-			location.href="<%=request.getContextPath()%>/views/kms/AucResultSuccess.jsp";
-		})
-		
-		$("#resultFail").click(function(){
-			location.href="<%=request.getContextPath()%>/views/kms/AucResultFail.jsp";
-		})
-		
-		$("#allResult").click(function(){
-			location.href="<%=request.getContextPath()%>/views/kms/AucAllResult.jsp";
-		})
 	})
 	
 	</script>

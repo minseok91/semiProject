@@ -10,7 +10,17 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.shipment.model.vo.*, com.kh.lp.common.*" %>
+ <% ArrayList<Shipment> list = (ArrayList<Shipment>) request.getAttribute("list"); 
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	System.out.println("list : " + list);
+	int startPage = pi.getStartPage();
+	int endPage = pi.getMaxPage();
+	int currentPage = pi.getCurrentPage();
+	int listCount = pi.getListCount();
+	int limit = pi.getLimit();
+	int maxPage = pi.getMaxPage();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +107,20 @@
 						<th>배송사유</th>
 						<th>배송정보입력</th>
 					</tr>
-					 <tr>
+					<% for(Shipment sm : list){ %>
+					<tr>
+						<td><%= sm.getMemberShipmentId() %></td>
+						<td><%= sm.getMemberShipmentItem() %></td>
+						<td><%= sm.getMemberNo() %></td>
+						<td><%= sm.getMemberShipmentApp() %></td>
+						<td><%= sm.getMemberShipmentType() %></td>
+						<td>
+							<button class="insertDel">배송정보입력</button>
+							<button class="update">배송정보수정</button>
+						</td>
+					</tr>
+					<% } %>
+					 <!-- <tr>
 						<td>1</td>
 						<td>pr001</td>
 						<td>adh5677</td>
@@ -129,17 +152,36 @@
 							<button class="insertDel">배송정보입력</button>
 							<button class="update">배송정보수정</button>
 						</td>
-					</tr>
+					</tr> -->
 					
 				</table>
 			</div>
-			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
-				</div>
-			</div>
+			<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sm?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sm?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button disabled><%=p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sm?currentPage=<%=p%>'"><%=p %></button>
+				<% } %>
+			
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sm?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sm?currentPage=<%=maxPage%>'">>></button>
+		</div>  <!--  pagingArea End game -->
 		</div>
 	</div>
 	
