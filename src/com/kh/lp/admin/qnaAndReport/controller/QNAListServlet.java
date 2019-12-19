@@ -44,6 +44,7 @@ public class QNAListServlet extends HttpServlet {
 		//페이징 처리를 위한 변수들 선언
 		int currentPage;
 		int limit;
+		int pagingSize;
 		int maxPage;
 		int startPage;
 		int endPage;
@@ -59,13 +60,17 @@ public class QNAListServlet extends HttpServlet {
 		//한 페이지 리스트 갯수는 10개로 제한
 		limit = 10;
 		
+		//페이징은 한 번에 5개씩 보여주기
+		pagingSize = 5;
+		
 		//현재 로그인된 회원의 전체 문의 리스트 갯수 가져오는 service메소드 불러오기
 		int listCount = new QNAService().memberQnaCount(loginMemberNo);
 		
 		//총 페이징 갯수 계산(=맨마지막페이지)
 		maxPage = (int)((double)listCount/limit+0.9);
 		//현재 페이지에 따른 페이징시작번호 및 페이징끝번호 (ex. 현재페이지:4, 페이징시작번호:1, 페이징끝번호:5)
-		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
+		double var = 1 - (1/pagingSize);
+		startPage = (int)(((double)currentPage/pagingSize+var)-1)*pagingSize + 1;
 		endPage = startPage + 5 -1;
 		//페이징 끝번호가 마지막페이지번호 이상일 땐 페이징 끝번호 = 마지막페이지번호
 		if(endPage >= maxPage) {
