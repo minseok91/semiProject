@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.shipment.model.vo.Shipment;
+import com.kh.lp.shipment.model.vo.ShipmentHistory;
 
 public class ShipmentDao {
 
@@ -96,6 +97,129 @@ public class ShipmentDao {
 				sm.setShipmentWaybill(rset.getInt("SHIPMENT_WAYBILL"));
 				
 				list.add(sm);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+
+	public int insertWaybill(Connection con, int waybill, int memberShipmentId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWaybill");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, waybill);
+			pstmt.setInt(2, memberShipmentId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int insertShipmentHistory(Connection con, int waybill) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertShipmentHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, waybill);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+	}
+
+
+	public int listCountHistory(Connection con) {
+		Statement stmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("listCountHistory");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		
+		return result;
+		
+	}
+
+
+	public ArrayList<ShipmentHistory> shPaging(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ShipmentHistory> list = null;
+		
+		String query = prop.getProperty("shPaging");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow =  startRow + limit -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<ShipmentHistory>();
+			
+			while(rset.next()) {
+				ShipmentHistory sh = new ShipmentHistory();
+				
+				sh.setShipmentHistoryDate(rset.getDate("SHIPMENT_HISTORY_DATE"));
+				sh.setShipmentHistoryId(rset.getInt("SHIPMENT_HISTORY_ID"));
+				sh.setShipmentHistoryType(rset.getString("SHIPMENT_HISTORY_TYPE"));
+				sh.setWaybill(rset.getInt("SHIPMENT_WAYBILL"));
+				
+				list.add(sh);
 			}
 			
 			

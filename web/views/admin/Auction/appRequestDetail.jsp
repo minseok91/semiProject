@@ -177,7 +177,12 @@
 			width: 650px;
 			height: 750px;
 		}
-		
+		#detailForType{
+			display:inline-block;
+		}
+		#detailForGoods{
+			display:inline-block;
+		}
 	</style>
 </head>
 <body>
@@ -292,12 +297,13 @@
                    <!--브랜드  BRAND VARCHAR2(50), -->
                    <!--모델네임 MODEL_NAME VARCHAR2(50), -->
                    <!-- 가격 APP_PRICE NUMBER -->
-                   <div id="goods">
+             <div id="goods">
+             <div id="detailForGoods">
                <label>상품 정보</label>
                <table>
                   <tr>
                      <td>상품ID</td>
-                     <td><input type="text" id="acpName" value="<%=itemId%>"></td>
+                     <td><input type="text" id="acpName" value="2" placeholder="상품ID"></td>
                   </tr>
                   <tr>
                      <td>브랜드</td>
@@ -324,70 +330,88 @@
                      </td>
                   </tr>
                </table>
-               <textarea name="comment" cols="40" rows="5"></textarea> 
-            </div>                  
+               </div>
+               <!-- table end -->
+               <div id="detailForType">
+               		<input type="radio" id="watch" name="type" value="W">
+                	<label for="watch">시계</label>
+                  	<input type="radio" id="bag" name="type" value="B">
+                  	<label for="bag">가방</label>
+		            <div id="watchDetail" class="watchDetail">
+		               <label>상품 정보 상세</label>
+		               <table>
+		                  <tr>
+		                     <td>보증서 유무</td>
+		                     <td>
+		                     	<!-- <input type="text" name="guaranteeYn" id="guaranteeYn" > -->
+		                     	<select name="guaranteeYn" id="guaranteeYn">
+		                               <option value="Y">Y</option>
+		                               <option value="N">N</option>
+		                        </select>
+		                     </td>
+		                  </tr>
+		                  <tr>
+		                     <td>오리지널 박스 유무</td>
+		                     <td>
+		                     <!-- <input type="text" name="boxYn" id="boxYn" > -->
+		                     	<select name="boxYn" id="boxYn">
+		                               <option value="Y">Y</option>
+		                               <option value="N">N</option>
+		                        </select>
+		                     </td>
+		                  </tr>
+		                  <tr>
+		                     <td>재질</td>
+		                     <td><input type="text" name="matertial" id="matertial" ></td>
+		                  </tr>
+		                  <tr>
+		                     <td>무브먼트 종류</td>
+		                     <td><input type="text" name="movement" id="movement" ></td>
+		                  </tr>
+		                  <tr>
+		                     <td>크로노그래프</td>
+		                     <td><input type="text" name="chronograph" id="chronograph" ></td>
+		                  </tr>
+		               </table>
+		            </div>
+		            <div id="bagDetail" class="bagDetail">
+		               <label>상품 정보 상세</label>
+		               <table>
+		                  <tr>
+		                     <td>끈 높이</td>
+		                     <td><input type="text" name="strap" id="strap" ></td>
+		                  </tr>
+		                  <tr>
+		                     <td>사이즈</td>
+		                     <td><input type="text" name="size" id="size" ></td>
+		                  </tr>
+		                  <tr>
+		                     <td>성별</td>
+		                     <td><input type="radio" name="gender" id="Male" value="M"><label for="Male">남</label></td>
+		                     <td><input type="radio" name="gender" id="FeMale" value="F"><label for="FeMale">여</label></td>
+		                  </tr>
+		               </table>
+		            </div>
+            </div>
+               <textarea name="comment" cols="80" rows="5">귀하께서 의뢰하신 감정 결과 해당 상품이 진품임을 보증합니다.</textarea> 
+            </div>     
+            <div id="fileArea">             
                    <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
                   <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this ,2)">
                   <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this ,3)">
                   <input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this ,4)">
                   <input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this ,5)">
+            </div>
                   <img width="120" height="100" id="titleImg">
                   <img width="120" height="100" id="contentImg1">
                   <img width="120" height="100" id="contentImg2">
                   <img width="120" height="100" id="contentImg3">
                   <img width="120" height="100" id="contentImg4">
-                  
-                  
                   <div id="c-type">
                   
-                  <input type="radio" id="watch" name="type" value="W">
-                  <label for="watch">시계</label>
-                  <input type="radio" id="bag" name="type" value="B">
-                  <label for="bag">가방</label>
+                  
                   </div>
-            <div id="watchDetail" class="watchDetail">
-               <label>상품 정보 상세</label>
-               <table>
-                  <tr>
-                     <td>보증서 유무</td>
-                     <td><input type="text" name="guaranteeYn" id="guaranteeYn" ></td>
-                  </tr>
-                  <tr>
-                     <td>오리지널 박스 유무</td>
-                     <td><input type="text" name="boxYn" id="boxYn" ></td>
-                  </tr>
-                  <tr>
-                     <td>재질</td>
-                     <td><input type="text" name="matertial" id="matertial" ></td>
-                  </tr>
-                  <tr>
-                     <td>무브먼트 종류</td>
-                     <td><input type="text" name="movement" id="movement" ></td>
-                  </tr>
-                  <tr>
-                     <td>크로노그래프</td>
-                     <td><input type="text" name="chronograph" id="chronograph" ></td>
-                  </tr>
-               </table>
-            </div>
-            <div id="bagDetail" class="bagDetail">
-               <label>상품 정보 상세</label>
-               <table>
-                  <tr>
-                     <td>끈 높이</td>
-                     <td><input type="text" name="strap" id="strap" ></td>
-                  </tr>
-                  <tr>
-                     <td>사이즈</td>
-                     <td><input type="text" name="size" id="size" ></td>
-                  </tr>
-                  <tr>
-                     <td>성별</td>
-                     <td><input type="radio" name="gender" id="Male" value="M"><label for="Male">남</label></td>
-                     <td><input type="radio" name="gender" id="FeMale" value="F"><label for="FeMale">여</label></td>
-                  </tr>
-               </table>
-            </div>
+             
                   <!-- <button id="insertGen">확인하기</button> -->
                   <input type="submit" id="insertGen" value="입력하기">
                </div>
@@ -398,7 +422,7 @@
                   <input type="text" id="rejName" name="rejName" value="<%=itemId%>">
                   <br>
                   <label>가품입니까?</label>
-                  <textarea name="comment2" cols="40" rows="5"></textarea> 
+                  <textarea name="comment2" cols="40" rows="5">귀하께서 의뢰하신 감정 결과 해당 상품은 위조품으로 판명되었습니다.</textarea> 
                   <br>
                   <input type="file" id="thumbnailImg1" name="thumbnailImg1" onchange="loadImg(this ,1)">
                   <input type="file" id="thumbnailImg2" name="thumbnailImg2" onchange="loadImg(this ,2)">
@@ -456,10 +480,30 @@
       };
       
       $(function(){
+    	  /*사진 가리는 부분  */
+    	  $("#fileArea").hide(); //숨기는 부분
+    	  /*사진 이미지 클릭시 업로드 창 띄우는 부분  */
+  		$("#titleImg").click(function(){ //클릭될 때
+  			$("#thumbnailImg1").click(); //실행되는 이벤트
+  		})
+  		$("#contentImg1").click(function(){
+  			$("#thumbnailImg2").click();
+  		})
+  		$("#contentImg2").click(function(){
+  			$("#thumbnailImg3").click();
+  		})
+  		$("#contentImg3").click(function(){
+  			$("#thumbnailImg4").click();
+  		})
+  		$("#contentImg4").click(function(){
+  			$("#thumbnailImg5").click();
+  		})
+    	  
+    	  
          $(".insertApp").click(function(){
             $('#myModal').show();
-            var pr = $(this).parent().parent('tr').children().eq(1).text();
-            $("#acpName").val(pr);
+            /* var pr = $(this).parent().parent('tr').children().eq(1).text(); */
+            $("#acpName").val(<%=itemId%>);
             $("#rejName").val(pr);
             console.log("pr : "  + pr );
          });

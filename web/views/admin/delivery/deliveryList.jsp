@@ -192,15 +192,18 @@
       <div class="modal-content">
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">배송정보 입력</span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;">
+                <form action="<%=request.getContextPath() %>/insertWayBill.sm" method="post" >
 					<div id="deliNum">
 						<label>상품ID</label>
-						<input type="text" id="delPName" value="">
+						<input type="text" id="delPName" name="memberShipmentId" >
+						
 						<br>
 						<label>운송장번호</label>
-						<input type="text" >
+						<input type="number" name="waybill" >
 						<button id="insert">입력하기</button>
 					</div>
 				</p>
+				</form>
                 <p><br /></p>
             <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
                 <span class="pop_bt" style="font-size: 13pt;" >
@@ -220,7 +223,7 @@
 	$(function(){
 		$(".insertDel").click(function(){
 			$('#myModal').show();
-			var pr = $(this).parent().parent('tr').children().eq(1).text();
+			var pr = $(this).parent().parent('tr').children().eq(0).text();
 			$("#delPName").val(pr);
 			$("#rejName").val(pr);
 			console.log("pr : "  + pr );
