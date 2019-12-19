@@ -1,14 +1,17 @@
 package com.kh.lp.item.model.service;
 
+import static com.kh.lp.common.JDBCTemplate.close;
+import static com.kh.lp.common.JDBCTemplate.commit;
+import static com.kh.lp.common.JDBCTemplate.getConnection;
+import static com.kh.lp.common.JDBCTemplate.rollBack;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.dao.ItemDao;
 import com.kh.lp.item.model.vo.Item;
 import com.kh.lp.member.model.vo.Member;
-
-import static com.kh.lp.common.JDBCTemplate.*;
 
 public class ItemService {
 
@@ -94,6 +97,23 @@ public class ItemService {
 		
 		
 		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 19. 오전 3:33:44
+	 * @ModifyDate    : 2019. 12. 19. 오전 3:33:44
+	 * @Description   : 감정신청이미지 불러오는 메소드
+	 * @param itemId
+	 * @return
+	 */
+	public Attachment selectImg(String itemId) {
+		Connection con = getConnection();
+		
+		Attachment at = new ItemDao().selectImg(con, itemId);
+		
+		close(con);
+		return at;
 	}
 
 }

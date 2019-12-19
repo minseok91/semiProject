@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
-import com.kh.lp.bidding.controller.watchDetail;
 import com.kh.lp.bidding.model.vo.Bid;
 import com.kh.lp.bidding.model.vo.BiddingList;
 
@@ -127,7 +126,9 @@ public class BidDao {
 			while(rset.next()) {
 				Bid b = new Bid();
 				
-				b.setBidUserId(rset.getString("MEMBER_ID"));
+				// 아이디 가리기
+				String user = rset.getString("MEMBER_ID").substring(0, 3)+"******";
+				b.setBidUserId(user);
 				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
 				b.setBidAuctionStartTime(rset.getDate("BIDDING_TIME")); // 입찰시간
 				

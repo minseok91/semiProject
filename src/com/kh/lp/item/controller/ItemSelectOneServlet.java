@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.service.ItemService;
 import com.kh.lp.item.model.vo.Item;
 
@@ -36,9 +37,12 @@ public class ItemSelectOneServlet extends HttpServlet {
 		
 		String page = "";
 		if(item != null) {
-			page = "views/admin/Auction/appRequestDetail.jsp";
-			request.setAttribute("item", item);
-			
+			Attachment at = new ItemService().selectImg(itemId);
+			if(at != null) {
+				request.setAttribute("item", item);
+				request.setAttribute("at", at);
+				page = "views/admin/Auction/appRequestDetail.jsp";
+			}
 		} else {
 			request.setAttribute("msg", "셀렉트원 실패 ");
 			page = "";
