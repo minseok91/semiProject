@@ -185,7 +185,7 @@
 						<a value="sale/auctionList">▶ 경매 진행 상품 관리</a>
 					</dd>
 					<dd>
-						<a value="sale/auctionDeadline">▶ 경매 마감 상품 관리</a>
+						<a value="../../closedMemberAuctionList.au">▶ 경매 마감 상품 관리</a>
 					</dd>
 
 					<dt>§ 결제/배송조회</dt>

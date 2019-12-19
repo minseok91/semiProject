@@ -40,14 +40,15 @@ public class QNAListServlet extends HttpServlet {
 		
 		
 		
-		//----------------------------------------------페이징 처리 로직------------------------------------------------
+		//----------------------------------------------페이징 처리 로직------------------------------------------------//
+		
 		//페이징 처리를 위한 변수들 선언
-		int currentPage;
-		int limit;
-		int pagingSize;
-		int maxPage;
-		int startPage;
-		int endPage;
+		int currentPage;	//현재페이지 정보를 동적으로 담을 변수
+		int limit;			//한 페이지에 띄울 목록 갯수
+		int pagingSize =1;	//한번에 보여줄 페이징 갯수 (아래에서 pagingSize가 분모가되기때문에 0이 아닌수로 초기화)
+		int maxPage;		//목록 갯수에 따른 맨 마지막 페이지 번호를 담을 변수
+		int startPage;		//한번에 보여주는 페이지들 중 맨 처음 페이지 번호를 동적으로 담을 변수
+		int endPage;		//한번에 보여주는 페이지들 중 맨 마지막 페이지 번호를 동적으로 담을 변수
 		
 		//현재페이지 1로 초기화 (아무것도 클릭 안했을땐 1페이지여야 하므로)
 		currentPage = 1;
@@ -66,21 +67,24 @@ public class QNAListServlet extends HttpServlet {
 		//현재 로그인된 회원의 전체 문의 리스트 갯수 가져오는 service메소드 불러오기
 		int listCount = new QNAService().memberQnaCount(loginMemberNo);
 		
-		//총 페이징 갯수 계산(=맨마지막페이지)
+		//총 페이징 갯수 계산(=맨 마지막 페이지 번호)
 		maxPage = (int)((double)listCount/limit+0.9);
-		//현재 페이지에 따른 페이징시작번호 및 페이징끝번호 (ex. 현재페이지:4, 페이징시작번호:1, 페이징끝번호:5)
-		double var = 1 - (1/pagingSize);
+		
+		//현재 페이지에 따른 페이징시작번호 및 페이징 끝번호 (ex. 현재페이지:4, 페이징시작번호:1, 페이징끝번호:5)
+		double var = 1 - (1/pagingSize);//아래계산식에서 쓰일 변수
 		startPage = (int)(((double)currentPage/pagingSize+var)-1)*pagingSize + 1;
 		endPage = startPage + 5 -1;
+		
 		//페이징 끝번호가 마지막페이지번호 이상일 땐 페이징 끝번호 = 마지막페이지번호
 		if(endPage >= maxPage) {
 			endPage = maxPage;
 		}
 		
+		
 		//PageInfo 객체에 페이지 정보 저장
 		PageInfo pInfo = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
 		
-		//-------------------------------------------------------------------------------------------------------
+		//--------------------------------------------------------------------------------------------------------//
 		
 		
 		

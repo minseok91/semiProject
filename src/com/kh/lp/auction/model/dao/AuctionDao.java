@@ -487,4 +487,82 @@ public class AuctionDao {
 		
 		return m;
 	}
+	
+	
+
+	/**
+	 * @Author        : 오수민
+	 * @CreateDate    : 2019. 12. 19
+	 * @ModifyDate    : 2019. 12. 19
+	 * @Description   : 로그인된 유저의 경매마감된 판매상품 AUCTION_ID 불러와서 ArrayList<Integer>에 담는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public ArrayList<Integer> selectClosedAuctionIds(Connection con, int loginMemberNo) {
+		
+		ArrayList<Integer> selectedClosedAuctionIds = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectClosedAuctionIds");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			selectedClosedAuctionIds = new ArrayList<>();
+			
+			while(rset.next()) {
+				selectedClosedAuctionIds.add(rset.getInt("AUCTION_ID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return selectedClosedAuctionIds;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

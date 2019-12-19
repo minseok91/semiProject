@@ -169,7 +169,7 @@
 				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
 				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
 				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
-				<dd><a value="sale/auctionDeadline">▶  경매 마감 상품 관리</a></dd>
+				<dd><a value="../../closedMemberAuctionList.au">▶  경매 마감 상품 관리</a></dd>
 				
 				<dt>§  결제/배송조회</dt>
 				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
