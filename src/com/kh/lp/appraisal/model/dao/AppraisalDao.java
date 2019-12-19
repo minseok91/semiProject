@@ -15,11 +15,11 @@ import java.util.Properties;
 import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
-import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 
 import lombok.extern.log4j.Log4j2;

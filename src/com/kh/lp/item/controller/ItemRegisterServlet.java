@@ -2,6 +2,7 @@ package com.kh.lp.item.controller;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.kh.lp.appraisal.model.vo.Attachment;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.common.MyFileRenamePolicy;
 import com.kh.lp.item.model.service.ItemService;
 import com.kh.lp.item.model.vo.Item;
@@ -93,7 +94,7 @@ public class ItemRegisterServlet extends HttpServlet {
 			itemPic.setAttachmentName(itemPicOriginName);
 			itemPic.setAttachmentRename(itemPicRename);
 			itemPic.setAttachmentPath(savePath);
-			itemPic.setAttachmentLevel(1);
+			itemPic.setAttachmentFileLevel(1);
 			itemPic.setAttachmentType("AT1");
 
 			
