@@ -496,7 +496,7 @@ public class BidDao {
 				watch.setWatchBoxYn(rset.getString("WATCH_BOX_YN"));
 				watch.setWatchMaterial(rset.getString("WATCH_MATERIAL"));
 				watch.setWatchMovement(rset.getString("WATCH_MOVEMENT"));
-				watch.setWatchChronograph(rset.getString("WATCH_MOVEMENT"));
+				watch.setWatchChronograph(rset.getString("WATCH_CHRONOGRAPH"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
