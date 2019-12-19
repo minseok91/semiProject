@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.lp.appraisal.model.service.AppraisalService;
 import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.appraisal.model.vo.App;
-import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 
 import lombok.extern.log4j.Log4j2;

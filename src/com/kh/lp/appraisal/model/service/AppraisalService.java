@@ -12,11 +12,11 @@ import com.kh.lp.appraisal.model.dao.AppraisalDao;
 import com.kh.lp.appraisal.model.vo.AR1;
 import com.kh.lp.appraisal.model.vo.App;
 import com.kh.lp.appraisal.model.vo.AppCom;
-import com.kh.lp.appraisal.model.vo.Attachment;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.ItemHistory;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 
 public class AppraisalService {
@@ -89,7 +89,7 @@ public class AppraisalService {
 				System.out.println("resultW" + resultW);
 				if(resultW > 0) {
 					//Ar 처리
-					int resultAr = new AppraisalDao().insertArB(con, ar);
+					int resultAr = new AppraisalDao().insertArW(con, ar);
 					System.out.println("resultAr" + resultAr);
 					
 					if(resultAr > 0) {
