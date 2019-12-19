@@ -246,8 +246,11 @@ margin-top: 27px;
 								<% } else { %>
 								<div id="comment_div">
 										<div id="comment">
-											<div>작성자 : 관리자</div>
-											<hr>
+										<% if(QNAReport != null) { %>
+											<div>123</div>
+											<div>234</div>
+											<div>456</div>
+										<% } %>
 										</div>
 								</div>
 								<% } %>
@@ -290,14 +293,6 @@ margin-top: 27px;
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
-		<%-- $("#buttonBox > button").click(function(){
-			location.href="<%=request.getContextPath()%>
-		/selectAll.bo";
-		}).mouseover(function() {
-			$("#buttonBox > button").css({
-				'cursor' : 'pointer'
-			})
-		}) --%>
 		var nn = false;
 		$("#submit").click(function(){
 			nn = true;
@@ -323,20 +318,11 @@ margin-top: 27px;
 					type : "GET",
 					success:function(data) {
 					 $comment_div = $("#comment_div");
-						var date = data.replyDate;
-						console.log(data);
-						console.log(date);
-						var $comment = $("<div id='comment'>")
-						var $div1 = $("<div>작성자 : "+data.replyMemberName+"</div>");
-						var $div2 = $("<div>작성일 : "+data.replyDate+"</div>");
-						var $div3 = $("<div>"+data.replyContent+"</div>")
-						$comment.append($div1);
-						$comment.append($div2);
-						$comment.append($div3);
-						$comment.append("<hr>");
-						$comment_div.append($comment);
+					 $comment_div.html('');
+						$comment_div.append("<div id='comment'><div>관리자의 답변 : </div><div></div>"+data.qnaContent+"</div>");
+						$comment_div.append("<hr>");
 						
-						
+						$("#comment_bottom").html('');
 					}, error:function(error, status) {
 						
 					}

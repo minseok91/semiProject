@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
+import com.kh.lp.admin.reply.model.service.ReplyService;
 import com.kh.lp.admin.report.model.service.ReportService;
 import com.kh.lp.admin.report.model.vo.Report;
 
@@ -48,6 +49,7 @@ public class QNAandReportDetailServlet extends HttpServlet {
 
 		//신고글 리스트 읽어오는 곳
 		if(status.equals("RT1") || status.equals("RT2")) {
+			//신고일경우
 			HashMap<String, Object> list = new ReportService().selectOne(qnaId);
 			request.setAttribute("list", list);
 			log.debug(list);
@@ -56,15 +58,14 @@ public class QNAandReportDetailServlet extends HttpServlet {
 			//문의 읽으면 답변확인으로 상태 변경
 			String type = "QHT2";
 			int update = new QNAService().updateStatus(qnaId,type);
+				if(update > 0) {
+					//관리자가 게시판 읽으면 QAN히스토리에 값을 기록하는 것
+					int QNAHistoryUpdate = new QNAService().insertHistory(Integer.parseInt(qnaId), type);
+				}
 
 			if(update > 0) {
-				
-				System.out.println(qnaId);
 				HashMap<String, Object> list = new QNAService().selectOne(qnaId);
 				QNA qnareply = new QNAService().selectQnaReply(qnaId);
-				
-				
-				
 				
 				if(list != null) { 
 

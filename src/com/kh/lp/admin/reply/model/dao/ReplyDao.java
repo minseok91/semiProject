@@ -155,12 +155,14 @@ public class ReplyDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, qNAId);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				list.setQnaMemberId(rset.getString("QNA_REPLY_ID"));
-				list.setQnaContent(rset.getString("QNA_REPLY_COMMENT"));
+				list = new QNA();
+				list.setQnaMemberId(rset.getString("QNA_ID"));
+				list.setQnaContent(rset.getString("QNA_REPLY_DETAIL"));
 			}
 			
 		} catch (SQLException e) {
@@ -169,6 +171,15 @@ public class ReplyDao {
 		}
 		return list;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:07:20
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:07:20
+	 * @Description   : 게시판 댓글 삭제
+	 * @param con
+	 * @param boardReply
+	 * @return
+	 */
 	public int deleteBoardReply(Connection con, int boardReply) {
 		PreparedStatement pstmt = null;
 		int result = 0;
