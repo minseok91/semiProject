@@ -1,6 +1,6 @@
 package com.kh.lp.bidding.model.vo;
 
-import java.sql.Date;
+import java.io.Serializable;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BiddingList {
+public class BiddingList implements Serializable {
 	
 	private int biddingMemberNo;
 	private int biddingAuctionId;

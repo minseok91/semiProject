@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.appraisal.controller.AppraisalSelectItemResultServlet;
 import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bid;
 
@@ -18,8 +17,8 @@ import lombok.extern.log4j.Log4j2;
 /**
  * Servlet implementation class watchSelectList
  */
-@WebServlet("/watchList.wa")
 @Log4j2
+@WebServlet("/watchList.wa")
 public class WatchSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

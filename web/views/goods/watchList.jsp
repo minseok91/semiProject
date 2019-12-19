@@ -256,7 +256,7 @@ td>.content {
 				const num = $(this).children().eq(3).text();
 				const img = $(this).children().eq(4).text();
 				
-				location.href="<%= request.getContextPath() %>/watchDetail.wa?num="+num+"&img="+img;
+				location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&num="+num;
 			});
 		})
 	</script>

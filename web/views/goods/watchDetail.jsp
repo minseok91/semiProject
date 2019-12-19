@@ -222,6 +222,7 @@
 		ArrayList<Bid> watchDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
 		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
+		int num = (Integer) request.getAttribute("num");
 	%>
 		<div class="container">
 		<div class="contents">
@@ -368,7 +369,8 @@
 					if(Number(bidPrice) <= minPrice) {
 						alert('최소 입찰금액보다 높아야 입찰이 가능합니다. ' + minPrice);
 					} else {
-						location.href="<%= request.getContextPath() %>/bidding.bi";
+						const URL = "<%= request.getContextPath() %>/bidding.bi?auctionId=<%= num %>&bidPrice="+bidPrice+"&memberNo=<%= loginMember.getMemberNo() %>";
+						location.href=URL;
 					}
 				} else {
 					alert('입력내용을 다시 확인해주세요.');

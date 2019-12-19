@@ -278,6 +278,62 @@ public class BidDao {
 		return maxBiddingPrice;
 	}
 
+	// 횟수확인
+	public int checkCount(Connection con, Bid b) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, b.getBidMemberNo());
+			pstmt.setInt(2, b.getBidAuctionId());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) 
+				result=rset.getInt(1); // COUNT값 가져옴
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 필터처리 후 데이터 삽입
+	// 입찰번호, 경매번호, 회원번호, 횟수(+1해야함), 입찰가
+	public int insertBidding(Bid b, int count, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBidding");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
+			pstmt.setInt(3, count+1);
+			pstmt.setInt(4, b.getBidPrice());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }
 
