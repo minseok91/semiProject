@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.lp.appraisal.model.vo.Bag;
+import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.vo.Bid;
 import com.kh.lp.bidding.model.vo.BiddingList;
 
@@ -39,7 +41,7 @@ public class BidDao {
 		ResultSet rset = null;
 		ArrayList<Bid> list = null;
 		
-		String query = prop.getProperty("selectList");
+		String query = prop.getProperty("selectWatchList");
 		
 		try {
 			stmt = con.createStatement();
@@ -73,12 +75,12 @@ public class BidDao {
 		return list;
 	}
 
-	public ArrayList<Bid> selectWatchDetail(Connection con, int num) {
+	public ArrayList<Bid> selectItemDetail(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Bid> list = null;
 		
-		String query = prop.getProperty("selectWatchDetail");
+		String query = prop.getProperty("selectItemDetail");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -279,12 +281,12 @@ public class BidDao {
 	}
 
 	// 횟수확인
-	public int checkCount(Connection con, Bid b) {
+	public int checkWish(Connection con, Bid b) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
 		
-		String query = prop.getProperty("checkCount");
+		String query = prop.getProperty("checkWish");
 		
 		try {
 			pstmt = con.prepareStatement(query);
@@ -307,8 +309,8 @@ public class BidDao {
 	}
 
 	// 필터처리 후 데이터 삽입
-	// 입찰번호, 경매번호, 회원번호, 횟수(+1해야함), 입찰가
-	public int insertBidding(Bid b, int count, Connection con) {
+	// 경매번호, 회원번호, 상태
+	public int insertWish(Bid b, int count, Connection con) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
@@ -334,52 +336,208 @@ public class BidDao {
 		return result;
 	}
 
+	public String checkWishStatus(Bid b, Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String status = "";
+		
+		String query = prop.getProperty("checkWishStatus");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				status = rset.getString(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return status;
+	}
+ 
+	// 상태 N으로 변경
+	public int changeWishN(Bid b, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeWishN");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
+	// 상태 Y로 변경
+	public int changeWishY(Bid b, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("changeWishY");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	// 위시리스트 이력 넣기
+	public int insertWish(Bid b, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertWish");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Bid> bagSelectList(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Bid> list = null;
+		
+		String query = prop.getProperty("selectBagList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Bid b = new Bid();
+				
+				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+				b.setBidId(rset.getInt("BIDDING_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
+				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public Watch selectWatchInfo(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Watch watch = null;
+		
+		String query = prop.getProperty("selectWatchInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			watch = new Watch();
+			if(rset.next()) {
+				watch.setWatchGuaranteeYn(rset.getString("WATCH_GUARANTEE_YN"));
+				watch.setWatchBoxYn(rset.getString("WATCH_BOX_YN"));
+				watch.setWatchMaterial(rset.getString("WATCH_MATERIAL"));
+				watch.setWatchMovement(rset.getString("WATCH_MOVEMENT"));
+				watch.setWatchChronograph(rset.getString("WATCH_MOVEMENT"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return watch;
+	}
+
+	public Bag selectBagInfo(Connection con, int num) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Bag b = null;
+		
+		String query = prop.getProperty("selectBagInfo");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, num);
+			
+			rset = pstmt.executeQuery();
+			
+			b = new Bag();
+			if(rset.next()) {
+				b.setBagSize(rset.getString("BAG_SIZE"));
+				b.setBagStrap(rset.getString("BAG_STRAP"));
+				b.setGender(rset.getString("BAG_GENDER"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return b;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

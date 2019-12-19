@@ -1,3 +1,4 @@
+<%@page import="com.kh.lp.appraisal.model.vo.Watch"%>
 <%@page import="com.kh.lp.bidding.model.vo.Bid"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -223,6 +224,7 @@
 		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
 		int num = (Integer) request.getAttribute("num");
+		Watch w = (Watch) request.getAttribute("watch");
 	%>
 		<div class="container">
 		<div class="contents">
@@ -280,8 +282,24 @@
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
 				<div id="detailContent">
-					<label>상품 상세</label>
-					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
+					<table>
+						<tr>
+							<td>상품번호</td>
+							<td><%= num %></td>
+						</tr>
+						<tr>
+							<td>브랜드명</td>
+							<td><%= watchDetailInfo.get(0).getBidBrand() %></td>
+						</tr>
+						<tr>
+							<td>모델명</td>
+							<td><%= watchDetailInfo.get(0).getBidModel() %></td>
+						</tr>
+						<tr>
+							<td>판매자 아이디</td>
+							<td><%= watchDetailInfo.get(0).getBidUserId() %></td>
+						</tr>
+					</table>
 				</div>
 				
 				<div id="goods">
@@ -289,27 +307,23 @@
 					<table>
 						<tr>
 							<td>보증서 유무</td>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
-						</tr>
-						<tr>
-							<td>시리얼 넘버</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td><%= w.getWatchGuaranteeYn() %></td>
 						</tr>
 						<tr>
 							<td>오리지널 박스 유무</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>케이스 크기</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td><%= w.getWatchBoxYn() %></td>
 						</tr>
 						<tr>
 							<td>재질</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td><%= w.getWatchMaterial() %></td>
 						</tr>
 						<tr>
 							<td>무브먼트 종류</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td><%= w.getWatchMovement() %></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><%= w.getWatchChronograph() %></td>
 						</tr>
 					</table>
 				</div>
@@ -349,12 +363,25 @@
 			
 			// 위시리스트 추가
 			$('#wish').click(function() {
-				const wish=confirm('위시리스트에 추가하시겠습니까?');
-
-				if(wish) {
-					
-				}
-			})
+				$.ajax({
+					url: "<%= request.getContextPath() %>/wish.in",
+					type: "post",
+					data: {
+						memberNo: <%= loginMember.getMemberNo() %>,
+						auctionId: <%= num %>,
+					},
+					success: function(data) {
+						if(data === 'success')
+							alert('위시리스트에 추가했습니다.');
+						else 
+							alert('위시리스트에 추가되지않았습니다.');
+					},
+					error: function(data) {
+						alert('에러발생');
+					}
+				});
+			});
+		}
 			
 			function numberFormat(inputNumber) {
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -376,7 +403,6 @@
 					alert('입력내용을 다시 확인해주세요.');
 				}
 			})
-		}
 	</script>
 </body>
 </html>
