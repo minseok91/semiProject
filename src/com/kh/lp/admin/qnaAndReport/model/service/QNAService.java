@@ -96,7 +96,7 @@ public class QNAService {
 	 * @Author         : 안동환
 	 * @CreateDate    : 2019. 12. 17. 오후 1:41:09
 	 * @ModifyDate    : 2019. 12. 17. 오후 1:41:09
-	 * @Description   : 
+	 * @Description   : QNA타입으로 검색하여 조회하는 메소드
 	 * @param currentPage
 	 * @param limit
 	 * @return
@@ -243,6 +243,31 @@ public class QNAService {
 		close(con);
 		
 		return getQnaDetail;
+	}
+
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:11:30
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:11:30
+	 * @Description   : 관리자가 읽거나 댓글을 남기면 히스토리에 저장하는 메소드
+	 * @param qNAId
+	 * @param type
+	 * @return
+	 */
+	public int insertHistory(int qNAId, String type) {
+		Connection con = getConnection();
+		
+		int insertHistroy = new QNADao().insertHistory(qNAId,type,con);
+		
+		if(insertHistroy > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		
+		return insertHistroy;
 	}
 
 }

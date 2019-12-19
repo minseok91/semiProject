@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="com.kh.lp.member.model.vo.*"%>
+<%
+	Member loginMember = (Member) session.getAttribute("loginMember");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +56,7 @@
 		width: 100%;
 		height: 5px;
 		background: rgb(160, 115, 66);
+		position: absolute;
 	}
 	#bottom_box {
 		width: 1080px;

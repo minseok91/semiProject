@@ -269,8 +269,8 @@ public class QNADao {
 			
 			if(rset.next()) {
 				list = new QNA();
-				list.setQnaId(rset.getInt("QNA_REPLY_ID"));
-				list.setQnaContent(rset.getString("QNA_REPLY_COMMENT"));
+				list.setQnaId(rset.getInt("QNA_ID"));
+				list.setQnaContent(rset.getString("QNA_REPLY_DETAIL"));
 				
 			}
 			
@@ -564,12 +564,27 @@ public class QNADao {
 		
 		return selectedQnaDetail;
 	}
-	
-	
-	
-	
-	
-	
+	public int insertHistory(int qNAId, String type, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = admin_prop.getProperty("admin_insertQNAHistory");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, qNAId);
+			pstmt.setString(2, type);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(con);
+		}
+		
+		return result;
+	}
 }
 
 

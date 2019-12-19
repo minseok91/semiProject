@@ -9,6 +9,14 @@ import java.sql.Connection;
 import java.util.ArrayList;
 public class ReplyService {
 	
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:06:25
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:06:25
+	 * @Description   : 댓글 조회 메소드
+	 * @param boardId
+	 * @return
+	 */
 	public ArrayList<Reply> selectAll(int boardId) {
 		Connection con = getConnection();
 		
@@ -19,6 +27,16 @@ public class ReplyService {
 		return Rlist;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:05:02
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:05:02
+	 * @Description   : 게시판 댓글 입력하는 곳
+	 * @param boardId
+	 * @param comment
+	 * @param memberId
+	 * @return
+	 */
 	public int inserReply(int boardId, String comment, int memberId) {
 		Connection con = getConnection();
 		
@@ -34,6 +52,15 @@ public class ReplyService {
 		return 0;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:04:44
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:04:44
+	 * @Description   : QNA 댓글 추가하는 메소드
+	 * @param QNAId
+	 * @param comment
+	 * @return
+	 */
 	public int insertReply(int QNAId, String comment) {
 		Connection con = getConnection();
 		
@@ -48,6 +75,14 @@ public class ReplyService {
 		return result;
 	}
 
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:04:24
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:04:24
+	 * @Description   : QNA댓글 검색하는 메소드
+	 * @param qNAId
+	 * @return
+	 */
 	public QNA selectQNAReply(int qNAId) {
 		Connection con = getConnection();
 		
@@ -57,6 +92,14 @@ public class ReplyService {
 		
 		return list;
 	}
+	/**
+	 * @Author         : 안동환
+	 * @CreateDate    : 2019. 12. 19. 오후 5:04:12
+	 * @ModifyDate    : 2019. 12. 19. 오후 5:04:12
+	 * @Description   : 댓글 삭제하는 메소드
+	 * @param boardReply
+	 * @return
+	 */
 	public int deleteBoardReply(int boardReply) {
 		Connection con = getConnection();
 		
