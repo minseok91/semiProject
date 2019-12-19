@@ -1,7 +1,6 @@
 package com.kh.lp.bidding.model.service;
 
-import static com.kh.lp.common.JDBCTemplate.close;
-import static com.kh.lp.common.JDBCTemplate.getConnection;
+import static com.kh.lp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import com.kh.lp.bidding.model.vo.BiddingList;
 
 public class BidService {
 
+	// 시계 목록 불러오기
 	public ArrayList<Bid> watchSelectList() {
 		Connection con = getConnection();
 		
@@ -22,6 +22,7 @@ public class BidService {
 		return list;
 	}
 
+	// 특정 시계상품 상세보기
 	public ArrayList<Bid> selectWatchDetail(int num) {
 		Connection con = getConnection();
 		
@@ -32,6 +33,7 @@ public class BidService {
 		return list;
 	}
 
+	// 특정 경매에 입찰한 회원들(5명까지)
 	public ArrayList<Bid> selectListBidUser(int num) {
 		Connection con = getConnection();
 		
@@ -103,6 +105,23 @@ public class BidService {
 		close(con);
 		
 		return selectedBiddingList;
+	}
+
+	// 입찰 등록
+	public int insertBidding(Bid b) {
+		Connection con = getConnection();
+		
+		// count값 확인 -> 횟수제한에 걸리지않는지 확인
+		int count = new BidDao().checkCount(con, b);
+		
+		int result = 0;
+		
+		if(count < 3) 
+			result = new BidDao().insertBidding(b, count, con); // 행의 갯수를 들고 감
+		
+		close(con);
+		
+		return result;
 	}
 
 }
