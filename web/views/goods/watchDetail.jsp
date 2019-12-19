@@ -271,7 +271,7 @@
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
-								<button id="insertBid">입찰</button>
+								<button id="insertBid" onclick="onMessage()" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
@@ -388,28 +388,62 @@
 					}
 				});
 			});
-		})
+			
+			getWebsocket2();
+		});
 			
 			function numberFormat(inputNumber) {
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
 			
-			$('#insertBid').click(function() {
-				const regex = /\d/g;
-				const bidPrice = $('#minPrice').val();
-				console.log(bidPrice);
+			
+			
+			function getWebsocket2() {	//입찰웹소켓
+				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding";
+				ws = new WebSocket(url);
 				
-				if(regex.test(bidPrice)) {
-					if(Number(bidPrice) <= minPrice) {
-						alert('최소 입찰금액보다 높아야 입찰이 가능합니다. ' + minPrice);
-					} else {
-						const URL = "<%= request.getContextPath() %>/bidding.bi?auctionId=<%= num %>&bidPrice="+bidPrice+"&memberNo=<%= loginMember.getMemberNo() %>";
-						location.href=URL;
-					}
-				} else {
-					alert('입력내용을 다시 확인해주세요.');
-				}
-			})
+				ws.onopen = function(event) {
+					onOpen(event);
+				};
+				
+				ws.onmessage = function(event) {
+					onMessage(event);
+				};
+				
+				ws.onclose = function(event) {
+					onClose(event);
+				};
+				
+				ws.onerror = function(event) {
+					onError(event);
+				};
+			};
+			
+			
+			function onOpen(event) {
+				console.log("웹소켓 접속 완료");
+				$("#insertBid").attr("disabled", false);
+			};
+			
+			function onMessage(event) {
+				console.log($("#minPrice").val());
+				send($("#minPrice").val());
+			};
+			
+			function onClose(event) {
+				$("#insertBid").attr("disabled", true);
+			};
+			
+			function onError(event) {
+				alert(event.data);
+				$("#insertBid").attr("disabled", true);
+			};
+			
+			function send(msg) {
+				ws.send(msg);
+			};
+			
+			
 	</script>
 </body>
 </html>

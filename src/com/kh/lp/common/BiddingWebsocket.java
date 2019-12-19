@@ -1,5 +1,6 @@
 package com.kh.lp.common;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,17 @@ public class BiddingWebsocket {
 	
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
+		log.info(msg);
 		
+		synchronized (clients) {
+			for(Session client : clients) {
+				try {
+					client.getBasicRemote().sendText(msg);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 	
 	@OnClose
