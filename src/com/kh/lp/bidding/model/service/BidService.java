@@ -9,6 +9,7 @@ import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.dao.BidDao;
 import com.kh.lp.bidding.model.vo.Bid;
+import com.kh.lp.bidding.model.vo.Bidding;
 import com.kh.lp.bidding.model.vo.BiddingList;
 
 public class BidService {
@@ -164,6 +165,22 @@ public class BidService {
 		close(con);
 		
 		return bag;
+	}
+
+	public int insertBiddingHistory(Bidding requestBidding) {
+		Connection con = getConnection();
+		int result = 0;
+		int biddingCount = new BidDao().selectCount(con, requestBidding);
+		if(biddingCount < 3) {
+			result = new BidDao().insertBiddingHistory(con, requestBidding);
+			if(result > 0) {
+				commit(con);
+			}
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		return result;
 	}
 
 }

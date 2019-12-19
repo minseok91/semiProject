@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.vo.Bid;
+import com.kh.lp.bidding.model.vo.Bidding;
 import com.kh.lp.bidding.model.vo.BiddingList;
 
 import lombok.extern.log4j.Log4j2;
@@ -537,6 +538,69 @@ public class BidDao {
 		}
 		
 		return b;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 20. 오전 3:57:46
+	 * @ModifyDate    : 2019. 12. 20. 오전 3:57:46
+	 * @Description   : 입찰하는 메소드
+	 * @param con
+	 * @param requestBidding
+	 * @return
+	 */
+	public int insertBiddingHistory(Connection con, Bidding requestBidding) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		log.debug(requestBidding);
+		String query = prop.getProperty("insertBiddingHistory");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestBidding.getBiddingAuctionId());
+			pstmt.setInt(2, requestBidding.getBiddingMemberNo());
+			pstmt.setInt(3, requestBidding.getBiddingMemberNo());
+			pstmt.setInt(4, requestBidding.getBiddingPrice());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/**
+	 * @Author	      : gurwns
+	 * @CreateDate    : 2019. 12. 20. 오전 3:57:53
+	 * @ModifyDate    : 2019. 12. 20. 오전 3:57:53
+	 * @Description   : 입찰횟수 세는 메소드
+	 * @param con
+	 * @param requestBidding
+	 * @return
+	 */
+	public int selectCount(Connection con, Bidding requestBidding) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("selectCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestBidding.getBiddingMemberNo());
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }
 
