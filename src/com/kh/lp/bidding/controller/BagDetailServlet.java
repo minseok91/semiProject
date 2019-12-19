@@ -2,7 +2,6 @@ package com.kh.lp.bidding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,25 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.appraisal.controller.AppraisalSelectItemResultServlet;
-import com.kh.lp.appraisal.model.vo.Watch;
+import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bid;
 
-import lombok.extern.log4j.Log4j2;
-
 /**
- * Servlet implementation class watchDetail
+ * Servlet implementation class BagDetailServlet
  */
-@WebServlet("/watchDetail.wa")
-@Log4j2
-public class WatchDetailServlet extends HttpServlet {
+@WebServlet("/bagDetail.ba")
+public class BagDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WatchDetailServlet() {
+    public BagDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,21 +32,21 @@ public class WatchDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num")); // 경매번호
+		int num = Integer.parseInt(request.getParameter("num"));
 		String img = request.getParameter("img");
 		ArrayList<Bid> list = new BidService().selectItemDetail(num);
 		ArrayList<Bid> bidList = new BidService().selectListBidUser(num);
-		Watch watch = new BidService().selectWatchInfo(num);
+		Bag bag = new BidService().selectBagInfo(num);
 		
 		String page = "";
 		
 		if(list != null) {
-			page = "views/goods/watchDetail.jsp";
+			page = "views/goods/bagDetail.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("bidList", bidList);
 			request.setAttribute("img", img);
 			request.setAttribute("num", num);
-			request.setAttribute("watch", watch);
+			request.setAttribute("bag", bag);
 		} else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");

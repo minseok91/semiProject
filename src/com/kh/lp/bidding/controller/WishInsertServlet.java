@@ -1,26 +1,32 @@
-package com.kh.lp.win.controller;
+package com.kh.lp.bidding.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.bidding.model.service.BidService;
+import com.kh.lp.bidding.model.vo.Bid;
+
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class paymentBefore
+ * Servlet implementation class BiddingItemServlet
  */
 @Log4j2
-@WebServlet("/paymentBefore.pay")
-public class PaymentBeforeServlet extends HttpServlet {
+@WebServlet("/wish.in")
+// 위시리스트 넣기(BIDDING_HISTORY에 넣음)
+public class WishInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PaymentBeforeServlet() {
+    public WishInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +35,34 @@ public class PaymentBeforeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("auctionId");
-		String image = request.getParameter("image");
-		String price = request.getParameter("price");
+		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
-		String page = "views/goods/paymentBefore.jsp";
+		log.debug(auctionId);
+		log.debug(memberNo);
 		
-		request.setAttribute("num", num);
-		request.setAttribute("image", image);
-		request.setAttribute("price", price);
+		Bid b = new Bid();
+		b.setBidAuctionId(auctionId);
+		b.setBidMemberNo(memberNo);
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		int result = new BidService().insertWish(b);
+		
+		String msg = "";
+		
+		PrintWriter out = response.getWriter();
+		
+		if(result > 0) {
+			msg = "success";
+			log.debug(msg);
+			out.append(msg);
+		} else {
+			msg = "fail";
+			log.debug(msg);
+			out.append(msg);
+		}
+		
+		out.flush();
+		out.close();
 	}
 
 	/**

@@ -5,6 +5,8 @@ import static com.kh.lp.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.lp.appraisal.model.vo.Bag;
+import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.dao.BidDao;
 import com.kh.lp.bidding.model.vo.Bid;
 import com.kh.lp.bidding.model.vo.BiddingList;
@@ -22,11 +24,11 @@ public class BidService {
 		return list;
 	}
 
-	// 특정 시계상품 상세보기
-	public ArrayList<Bid> selectWatchDetail(int num) {
+	// 특정 상품 정보
+	public ArrayList<Bid> selectItemDetail(int num) {
 		Connection con = getConnection();
 		
-		ArrayList<Bid> list = new BidDao().selectWatchDetail(con, num);
+		ArrayList<Bid> list = new BidDao().selectItemDetail(con, num);
 		
 		close(con);
 		
@@ -108,20 +110,59 @@ public class BidService {
 	}
 
 	// 입찰 등록
-	public int insertBidding(Bid b) {
+	public int insertWish(Bid b) {
 		Connection con = getConnection();
-		
-		// count값 확인 -> 횟수제한에 걸리지않는지 확인
-		int count = new BidDao().checkCount(con, b);
-		
 		int result = 0;
+		String status = "";
 		
-		if(count < 3) 
-			result = new BidDao().insertBidding(b, count, con); // 행의 갯수를 들고 감
+		// count값 확인 -> 기존에 했는지 안했는지 체크
+		int count = new BidDao().checkWish(con, b);
+		
+		if(count == 0) 
+			result = new BidDao().insertWish(b, con); // 없다면 바로 데이터 삽입
+		else {
+			status = new BidDao().checkWishStatus(b, con); // 있다면 일단 상태를 먼저 확인
+			if(status == "Y")
+				result = new BidDao().changeWishN(b, con); // 상태가 Y라면 N으로 변경
+			else {
+				result = new BidDao().changeWishY(b, con); // 상태가 N이라면 Y로 변경
+			}
+		}
 		
 		close(con);
 		
 		return result;
+	}
+
+	// 가방목록리스트 불러오기
+	public ArrayList<Bid> bagSelectList() {
+		Connection con = getConnection();
+		
+		ArrayList<Bid> list = new BidDao().bagSelectList(con);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public Watch selectWatchInfo(int num) {
+		Connection con = getConnection();
+		
+		Watch watch = new BidDao().selectWatchInfo(con, num);
+		
+		close(con);
+		
+		return watch;
+	}
+
+	public Bag selectBagInfo(int num) {
+		Connection con = getConnection();
+		
+		Bag bag = new BidDao().selectBagInfo(con, num);
+		
+		close(con);
+		
+		return bag;
 	}
 
 }

@@ -23,13 +23,13 @@ import lombok.extern.log4j.Log4j2;
  */
 @Log4j2
 @WebServlet("/selectWin.wi")
-public class selectWinnig extends HttpServlet {
+public class SelectWinnigServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public selectWinnig() {
+    public SelectWinnigServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

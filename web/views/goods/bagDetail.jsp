@@ -10,6 +10,9 @@
  */
 --%>
 
+<%@page import="com.kh.lp.appraisal.model.vo.Bag"%>
+<%@page import="com.kh.lp.bidding.model.vo.Bid"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -228,120 +231,102 @@
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
+	<%
+		ArrayList<Bid> bagDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
+		ArrayList<Bid> bagBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
+		String img = (String) request.getAttribute("img");
+		int num = (Integer) request.getAttribute("num");
+		Bag bag = (Bag) request.getAttribute("bag");
+	%>
 		<div class="container">
 			<div class="contents">
 				<!-- 사진, 상품명, 입찰가, 등록칸 -->
 				<span id="part1">
 					<span class="imgBox">
 						<div class="title">
-							<a id="wish" href="#">♡</a>
-							<img id="title" src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
+							<a id="wish">♡</a>
+							<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 						</div>
 						<div id="detailImg">
 							<table>
 							<!-- 사진 갯수에 따라서 조율가능 -->
 								<tr>
+									<% for(Bid b : bagDetailInfo) { %>
 									<td>
-										<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
+										<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
 									</td>
-									<td>
-										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-									</td>
-									<td>
-										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-									</td>
-									<td>
-										<img src="<%= request.getContextPath() %>/img/bag1.jpg" alt="" >
-									</td>
+									<% } %>
 								</tr>
 							</table>
 						</div> <!-- detailImg End -->
 					</span> <!-- imgBox End -->
 					<span id="contents">
 						<div id="head">
-							<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label>
-							<label>판매자</label>
+							<label><%= bagDetailInfo.get(0).getBidBrand() +" "+ bagDetailInfo.get(0).getBidModel() %></label>
+							<label>판매자 : <%= bagDetailInfo.get(0).getBidUserId() %></label>
 							<label id="endTime"></label>
 						</div>
 						<div id=set>
 							<div id="price">
 								<label>현재 가격</label>
-								<label>￦1,600,000</label>
-								<% if(loginMember == null) { %>
-										<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
-								<% } %>
+							<label id="maxPrice"></label>
+							<% if(loginMember == null) { %>
+								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
+							<% } %>
 							</div>
 							<% if(loginMember != null) { %>
 							<div id="biddingApply">
-							<form action="" post="get">
-								<label>입찰 단위 : ￦ 80,000</label><br>
-								<input type="text" name="bidding" size="25" placeholder="1,680,000원 이상 작성하세요.">
-								<input type="submit" value="입찰">
-							</form>
+								<label id="unit"></label><br>
+								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
+								<button id="insertBid">입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
 						</div>
 						<div id="biddingUsers">
 								<table>
-									<tr>
-										<th>입찰자</th>
-										<th>입찰 금액</th>
-										<th>입찰 시간</th>
-									</tr>
-									<tr>
-										<td>yang****</td>
-										<td>1,600,000원</td>
-										<td>20분 전</td>
-									</tr>
-									<tr>
-										<td>mins***</td>
-										<td>1,520,000원</td>
-										<td>1시간 전</td>
-									</tr>
-									<tr>
-										<td>gurw**</td>
-										<td>1,400,000원</td>
-										<td>3시간 전</td>
-									</tr>
 								</table>
-							</div>
+						</div>
 					</span> <!-- contents End -->
 				</span> <!-- part1 End -->
 	
 				<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 				<div id="part2">
 					<div id="detailContent">
-						<label>상품 상세</label>
-						<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
-					</div>
+					<table>
+						<tr>
+							<td>상품번호</td>
+							<td><%=num%></td>
+						</tr>
+						<tr>
+							<td>브랜드명</td>
+							<td><%=bagDetailInfo.get(0).getBidBrand()%></td>
+						</tr>
+						<tr>
+							<td>모델명</td>
+							<td><%=bagDetailInfo.get(0).getBidModel()%></td>
+						</tr>
+						<tr>
+							<td>판매자 아이디</td>
+							<td><%=bagDetailInfo.get(0).getBidUserId()%></td>
+						</tr>
+					</table>
+				</div>
 					
 					<div id="goods">
 						<label>상품 정보</label>
 						<table>
 							<tr>
-								<td>보증서 유무</td>
-								<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
-							</tr>
-							<tr>
 								<td>사이즈</td>
-								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+								<td><%= bag.getBagSize() %></td>
 							</tr>
 							<tr>
 								<td>끈높이</td>
-								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-							</tr>
-							<tr>
-								<td>컬러</td>
-								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-							</tr>
-							<tr>
-								<td>재질</td>
-								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+								<td><%= bag.getBagStrap() %></td>
 							</tr>
 							<tr>
 								<td>북렛</td>
-								<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+								<td><%= bag.getGender() %></td>
 							</tr>
 						</table>
 					</div>
@@ -357,6 +342,47 @@
 				$('#title').attr('src', $(this).attr('src'));
 			}).mouseout(function() {
 				$('#title').attr('src', title);
+			});
+			
+			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+			
+			<% for(Bid b : bagBiddingUser) { %>
+				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidAuctionStartTime() %></td></tr>"
+			<% } %>
+				temp+="</tbody>";
+				$("#biddingUsers > table").append(temp);
+				
+			// 입찰리스트에서 최댓값 추출
+			let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(2).text();
+			$('#maxPrice').text(numberFormat(maxPrice)+'원');
+			
+			// 최댓값기준 입찰단위
+			let unit = maxPrice*0.05;
+			$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+			
+			// 최소입찰금액
+			let minPrice = maxPrice*1.05;
+			$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+			
+			// 위시리스트 추가
+			$('#wish').click(function() {
+				$.ajax({
+					url: "<%= request.getContextPath() %>/wish.in",
+					type: "post",
+					data: {
+						memberNo: <%= loginMember.getMemberNo() %>,
+						auctionId: <%= num %>,
+					},
+					success: function(data) {
+						if(data === 'success')
+							alert('위시리스트에 추가했습니다.');
+						else 
+							alert('위시리스트에 추가되지않았습니다.');
+					},
+					error: function(data) {
+						alert('에러발생');
+					}
+				});
 			});
 		});
 		

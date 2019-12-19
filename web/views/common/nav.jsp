@@ -86,7 +86,7 @@
                 <a href="<%= request.getContextPath() %>/watchList.wa"><div>WATCH</div></a>
             </li>
             <li>
-                <a href="<%= request.getContextPath() %>/views/goods/bagList.jsp"><div>BAG</div></a>
+                <a href="<%= request.getContextPath() %>/bagList.ba"><div>BAG</div></a>
             </li>
             <li class="board">
                 <a href="<%= request.getContextPath() %>/views/board/freeBoard.jsp"><div>BOARD</div></a>
