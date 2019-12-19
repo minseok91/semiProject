@@ -17,6 +17,11 @@ import com.kh.lp.admin.reply.model.vo.Reply;
 /**
  * Servlet implementation class BoardDeleteReplyServlet
  */
+/**
+ * @author 안동환
+ * 게시판 댓글 삭제
+ *
+ */
 @WebServlet("/BoardDeleteReply.bo")
 public class BoardDeleteReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

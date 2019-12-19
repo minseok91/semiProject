@@ -16,6 +16,8 @@ import com.kh.lp.admin.reply.model.vo.Reply;
 
 /**
  * Servlet implementation class BoardDetailServlet
+ * 안동환
+ * 게시판 상세 페이지
  */
 @WebServlet("/boardDetial.bo")
 public class BoardDetailServlet extends HttpServlet {

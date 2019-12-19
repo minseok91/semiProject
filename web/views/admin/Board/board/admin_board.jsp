@@ -319,7 +319,10 @@ html, body {
 							$tableBody.append($trh);
 							$Number.append(data[1].listCount+"건");
 							
+							console.log()
+							if(data[0].length > 0){
 							datatype = data[0][0].BoardType;
+							}
 							
 							
 							switch(datatype){
@@ -346,7 +349,6 @@ html, body {
 								
 								$nextPageBox.append($btn);
 							}
-						    console.log(data);
 							$nextPageBox.append($PagingBtnMax);
 							$("#table td").click(function(e){
 								var MemberName = e.target.parentNode.parentNode.children[0].children[1].value;

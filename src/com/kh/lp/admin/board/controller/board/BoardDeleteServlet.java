@@ -13,6 +13,8 @@ import com.kh.lp.admin.board.model.service.BoardService;
 
 /**
  * Servlet implementation class BoardDeleteServlet
+ * 안동환
+ * 게시판 삭제
  */
 @WebServlet("/deleteBoard.bo")
 public class BoardDeleteServlet extends HttpServlet {
