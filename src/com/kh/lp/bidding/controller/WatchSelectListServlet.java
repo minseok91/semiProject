@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.appraisal.controller.AppraisalSelectItemResultServlet;
-import com.kh.lp.bidding.model.service.bidService;
+import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bid;
 
 import lombok.extern.log4j.Log4j2;
@@ -20,13 +20,13 @@ import lombok.extern.log4j.Log4j2;
  */
 @WebServlet("/watchList.wa")
 @Log4j2
-public class watchSelectList extends HttpServlet {
+public class WatchSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public watchSelectList() {
+    public WatchSelectListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,7 +35,7 @@ public class watchSelectList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Bid> list = new bidService().watchSelectList();
+		ArrayList<Bid> list = new BidService().watchSelectList();
 		
 		String page = "";
 		

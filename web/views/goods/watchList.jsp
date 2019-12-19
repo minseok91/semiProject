@@ -214,6 +214,7 @@ td>.content {
                  	<span class="content"><%= b.getBidBrand() + " " + b.getBidModel() %></span>
                  	<div class="time"><%= b.getBidAuctionStartTime() %></div>
                  	<div hidden><%= b.getBidAuctionId() %></div>
+                 	<div hidden><%= b.getBidAttachment() %></div>
               	</td>
                <% } %>
                </tr>
@@ -253,8 +254,9 @@ td>.content {
 		$(function() {
 			$('td').css('cursor', 'pointer').click(function() {
 				const num = $(this).children().eq(3).text();
+				const img = $(this).children().eq(4).text();
 				
-				location.href="<%= request.getContextPath() %>/watchDetail.wa?num="+num;
+				location.href="<%= request.getContextPath() %>/watchDetail.wa?num="+num+"&img="+img;
 			});
 		})
 	</script>

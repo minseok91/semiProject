@@ -4,17 +4,16 @@ import static com.kh.lp.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import com.kh.lp.bidding.model.dao.bidDao;
+import com.kh.lp.bidding.model.dao.BidDao;
 import com.kh.lp.bidding.model.vo.Bid;
 
-public class bidService {
+public class BidService {
 
 	public ArrayList<Bid> watchSelectList() {
 		Connection con = getConnection();
 		
-		ArrayList<Bid> list = new bidDao().watchSelectList(con);
+		ArrayList<Bid> list = new BidDao().watchSelectList(con);
 		
 		close(con);
 		
@@ -24,7 +23,7 @@ public class bidService {
 	public ArrayList<Bid> selectWatchDetail(int num) {
 		Connection con = getConnection();
 		
-		ArrayList<Bid> list = new bidDao().selectWatchDetail(con, num);
+		ArrayList<Bid> list = new BidDao().selectWatchDetail(con, num);
 		
 		close(con);
 		
@@ -34,7 +33,7 @@ public class bidService {
 	public ArrayList<Bid> selectListBidUser(int num) {
 		Connection con = getConnection();
 		
-		ArrayList<Bid> list = new bidDao().selectListBidUser(con, num);
+		ArrayList<Bid> list = new BidDao().selectListBidUser(con, num);
 		
 		close(con);
 		
