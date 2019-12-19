@@ -100,6 +100,18 @@
 		padding-top: 30px;
 		padding-right: 40px;
 	}
+	#shipment {
+		margin-bottom: 0;
+		margin-top: 0;
+		list-style: none;
+	}
+	#shipment > li{
+		float: left;
+		display: none;
+		color: rgb(33, 31, 34);
+		padding-top: 30px;
+		padding-right: 40px;
+	}
 	#header_box > ul > li > a {
 		text-decoration: none;
 		color: rgb(33, 31, 34);
@@ -120,7 +132,7 @@
 	#header_box > ul > li > a {
 		color: #e2ceb8;
 	}
-	#notice, #usermit, #appraisal{
+	#notice, #usermit, #appraisal , #shipment {
 		width: 301px;
 		margin: 0 auto;
 	}
@@ -134,6 +146,7 @@
 				<li>회원 정보</li>
 				<li id="goods_li">상품 관리</li>
 				<li id="auctionManagement">경매 관리</li>
+				<li id="shipManagement">배송 관리</li>
 				<li id="">매출 관리</li>
 				<li>게시판 관리</li>
 				<li id="inquiryAndReport">문의 및 신고</li>
@@ -154,6 +167,10 @@
 				<li id="appraisal_req" class="cursor">감정 신청 물품</li>
 				<li id="appraisal_com" class="cursor">감정 완료 물품</li>
 			</ul>
+			<ul id="shipment">
+				<li id="shipment_yet" class="cursor">운송장 정보 입력</li>
+				<li id="shipment_list" class="cursor">배송 목록</li>
+			</ul>
 		</div>  <!-- bottom_box end -->
 	</div>  <!-- bottom end -->
 	
@@ -161,20 +178,28 @@
 	$(function(){
 		$(document).mouseover(function(e){
 			//		console.log(e.target.innerText);
-			if( e.target.innerText == "회원 정보" || e.target.innerText == "게시판 관리" || e.target.innerText == "상품 관리"){
+			if( e.target.innerText == "회원 정보" || e.target.innerText == "게시판 관리" || e.target.innerText == "상품 관리" || e.target.innerText == "배송 관리"){
 				if(e.target.innerText == "회원 정보"){
 					$("#usermit > li").show(0);
 					$("#notice > li").hide(0);
 					$("#appraisal > li").hide(0);
+					$("#shipment > li").hide(0);
 					
 				} else if(e.target.innerText == "게시판 관리") {
 					$("#usermit > li").hide(0);
 					$("#notice > li").show(0);
 					$("#appraisal > li").hide(0);
+					$("#shipment > li").hide(0);
 				} else if(e.target.innerText == "상품 관리"){
 					$("#usermit > li").hide(0);
 					$("#notice > li").hide(0);
 					$("#appraisal > li").show(0);
+					$("#shipment > li").hide(0);
+				} else if(e.target.innerText == "배송 관리"){
+					$("#usermit > li").hide(0);
+					$("#notice > li").hide(0);
+					$("#appraisal > li").hide(0);
+					$("#shipment > li").show(0);
 				}
 				$("#bottom").stop().animate({height:'70'},150);
 				$("#bottom_div").stop().animate({height:'70'},150);
@@ -184,6 +209,7 @@
 				$("#notice >li").delay(100).hide(0);
 				$("#usermit >li").delay(100).hide(0);
 				$("#appraisal >li").delay(100).hide(0);
+				$("#shipment > li").delay(100).hide(0);
 			}
 		});
 	});
@@ -217,6 +243,13 @@
 	})
 	$("#auctionManagement").click(function(){
 		location.href="<%=request.getContextPath()%>/selectAll.au";
+	})
+	
+	$("#shipment_yet").click(function(){
+		location.href="<%=request.getContextPath()%>/selectAll.sm";
+	})
+	$("#shipment_list").click(function(){
+		location.href="<%=request.getContextPath()%>/selectAll.sh";
 	})
  	$(".cursor").mouseover(function(){
 		$(".cursor").css('cursor','pointer');

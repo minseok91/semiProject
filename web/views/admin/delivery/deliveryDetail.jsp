@@ -10,7 +10,17 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.shipment.model.vo.*, com.kh.lp.common.*" %>
+ <% ArrayList<ShipmentHistory> list = (ArrayList<ShipmentHistory>) request.getAttribute("list"); 
+	PageInfo pi = (PageInfo) request.getAttribute("pi");
+	System.out.println("list : " + list);
+	int startPage = pi.getStartPage();
+	int endPage = pi.getMaxPage();
+	int currentPage = pi.getCurrentPage();
+	int listCount = pi.getListCount();
+	int limit = pi.getLimit();
+	int maxPage = pi.getMaxPage();
+%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,6 +103,15 @@
 						<th>배송상태</th>
 						<th>운송장번호</th>
 					</tr>
+					<% for(ShipmentHistory sh : list) { %>
+					<tr>
+						<td><%=sh.getShipmentHistoryId() %></td>
+						<td><%=sh.getShipmentHistoryDate() %></td>
+						<td><%=sh.getShipmentHistoryType() %></td>
+						<td></td>
+						<td><%=sh.getWaybill() %></td>
+					</tr>
+					<% } %>
 					 <tr>
 						<td>1</td>
 						<td>pr001</td>
@@ -139,13 +158,32 @@
 					
 				</table>
 			</div>
-			<div id="nextPage">
-				<div id="nextPageBox">
-					<button><</button>
-					<button>o</button>
-					<button>></button>
-				</div>
-			</div>
+				<div class="pagingArea" align="center">
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+				if(p == currentPage){
+		%>
+				<button disabled><%=p %></button>
+				<% } else { %>
+					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=<%=p%>'"><%=p %></button>
+				<% } %>
+			
+		<% } %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=<%=maxPage%>'">>></button>
+		</div>  <!--  pagingArea End game -->
 		</div>
 	</div>
 	
@@ -180,7 +218,7 @@
 		var $tableTr = $("#table tr");
 		
 		$.each($tableTr, function(index, val){
-			var $delTd = val.children[4];
+			var $delTd = val.children[3];
 			/* ajax로 데이터 가져오는 부분 */
 			$.ajax({
 				url:"https://apis.tracker.delivery/carriers/" + "kr.cjlogistics" + "/tracks/" + 354952299354,
