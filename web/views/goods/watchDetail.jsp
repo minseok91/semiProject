@@ -22,6 +22,7 @@
 	#part1 {
 		display: flex;
 		padding-top: 10%;
+		height: 544px;
 	}
 
 	.title>img {
@@ -82,7 +83,7 @@
 	}
 	
 	.contents>#head>label:nth-of-type(2) {
-		margin-left: 34%;
+		margin-left: 54%;
 	}
 	
 	/* 최고입찰가와 입찰가 입력 컨테이너를 묶음 */
@@ -186,31 +187,21 @@
 		border-bottom: 1px solid #3e2d1a;
 	}
 	
-	#part2 label {
-		font-size: 20px;
-    	color: #3e2d1a;
-    	border-left: 5px solid #3e2d1a;
-    	padding-left: 10px;
-    	margin-bottom: 10px;
-	}
-	
-	#detailContent>pre {
-		text-align: left;
-		white-space: pre-wrap;
-		width: 342px;
-		background: none;
+	#detailContent {
+		position: relative;
+		right: 16%;
 	}
 	
 	#goods {
 		margin-left: 90px;
 	}
 
-	#goods>table>tbody>tr>td {
+	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
 		border: 1px solid #d9d9d9;
 		padding: 10px;
 	}
 	
-	#goods>table>tbody>tr>td:nth-of-type(1) {
+	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
 </style>
@@ -241,12 +232,10 @@
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
-							<% if(watchDetailInfo.size() > 0) { %>
-							<% for(Bid b : watchDetailInfo) { %>
+							<% for(int i=1; i<watchDetailInfo.size(); i++) { %>
 								<td>
-									<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
+									<img src="<%= request.getContextPath() %>/img/appraisal/<%= watchDetailInfo.get(i).getBidAttachment() %>" alt="" >
 								</td>
-							<% } %>
 							<% } %>
 							</tr>
 						</table>
@@ -254,10 +243,8 @@
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-					<% if(watchDetailInfo.size() > 0) { %>
 						<label><%= watchDetailInfo.get(0).getBidBrand() +" "+ watchDetailInfo.get(0).getBidModel() %></label>
 						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
-					<% } %>
 					</div>
 					<div id=set>
 						<div id="price">
@@ -277,6 +264,7 @@
 						<% } %>
 					</div>
 					<div id="biddingUsers">
+					<label>입찰 이력</label>
 							<table>
 							</table>
 						</div>
@@ -286,6 +274,7 @@
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
 				<div id="detailContent">
+				<label>경매 정보</label>
 					<table>
 					<% if(watchDetailInfo.size() > 0) { %>
 						<tr>

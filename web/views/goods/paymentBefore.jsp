@@ -256,6 +256,7 @@
 				<tr>
 					<td><label>낙찰가 : </label></td>
 					<td><input type="text" id="win" value="<%= price %>" disabled></td>
+					<td><input type="hidden" value="<%= price %>"></td>
 				</tr>
 				
 				<tr>
@@ -346,6 +347,10 @@
 			}
 		}); 
 	});
+		
+		function numberFormat(inputNumber) {
+			return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
 
 		function daumPostCode() {
 			new daum.Postcode({

@@ -208,23 +208,21 @@
     	margin-bottom: 10px;
 	}
 	
-	#detailContent>pre {
-		text-align: left;
-		white-space: pre-wrap;
-		width: 342px;
-		background: none;
+	#detailContent {
+		position: relative;
+		right: 16%;
 	}
 	
 	#goods {
 		margin-left: 90px;
 	}
 
-	#goods>table>tbody>tr>td {
+	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
 		border: 1px solid #d9d9d9;
 		padding: 10px;
 	}
 	
-	#goods>table>tbody>tr>td:nth-of-type(1) {
+	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
 </style>
@@ -285,6 +283,7 @@
 						<% } %>
 						</div>
 						<div id="biddingUsers">
+						<label>입찰 이력</label>
 								<table>
 								</table>
 						</div>
@@ -294,6 +293,7 @@
 				<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 				<div id="part2">
 					<div id="detailContent">
+					<label>경매 정보</label>
 					<table>
 						<tr>
 							<td>상품번호</td>
