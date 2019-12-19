@@ -216,7 +216,7 @@
 </style>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
-<body onload="onload()">
+<body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
 	<%
@@ -241,10 +241,12 @@
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
+							<% if(watchDetailInfo.size() > 0) { %>
 							<% for(Bid b : watchDetailInfo) { %>
 								<td>
 									<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
 								</td>
+							<% } %>
 							<% } %>
 							</tr>
 						</table>
@@ -252,8 +254,10 @@
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
+					<% if(watchDetailInfo.size() > 0) { %>
 						<label><%= watchDetailInfo.get(0).getBidBrand() +" "+ watchDetailInfo.get(0).getBidModel() %></label>
 						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
+					<% } %>
 					</div>
 					<div id=set>
 						<div id="price">
@@ -283,6 +287,7 @@
 			<div id="part2">
 				<div id="detailContent">
 					<table>
+					<% if(watchDetailInfo.size() > 0) { %>
 						<tr>
 							<td>상품번호</td>
 							<td><%= num %></td>
@@ -299,6 +304,7 @@
 							<td>판매자 아이디</td>
 							<td><%= watchDetailInfo.get(0).getBidUserId() %></td>
 						</tr>
+						<% } %>
 					</table>
 				</div>
 				
@@ -333,7 +339,7 @@
 	<%@ include file="../common/footer.jsp" %>
 	
 	<script type="text/javascript">
-		function onload() {
+		$(function() {
 			const title = $('#title').attr('src');
 			$('#detailImg img').mouseover(function() {
 				$('#title').attr('src', $(this).attr('src'));
@@ -342,9 +348,10 @@
 			});
 			
 			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
-			
+			<% if(watchBiddingUser.size() > 0) { %>
 			<% for(Bid b : watchBiddingUser) { %>
 				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidAuctionStartTime() %></td></tr>"
+			<% } %>
 			<% } %>
 				temp+="</tbody>";
 				$("#biddingUsers > table").append(temp);
@@ -381,7 +388,7 @@
 					}
 				});
 			});
-		}
+		})
 			
 			function numberFormat(inputNumber) {
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

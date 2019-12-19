@@ -223,7 +223,7 @@ td>.content {
 				const num = $(this).children().eq(3).text();
 				const img = $(this).children().eq(4).text();
 				
-				location.href="<%= request.getContextPath() %>/bagDetail.wa?img="+img+"&num="+num;
+				location.href="<%= request.getContextPath() %>/bagDetail.ba?img="+img+"&num="+num;
 			});
 		})
 	</script>
