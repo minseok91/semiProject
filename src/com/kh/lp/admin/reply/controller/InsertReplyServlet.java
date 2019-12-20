@@ -17,13 +17,13 @@ import com.kh.lp.admin.reply.model.vo.Reply;
  * Servlet implementation class insertReplyServlet
  */
 @WebServlet("/insertReply.re")
-public class insertReplyServlet extends HttpServlet {
+public class InsertReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertReplyServlet() {
+    public InsertReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

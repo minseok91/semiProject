@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member {
+	private int rowNum;
 	private int memberNo;						//회원번호
 	private String memberId;					//회원아이디
 	private String memberPwd;					//회원비밀번호

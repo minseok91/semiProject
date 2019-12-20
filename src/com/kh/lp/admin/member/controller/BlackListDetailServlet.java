@@ -1,8 +1,6 @@
 package com.kh.lp.admin.member.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.admin.report.model.service.ReportService;
-/*import com.kh.lp.member.model.service.purchaseHistoryService;
-import com.kh.lp.member.model.service.salesHistoryService;*/ //구매이력 판매이력  아직 미 구성
-import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.member.model.vo.Member;
 
 /**
- * Servlet implementation class userInformationDetailServlet
+ * Servlet implementation class admin_blackListDetailServlet
  */
-@WebServlet("/memberInfoDetail.me")
-public class admin_memberInformationDetailServlet extends HttpServlet {
+@WebServlet("/blackDetail.me")
+public class BlackListDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_memberInformationDetailServlet() {
+    public BlackListDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,27 +31,20 @@ public class admin_memberInformationDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		
+		System.out.println(userId);
+		
 		Member user = new MemberService().selectOne(userId);
-		/* 판매 상품, 구매상품 조회 할 수 없어서 주석 처리함
-		 * int salesHistoryCount = new MemberService().selectsalesHistoryCount();
-		 * 
-		 * int salesCount = new salesHistoryService().listCount(userId); int
-		 * purchaseCount = new purchaseHistoryService().listPurchase(userId);
-		 */
-		 int resportCount = new ReportService().listReportCount(userId);
-		 
-		// user.setSaleshistory(salesCount); 
-		//user.setPurchasehistory(purchaseCount) ;
+		
 		String page = "";
 		if(user != null) {
 			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
 			request.setAttribute("user", user);
-			request.setAttribute("userInfo","1");
-			request.setAttribute("resportCount", resportCount);
+			request.setAttribute("userInfo","2");
 		} else {
-			
+			//에러 페이지
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

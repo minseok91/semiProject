@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*,
+    import="java.util.ArrayList, com.kh.lp.member.model.vo.*,
     		com.kh.lp.common.PageInfo"%>
 <%
 	ArrayList<Member> blackList = (ArrayList<Member>)request.getAttribute("blackList");
@@ -131,7 +131,8 @@
 					</tr>
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
-							<td><%= blackList.get(i).getRowNum()%></td>
+							<td></td>
+							<%-- <td><%= blackList.get(i).getRowNum()%></td> --%>
 							<td><%= blackList.get(i).getMemberId()%></td>
 							<td><%= blackList.get(i).getMemberName()%></td>
 							<td><%= blackList.get(i).getMemberPhone()%></td>

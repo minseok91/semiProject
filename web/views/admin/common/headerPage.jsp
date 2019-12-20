@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.kh.lp.admin.member.model.vo.*"%>
+    import="com.kh.lp.member.model.vo.*"%>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
 %>
@@ -41,7 +41,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		padding: 0;
-		width: 800px;
+		width: 791px;
 		height: 70px;
 	}
 	#header_box > ul > li{
@@ -142,7 +142,6 @@
 		<div id="header_box">
 			<ul>
 				<li id="mainPage" class="cursor">메인 화면</li>
-				<li class="cursor">회사 관리</li>
 				<li>회원 정보</li>
 				<li id="goods_li">상품 관리</li>
 				<li id="auctionManagement">경매 관리</li>

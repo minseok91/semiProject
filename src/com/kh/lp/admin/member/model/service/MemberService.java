@@ -9,7 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.lp.admin.member.model.dao.MemberDao;
-import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.admin.member.model.vo.MemberHistory;
 
 import lombok.extern.log4j.Log4j2;

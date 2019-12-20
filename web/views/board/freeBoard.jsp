@@ -1,7 +1,7 @@
 <%--
 /**
  * <pre>
- * @Author      : Kewon
+ * @Author      : 안동환
  * @CreateDate  : 2019. 12. 10. 오후 4:08:12
  * @ModifyDate  : 2019. 12. 10. 오후 4:08:12
  * @fileName    : freeBoard
@@ -10,8 +10,22 @@
  */
 --%>
 
+<%@page import="com.kh.lp.common.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    import="java.util.*"
+    %>
+<%
+	ArrayList<HashMap<String,Object>> list = (ArrayList<HashMap<String,Object>>)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	String type = request.getParameter("type");
+	int currentPage = pi.getCurrentPage();
+	int endPage = pi.getEndPage();
+	int limit = pi.getLimit();
+	int listCount = pi.getListCount();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,17 +57,18 @@
 	color: #a07342;
 	margin-top: 0px; 
 }
- dt {
+#menu  dt {
 	font-size: 1.5em;
 	font-family: 'Nanum Myeongjo', serif;
 	margin-top: 50px;
 	margin-bottom: 10px;
  }
- dd {
+#menu  dd {
 	font-size: 15px;
 	margin-left: 20px;
 	margin-top: 7px;
 	margin-bottom: 7px;	
+	color: darkgray;
 }
 #myPageMenu {
 	width: 200px;
@@ -67,7 +82,7 @@
 #table_conntents {
 	margin-left: 203px;
 	width: 82%;
-	height: 135%;
+	height: 100%;
 }
 #freeBoard {
 	margin-top: 30px;
@@ -154,6 +169,39 @@
 	margin-bottom: 0px;
 	margin-left: 410px;
 }
+#boardCount_div {
+	width: 100%;
+	margin-left: 40px;
+	margin-top: 20px;
+}
+.boardCount {
+	
+	height: 20px;
+	float: left;
+}
+#table {
+	width: 95.5%;
+	margin-left: 22px;
+	
+}
+#table th {
+	text-align: center;
+	background: #f5efe7;
+	height: 30px;
+	border-top: 2px solid;
+	border-bottom: 1px solid;
+}
+#table th:nth-child(2) {
+	width: 500px;
+}
+#table td {
+	text-align: center;
+	border-bottom: 1px solid;
+	height: 40px;
+}
+.pagingArea {
+	text-align: center;
+}
 
 </style>
 <title>LauXion</title>
@@ -166,118 +214,170 @@
 		<div class="container">
 		<div class="contents">
 		<div id="myPageMenu">
-			<h3 id="h3" align="center">게시판</h3>
-			<dl>
+			<h3 id="h3" align="center">자유게시판</h3>
+			<dl id="menu">
 				<dt>§ &nbsp;LAUXION</dt>
-				<dd>▶   자유게시판</dd>
-				<dd>▶   문의게시판</dd>
-				<dd>▶   리뷰게시판</dd>
-				<dd>▶   FAQ게시판</dd>
+				<dd id="free">▶   자유게시판</dd>
+				<dd id="question">▶   문의게시판</dd>
+				<dd id="review">▶   리뷰게시판</dd>
+				<dd id="FAQ">▶   FAQ게시판</dd>
 			</dl>
 		</div>
 		<div class="menuStatus">
 			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;럭션 게시판 &nbsp;>&nbsp;</h3>
+				<h3>&nbsp;&nbsp;<&nbsp;
+				<% switch(type) {
+				case "BT1" :%>자유게시판<%
+				;break;
+				case "BT2" :%>문의게시판<%
+				;break;
+				case "BT3" :%>리뷰게시판<%
+				;break;
+				case "BT4" :%>FAQ게시판<% 
+				;break;
+				}%> &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>게시판입니다.</p>
+				<p>자유롭게 쓰는 자유 게시판입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div id="table_conntents">
-			<div id="freeBoard">
-				<table id="freeBoardTable">
-					<tr>
-						<th><h4>자유게시판</h4><p>more></p></th>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-				</table>
+			<div id="boardCount_div">
+				<p><span>총 </span><strong> <%= listCount %> </strong><span> 건</span></p>
 			</div>
-			<div id="QNABoard">
-			<table id="freeBoardTable">
+			<div>
+				<table id="table">
 					<tr>
-						<th><h4>문의게시판</h4><p>more></p></th>
+						<th>번호</th>
+						<th>제목</th>
+						<th>글쓴이</th>
+						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-				</table>
-			</div>
-			<div id="freeBoard">
-			<table id="freeBoardTable">
-					<tr>
-						<th><h4>리뷰게시판</h4><p>more></p></th>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-				</table>
-			</div>
-			<div id="QNABoard">
-			<table id="freeBoardTable">
-					<tr>
-						<th><h4>FAQ게시판</h4><p>more></p></th>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
-					<tr>
-						<td>연습용 제목입니다.</td>
-					</tr>
+					<% for(int i=0; i<list.size(); i++) { %>
+						<tr>
+							<td>
+								<%= list.get(i).get("RNUM") %>
+							</td>
+							<td>
+								<%= list.get(i).get("BoardTitle") %>
+							</td>
+							<td>
+								<%= list.get(i).get("BoardMemberName") %>
+							</td>
+							<td>
+								<%= list.get(i).get("BoardDate") %>
+							</td>
+							<td>
+								<%= list.get(i).get("BoardCount") %>
+							</td>
+						</tr>
+					<% } %>
 				</table>
 			</div>
 		</div>
 		<div class="pagingArea">
+		<% if(!(type.equals("BT3") || type.equals("BT4"))) { %>
+		<button id="insertBoard" style="float: right;">게시판 작성</button>
+		<% } %>
+		<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=1&type=BT1'"><<</button>
+		<% if(currentPage == 1){ %>
+			<button disabled><</button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= currentPage - 1 %>&type=BT1'"><</button>
+		<% } %>
+			<% for(int i=1; i<=endPage; i++) { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= i %>&type=BT1'"><%= i %></button>
+			<% } %>
+		<% if(currentPage == maxPage){ %>
+			<button disabled>></button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= currentPage + 1 %>&type=BT1'">></button>
+		<% } %>
+		<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= maxPage %>&type=BT1'">>></button>
 		</div>
 		</div>
 	</div>
 	<% } %>
 	<%@ include file="../common/footer.jsp" %>
+	<script>
+	var boardtpye = '<%=type%>'
+		$("#table_conntents td").click(function(e){
+			console.log(e.target.parentNode.children[1].value);
+		})
+		$("#menu dd").mouseover(function(e) {
+			e.target.style.color = "black";
+			$("dd").css({"cursor":"pointer"});
+		})
+		$("#menu dd").mouseout(function(e) {
+			if(boardtpye == 'BT1'){
+				if(e.target.innerHTML == '▶   자유게시판'){
+					e.target.style.color = "black";
+				} else {
+					e.target.style.color = "darkgray";
+				}
+			} else if(boardtpye == 'BT2') {
+				if(e.target.innerHTML == '▶   문의게시판'){
+					e.target.style.color = "black";
+				} else {
+					e.target.style.color = "darkgray";
+				}
+			} else if(boardtpye == 'BT3') {
+				console.log(e.target.innerHTML);
+				if(e.target.innerHTML == '▶   리뷰게시판'){
+					e.target.style.color = "black";
+				} else {
+					e.target.style.color = "darkgray";
+				}
+			} else {
+				if(e.target.innerHTML == '▶   FAQ게시판'){
+					e.target.style.color = "black";
+				} else {
+					e.target.style.color = "darkgray";
+				}
+			}
+			
+			
+			
+		})
+		$(function(){
+			console.log(boardtpye);
+			if(boardtpye == 'BT1'){
+				$("#free")[0].style.color='black';
+			} else if(boardtpye == 'BT2') {
+				$("#question")[0].style.color='black';
+			} else if(boardtpye == 'BT3') {
+				$("#review")[0].style.color='black';
+			} else {
+				$("#FAQ")[0].style.color='black';
+			}
+		})
+		if(boardtpye != 'BT1'){
+			$("#free").click(function(e){
+				location.href="<%= request.getContextPath()%>/BoardSelect.bo?type=BT1";
+			})
+		}
+		if(boardtpye != 'BT2'){
+			$("#question").click(function(e){
+				location.href="<%= request.getContextPath()%>/BoardSelect.bo?type=BT2";
+			})
+		}
+		if(boardtpye != 'BT3'){
+			$("#review").click(function(e){
+				location.href="<%= request.getContextPath()%>/BoardSelect.bo?type=BT3";
+			})
+		}
+		if(boardtpye != 'BT4'){
+			$("#FAQ").click(function(e){
+				location.href="<%= request.getContextPath()%>/BoardSelect.bo?type=BT4";
+			})
+		}
+		$("#insertBoard").click(function(){
+			location.href="<%= request.getContextPath()%>/views/board/BoardInsert.jsp";
+		})
+		
+		
+		
+	</script>
 </body>
 </html>

@@ -239,7 +239,6 @@ html, body {
 						}%>
 						<td><%= list.get(i).getBoardCount() %></td>
 						<td>
-							<button id="updateBtn">수정</button>
 							<button id="deleteBtn">삭제</button>
 						</td>
 					</tr>
