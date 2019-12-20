@@ -218,6 +218,7 @@
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
+		String msg = (String) request.getAttribute("msg");
 	%>
 		<div class="container">
 		<div class="contents">
@@ -338,15 +339,14 @@
 				$('#title').attr('src', title);
 			});
 			
-			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
-			<% if(watchBiddingUser.size() > 0) { %>
+ 			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+			<% if(watchBiddingUser != null) { %>
 			<% for(Bid b : watchBiddingUser) { %>
 				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidAuctionStartTime() %></td></tr>"
 			<% } %>
 			<% } %>
 				temp+="</tbody>";
 				$("#biddingUsers > table").append(temp);
-				
 			// 입찰리스트에서 최댓값 추출
 			let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(2).text();
 			$('#maxPrice').text(numberFormat(maxPrice)+'원');
