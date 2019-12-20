@@ -243,9 +243,9 @@
 		<div class="contentArea">
 			<div id="picArea">
 			<p>※상품 사진은 상품 식별이 가능하도록 찍어주세요.</p>
-				<div class="itemPic"  ></div>
+				<div class="itemPic"  ><img  src="" id="titleImg"></div>
 				
-				<input type="file" name="itemPic">
+				<input type="file" name="itemPic" onchange="loadImg(this ,1)">
 				
 			</div>
 			<div id="infoArea">
@@ -369,6 +369,22 @@
 	<%@ include file="../../common/footer.jsp" %>
 
 	<script>
+		function loadImg(value ,num){
+         if(value.files && value.files[0]){
+            var reader = new FileReader();
+            reader.onload = function(e){
+               switch(num){
+               case 1 : $("#titleImg").attr("src", e.target.result); break;
+               case 2 : $("#contentImg1").attr("src", e.target.result); break;
+               case 3 : $("#contentImg2").attr("src", e.target.result); break;
+               case 4 : $("#contentImg3").attr("src", e.target.result); break;
+               case 5 : $("#contentImg4").attr("src", e.target.result); break;
+               }
+            };
+            reader.readAsDataURL(value.files[0]);
+         }
+      };
+	
 	
 		$(function() {
 			$('a').click(function() {
