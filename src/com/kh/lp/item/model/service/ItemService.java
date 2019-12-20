@@ -37,6 +37,12 @@ public class ItemService {
 		return list;
 	}
 
+	/**
+	 * @Author      : 민석
+	 * @Description : 아이템 상세보기
+	 * @CreateDate  : Dec 20, 2019
+	 * @ModifyDate  : Dec 20, 2019
+	 */
 	public Item selectOne(String itemId) {
 		Connection con = getConnection();
 		
