@@ -374,7 +374,7 @@ td>a>img {
 									temp += "<td>경매<br>진행 중</td>";
 								} else if(arr2[j] == "진품0") {
 									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td>";
-								} else if(arr2[j] == "가품") {
+								} else if(arr2[j] == "가품0") {
 									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td>";
 								} else {
 									temp += "<td>감정 중</td>";

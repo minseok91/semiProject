@@ -271,7 +271,7 @@ public class ItemDao {
 	 * @return
 	 */
 	
-	public int insertItemHistory(Connection con, Item registItem) {
+	public int insertItemHistory(Connection con, Item registItem, String status) {
 		
 		int result=0;
 		PreparedStatement pstmt = null;
@@ -283,7 +283,8 @@ public class ItemDao {
 		try {
 			
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, registItem.getItemId());
+			pstmt.setString(1, status);
+			pstmt.setInt(2, registItem.getItemId());
 			
 			result = pstmt.executeUpdate();
 			

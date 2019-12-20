@@ -20,4 +20,5 @@ public class Item implements java.io.Serializable {
 	private String itemWarrantyYn;
 	private String itemDetail;
 	private Date itemAppDate;
+	private String itemStatus;
 }
