@@ -32,6 +32,10 @@ public class PaymentBeforeServlet extends HttpServlet {
 		String num = request.getParameter("auctionId");
 		String image = request.getParameter("image");
 		String price = request.getParameter("price");
+		String memberNo = request.getParameter("memberNo");
+		String address = request.getParameter("address");
+		
+		log.debug(address);
 		
 		String page = "views/goods/paymentBefore.jsp";
 		

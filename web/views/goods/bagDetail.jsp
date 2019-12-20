@@ -59,6 +59,8 @@
 		font-weight: lighter;
 		transform: translateX(0%);
 		margin-left: 10px;
+		text-decoration: none;
+		cursor: pointer;
 	}
 	
 	#biddingList {
@@ -237,7 +239,7 @@
 		ArrayList<Bid> bagDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
 		ArrayList<Bid> bagBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
-		int num = (Integer) request.getAttribute("num");
+		int auctionId = (Integer) request.getAttribute("auctionId");
 		Bag bag = (Bag) request.getAttribute("bag");
 	%>
 		<div class="container">
@@ -300,7 +302,7 @@
 					<table>
 						<tr>
 							<td>상품번호</td>
-							<td><%=num%></td>
+							<td><%=auctionId%></td>
 						</tr>
 						<tr>
 							<td>브랜드명</td>
@@ -375,7 +377,7 @@
 					type: "post",
 					data: {
 						memberNo: <%= loginMember.getMemberNo() %>,
-						auctionId: <%= num %>,
+						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
 						if(data === 'success')

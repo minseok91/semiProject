@@ -212,10 +212,10 @@
    <script type="text/javascript">
 		$(function() {
 			$('td').css('cursor', 'pointer').click(function() {
-				const num = $(this).children().eq(3).text();
+				const auctionId = $(this).children().eq(3).text();
 				const img = $(this).children().eq(4).text();
 				
-				location.href="<%= request.getContextPath() %>/bagDetail.ba?img="+img+"&num="+num;
+				location.href="<%= request.getContextPath() %>/bagDetail.ba?img="+img+"&auctionId="+auctionId;
 			});
 		})
 	</script>

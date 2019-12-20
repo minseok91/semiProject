@@ -32,11 +32,11 @@ public class BagDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num"));
+		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		String img = request.getParameter("img");
-		ArrayList<Bid> list = new BidService().selectItemDetail(num);
-		ArrayList<Bid> bidList = new BidService().selectListBidUser(num);
-		Bag bag = new BidService().selectBagInfo(num);
+		ArrayList<Bid> list = new BidService().selectItemDetail(auctionId);
+		ArrayList<Bid> bidList = new BidService().selectListBidUser(auctionId);
+		Bag bag = new BidService().selectBagInfo(auctionId);
 		
 		String page = "";
 		
@@ -45,7 +45,7 @@ public class BagDetailServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("bidList", bidList);
 			request.setAttribute("img", img);
-			request.setAttribute("num", num);
+			request.setAttribute("auctionId", auctionId);
 			request.setAttribute("bag", bag);
 		} else {
 			page="views/common/errorPage.jsp";
