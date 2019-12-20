@@ -40,6 +40,7 @@ public class WatchDetailServlet extends HttpServlet {
 		int auctionId = Integer.parseInt(request.getParameter("auctionId")); // 경매번호
 		String img = request.getParameter("img");
 		ArrayList<Bid> list = new BidService().selectItemDetail(auctionId);
+		ArrayList<Bid> bidList = new BidService().selectListBidUser(auctionId);
 		Watch watch = new BidService().selectWatchInfo(auctionId);
 		
 		String page = "";
@@ -47,6 +48,7 @@ public class WatchDetailServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/goods/watchDetail.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("bidList", bidList);
 			request.setAttribute("img", img);
 			request.setAttribute("auctionId", auctionId);
 			request.setAttribute("watch", watch);
