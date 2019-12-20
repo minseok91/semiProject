@@ -246,8 +246,10 @@ td>a>img {
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[6] + "'></a></td>";
 								temp += "<td hidden>"+ arr2[6] +"</td>";
 							}
-							else if(j == 2) 
-								temp += "<td>" + 'null' + "</td>";
+							else if(j == 2) {
+								temp += "<td>" + arr2[8] + "<br>" + arr2[9] + "</td>";
+							}
+							
 							else if(j == 3) {
 								temp += "<td>" + numberFormat(arr2[2]) + "원</td>";
 								temp += "<td hidden>"+ arr2[2] +"</td>";
@@ -260,8 +262,11 @@ td>a>img {
 									temp += "<td>" + arr2[5] + "</td>";
 								}
 							}
-							else if(j == 5) 
+							else if(j == 5) {
 								temp += "<td>" + arr2[7] + "</td>";
+								temp += "<td hidden>"+ arr2[8] +"</td>";
+								temp += "<td hidden>"+ arr2[9] +"</td>";
+							}
 							else if(j == 6)
 								temp += "</tr>";
 							else continue;
@@ -276,10 +281,12 @@ td>a>img {
 						const image=$(this).parents('tr').children().eq(2).text(); // 사진
 						const fullName=$(this).parents('tr').children().eq(3).text(); // 브랜드명+모델명
 						const price=$(this).parents('tr').children().eq(5).text(); // 가격
+						const brand=$(this).parents('tr').children().eq(9).text(); // 브랜드명
+						const model=$(this).parents('tr').children().eq(10).text(); // 모델명
 
 						console.log(image);
 						
-						const URL = "<%= request.getContextPath() %>/paymentBefore.pay?auctionId="+num+"&image="+image+"&price="+price;
+						const URL = "<%= request.getContextPath() %>/paymentBefore.pay?auctionId="+num+"&image="+image+"&price="+price+"&brand="+brand+"&model="+model;
 						
 						location.href= URL;
 					});

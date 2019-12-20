@@ -55,11 +55,11 @@ public class SelectWinnigServlet extends HttpServlet {
 				if(n == list.size() - 1)
 					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
 						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
-						+ "::" + w.getAttRename() + "::" + w.getWinDate();
+						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "::" + w.getWinBrand() + "::" + w.getWinModel();
 				else 
 					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
 						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
-						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "#";
+						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "::" + w.getWinBrand() + "::" + w.getWinModel() + "#";
 			}
 			log.debug(msg);
 			out.append(msg);

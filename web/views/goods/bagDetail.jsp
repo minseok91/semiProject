@@ -237,7 +237,6 @@
 	<%@ include file="../common/nav.jsp" %>
 	<%
 		ArrayList<Bid> bagDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
-		ArrayList<Bid> bagBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Bag bag = (Bag) request.getAttribute("bag");

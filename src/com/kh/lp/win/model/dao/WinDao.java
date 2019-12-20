@@ -111,6 +111,8 @@ public class WinDao {
 				w.setWinStatus(rset.getString("WIN_STATUS"));
 				w.setAttRename(rset.getString("ATTACHMENT_RENAME"));
 				w.setWinDate(rset.getDate("WIN_DATE"));
+				w.setWinBrand(rset.getString("WIN_BRAND"));
+				w.setWinModel(rset.getString("WIN_MODEL"));
 				
 				list.add(w);
 			}
