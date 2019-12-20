@@ -1,26 +1,28 @@
-package com.kh.lp.admin.member.controller;
+package com.kh.lp.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
+import javax.print.attribute.ResolutionSyntax;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.board.model.service.BoardService;
 
 /**
- * Servlet implementation class admin_blackListDetailServlet
+ * Servlet implementation class BoardAllInsertServlet
  */
-@WebServlet("/blackDetail.me")
-public class admin_blackListDetailServlet extends HttpServlet {
+@WebServlet("/BoardAllInsert.bo")
+public class BoardAllInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_blackListDetailServlet() {
+    public BoardAllInsertServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,22 +31,29 @@ public class admin_blackListDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		String title = request.getParameter("title");
+		String memberNo = request.getParameter("memberNo");
+		String boardKinds = request.getParameter("boardKinds");
+		String content = request.getParameter("content");
 		
-		System.out.println(userId);
+		HashMap<String, Object> list = new HashMap<>();
 		
-		Member user = new MemberService().selectOne(userId);
+		list.put("title", title);
+		list.put("memberNo", memberNo);
+		list.put("boardKinds", boardKinds);
+		list.put("content", content);
+		
+		//게시판 작성
+		int insertBoard = new BoardService().insertBoard(list);
 		
 		String page = "";
-		if(user != null) {
-			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
-			request.setAttribute("user", user);
-			request.setAttribute("userInfo","2");
+		if(insertBoard > 0) {
+			page = "BoardAllSelect.bo";
+			request.setAttribute("insertBoard", insertBoard);
+			response.sendRedirect(page);
 		} else {
-			//에러 페이지
+			
 		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**

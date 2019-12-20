@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.common.PageInfo;
 
 /**
  * Servlet implementation class userBlackServlet
  */
 @WebServlet("/blackList.me")
-public class admin_blackListServlet extends HttpServlet {
+public class BlackListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_blackListServlet() {
+    public BlackListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -11,7 +11,7 @@
 --%>
 <%@page import="com.kh.lp.admin.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.lp.admin.member.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
 <%
 	Member member = (Member) request.getAttribute("user");
 	int userInfo = Integer.parseInt((String)request.getAttribute("userInfo"));

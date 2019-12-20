@@ -1,8 +1,7 @@
-package com.kh.lp.admin.qnaAndReport.controller;
+package com.kh.lp.admin.member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,24 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
-import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
-import com.kh.lp.admin.report.model.service.ReportService;
-import com.kh.lp.admin.report.model.vo.Report;
+import com.kh.lp.admin.member.model.service.MemberService;
+import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.common.PageInfo;
 
 /**
- * Servlet implementation class typeSelectServlet
+ * Servlet implementation class userInformationServlet
  */
-@WebServlet("/typeSelect.tr")
-public class typeSelectServlet extends HttpServlet {
+@WebServlet("/memberInfo.me")
+public class MemberInformationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public typeSelectServlet() {
+    public MemberInformationServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,8 +32,6 @@ public class typeSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String type = request.getParameter("type");
 		
 		int currentPage;
 		int limit;
@@ -51,37 +45,28 @@ public class typeSelectServlet extends HttpServlet {
 		}
 		
 		limit = 10;
-		int listCount=0;
 		
-		if(type.equals("BT1")) {
-			 listCount = new QNAService().QNACount();
-		} else {
-			 listCount = new ReportService().ReportCount();
-		}
-		
+		int listCount = new MemberService().listCount("MS1","MS2");
 		maxPage = (int)((double)listCount/limit+0.9);
-		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
-		endPage = startPage + 10 - 1;
+		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
+		endPage = startPage + 5 - 1;
+		
+		
 		if(endPage >= maxPage) {
 			endPage = maxPage;
 		}
-		
 		PageInfo pi = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);
-		ArrayList<HashMap<String, Object>> list = null;
-		String page = "";
-		if(type.equals("BT1")) {
-			 
-			list = new QNAService().selectType( currentPage, limit);
+		ArrayList<Member> userList = new MemberService().selectUser(currentPage, limit);
+		String Page = "";
+		if(userList != null) {
+			 Page = "views/admin/Member/member/admin_memberInformation.jsp";
+			 request.setAttribute("list", userList);
+			 request.setAttribute("pi", pi);
+			 request.setAttribute("listCount", listCount);
 		} else {
-			page = "신고";
-			list = new ReportService().selectType(currentPage, limit);
+			
 		}
-		
-		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		new Gson().toJson(list, response.getWriter());
-		
+		request.getRequestDispatcher(Page).forward(request, response);
 	}
 
 	/**
@@ -91,5 +76,5 @@ public class typeSelectServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
 }

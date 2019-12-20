@@ -269,7 +269,7 @@ html, body {
 			    location.href="<%=request.getContextPath()%>/boardFAQDetail.bo?boardId="+boardId+"&MemberName="+memberName;
 		})
 		$("#insertBoard").click(function(){
-			location.href="<%=request.getContextPath()%>/views/admin/admin_InsertFAQPage.jsp";
+			location.href="<%=request.getContextPath()%>/views/admin/Board/FAQ/admin_InsertFAQPage.jsp";
 		})
 		
 	</script>

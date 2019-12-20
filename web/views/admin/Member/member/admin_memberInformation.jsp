@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="java.util.ArrayList, com.kh.lp.admin.member.model.vo.*
+    import="java.util.ArrayList, com.kh.lp.member.model.vo.*
     , com.kh.lp.common.PageInfo"
     %>
 <%
@@ -133,6 +133,7 @@ html, body {
 					</tr>
 					<% for(int i=0; i<userList.size(); i++) {%>
 						<tr>
+						
 							<td><%= userList.get(i).getRowNum()%></td>
 							<td><%= userList.get(i).getMemberId()%></td>
 							<td><%= userList.get(i).getMemberName()%></td>

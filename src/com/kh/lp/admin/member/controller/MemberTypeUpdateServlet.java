@@ -15,13 +15,13 @@ import com.kh.lp.admin.member.model.vo.MemberHistory;
  * Servlet implementation class userReleaseServlet
  */
 @WebServlet("/memberTypeUpdate.me")
-public class admin_memberTypeUpdateServlet extends HttpServlet {
+public class MemberTypeUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public admin_memberTypeUpdateServlet() {
+    public MemberTypeUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

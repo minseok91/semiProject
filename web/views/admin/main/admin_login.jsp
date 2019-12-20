@@ -106,7 +106,7 @@
 		<div id="header">
 		<div id="img_div">
 			<div>
-				<img alt="" src="image/loginimg.png" id="login_img" onclick="nextPage">
+				<img alt="" src="../image/loginimg.png" id="login_img" onclick="nextPage">
 			</div>
 			
 		</div>

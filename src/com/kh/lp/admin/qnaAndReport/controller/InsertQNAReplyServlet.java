@@ -16,13 +16,13 @@ import com.kh.lp.admin.reply.model.service.ReplyService;
  * Servlet implementation class insertQNAReplyServlet
  */
 @WebServlet("/insertQNAReply.qr")
-public class insertQNAReplyServlet extends HttpServlet {
+public class InsertQNAReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public insertQNAReplyServlet() {
+    public InsertQNAReplyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
