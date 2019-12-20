@@ -38,37 +38,37 @@ public class SelectListBidUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int auctionId = Integer.parseInt(request.getParameter("auctionId")); // 경매번호
 		ArrayList<Bid> bidList = new BidService().selectListBidUser(auctionId);
-		log.debug(bidList);
-		String msg = "";
-		
-		if(bidList != null) {
-			request.setAttribute("bidList", bidList);
-		} else {
-			msg = "입찰한 회원이 아직 없습니다.";
-			request.setAttribute("msg", msg);
-		}
-		
+//		log.debug(bidList);
 //		String msg = "";
 //		
-//		PrintWriter out = response.getWriter();
-//		
 //		if(bidList != null) {
-//			for(int n = 0; n < bidList.size(); n++) {
-//				Bid b = bidList.get(n);
-//				if(n == bidList.size() - 1)
-//					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime();
-//				else 
-//					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime() + "#";
-//			}
-//			log.debug(msg);
-//			out.append(msg);
+//			request.setAttribute("bidList", bidList);
 //		} else {
-//			log.debug("실패");
-//			out.append("fail");
+//			msg = "입찰한 회원이 아직 없습니다.";
+//			request.setAttribute("msg", msg);
 //		}
-//		
-//		out.flush();
-//		out.close();
+		
+		String msg = "";
+		
+		PrintWriter out = response.getWriter();
+		
+		if(bidList != null) {
+			for(int n = 0; n < bidList.size(); n++) {
+				Bid b = bidList.get(n);
+				if(n == bidList.size() - 1)
+					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime();
+				else 
+					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime() + "#";
+			}
+			log.debug(msg);
+			out.append(msg);
+		} else {
+			log.debug("실패");
+			out.append("fail");
+		}
+		
+		out.flush();
+		out.close();
 	}
 
 	/**
