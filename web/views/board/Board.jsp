@@ -158,7 +158,7 @@
 #freeBoardTable td {
 	border-bottom: 1px solid rgb(160, 115, 66);
 	height: 5px;
-	padding: 10px;
+	padding: 8px;
 	
 }
 #freeBoardTable th  p{

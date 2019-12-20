@@ -55,7 +55,7 @@ public class ReportServlet extends HttpServlet {
 		endPage = startPage + 10 - 1;
 		
 		if(maxPage <= endPage) {
-			maxPage = endPage;
+			endPage = maxPage;
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit,maxPage,startPage,endPage);

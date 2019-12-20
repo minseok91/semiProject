@@ -54,7 +54,7 @@ public class BlackListServlet extends HttpServlet {
 		
 		endPage = startPage + 10 - 1;
 		
-		if(endPage >= maxPage) {
+		if(maxPage <= endPage) {
 			endPage = maxPage;
 		}
 		
