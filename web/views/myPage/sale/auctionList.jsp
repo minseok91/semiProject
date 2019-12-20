@@ -294,7 +294,7 @@ td>a>img {
 		console.log("웹소켓 실행합니다");
 		var length = $("table>tbody>tr").length;
 		//보조메소드 = 자체제작메소드
-		var url = "ws://localhost:8010/lp/endTime/<%= loginMember.getMemberId() %>";
+		var url = "ws://localhost:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
 		//new를 통해 웹소켓을 불러온다.
 		ws = new WebSocket(url);
 		
@@ -329,9 +329,6 @@ td>a>img {
 		
 		//웹소켓 보조 메소드 - 메세지 받을 때 동작할 메소드
 		function onMessage(event) {
-			/* send(event.data);
-			$("table>tbody>tr>td").eq(5).text(changeTime(event.data));
-			console.log(changeTime(event.data)); */
 			console.log(event.data);
 			var rarr = event.data.split(",");
 			for(var i = 0; i < length; i++) {

@@ -258,7 +258,7 @@
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
-								<button id="insertBid" onclick="onMessage()" disabled>입찰</button>
+								<button id="insertBid" onclick="send()" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
@@ -388,7 +388,7 @@
 			
 			
 			function getWebsocket2() {	//입찰웹소켓
-				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding";
+				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
 				ws = new WebSocket(url);
 				
 				ws.onopen = function(event) {
@@ -415,8 +415,11 @@
 			};
 			
 			function onMessage(event) {
-				console.log($("#minPrice").val());
-				send($("#minPrice").val());
+				var arr = event.data.split("::");		//0: 멤버번호, 1:옥션번호, 2: 비딩가격
+				for(i in arr) {
+					console.log(arr[i]);
+				}
+				
 			};
 			
 			function onClose(event) {
@@ -429,7 +432,12 @@
 			};
 			
 			function send(msg) {
-				ws.send(msg);
+				var memberNo = "<%= loginMember.getMemberNo() %>";
+				var auctionId = "<%= num %>";
+				var biddingPrice = $("#minPrice").val();
+				
+				var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
+				ws.send(sendMsg);
 			};
 			
 			
