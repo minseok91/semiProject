@@ -48,11 +48,11 @@ public class MemberInformationServlet extends HttpServlet {
 		
 		int listCount = new MemberService().listCount("MS1","MS2");
 		maxPage = (int)((double)listCount/limit+0.9);
-		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
-		endPage = startPage + 5 - 1;
+		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
+		endPage = startPage + 10 - 1;
 		
 		
-		if(endPage >= maxPage) {
+		if(maxPage <= endPage) {
 			endPage = maxPage;
 		}
 		PageInfo pi = new PageInfo(currentPage, limit, startPage,endPage ,maxPage, listCount);

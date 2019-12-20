@@ -51,9 +51,9 @@ public class BoardSelectAllServlet extends HttpServlet {
 		System.out.println("lc : " + listCount);
 		maxPage = (int)((double) listCount/ limit + 0.9);
 		System.out.println("maxPage :" + maxPage );
-		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
+		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		endPage = startPage + 10 - 1;
-		if(maxPage < endPage) {
+		if(maxPage <= endPage) {
 			endPage = maxPage;
 		}
 		

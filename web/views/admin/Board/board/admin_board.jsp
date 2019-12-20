@@ -258,7 +258,7 @@ html, body {
 		<% } %>
 		
 		
-		<% for(int p = startPage ; p <= maxPage; p++){ 
+		<% for(int p = startPage ; p <= endPage; p++){ 
 		%>			
 					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>	
 		<% 
@@ -331,7 +331,7 @@ html, body {
 							}
 							for(var i=0; i<data[0].length; i++){
 								var $tr = $("<tr>");
-								var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='updateBtn'>수정</button> <button id='deleteBtn'>삭제</button></td>");
+								var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='deleteBtn'>삭제</button></td>");
 								
 								$tr.append($noTd);
 								$tableBody.append($tr);

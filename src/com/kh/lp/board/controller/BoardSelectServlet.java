@@ -52,7 +52,7 @@ public class BoardSelectServlet extends HttpServlet {
 		maxPage = (int)((double) listCount/limit + 0.9);
 		startPage = (int)(((double)currentPage/5+0.8)-1)*5 + 1;
 		endPage = startPage + 5 - 1;
-		if(maxPage < endPage) {
+		if(maxPage <= endPage) {
 			endPage = maxPage;
 		}
 		

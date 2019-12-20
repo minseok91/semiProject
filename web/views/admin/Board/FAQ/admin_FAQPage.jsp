@@ -92,7 +92,6 @@ html, body {
 }
 
 .contents>div>p, h3 {
-	width: 90px;
 	margin: 0;
 	float: left;
 }
@@ -169,7 +168,6 @@ html, body {
 }
 
 #NoticeNumber>h4 {
-	width: 34px;
 	margin-bottom: 0px;
 	margin-top: 17px;
 	float: left;

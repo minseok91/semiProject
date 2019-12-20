@@ -286,10 +286,10 @@
 		<% } else { %>
 			<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= currentPage - 1 %>&type=BT1'"><</button>
 		<% } %>
-			<% for(int i=1; i<=endPage; i++) { %>
+			<% for(int i=startPage; i<=endPage; i++) { %>
 				<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= i %>&type=BT1'"><%= i %></button>
 			<% } %>
-		<% if(currentPage == maxPage){ %>
+		<% if(currentPage >= maxPage){ %>
 			<button disabled>></button>
 		<% } else { %>
 			<button onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%= currentPage + 1 %>&type=BT1'">></button>
