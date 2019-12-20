@@ -267,7 +267,7 @@
 					</div>
 					<div id="biddingUsers">
 					<label>입찰 이력</label>
-							<table>
+							<table id="tableBiddingArea">
 							</table>
 						</div>
 				</span> <!-- contents End -->
@@ -420,8 +420,16 @@
 				var arr = event.data.split("::");		//0: 멤버번호, 1:옥션번호, 2: 비딩가격
 				for(i in arr) {
 					console.log(arr[i]);
+					$('#maxPrice').text(numberFormat(arr[i])+'원');
+					
+					// 최댓값기준 입찰단위
+					$('#unit').text('입찰 단위 : ' + numberFormat(arr[i]*0.05)+'원');
+					
+					// 최소입찰금액
+					$('#minPrice').attr('placeholder', numberFormat(arr[i]*1.05)+'원 이상 입력하세요.');
+					
+					$("#tableBiddingArea > tbody").empty();
 				}
-				
 			};
 			
 			function onClose(event) {
@@ -439,7 +447,9 @@
 				var biddingPrice = $("#minPrice").val();
 				
 				var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
+				$("#minPrice").val("");
 				ws.send(sendMsg);
+				alert("성공적으로 입찰했습니다.");
 			};
 			
 			

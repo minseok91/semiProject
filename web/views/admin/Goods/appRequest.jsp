@@ -265,6 +265,34 @@
 			console.log("pr : "  + pr );
 		});
 		
+		$(".takeItem").click(function(){
+			$.ajax({
+				url: "",
+				type: "",
+				data: {},
+				success: function(data){
+					
+				},
+				error: function(data){
+					
+				}
+			});
+		});
+		
+		$(".arriveItem").click(function(){
+			$.ajax({
+				url: "",
+				type: "",
+				data: {},
+				success: function(data){
+					
+				},
+				error: function(data){
+					
+				}
+			});
+		});
+		
 		$("#accept").click(function(){
 			
 			$("#acpContent").show();

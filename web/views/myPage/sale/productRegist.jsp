@@ -265,17 +265,9 @@
 			<label>브랜드</label>
 			</div>			
 			<div class="inputs">
-			<select name="watchBrand" id="watchBrand" class="brandSelect" >
-			
-				<option value="ROLEX">ROLEX</option>
-										
-				
-			</select>
-			<select name="bagBrand" id="bagBrand" class="brandSelect" >
-				
-				<option value="HERMES">HERMES</option>
-			
-			</select>
+			<input name="watchBrand" id="watchBrand" class="brandSelect" >
+
+			<input name="bagBrand" id="bagBrand" class="brandSelect" >
 			</div>
 			</div>
 			
@@ -386,31 +378,6 @@
 			})
 		});
 		
-		$('#regist').click(function(){
-			
-			if($('#type').val()==='W'){
-				$('#bagBrand').val(0);
-			}else{
-				$('#watchBrand').val(0);
-			}
-			
-		});
-		
-		
-		function watchBag(){
-						
-			if($('#type').val() === 'W'){
-				$('#bagBrand').hide();
-				$('#watchBrand').show();
-			}else {
-				$('#watchBrand').hide();
-				$('#bagBrand').show();
-			}
-			
-		};
-		
-		
-
 	</script>
 </body>
 </html>

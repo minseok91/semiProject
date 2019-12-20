@@ -81,7 +81,9 @@ public class ItemService {
 		itemPic.setAttachmentRefItem(itemId);
 		
 		//ITEM_HISTORY 테이블에 인서트하는 dao메소드 불러오기
-		int insertItemHistoryResult = new ItemDao().insertItemHistory(con, registItem);
+		int insertItemHistoryResult1 = new ItemDao().insertItemHistory(con, registItem, "IHS1");
+		int insertItemHistoryResult2 = new ItemDao().insertItemHistory(con, registItem, "IHS2");
+		int insertItemHistoryResult3 = new ItemDao().insertItemHistory(con, registItem, "IHS3");
 		
 		
 		//ATTACHMENT 테이블에 인서트할 dao메소드 불러오기
@@ -89,7 +91,7 @@ public class ItemService {
 		
 		
 		//ITEM 테이블, ITEM_HISTORY 테이블, ATTACHMENT 테이블에 다 제대로 입력됐을 때에만 result를 1로 반환하고 커밋, 아니면 롤백
-		if(insertItemResult>0 && insertItemHistoryResult>0 && insertAttachmentResult>0) {
+		if(insertItemResult>0 && insertItemHistoryResult1>0 && insertItemHistoryResult2>0 && insertItemHistoryResult3>0 && insertAttachmentResult>0) {
 			result = 1;
 			
 			commit(con);
