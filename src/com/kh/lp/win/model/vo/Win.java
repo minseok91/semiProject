@@ -18,4 +18,6 @@ public class Win {
 	private String winStatus; // WIN_STATUS_CODE 테이블과 조인
 	private String attRename; // 테스트
 	private Date winDate; // 테스트
+	private String winBrand;
+	private String winModel;
 }

@@ -25,33 +25,27 @@
 	transform: translateX(-50%);
 	text-align: center;
 }
-
 .list>table {
 	
 	border-collapse: separate;
 	border-spacing: 40px;
 }
-
 td {
 	width: 120px;
 	box-shadow: 0px 0px 8px 0px rgba(33,31,34,0.45);
 }
-
 td>img {
     width: 768%;
 }
-
 #img {
 	width: 100px;
 	margin-left: auto;
 	margin-right: auto;
 }
-
 #img>img {
 	width: 100px;
 	height: 100px;
 }
-
 .price {
 	margin-top: 8px;
 	background-color: rgba(33, 31, 34, 0.863);
@@ -62,11 +56,9 @@ td>img {
     color: #fff;
     width: 100px;
 }
-
 td>a>.content, .time {
 	font-size: 12px;
 }
-
 td>.content {
 	position: relative;
 	text-align: left;
@@ -74,7 +66,6 @@ td>.content {
 	left: 2%;
 	font-size: 12px;
 }
-
 .time {
 	background: #a07342;
 	border-radius: 5px;
