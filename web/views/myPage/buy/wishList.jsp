@@ -288,10 +288,22 @@ td>.content {
 			</div>  <!-- status2 end -->
 			<div id="deleteAndSearch">
 				<button id="wishDelete">위시리스트 삭제</button>
+				
+				<select id="viewOptions" name="viewOptions">
+					<option value="viewAll" >전체</option>
+					<option value="viewWatches">시계</option>
+					<option value="viewBags">가방</option>
+				</select>
+				
+				
 				<form action="" method="get">
 					<input type="search" name="modelName">
 					<input type="submit" value="검색">
 				</form>
+				
+				
+				
+				
 			</div>
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
@@ -319,33 +331,7 @@ td>.content {
 				<% } %>
 			</table>
 		</div> <!-- watchList End -->
-		<%--       <div class="pagingArea" align="center">
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=1'"><<</button>
-
-			<% if(currentPage <= 1) { %>
-				<button disabled><</button>
-			<% } else { %>
-				<button onclick="location.href='<%= request.getContextPath() %>'/selectList.bo?currentPage=<%= currentPage - 1 %>"><</button>
-			<% } %>
-
-			<% for (int p=startPage; p <= endPage; p++) {
-				if(p == currentPage) {
-			%>
-			<button disabled><%= p %></button>
-			<% } else { %>
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= p %>'"><%= p %></button>
-			<% } %>
-			<% } %>
-
-			<% if(currentPage >= maxPage) { %>
-			<button disabled>></button>
-			<% } else { %>
-			<button
-				onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= currentPage + 1 %>'">></button>
-			<% } %>
-
-			<button onclick="location.href='<%= request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage %>'">>></button>
-		</div> --%>
+		
 		</div>  <!-- contentArea end -->
 		</div> <!-- contents End -->
 	</div>  <!-- container end -->
@@ -375,6 +361,69 @@ td>.content {
 				
 			})
 		});
+		
+		
+		$("#viewOptions").change(function() {
+			var selected = $(this).val();
+			var loginMemberNo = <%= loginMember.getMemberNo() %>
+			$.ajax({
+				url:"<%= request.getContextPath() %>/wishList.wi",
+				type:"get",
+				data: {
+					selected:selected,
+					loginMemberNo:loginMemberNo
+				},
+				success:function(data) {
+					
+				},
+				error:function() {
+					console.log("실패");
+				}
+			});
+		});
+		
+		
 	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
