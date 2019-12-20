@@ -5,6 +5,8 @@ import static com.kh.lp.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.kh.lp.admin.board.model.dao.BoardDao;
+import com.kh.lp.admin.board.model.vo.Board;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.dao.BidDao;
@@ -18,15 +20,15 @@ import lombok.extern.log4j.Log4j2;
 public class BidService {
 
 	// 시계 목록 불러오기
-	public ArrayList<Bid> watchSelectList() {
-		Connection con = getConnection();
-		
-		ArrayList<Bid> list = new BidDao().watchSelectList(con);
-		
-		close(con);
-		
-		return list;
-	}
+//	public ArrayList<Bid> watchSelectList() {
+//		Connection con = getConnection();
+//		
+//		ArrayList<Bid> list = new BidDao().watchSelectList(con);
+//		
+//		close(con);
+//		
+//		return list;
+//	}
 
 	// 특정 상품 정보
 	public ArrayList<Bid> selectItemDetail(int num) {
@@ -115,17 +117,17 @@ public class BidService {
 	}
 
 	// 입찰 등록
-	public int insertWish(Bid b) {
+	public String insertWish(Bid b) {
 		Connection con = getConnection();
 		int result = 0;
 		String status = "";
 		
 		// count값 확인 -> 기존에 했는지 안했는지 체크
-		int count = new BidDao().checkWish(con, b);
+		String yn = new BidDao().checkWishStatus(b, con);
 		
-		log.debug(count);
+		log.debug(yn);
 		
-		if(count == 0) 
+		if(yn.equals("")) 
 			result = new BidDao().insertWish(b, con); // 없다면 바로 데이터 삽입
 		else {
 			status = new BidDao().checkWishStatus(b, con); // 있다면 일단 상태를 먼저 확인
@@ -143,7 +145,7 @@ public class BidService {
 		
 		close(con);
 		
-		return result;
+		return result+yn;
 	}
 
 	// 가방목록리스트 불러오기
@@ -213,6 +215,27 @@ public class BidService {
 		close(con);
 		
 		return latelyBag;
+	}
+
+	// 시계상품불러오기(페이징.ver)
+	public ArrayList<Bid> watchSelectList(int currentPage, int limit) {
+		Connection con = getConnection();
+		
+		ArrayList<Bid> list = new BidDao().watchSelectList(con, currentPage, limit);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int listCount() {
+		Connection con = getConnection();
+		
+		int result = new BidDao().listCount(con);
+		
+		close(con);
+		
+		return result;
 	}
 
 }

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bid;
+import com.kh.lp.common.PageInfo;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -34,19 +36,62 @@ public class WatchSelectListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Bid> list = new BidService().watchSelectList();
 		
-		String page = "";
+		int currentPage;
+		int limit;
+		int startPage;
+		int endPage;
+		int maxPage;
+		int listCount;
 		
-		if(list != null) {
-			page="views/goods/watchList.jsp";
-			request.setAttribute("list", list);
-		} else {
-			page="views/common/errorPage.jsp";
-			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+		currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		request.getRequestDispatcher(page).forward(request, response);
+		listCount = new BidService().listCount();
+		log.debug(listCount);
+		limit = 10;
+
+		maxPage = (int)((double) listCount/ limit + 0.9);
+
+		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
+		endPage = startPage + 10 - 1;
+		if(maxPage <= endPage) {
+			endPage = maxPage;
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, limit, startPage, endPage , maxPage, listCount);
+		
+		ArrayList<Bid> list = new BidService().watchSelectList(currentPage,limit); // 페이징버전
+		
+		log.debug(list);
+		
+		String page = "";
+		if(list != null) {
+			page = "views/goods/watchList.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "common/errorPage.jsp";
+			request.setAttribute("msg", "페이징 보드 실패 !");
+		}
+		request.getRequestDispatcher(page).forward(request,response);
+		
+//		ArrayList<Bid> list = new BidService().watchSelectList();
+//		
+//		String page = "";
+//		
+//		if(list != null) {
+//			page="views/goods/watchList.jsp";
+//			request.setAttribute("list", list);
+//		} else {
+//			page="views/common/errorPage.jsp";
+//			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
+//		}
+//		
+//		request.getRequestDispatcher(page).forward(request, response);
 	}
 
 	/**

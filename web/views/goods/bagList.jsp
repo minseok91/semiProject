@@ -186,23 +186,32 @@
 	      </div>  <!-- head end -->
 	      
 	      <div class="list">
-	         <table>
-	         <% for(int i=0; i<list.size() / 5 + 1; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
-	            <tr>
-	               <% for(Bid b : list) { %>
-					<td>
-						<div id="img">
-	                  		<div class="price"><%= b.getBidPrice() %></div>
-	                    	<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
-	                  	</div>
-	                 	<span class="content"><%= b.getBidBrand() + " " + b.getBidModel() %></span>
-	                 	<div class="time"><%= b.getBidAuctionStartTime() %></div>
-	                 	<div hidden><%= b.getBidAuctionId() %></div>
-	                 	<div hidden><%= b.getBidAttachment() %></div>
-	              	</td>
-	              	<% } %>
-	               </tr>
-	               <% } %>
+			<table>
+			<% int j=0; %>
+        	<% for(int i=0; i<list.size() / 5 + 1; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
+
+            <tr>
+               <% for(; j<list.size(); j++) { %>
+               <% if(j != (i+1)*5) { %>
+				<td>
+					<div id="img">
+                  		<div class="price"><%= list.get(j).getBidPrice() %></div>
+                    	<img src="<%= request.getContextPath() %>/img/appraisal/<%= list.get(j).getBidAttachment() %>" alt="" >
+                  	</div>
+                  	<% if(list.get(j).getBidBrand().length() + list.get(j).getBidModel().length() < 10 ) { %>
+                 		<span class="content"><%= list.get(j).getBidBrand() + "<br>" + list.get(j).getBidModel() %></span>
+                 	<% } else { %>
+                 		<span class="content"><%= list.get(j).getBidBrand() + " " + list.get(j).getBidModel() %></span>
+                 	<% } %>
+                 	
+                 	<div class="time"><%= list.get(j).getBidAuctionStartTime() %></div>
+                 	<div hidden><%= list.get(j).getBidAuctionId() %></div>
+                 	<div hidden><%= list.get(j).getBidAttachment() %></div>
+              	</td>
+              	<% } else break; %>
+               <% } %>
+               </tr>
+              <% } %>
 	         </table>
 	      </div> <!-- list End -->
       </div> <!-- contents End -->
@@ -212,10 +221,16 @@
    <script type="text/javascript">
 		$(function() {
 			$('td').css('cursor', 'pointer').click(function() {
-				const auctionId = $(this).children().eq(3).text();
-				const img = $(this).children().eq(4).text();
+				<% if(loginMember == null) { %>
+					alert('로그인을 해야 상세정보을 열람하실 수 있습니다.');
+					location.href="<%= request.getContextPath() %>/views/member/login.jsp";
+				<% } else { %>
+					const auctionId = $(this).children().eq(3).text();
+					const img = $(this).children().eq(4).text();
+					
+					location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&auctionId="+auctionId;
+				<% } %>
 				
-				location.href="<%= request.getContextPath() %>/bagDetail.ba?img="+img+"&auctionId="+auctionId;
 			});
 		})
 	</script>

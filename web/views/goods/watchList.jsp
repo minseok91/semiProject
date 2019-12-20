@@ -185,6 +185,13 @@ td>.content {
 	<%@ include file="../common/nav.jsp" %>
 	<%
 		ArrayList<Bid> list = (ArrayList<Bid>) request.getAttribute("list");
+		PageInfo pi = (PageInfo) request.getAttribute("pi");
+		int startPage = pi.getStartPage();
+		int endPage = pi.getMaxPage();
+		int currentPage = pi.getCurrentPage();
+		int listCount = pi.getListCount();
+		int limit = pi.getLimit();
+		int maxPage = pi.getMaxPage(); 
 	%>
 	<div class="container">
 	<div class="contents">
@@ -203,49 +210,58 @@ td>.content {
 		
 		<div class="list">
 			<table>
+			<% int j=0; %>
         	<% for(int i=0; i<list.size() / 5 + 1; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
+
             <tr>
-               <% for(Bid b : list) { %>
+               <% for(; j<list.size(); j++) { %>
+               <% if(j != (i+1)*5) { %>
 				<td>
 					<div id="img">
-                  		<div class="price"><%= b.getBidPrice() %></div>
-                    	<img src="<%= request.getContextPath() %>/img/appraisal/<%= b.getBidAttachment() %>" alt="" >
+                  		<div class="price"><%= list.get(j).getBidPrice() %></div>
+                    	<img src="<%= request.getContextPath() %>/img/appraisal/<%= list.get(j).getBidAttachment() %>" alt="" >
                   	</div>
-                 	<span class="content"><%= b.getBidBrand() + " " + b.getBidModel() %></span>
-                 	<div class="time"><%= b.getBidAuctionStartTime() %></div>
-                 	<div hidden><%= b.getBidAuctionId() %></div>
-                 	<div hidden><%= b.getBidAttachment() %></div>
+                  	<% if(list.get(j).getBidBrand().length() + list.get(j).getBidModel().length() < 10 ) { %>
+                 		<span class="content"><%= list.get(j).getBidBrand() + "<br>" + list.get(j).getBidModel() %></span>
+                 	<% } else { %>
+                 		<span class="content"><%= list.get(j).getBidBrand() + " " + list.get(j).getBidModel() %></span>
+                 	<% } %>
+                 	
+                 	<div class="time"><%= list.get(j).getBidAuctionStartTime() %></div>
+                 	<div hidden><%= list.get(j).getBidAuctionId() %></div>
+                 	<div hidden><%= list.get(j).getBidAttachment() %></div>
               	</td>
+              	<% } else break; %>
                <% } %>
                </tr>
-               <% } %>
+              <% } %>
          </table>
 		</div> <!-- watchList End -->
-<%--	<div class="pagingArea" align="center">	
- 		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
-			<% if(currentPage <= 1){ %>
-			<button disabled><</button>
-			<% } else{ %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage - 1%>'"><</button>
-			<% } %>
-			
-			<% for(int p = startPage; p <= endPage; p++){ 
-				if(p == currentPage){
-			%>
-				<button disabled><%= p %></button>
-			<% }else{ %>
-				<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=p%>'"><%= p %></button>
-			<% }
-			} %>
-			
-			<% if(currentPage >= maxPage){ %>
-			<button disabled>></button>
-			<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectList.bo?currentPage=<%=currentPage + 1%>'">></button>
-			<% } %>
-			
-		<button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=<%= maxPage%>'">></button>
-		</div> <!-- pagingArea End --> --%>
+		
+					<div id="nextPage">
+				<div id="nextPageBox" align="center">
+					<button onclick="location.href='<%=request.getContextPath()%>/watchList.wa?currentPage=1'"><<</button>
+		<% if(currentPage <= 1){ %>
+			<button disabled> < </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/watchList.wa?currentPage=<%=currentPage-1%>'"><</button>
+		<% } %>
+		
+		
+		<% for(int p = startPage ; p <= endPage; p++){ 
+		%>			
+					<button onclick="location.href='<%=request.getContextPath()%>/watchList.wa?currentPage=<%=p%>'"><%=p %></button>	
+		<% 
+		} %>
+		
+		<% if(currentPage >= maxPage){ %>
+			<button disabled> > </button>
+		<% } else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/watchList.wa?currentPage=<%=currentPage + 1 %>'"> > </button>
+		<% } %>
+			<button onclick="location.href='<%=request.getContextPath()%>/watchList.wa?currentPage=<%=maxPage%>'">>></button>
+				</div>
+			</div>
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<%@ include file="../common/footer.jsp" %>
@@ -253,10 +269,17 @@ td>.content {
 	<script type="text/javascript">
 		$(function() {
 			$('td').css('cursor', 'pointer').click(function() {
-				const auctionId = $(this).children().eq(3).text();
-				const img = $(this).children().eq(4).text();
+				<% if(loginMember == null) { %>
+					alert('로그인을 해야 상세정보을 열람하실 수 있습니다.');
+					location.href="<%= request.getContextPath() %>/views/member/login.jsp";
+				<% } else { %>
+					const memberNo = <%= loginMember.getMemberNo() %>;
+					const auctionId = $(this).children().eq(3).text();
+					const img = $(this).children().eq(4).text();
+					
+					location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&auctionId="+auctionId+"&memberNo="+memberNo;
+				<% } %>
 				
-				location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&auctionId="+auctionId;
 			});
 		})
 	</script>

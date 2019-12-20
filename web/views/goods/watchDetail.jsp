@@ -214,10 +214,10 @@
 	<%@ include file="../common/nav.jsp" %>
 	<%
 		ArrayList<Bid> watchDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
-		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
+		String msg = (String) request.getAttribute("msg");
 	%>
 		<div class="container">
 		<div class="contents">
@@ -226,7 +226,7 @@
 				<span class="imgBox">
 					<div class="title">
 					<% if(loginMember != null) { %>
-						<a id="wish">♡</a>
+						<a id="wish">ㅁ</a>
 					<% } %>
 						<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 					</div>
@@ -338,27 +338,6 @@
 				$('#title').attr('src', title);
 			});
 			
-			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
-			<% if(watchBiddingUser.size() > 0) { %>
-			<% for(Bid b : watchBiddingUser) { %>
-				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidInsertTime() %></td></tr>"
-			<% } %>
-			<% } %>
-				temp+="</tbody>";
-				$("#biddingUsers > table").append(temp);
-			
-			// 입찰리스트에서 최댓값 추출
-			let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(2).text();
-			$('#maxPrice').text(numberFormat(maxPrice)+'원');
-			
-			// 최댓값기준 입찰단위
-			let unit = maxPrice*0.05;
-			$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
-			
-			// 최소입찰금액
-			let minPrice = maxPrice*1.05;
-			$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
-			
 			// 위시리스트 추가
 			$('#wish').click(function() {
 				$.ajax({
@@ -369,10 +348,18 @@
 						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
-						if(data === 'success')
+						if(data === 'successWishY') {
 							alert('위시리스트에 추가했습니다.');
-						else 
+							$('#wish').text('♥');
+						} else if(data === 'successWishN') {
+							alert('위시리스트에서 제거되었습니다.');
+							$('#wish').text('♡');
+						}
+						
+						else {
 							alert('위시리스트에 추가되지않았습니다.');
+							$('#wish').text('♡');
+						}
 					},
 					error: function(data) {
 						alert('에러발생');
@@ -381,7 +368,54 @@
 			});
 			
 			getWebsocket2();
+			
+			// 입찰이력불러오기 관련 ajax
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectBidUser.se",
+				type: "post",
+				data: {
+					auctionId: <%= auctionId %>,
+				},
+				success: function(data) {
+					const arr = data.split("#");
+					console.log(data);
+					
+					let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+					for(i in arr) {
+						var arr2 = arr[i].split("::");
+						temp += "<tr>";
+						
+						for(j in arr2){
+							if(j == 0)
+								temp += "<td>"+ arr2[j] +"</td>";
+							else if(j == 1) 
+								temp += "<td>"+ arr2[j] +"</td>";
+							else if(j == 2)
+								temp += "<td>"+ arr2[j] +"</td>";
+						}
+						
+						temp += "</tr>";
+					}
 
+					temp+="</tbody>";
+					$("#tableBiddingArea").append(temp);
+					
+					// 입찰리스트에서 최댓값 추출
+					let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(1).text();
+					$('#maxPrice').text(numberFormat(maxPrice)+'원');
+					
+					// 최댓값기준 입찰단위
+					let unit = maxPrice*0.05;
+					$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+					
+					// 최소입찰금액
+					let minPrice = maxPrice*1.05;
+					$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+				},
+				error: function(data) {
+					console.log('실패');
+				}
+			})
 		});
 			
 			function numberFormat(inputNumber) {

@@ -24,4 +24,5 @@ public class Bid implements Serializable {
 	private String bidUserId;
 	private int bidCount;
 	private Date bidInsertTime; // 입찰등록한 시간
+	private String bidWishStatus; // 상품에 대한 위시리스트 등록여부
 }

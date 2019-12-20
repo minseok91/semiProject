@@ -44,15 +44,20 @@ public class WishInsertServlet extends HttpServlet {
 		Bid b = new Bid();
 		b.setBidAuctionId(auctionId);
 		b.setBidMemberNo(memberNo);
+		String yh = "";
 		
-		int result = new BidService().insertWish(b);
+		String result = new BidService().insertWish(b);
 		
 		String msg = "";
 		
 		PrintWriter out = response.getWriter();
 		
-		if(result > 0) {
-			msg = "success";
+		if(result.charAt(0) != 0 && result.charAt(1) == 'Y') {
+			msg = "successWishY";
+			log.debug(msg);
+			out.append(msg);
+		} else if(result.charAt(0) != 0 && result.charAt(1) == 'N') {
+			msg = "successWishN";
 			log.debug(msg);
 			out.append(msg);
 		} else {
