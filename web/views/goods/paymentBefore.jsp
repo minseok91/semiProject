@@ -170,10 +170,11 @@
 	<%@ include file="../common/header.jsp" %>
 	<%
 		String[] addr = loginMember.getMemberAddress().split("/");
-		String num = (String) request.getAttribute("num");
+		String auctionId = (String) request.getAttribute("auctionId");
 		String image = (String) request.getAttribute("image");
 		String price = (String) request.getAttribute("price");
-		String myAddress = "";
+		String brand = (String) request.getAttribute("brand");
+		String model = (String) request.getAttribute("model");
 	%>
 	<%@ include file="../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -244,9 +245,9 @@
 				</div>
 				
 				<div id="goodsTitle">
-					<input type="text" id="aucNum" value="<%= num %>" disabled> <!-- AUCTION_ID -->
-					<input type="text" disabled>
-					<input type="text" disabled>
+					<input type="text" id="aucNum" value="<%= auctionId %>" disabled> <!-- AUCTION_ID -->
+					<input type="text" value="<%= brand %>" disabled>
+					<input type="text" value="<%= model %>" disabled>
 				</div>
 			</div>
 		</div> <!-- goodsInfo -->

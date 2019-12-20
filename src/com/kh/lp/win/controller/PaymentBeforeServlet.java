@@ -29,19 +29,19 @@ public class PaymentBeforeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String num = request.getParameter("auctionId");
+		String auctionId = request.getParameter("auctionId");
 		String image = request.getParameter("image");
 		String price = request.getParameter("price");
-		String memberNo = request.getParameter("memberNo");
-		String address = request.getParameter("address");
-		
-		log.debug(address);
+		String brand = request.getParameter("brand");
+		String model = request.getParameter("model");
 		
 		String page = "views/goods/paymentBefore.jsp";
 		
-		request.setAttribute("num", num);
+		request.setAttribute("auctionId", auctionId);
 		request.setAttribute("image", image);
 		request.setAttribute("price", price);
+		request.setAttribute("brand", brand);
+		request.setAttribute("model", model);
 		
 		request.getRequestDispatcher(page).forward(request, response);
 	}

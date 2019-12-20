@@ -133,7 +133,7 @@ public class BidDao {
 				String user = rset.getString("MEMBER_ID").substring(0, 3)+"******";
 				b.setBidUserId(user);
 				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
-				b.setBidAuctionStartTime(rset.getDate("BIDDING_TIME")); // 입찰시간
+				b.setBidInsertTime(rset.getDate("BIDDING_TIME")); // 입찰시간
 				
 				list.add(b);
 			}
