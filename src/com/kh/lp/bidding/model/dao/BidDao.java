@@ -291,8 +291,8 @@ public class BidDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, b.getBidMemberNo());
-			pstmt.setInt(2, b.getBidAuctionId());
+			pstmt.setInt(1, b.getBidAuctionId());
+			pstmt.setInt(2, b.getBidMemberNo());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) 
@@ -305,6 +305,8 @@ public class BidDao {
 			close(rset);
 			close(pstmt);
 		}
+		
+		log.debug(result);
 		
 		return result;
 	}
@@ -601,6 +603,85 @@ public class BidDao {
 		}
 		
 		return result;
+  }
+	// 최근올라온 시계상품 6개만 정보를 추출
+	public ArrayList<Bid> latelyWatch(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Bid> list = null;
+		
+		String query = prop.getProperty("selectSixBagList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Bid b = new Bid();
+				
+				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+				b.setBidId(rset.getInt("BIDDING_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
+				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	// 최근올라온 가방상품 6개만 정보추출
+	public ArrayList<Bid> latelyBag(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Bid> list = null;
+		
+		String query = prop.getProperty("selectSixWatchList");
+		
+		try {
+			stmt = con.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				Bid b = new Bid();
+				
+				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+				b.setBidId(rset.getInt("BIDDING_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
+				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
 	}
 }
 

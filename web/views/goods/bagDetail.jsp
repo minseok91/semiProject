@@ -40,6 +40,7 @@
 	#part1 {
 		display: flex;
 		margin-bottom: 50px;
+		height: 612px;
 	}
 
 	.title>img {
@@ -109,6 +110,7 @@
 	#price {
 		margin-top: 50px;
 	    display: grid;
+	    width: 326px;
 	}
 	
 	#price>label:nth-of-type(1) {
@@ -152,19 +154,19 @@
 		text-align: center;
 	}
 	
-	#biddingApply {
+		#biddingApply {
 		margin-top: 100px;
-		margin-left: 68px;
+		margin-left: 85px;
 	}
 	
-	#biddingApply>form>label {
+	#biddingApply>label {
 		font-size: 20px;
 		color: #3e2d1a;
 		border-left: 5px solid #3e2d1a;
 		padding-left: 10px;
 	}
 	
-	#biddingApply>form>input[type="text"] {
+	#biddingApply>input[type="text"] {
 		font-size: 2rem;
     	font-weight: 100;
 		border: none;
@@ -175,7 +177,7 @@
 		text-align: right;
 	}
 	
-	#biddingApply>form>input[type="submit"] {
+	#biddingApply>button {
 		font-size: 2rem;
 		color: #cca071;
 		background: #211f24;
@@ -185,7 +187,8 @@
 		border-radius: 3px;
 	}
 	
-	#biddingApply>label {
+	#biddingApply>label:nth-of-type(2) {
+		border: none;
 		font-size: 1.7rem;
 		margin-left: 7px;
 		color: #ff0000;
