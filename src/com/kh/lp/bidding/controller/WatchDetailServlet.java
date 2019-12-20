@@ -37,11 +37,11 @@ public class WatchDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int num = Integer.parseInt(request.getParameter("num")); // 경매번호
+		int auctionId = Integer.parseInt(request.getParameter("auctionId")); // 경매번호
 		String img = request.getParameter("img");
-		ArrayList<Bid> list = new BidService().selectItemDetail(num);
-		ArrayList<Bid> bidList = new BidService().selectListBidUser(num);
-		Watch watch = new BidService().selectWatchInfo(num);
+		ArrayList<Bid> list = new BidService().selectItemDetail(auctionId);
+		ArrayList<Bid> bidList = new BidService().selectListBidUser(auctionId);
+		Watch watch = new BidService().selectWatchInfo(auctionId);
 		
 		String page = "";
 		
@@ -50,7 +50,7 @@ public class WatchDetailServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("bidList", bidList);
 			request.setAttribute("img", img);
-			request.setAttribute("num", num);
+			request.setAttribute("auctionId", auctionId);
 			request.setAttribute("watch", watch);
 		} else {
 			page="views/common/errorPage.jsp";

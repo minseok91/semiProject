@@ -173,6 +173,7 @@
 		String num = (String) request.getAttribute("num");
 		String image = (String) request.getAttribute("image");
 		String price = (String) request.getAttribute("price");
+		String myAddress = "";
 	%>
 	<%@ include file="../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -303,12 +304,12 @@
 					pg : 'inicis', // version 1.1.0부터 지원.
 					pay_method : 'card',
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : 'MT3'+document.getElementById('aucNum').innerHTML, // 감정결제 : MT1, 낙찰결제 : MT3
+					name : '<%= loginMember.getMemberId() %>', // 감정결제 : MT1, 낙찰결제 : MT3
 					amount : end,
 					buyer_email : '<%=loginMember.getMemberEmail()%>',
 					buyer_name : '<%=loginMember.getMemberName()%>',
 					buyer_tel : '<%=loginMember.getMemberPhone()%>',
-					buyer_addr : $('#userAddr2').val(),
+					buyer_addr : $('#userAddr2').val() + '::' + $('#userAddr3').val() + "::" + $('#userAddr1').val(),
 					buyer_postcode : $('#userAddr1').val(),
 				}, function(rsp) {
 					if ( rsp.success ) {
@@ -319,8 +320,9 @@
 						const applyNum = rsp.apply_num; //카드 승인번호
 						const method = rsp.pay_method; //결제 수단
 						const status = rsp.status; // 상태
+						const address = rsp.buyer_addr;
 						
-						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId+"&amount="+amount+"&status="+status;
+						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId+"&amount="+amount+"&memberNo=<%= loginMember.getMemberNo() %>&address="+address;
 						
 						location.href=URL;
 					} else {
@@ -336,15 +338,10 @@
 			const chk = $(this).is(':checked');
 			console.log(chk);
 			
-			if(chk) {
-				$('userAddr1').val("<%= addr[0] %>");
-				$('userAddr2').val("<%= addr[1] %>");
-				$('userAddr3').val("<%= addr[2] %>");
-			} else {
-				$('userAddr1').val(' ');
-				$('userAddr2').val(' ');
-				$('userAddr3').val(' ');
-			}
+			$('#userAddr1').val(chk ? "<%= addr[0] %>" : ' ');
+			$('#userAddr2').val(chk ? "<%= addr[1] %>" : ' ');
+			$('#userAddr3').val(chk ? "<%= addr[2] %>" : ' ');
+
 		}); 
 	});
 		

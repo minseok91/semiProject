@@ -41,6 +41,8 @@
 		font-weight: lighter;
 		transform: translateX(0%);
 		margin-left: 10px;
+		text-decoration: none;
+		cursor: pointer;
 	}
 	
 	#biddingList {
@@ -214,7 +216,7 @@
 		ArrayList<Bid> watchDetailInfo = (ArrayList<Bid>)request.getAttribute("list");
 		ArrayList<Bid> watchBiddingUser = (ArrayList<Bid>)request.getAttribute("bidList");
 		String img = (String) request.getAttribute("img");
-		int num = (Integer) request.getAttribute("num");
+		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
 	%>
 		<div class="container">
@@ -279,7 +281,7 @@
 					<% if(watchDetailInfo.size() > 0) { %>
 						<tr>
 							<td>상품번호</td>
-							<td><%= num %></td>
+							<td><%= auctionId %></td>
 						</tr>
 						<tr>
 							<td>브랜드명</td>
@@ -364,7 +366,7 @@
 					type: "post",
 					data: {
 						memberNo: <%= loginMember.getMemberNo() %>,
-						auctionId: <%= num %>,
+						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
 						if(data === 'success')
@@ -433,7 +435,7 @@
 			
 			function send(msg) {
 				var memberNo = "<%= loginMember.getMemberNo() %>";
-				var auctionId = "<%= num %>";
+				var auctionId = "<%= auctionId %>";
 				var biddingPrice = $("#minPrice").val();
 				
 				var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
