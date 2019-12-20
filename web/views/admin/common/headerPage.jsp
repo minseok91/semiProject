@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"
-    import="com.kh.lp.admin.member.model.vo.*"%>
+    import="com.kh.lp.member.model.vo.*"%>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
 %>
