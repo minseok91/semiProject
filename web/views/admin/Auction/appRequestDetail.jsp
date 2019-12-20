@@ -4,8 +4,8 @@
  * @Author      : minseok
  * @CreateDate  : Dec 5, 2019 4:15:10 PM
  * @ModifyDate  : Dec 5, 2019 4:15:10 PM
- * @fileName    : AucResultFail.jsp
- * @Description : 경매결과낙찰
+ * @fileName    : appRequestDetail.jsp
+ * @Description : 감정 상세 정보
  * </pre>
  */
 --%>
@@ -178,10 +178,12 @@
 			height: 750px;
 		}
 		#detailForType{
-			display:inline-block;
+			 display:inline-block; 
+			/* text-align:center; */
 		}
 		#detailForGoods{
-			display:inline-block;
+			 display:inline-block; 
+			/* text-align:center; */
 		}
 	</style>
 </head>
@@ -291,49 +293,45 @@
                <input type="hidden" value="<%=itemId%>" name="itemId">
                <input type="hidden" value="<%=item.getItemMemberNo()%>" name="memberNo">
                <div id="acpContent">
-                  여기는 진품일 시에 넣는 공간
-                  <!--이건 시퀀스 GEN_ID NUMBER PRIMARY KEY, -->
-                   <!--이건 생성된거를  APP_RESULT_NO NUMBER, -->
-                   <!--브랜드  BRAND VARCHAR2(50), -->
-                   <!--모델네임 MODEL_NAME VARCHAR2(50), -->
-                   <!-- 가격 APP_PRICE NUMBER -->
+                  <!-- 여기는 진품일 시에 넣는 공간 -->
+                  
              <div id="goods">
-             <div id="detailForGoods">
-               <label>상품 정보</label>
-               <table>
-                  <tr>
-                     <td>상품ID</td>
-                     <td><input type="text" id="acpName" value="2" placeholder="상품ID"></td>
-                  </tr>
-                  <tr>
-                     <td>브랜드</td>
-                     <td><input type="text" name="brand" placeholder="브랜드"></td>
-                  </tr>
-                  <tr>
-                     <td>모델명</td>
-                     <td><input type="text" name="model" value="<%=model %>" placeholder="모델명"></td>
-                  </tr>
-                  <tr>
-                     <td>감정가</td>
-                     <td><input type="text" name="price" placeholder="가격"></td>
-                  </tr>
-                  <tr>
-                     <td>상태</td>
-                     <td><!-- <input type="text" name="status" placeholder="상태"> -->
-                        <select name="status" id="status">
-                           <option value="S">S</option>
-                           <option value="A+">A+</option>
-                           <option value="A">A</option>
-                           <option value="B+">B+</option>
-                           <option value="B">B</option>
-                        </select>
-                     </td>
-                  </tr>
-               </table>
-               </div>
+	             <div id="detailForGoods">
+	               <label>상품 정보</label>
+	               <table>
+	                  <tr>
+	                     <td>상품ID</td>
+	                     <td><input type="text" id="acpName" value="2" placeholder="상품ID"></td>
+	                  </tr>
+	                  <tr>
+	                     <td>브랜드</td>
+	                     <td><input type="text" name="brand" placeholder="브랜드"></td>
+	                  </tr>
+	                  <tr>
+	                     <td>모델명</td>
+	                     <td><input type="text" name="model" value="<%=model %>" placeholder="모델명"></td>
+	                  </tr>
+	                  <tr>
+	                     <td>감정가</td>
+	                     <td><input type="text" name="price" placeholder="가격"></td>
+	                  </tr>
+	                  <tr>
+	                     <td>상태</td>
+	                     <td><!-- <input type="text" name="status" placeholder="상태"> -->
+	                        <select name="status" id="status">
+	                           <option value="S">S</option>
+	                           <option value="A+">A+</option>
+	                           <option value="A">A</option>
+	                           <option value="B+">B+</option>
+	                           <option value="B">B</option>
+	                        </select>
+	                     </td>
+	                  </tr>
+	               </table>
+	             </div>
                <!-- table end -->
                <div id="detailForType">
-               		<input type="radio" id="watch" name="type" value="W">
+               		<input type="radio" id="watch" name="type" value="W" checked>
                 	<label for="watch">시계</label>
                   	<input type="radio" id="bag" name="type" value="B">
                   	<label for="bag">가방</label>
