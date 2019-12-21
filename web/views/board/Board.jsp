@@ -89,14 +89,14 @@
 }
 .menuStatus>.status2 {
 	display: flex;
-	width: 920px;
+	width: 941px;
 	height: 54px;
 	background-color: lightgray;
 	padding-left: 25px;
     padding-top: 18px;
 }
 .container>.contents>.menuStatus {
-	width: 920px;
+	width: 941px;
 	display: inline-block;
 	margin-left: 10px;
 	border-bottom: 1px solid #000;
@@ -137,7 +137,7 @@
 }
 #QNABoard {
 	margin-top: 30px;
-	margin-left: 20px;
+	margin-left: 30px;
 	width: 46%;
 	height: 45%;
 	float: left;
@@ -158,7 +158,7 @@
 #freeBoardTable td {
 	border-bottom: 1px solid rgb(160, 115, 66);
 	height: 5px;
-	padding: 8px;
+	padding: 3px;
 	
 }
 #freeBoardTable th  p{
@@ -166,7 +166,9 @@
 	margin-bottom: 0px;
 	margin-left: 410px;
 }
-
+#freeBoardTable p {
+	width: fit-content;
+}
 </style>
 <title>LauXion</title>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
@@ -195,20 +197,27 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div id="table_conntents">
-			<div id="freeBoard">
-				<table id="freeBoardTable">
-					<tr>
-						<th><h4>자유게시판</h4><p class="free">more></p></th>
-					</tr>
-					<% for(int i=0; i<freeBoardList.size(); i++) { %>
+				<div id="freeBoard">
+					<table id="freeBoardTable">
 						<tr>
-							<td><%= ((HashMap<String,Object>)freeBoardList.get(i)).get("BoardTitle")%></td>		
-							<input type="hidden" value="<%= ((HashMap<String,Object>)freeBoardList.get(i)).get("BoardId") %>">				
+							<th><h4>자유게시판</h4>
+								<p class="free">more></p></th>
 						</tr>
-					<% } %>
-				</table>
-			</div>
-			<div id="QNABoard">
+						<%
+							for (int i = 0; i < freeBoardList.size(); i++) {
+						%>
+						<tr>
+							<td><p><%=((HashMap<String, Object>) freeBoardList.get(i)).get("BoardTitle")%>
+									<input type="hidden"
+										value="<%=((HashMap<String, Object>) freeBoardList.get(i)).get("BoardId")%>">
+								</p></td>
+						</tr>
+						<%
+							}
+						%>
+					</table>
+				</div>
+				<div id="QNABoard">
 			<table id="freeBoardTable">
 					<tr>
 						<th><h4>문의게시판</h4><p class="question">more></p></th>
@@ -216,8 +225,11 @@
 					<% for(int i=0; i<questionBoardList.size(); i++) { %>
 					<tr>
 						<td>
-							<%= ((HashMap<String,Object>)questionBoardList.get(i)).get("BoardTitle") %>
-							<input type="hidden" value="<%= ((HashMap<String,Object>)questionBoardList.get(i)).get("BoardId") %>">
+							<p>
+								<%= ((HashMap<String,Object>)questionBoardList.get(i)).get("BoardTitle") %>
+								<input type="hidden" value="<%= ((HashMap<String,Object>)questionBoardList.get(i)).get("BoardId") %>">
+							</p>
+							
 						</td>
 					</tr>
 					<% } %>
@@ -231,8 +243,10 @@
 					<% for(int i=0; i<reviewBoardList.size(); i++) { %>
 						<tr>
 							<td>
-								<%= ((HashMap<String,Object>)reviewBoardList.get(i)).get("BoardTitle")%>
+								<p>
+									<%= ((HashMap<String,Object>)reviewBoardList.get(i)).get("BoardTitle")%>
 								<input type="hidden" value="<%= ((HashMap<String,Object>)reviewBoardList.get(i)).get("BoardId") %>">
+								</p>
 							</td>
 						</tr>
 					<% } %>
@@ -246,8 +260,10 @@
 					<% for(int i=0; i<FAQBoardList.size(); i++) { %>
 						<tr>
 							<td>
-								<%= ((HashMap<String,Object>)FAQBoardList.get(i)).get("BoardTitle") %>
-								<input type="hidden" value="<%= ((HashMap<String,Object>)FAQBoardList.get(i)).get("BoardId") %>">
+								<p>
+									<%= ((HashMap<String,Object>)FAQBoardList.get(i)).get("BoardTitle") %>
+									<input type="hidden" value="<%= ((HashMap<String,Object>)FAQBoardList.get(i)).get("BoardId") %>">
+								</p>
 							</td>
 						</tr>
 					<% } %>
@@ -260,10 +276,11 @@
 	</div>
 	<%@ include file="../common/footer.jsp" %>
 	<script>
-		$("#table_conntents td").click(function(e){
-			var boardId = e.target.parentNode.children[1].value;
-			console.log(e.target.parentNode.children[1].value);
-			location.href = "<%=request.getContextPath()%>/BoardSelectOne2?boardId="+boardId;
+	// 게시판 목록 클릭시 해당 게시판 상세로 이동
+		$("#table_conntents  td  p").click(function(e){
+			var boardId = e.target.children[0].value;
+			console.log(boardId);
+		    location.href = "<%=request.getContextPath()%>/BoardSelectOne2?boardId="+boardId;
 		})
 		$("#menu dd").mouseover(function(e) {
 			e.target.style.color = "black";

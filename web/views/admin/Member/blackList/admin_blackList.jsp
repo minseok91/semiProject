@@ -17,8 +17,8 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
-<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<title>블랙회원 조회</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 </head>
 <style>
 	html body {
@@ -132,7 +132,7 @@
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
 							<td></td>
-							<%-- <td><%= blackList.get(i).getRowNum()%></td> --%>
+							<td><%= blackList.get(i).getMemberNo()%></td>
 							<td><%= blackList.get(i).getMemberId()%></td>
 							<td><%= blackList.get(i).getMemberName()%></td>
 							<td><%= blackList.get(i).getMemberPhone()%></td>

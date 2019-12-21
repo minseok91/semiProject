@@ -28,8 +28,8 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
-<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<title>문의 및 신고</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 </head>
 <meta content="text/html;">
 <style>
@@ -176,7 +176,6 @@ html, body {
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<title>회원정보 관리 상세</title>
 </head>
 <body>
 	<%@ include file="../common/headerPage.jsp" %>
@@ -201,7 +200,7 @@ html, body {
 			</div>
 			<div>
 			<div id="NoticeNumber">
-				<p>총 게시판 수 :</p><h4><%= ListCount %>명</h4>
+				<p>총 게시판 수 :</p><h4><%=ListCount%>명</h4>
 			</div>
 				<table id="table">
 					<tr>
@@ -213,7 +212,7 @@ html, body {
 					</tr>
 					<% for(QNA q : list) { %>
 						<tr>
-							<td><%= q.getRowNum() %>
+							<td><%= q.getQnaId() %>
 								<input type="hidden" value="<%=q.getQnaId()%>">
 							</td>
 							<td><%= q.getQnaMemberId() %></td>
@@ -278,7 +277,7 @@ html, body {
 					
 					$Number.html('');
 					$tableBody.html('');
-						
+					
 						var $trh = $("<tr>");
 						var $Th = $("<th>번호</th><th>회원 아이디</th><th>문의제목</th><th>작성일</th><th>상태</th>");
 						$trh.append($Th);
@@ -301,7 +300,7 @@ html, body {
 							type = '답글';
 						}
 						
-						var $noTd = $("<td>"+data[i].Rnum+"<input type='hidden' value="+data[i].boardId+"><input type='hidden' value="+data[i].boardStatus+"></td><td>"+data[i].MemberName+"</td><td>"+data[i].boardTitle+"</td><td>"+data[i].boardDate+"</td><td>"+type+"</td>")
+						var $noTd = $("<td>"+data[i].boardId+"<input type='hidden' value="+data[i].boardId+"><input type='hidden' value="+data[i].boardStatus+"></td><td>"+data[i].MemberName+"</td><td>"+data[i].boardTitle+"</td><td>"+data[i].boardDate+"</td><td>"+type+"</td>")
 						
 						$tr.append($noTd);
 						$tableBody.append($tr);

@@ -22,7 +22,8 @@ String today = df.format(day);
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
+<title>FAQ 작성</title>
 <style>
 	html, body {
 	padding: 0;

@@ -271,8 +271,6 @@ input[type="text"]:focus {
 						<td><select id="boardkinds" name="boardKinds">
 								<option value="BT1">자유게시판</option>
 								<option value="BT2">문의게시판</option>
-								<option value="BT3">리뷰게시판</option>
-								<option value="BT4">FAQ게시판</option>
 							</select>
 						</td>
 					</tr>
