@@ -195,6 +195,9 @@
 <body>
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
+	<%
+		String addr[] = loginMember.getMemberAddress().split("/");
+	%>
 	<%-- <% if(loginMember != null) { %> --%>
 	<div class="container">
 		<div id="myPageMenu">
@@ -387,6 +390,38 @@
 	
 	
 		$(function() {
+			$('#regist').click(function() {
+				IMP.request_pay({
+					pg : 'inicis', // version 1.1.0부터 지원.
+					pay_method : 'card',
+					merchant_uid : 'merchant_' + new Date().getTime(),
+					name : '<%= loginMember.getMemberId() %>', // 감정결제 : MT1, 낙찰결제 : MT3
+					amount : 30000,
+					buyer_email : '<%=loginMember.getMemberEmail()%>',
+					buyer_name : '<%=loginMember.getMemberName()%>',
+					buyer_tel : '<%=loginMember.getMemberPhone()%>',
+					buyer_addr : '<%= addr[1] + "::" + addr[2] %>',
+					buyer_postcode : <%= addr[0] %>,
+				}, function(rsp) {
+					if ( rsp.success ) {
+						var msg = '결제가 완료되었습니다.';
+						const impId = rsp.imp_uid; // 고유ID
+						const merId = rsp.merchant_uid; //상점 거래ID
+						const amount = rsp.paid_amount; //결제 금액
+						const applyNum = rsp.apply_num; //카드 승인번호
+						const method = rsp.pay_method; //결제 수단
+						const status = rsp.status; // 상태
+						const address = rsp.buyer_addr;
+						
+						const URL = "<%=request.getContextPath()%>/appmoney.in?impId="+ impId + "&merId="+merId+"&amount="+amount+"&memberNo=<%= loginMember.getMemberNo() %>";
+						
+						location.href=URL;
+					} else {
+						alert('결제가 취소되었습니다.');
+					}
+				});
+			})
+			
 			$('a').click(function() {
 				let values=$(this).attr('value');
 				console.log(values);
