@@ -27,8 +27,7 @@
 <head>
 <meta content="text/html;">
 </head>
-<link rel="icon" type="image/png" sizes="32x32"
-	href="image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 <title>게시판 상세</title>
 <style>
 html, body {
@@ -312,7 +311,7 @@ input[type="text"]:focus {
 					console.log(comment);
 					
 				$.ajax({
-					url:"insertReply.re",
+					url: "insertReply.re" ,
 					data : { boardId : <%= list.getBoardId() %>,
 							 memberId : <%= list.getBoardMemberNo()%>,	
 							 comment : comment
@@ -340,8 +339,6 @@ input[type="text"]:focus {
 				
 			})
 		})
-		
-		
 		$(".dropbtn").click(function(e){
 			console.log(e.target.parentNode.parentNode)
 			$("#comment_text").val('');	
@@ -353,17 +350,22 @@ input[type="text"]:focus {
 				},
 				type : "GET",
 				success:function(data) {
-					/* $("#comment_div").html('');	 */
-					/* for(var i=0; i<data.length; i++) {
+					 $("#comment_div").html('');	 
+					 for(var i=0; i<data.length; i++) {
 						 if(data[i].replyStatus == "Y"){
 							 $("#comment_div").append("<div id='comment'><div>작성자 : "+data[i].replyMemberName+"</div><div>작성일 : "+data[i].replyDate+"<button class='dropbtn' value='"+data[i].replyId+"'>댓글 삭제</button></div><div>"+data[i].replyContent+"</div><hr></div>");
 						 } else {
 							 $("#comment_div").append("<div id='comment'>삭제된 댓글입니다.<hr></div>");
 						} 
-					} */
-					e.target.parentNode.parentNode.remove();
+					}
+					console.log(e.target.parentNode.parentNode);
+					//e.target.parentNode.parentNode.remove();
+					e.target.parentNode.parentNode.appen("<div id='comment'>삭제된 댓글입니다.<hr></div>")
+					
 				}
 			}) 	
+		       
+		    });
 		})
 	</script>
 </body>

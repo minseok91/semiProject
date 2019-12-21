@@ -17,10 +17,10 @@ public class ReplyService {
 	 * @param boardId
 	 * @return
 	 */
-	public ArrayList<Reply> selectAll(int boardId) {
+	public ArrayList<Reply> selectAll(int boardId, String user) {
 		Connection con = getConnection();
 		
-		ArrayList<Reply> Rlist = new ReplyDao().selectAll(boardId, con);
+		ArrayList<Reply> Rlist = new ReplyDao().selectAll(boardId, con, user);
 		
 		close(con);
 		

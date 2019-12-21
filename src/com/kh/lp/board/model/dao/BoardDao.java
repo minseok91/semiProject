@@ -202,6 +202,7 @@ public class BoardDao {
 				hm.put("BoardStatus", rset.getString("BOARD_STATUS"));
 				hm.put("BoardModifyDate",rset.getDate("BOARD_MODIFY_DATE"));
 				hm.put("BoardMemberName", rset.getString("MEMBER_NAME"));
+				hm.put("BoardContent", rset.getString("BOARD_CONTENT"));
 			}
 			
 		} catch (SQLException e) {

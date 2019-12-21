@@ -17,8 +17,8 @@
 <html>
 <head>
 <meta content="text/html;">
-<title>Insert title here</title>
-<link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
+<title>회원 정보 조회</title>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 </head>
 <style>
 html, body {
@@ -134,7 +134,7 @@ html, body {
 					<% for(int i=0; i<userList.size(); i++) {%>
 						<tr>
 						
-							<td><%= userList.get(i).getRowNum()%></td>
+							<td><%= userList.get(i).getMemberNo()%></td>
 							<td><%= userList.get(i).getMemberId()%></td>
 							<td><%= userList.get(i).getMemberName()%></td>
 							<td><%= userList.get(i).getMemberPhone()%></td>

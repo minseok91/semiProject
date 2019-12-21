@@ -1,6 +1,7 @@
 package com.kh.lp.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.lp.admin.reply.model.service.ReplyService;
+import com.kh.lp.admin.reply.model.vo.Reply;
 import com.kh.lp.board.model.service.BoardService;
 
 /**
@@ -31,15 +34,17 @@ public class BoardSelectOneServlet2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
-		
+		String user = "member";
 		HashMap<String, Object> list = new BoardService().selectBoardOne(boardId);
+		ArrayList<Reply> reply = new ReplyService().selectAll(boardId,user);
 		
-		System.out.println(list);
+		
 		
 		String page = "";
 		if(list != null) {
 			page = "views/board/BoardDetail.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("Reply", reply);
 		} else {
 			
 		}
