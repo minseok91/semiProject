@@ -127,7 +127,7 @@
 				<dt>§  결제/배송조회</dt>
 				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
 				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
+				<dd><a value="delivery/sellDeli">▶  경매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
 				<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>
@@ -200,7 +200,8 @@ Upload images from <strong class="txtocher">SELECT FILE</strong> on the upload p
 					<p class="exArea">
 					[판매 시작]을 클릭해 고객님의 상품 출품 등록을 완료해주세요. 출품이 완료되면 경매가 시작됩니다. 경매가 끝날 때까지 기다려주세요.					</p>
 
-					<button id="pay" class="btn btn-contens">판매 시작</button>
+					<p class="btnArea"><a href="productRegist.jsp" class="btn btn_contens">판매시작</a></p>
+					<!-- <button id="pay" class="btn btn-contens">판매 시작</button> -->
 				</div>
 				<div class="imgArea"><img src="/image/tp2/users-guide/sell/en/start_selling_640.jpg" width="350" height="350" class="bLine" alt="판매개시를 하면 출품작업은 완료됩니다."></div>
 			

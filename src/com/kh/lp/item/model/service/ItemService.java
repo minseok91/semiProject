@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.dao.ItemDao;
 import com.kh.lp.item.model.vo.Item;
+import com.kh.lp.item.model.vo.ItemDeli;
 import com.kh.lp.member.model.vo.Member;
 
 public class ItemService {
@@ -122,6 +123,27 @@ public class ItemService {
 		
 		close(con);
 		return at;
+	}
+
+	// 마이페이지 - 감정상품 배송조회 리스트
+	public ArrayList<ItemDeli> itemApprDeliSelectAll(int memberNo) {
+		Connection con = getConnection();
+		
+		ArrayList<ItemDeli> list = new ItemDao().itemApprDeliSelectAll(con, memberNo);
+		
+		close(con);
+		
+		return list;
+	}
+
+	public int listCount(int memberNo) {
+		Connection con = getConnection();
+		
+		int listCount = new ItemDao().listCount(con, memberNo);
+		
+		close(con);
+		
+		return listCount;
 	}
 
 }

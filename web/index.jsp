@@ -133,6 +133,20 @@ td>.content {
 					
 					
 					$("#watch").append(temp);
+					
+					$('td').css('cursor', 'pointer').click(function() {
+						<% if(loginMember == null) { %>
+							alert('로그인을 해야 상세정보을 열람하실 수 있습니다.');
+							location.href="<%= request.getContextPath() %>/views/member/login.jsp";
+						<% } else { %>
+							const memberNo = <%= loginMember.getMemberNo() %>;
+							const auctionId = $(this).children().eq(3).text();
+							const img = $(this).children().eq(4).text();
+							
+							location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&auctionId="+auctionId+"&memberNo="+memberNo;
+						<% } %>
+						
+					});
 				});
 			
 				$.get("<%= request.getContextPath() %>/bagsix.se", function(response) {
@@ -156,7 +170,20 @@ td>.content {
 						temp += "</td>";
 						}
 						
+					$('td').css('cursor', 'pointer').click(function() {
+						<% if(loginMember == null) { %>
+							alert('로그인을 해야 상세정보을 열람하실 수 있습니다.');
+							location.href="<%= request.getContextPath() %>/views/member/login.jsp";
+						<% } else { %>
+							const memberNo = <%= loginMember.getMemberNo() %>;
+							const auctionId = $(this).children().eq(3).text();
+							const img = $(this).children().eq(4).text();
+							
+							location.href="<%= request.getContextPath() %>/watchDetail.wa?img="+img+"&auctionId="+auctionId+"&memberNo="+memberNo;
+						<% } %>
 						
+					});	
+					
 						$("#bag").append(temp);
 				})
 			});
