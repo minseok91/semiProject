@@ -10,12 +10,22 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,  com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*, com.kh.lp.appraisal.model.vo.*" %>
     
 <% HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list"); 
 ArrayList<Attachment> atList = (ArrayList<Attachment>) list.get("attach");
 System.out.println("atList : " + atList );
 Auction au = (Auction) list.get("auction");
+AR1 ar1 = (AR1) list.get("ar1");
+System.out.println("ar1 : " + ar1 );
+Watch w = (Watch) list.get("w");
+System.out.println("w : " + w );
+Bag b = (Bag) list.get("b");
+System.out.println("b : " + b );
+ArrayList<BiddingHistory> bhList  = (ArrayList<BiddingHistory>) list.get("bhList");
+System.out.println("bhList : " + bhList );
+String memberId = (String) list.get("memberId");
+System.out.println("memberId : " + memberId );
 %>
 <!DOCTYPE html>
 <html>
@@ -290,7 +300,7 @@ Auction au = (Auction) list.get("auction");
 						재경매
 						<% } %>
 						</label>
-						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
+						<img id="titleImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
@@ -306,10 +316,10 @@ Auction au = (Auction) list.get("auction");
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label><br>
-						<label id="aucResult">미실행 사유 : 시간초가</label>
+						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %>(감정번호 : <%=ar1.getAr1Id() %>)</label><br>
+						<label id="aucResult">미실행 사유 : 시간초과</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>판매자ID</label>
+						<label>판매자ID : <%=memberId %></label>
 						<button id="appDoc">감정서 보기</button>
 					</div>
 					<div style="width: 638px; height: 100px;">
@@ -320,40 +330,72 @@ Auction au = (Auction) list.get("auction");
 			</span> <!-- part1 End -->
 
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
-			<div id="part2">
-				<div id="detailContent">
-					<label>상품 상세</label>
-					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
-				</div>
-				
-				<div id="goods">
-					<label>상품 정보</label>
-					<table>
-						<tr>
-							<td>보증서 유무</td>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
-						</tr>
-						<tr>
-							<td>시리얼 넘버</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>오리지널 박스 유무</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>케이스 크기</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>재질</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>무브먼트 종류</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-					</table>
+			<div class="goods">
+						<label>상품 정보</label>
+						<table >
+							<tr>
+								<td>브랜드</td>
+								<td><%=ar1.getAr1Brand() %></td>
+							</tr>
+							<tr>
+								<td>모델명</td>
+								<td><%=ar1.getAr1Model() %></td>
+</tr>
+							<tr>
+								<td>감정가</td>
+								<td><%=ar1.getAr1Price() %></td>
+							</tr>
+							<tr>
+								<td>등급</td>
+								<td><%= ar1.getAr1Condition() %></td>
+							</tr>
+						</table>
+					</div>
+					<% if(ar1.getAr1BagDetail() > 0){ %>
+					<div id="bagDetail" class="goods">
+						<label>상품 정보 상세</label>
+							<table>
+								<tr>
+									<td>끈 높이</td>
+									<td><%=b.getBagStrap() %></td>
+								</tr>
+								<tr>
+									<td>사이즈</td>
+									<td><%=b.getBagSize() %></td>
+								</tr>
+								<tr>
+									<td>성별</td>
+									<td><%=b.getGender() %></td>
+								</tr>
+							</table>
+					</div>
+					<% } else{%>
+					<div id="watchDetail" class="goods">
+						<label>상품 정보 상세</label>
+						<table>
+							<tr>
+								<td>보증서 유무</td>
+								<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
+							</tr>
+							<tr>
+								<td>오리지널 박스 유무</td>
+								<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
+							</tr>
+							<tr>
+								<td>재질</td>
+								<td><%=w.getWatchMaterial() %></td>
+							</tr>
+							<tr>
+								<td>무브먼트 종류</td>
+								<td><%=w.getWatchMovement() %></td>
+							</tr>
+							<tr>
+								<td>크로노그래프</td>
+								<td><%=w.getWatchChronograph() %></td>
+							</tr>
+						</table>
+					</div>
+				<% } %>
 				</div>
 			</div> <!-- part2 End -->
 			</div>
@@ -394,6 +436,13 @@ Auction au = (Auction) list.get("auction");
 	 })
 	
 	$(function(){
+		const title = $('#titleImg').attr('src');
+		$('td img').mouseover(function() {
+			$('#titleImg').attr('src', $(this).attr('src'));
+		}).mouseout(function() {
+			$('#titleImg').attr('src', title);
+		});
+		
 		$("#appDoc").click(function(){
 			$('#myModal2').show();
 			

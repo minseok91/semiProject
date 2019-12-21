@@ -10,7 +10,7 @@
  */
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*, com.kh.lp.appraisal.model.vo.*" %>
+    pageEncoding="UTF-8" import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*, com.kh.lp.appraisal.model.vo.*, com.kh.lp.win.model.vo.*" %>
     
 <% HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list"); 
 ArrayList<com.kh.lp.common.Attachment> atList = (ArrayList<com.kh.lp.common.Attachment>) list.get("attach");
@@ -24,6 +24,8 @@ Bag b = (Bag) list.get("b");
 System.out.println("b : " + b );
 ArrayList<BiddingHistory> bhList  = (ArrayList<BiddingHistory>) list.get("bhList");
 System.out.println("bhList : " + bhList );
+Win win = (Win) list.get("win");
+System.out.println("win : " + win );
 %>
 <!DOCTYPE html>
 <html>
@@ -271,7 +273,7 @@ System.out.println("bhList : " + bhList );
 						재경매
 						<% } %>
 						</label>
-						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
+						<img id="titleImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
@@ -287,10 +289,10 @@ System.out.println("bhList : " + bhList );
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label><br>
+						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %>(감정번호 : <%=ar1.getAr1Id() %>)</label><br>
 						<label>재경매까지 남은시간 : 20:00:14</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>판매자ID</label>
+						<label>판매자ID : <%=list.get("memberId") %></label>
 						<button id="appDoc">보증서보기</button>
 					</div>
 					
@@ -304,13 +306,13 @@ System.out.println("bhList : " + bhList );
 								</tr>
 								<tr>
 									<td>1순위</td>
-									<td>yang****</td>
-									<td>1,600,000원</td>
+									<td><%=win.getWinnerName() %></td>
+									<td><%=win.getWinPrice() %>원</td>
 								</tr>
 								<tr>
 									<td>2순위</td>
-									<td>mins***</td>
-									<td>1,520,000원</td>
+									<td><%=win.getWinner2ndName() %></td>
+									<td><%=win.getWinsecondPrice() %>원</td>
 								</tr>
 							</table>
 						</div>
@@ -366,11 +368,11 @@ System.out.println("bhList : " + bhList );
 					<table>
 						<tr>
 							<td>보증서 유무</td>
-							<td><%=w.getWatchGuaranteeYn() %></td>
+							<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
 						</tr>
 						<tr>
 							<td>오리지널 박스 유무</td>
-							<td><%= w.getWatchBoxYn() %></td>
+							<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
 						</tr>
 						<tr>
 							<td>재질</td>
@@ -455,6 +457,8 @@ System.out.println("bhList : " + bhList );
     </div>
         <!--End Modal2-->
 	<script>
+	
+	
 	function close_pop(flag) {
 	      $('#myModal').hide();
 	 };	
@@ -465,6 +469,13 @@ System.out.println("bhList : " + bhList );
 	
 	
 	$(function(){
+		const title = $('#titleImg').attr('src');
+		$('td img').mouseover(function() {
+			$('#titleImg').attr('src', $(this).attr('src'));
+		}).mouseout(function() {
+			$('#titleImg').attr('src', title);
+		});
+		
 		$("#appDoc").click(function(){
 			$('#myModal').show();
 			

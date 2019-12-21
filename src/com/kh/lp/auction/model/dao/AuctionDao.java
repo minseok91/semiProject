@@ -67,8 +67,8 @@ public class AuctionDao {
 				AuctionList al = new AuctionList();
 				al.setAuctionCount(rset.getInt("AUCTION_COUNT"));
 				al.setAuctionId(rset.getInt("AUCTION_ID"));
-				al.setAuctionType(rset.getString("AUCTION_TYPE"));
-				
+				al.setAuctionType(rset.getString("AUCTION_STATUS"));
+				al.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 //				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
 //				au.setAuctionId(rset.getInt("AUCTION_ID"));
 //				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
@@ -213,6 +213,7 @@ public class AuctionDao {
 			AR1 ar1 = new AR1();
 			Watch w = new Watch();
 			Bag b = new Bag();
+			Member m = new Member();
 			while(rset.next()) {
 				Attachment at = new Attachment();
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
@@ -249,8 +250,14 @@ public class AuctionDao {
 				b.setBagStrap(rset.getString("BAG_STRAP"));
 				b.setGender(rset.getString("BAG_GENDER"));
 				
+				m.setMemberName(rset.getString("MEMBER_ID"));
+						
+						
+				
+				
 			
 			}
+			list.put("memberId", m.getMemberName());
 			list.put("b", b);
 			list.put("w", w);
 			list.put("ar1", ar1);
@@ -388,10 +395,13 @@ public class AuctionDao {
 			AR1 ar1 = new AR1();
 			Watch w = new Watch();
 			Bag b = new Bag();
+			Win win = new Win();
+			String memberId = "";
 			while(rset.next()) {
 				Attachment at = new Attachment();
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				atList.add(at);
+				
 				
 				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 				au.setAuctionAppDate(rset.getDate("AUCTION_APP_DATE"));
@@ -424,8 +434,19 @@ public class AuctionDao {
 				b.setBagStrap(rset.getString("BAG_STRAP"));
 				b.setGender(rset.getString("BAG_GENDER"));
 				
+				win.setWinsecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				win.setWinPrice(rset.getInt("WIN_PRICE"));
+				win.setWinnerName(rset.getString("WINNER"));
+				win.setWinner2ndName(rset.getString("2ND"));
+				win.setWinAuctionId(rset.getInt("WIN_AUCTION_ID"));
+				win.setWinStatus(rset.getString("WIN_STATUS"));
+				
+				memberId = rset.getString("MEMBER_ID");
+				
 			
 			}
+			list.put("memberId", memberId);
+			list.put("win", win);
 			list.put("b", b);
 			list.put("w", w);
 			list.put("ar1", ar1);
@@ -540,8 +561,9 @@ public class AuctionDao {
 			selectedClosedAuctionIds = new ArrayList<>();
 			
 			while(rset.next()) {
-				selectedClosedAuctionIds.add(rset.getInt("AUCTION_ID"));
+				selectedClosedAuctionIds.add(rset.getInt(1));
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -558,13 +580,13 @@ public class AuctionDao {
 	 * @param
 	 * @return
 	 */
-	public ArrayList<ClosedAuction> selectClosedAuctionList(Connection con, int memberClosedAuctionIds, int currentPage,
+	public ArrayList<ClosedAuction> selectClosedAuctionList(Connection con, int loginMemberNo, int currentPage,
 			int limit) {
 		
 		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ClosedAuction cAu = null;
+		ClosedAuction cau = null;
 		
 		//현재  페이지에서의 리스트 시작번호
 		int startRow = (currentPage -1) * limit + 1;
@@ -574,11 +596,130 @@ public class AuctionDao {
 		
 		String query = prop.getProperty("selectMemberClosedAuctionList");
 		
-		
-		
-		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			selectedClosedAuctionList = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				cau = new ClosedAuction();
+				
+				cau.setAuctionId(rset.getInt("AUCTION_ID"));
+				cau.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				cau.setAr1Brand(rset.getString("AR1_BRAND"));
+				cau.setAr1Model(rset.getString("AR1_MODEL"));
+				cau.setWinPrice(rset.getInt("WIN_PRICE"));
+				cau.setWinSecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				cau.setMoneyStatus(rset.getString("MONEY_STATUS"));
+//				cau.setMoneyStatus(rset.getString("MONEY_STATUS"));
+				
+				//WIN 테이블에서의 WIN_STATUS에 따라 띄워줘야하는 현재가격이 달라짐
+				int winStatus = 99;
+				winStatus = rset.getInt("WIN_STATUS");
+				
+				if(winStatus==0) {
+					cau.setCurrentPrice(0);
+				}else if(winStatus==1) {
+					cau.setCurrentPrice(cau.getWinPrice());
+				}else if(winStatus==2) {
+					cau.setCurrentPrice(cau.getWinSecondPrice());
+				}
+				
+				
+				selectedClosedAuctionList.add(cau);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
 
 		return selectedClosedAuctionList;
+		
+	}
+
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 21
+	 * @ModifyDate    : 2019. 12. 22
+	 * @Description   : 현재 로그인된 회원의 마감된 경매 갯수를 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public int memberClosedAuctionCount(Connection con, int loginMemberNo) {
+		
+		int memberClosedAuctionCount=0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("memberClosedAuctionCount");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				memberClosedAuctionCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return memberClosedAuctionCount;
+		
+	}
+
+	public Win getWinner(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		Win winner = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getWinner");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				winner.setWinPrice(rset.getInt(""));
+				winner.setWinnerName(rset.getString(""));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return winner;
 	}
 
 
@@ -704,7 +845,6 @@ public class AuctionDao {
 		return result;
 	}
 }
-
 
 
 
