@@ -273,7 +273,7 @@ System.out.println("memberId : " + memberId );
 							재경매
 						<% } %>
 						</label>
-						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
+						<img id="titleImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
@@ -289,7 +289,7 @@ System.out.println("memberId : " + memberId );
 				</span> <!-- imgBox End -->
 				<span class="contents">
 					<div id="head">
-						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %> (442622)</label><br>
+						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %> (감정번호 : <%=ar1.getAr1Id() %>)</label><br>
 						<label>경매 남은시간 : 20:00:14</label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<label>판매자 ID : <%=memberId %></label>
@@ -404,11 +404,11 @@ System.out.println("memberId : " + memberId );
 					<table>
 						<tr>
 							<td>보증서 유무</td>
-							<td><%=w.getWatchGuaranteeYn() %></td>
+							<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
 						</tr>
 						<tr>
 							<td>오리지널 박스 유무</td>
-							<td><%= w.getWatchBoxYn() %></td>
+							<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
 						</tr>
 						<tr>
 							<td>재질</td>
@@ -577,6 +577,13 @@ System.out.println("memberId : " + memberId );
 	
 	
 	$(function(){
+		const title = $('#titleImg').attr('src');
+		$('td img').mouseover(function() {
+			$('#titleImg').attr('src', $(this).attr('src'));
+		}).mouseout(function() {
+			$('#titleImg').attr('src', title);
+		});
+		
 		$("#appDoc").click(function(){
 			$('#myModal').show();
 			

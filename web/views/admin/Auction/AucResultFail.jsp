@@ -263,7 +263,7 @@ Auction au = (Auction) list.get("auction");
 						재경매
 						<% } %>
 						</label>
-						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
+						<img id="titleImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
@@ -371,13 +371,15 @@ Auction au = (Auction) list.get("auction");
 	
 	
 	$(function(){
+		const title = $('#titleImg').attr('src');
+		$('td img').mouseover(function() {
+			$('#titleImg').attr('src', $(this).attr('src'));
+		}).mouseout(function() {
+			$('#titleImg').attr('src', title);
+		});
+		
 		$("#appDoc").click(function(){
 			$('#myModal').show();
-			
-			/* var url = "FAQList.jsp";
-            var name = "popup test";
-            var option = "width = 500, height = 500, top = 100, left = 200, location = no"
-            window.open(url, name, option); */
 		})	
 	})
 	

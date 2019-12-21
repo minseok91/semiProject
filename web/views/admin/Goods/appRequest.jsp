@@ -204,7 +204,7 @@
 								<td><%= i.getItemId() %></td>
 								<td><%= i.getItemId() %></td>
 								<td><%= i.getItemType().equals("W")?"시계" :"가방" %></td>
-								<td><%= i.getItemMemberNo() %></td>
+								<td><%= i.getMemberId() %></td>
 								<td><%= i.getItemAppDate() %></td>
 								<td>받은 날짜 불러오기</td>
 								<td>받은 날짜 + 7일</td>

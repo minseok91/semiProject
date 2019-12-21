@@ -14,5 +14,6 @@ public class AuctionList {
 	private int auctionId;
 	private String auctionType;
 	private int auctionCount;
+	private int auctionAr1Id;
 
 }

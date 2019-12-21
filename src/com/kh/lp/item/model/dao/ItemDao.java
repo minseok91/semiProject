@@ -96,6 +96,8 @@ public class ItemDao {
 //				item.setItemPurDate(rset.getDate("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 //				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
+				item.setMemberId(rset.getString("MEMBER_ID"));
+				
 				
 				list.add(item);
 				
