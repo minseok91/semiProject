@@ -26,12 +26,13 @@ public class ClosedAuction {
 	private String attachmentRename;
 	private String ar1Brand;
 	private String ar1Model;
-	private String winStatus;
+	private int winStatus;
 	private int winPrice;
 	private int winSecondPrice;
 	private int currentPrice;
 	private String auctionHistoryType;
 	private int auctionCount;
+	private String moneyStatus;
 	
 }
 

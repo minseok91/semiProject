@@ -518,8 +518,9 @@ public class AuctionDao {
 			selectedClosedAuctionIds = new ArrayList<>();
 			
 			while(rset.next()) {
-				selectedClosedAuctionIds.add(rset.getInt("AUCTION_ID"));
+				selectedClosedAuctionIds.add(rset.getInt(1));
 			}
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -536,13 +537,13 @@ public class AuctionDao {
 	 * @param
 	 * @return
 	 */
-	public ArrayList<ClosedAuction> selectClosedAuctionList(Connection con, int memberClosedAuctionIds, int currentPage,
+	public ArrayList<ClosedAuction> selectClosedAuctionList(Connection con, int loginMemberNo, int currentPage,
 			int limit) {
 		
 		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ClosedAuction cAu = null;
+		ClosedAuction cau = null;
 		
 		//현재  페이지에서의 리스트 시작번호
 		int startRow = (currentPage -1) * limit + 1;
@@ -552,14 +553,102 @@ public class AuctionDao {
 		
 		String query = prop.getProperty("selectMemberClosedAuctionList");
 		
-		
-		
-		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			selectedClosedAuctionList = new ArrayList<>();
+			
+			while(rset.next()) {
+				
+				cau = new ClosedAuction();
+				
+				cau.setAuctionId(rset.getInt("AUCTION_ID"));
+				cau.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				cau.setAr1Brand(rset.getString("AR1_BRAND"));
+				cau.setAr1Model(rset.getString("AR1_MODEL"));
+				cau.setWinPrice(rset.getInt("WIN_PRICE"));
+				cau.setWinSecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				cau.setMoneyStatus(rset.getString("MONEY_STATUS"));
+//				cau.setMoneyStatus(rset.getString("MONEY_STATUS"));
+				
+				//WIN 테이블에서의 WIN_STATUS에 따라 띄워줘야하는 현재가격이 달라짐
+				int winStatus = 99;
+				winStatus = rset.getInt("WIN_STATUS");
+				
+				if(winStatus==0) {
+					cau.setCurrentPrice(0);
+				}else if(winStatus==1) {
+					cau.setCurrentPrice(cau.getWinPrice());
+				}else if(winStatus==2) {
+					cau.setCurrentPrice(cau.getWinSecondPrice());
+				}
+				
+				
+				selectedClosedAuctionList.add(cau);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
 
 		return selectedClosedAuctionList;
+		
 	}
-}
 
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 21
+	 * @ModifyDate    : 2019. 12. 22
+	 * @Description   : 현재 로그인된 회원의 마감된 경매 갯수를 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public int memberClosedAuctionCount(Connection con, int loginMemberNo) {
+		
+		int memberClosedAuctionCount=0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("memberClosedAuctionCount");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				memberClosedAuctionCount = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		
+		return memberClosedAuctionCount;
+		
+	}
+	
+}
 
 
 
