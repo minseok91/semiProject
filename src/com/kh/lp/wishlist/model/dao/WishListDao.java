@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.wishlist.model.vo.WishList;
 
-
+import static com.kh.lp.common.JDBCTemplate.*;
 
 public class WishListDao {
 
@@ -27,33 +28,137 @@ public class WishListDao {
 		}
 	}
 
+	
+	
 	/**
 	 * @Author         : 오수민
-	 * @CreateDate    : 2019. 12. 19
-	 * @ModifyDate    : 2019. 12. 19
-	 * @Description   :  로그인되어있는 유저가 등록해놓은 위시리스트를 불러오는 메소드
+	 * @CreateDate    : 2019. 12. 20
+	 * @ModifyDate    : 2019. 12. 20
+	 * @Description   :  로그인된 유저가 관심상품 등록한 목록 WISHLIST 테이블에서 WISHLIST_AUCTION_ID값 가져와서 ArrayList<Integer>에 담기
 	 * @param
 	 * @return
 	 */
-	public ArrayList<WishList> selectMemberWishList(Connection con, int loginMemberNo, String view) {
-		ArrayList<WishList> selectedMemberWishList = null;
+	
+	public ArrayList<Integer> selectMemberAuctionId(Connection con, int loginMemberNo, String selectedView) {
+		
+		ArrayList<Integer> selectedMemberAuctionId = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query1 = prop.getProperty("selectMemberWishList");
-		String query2 = prop.getProperty("eachCurrentPrice");
+		String query = prop.getProperty(selectedView + "AuctionIds");
 		
-		//로그인된 유저가 등록해놓은 위시리스트 가져오기(입찰가격 빼고)
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();	
+			
+			selectedMemberAuctionId = new ArrayList<>();
+			
+			while(rset.next()) {
+				selectedMemberAuctionId.add(rset.getInt(1));
+			}
+			
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
 		
 		
-		
-		//로그인된 유저가 등록해놓은 위시리스트 각각 입찰최고가 가져오기
-		
-		
-		
-		
-		return selectedMemberWishList;
+		return selectedMemberAuctionId;
 	}
+
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 20
+	 * @ModifyDate    : 2019. 12. 20
+	 * @Description   :  로그인된 유저가 관심상품 등록한 목록 WISHLIST 테이블에서 WISHLIST_AUCTION_ID값 가져와서 ArrayList<Integer>에 담기
+	 * @param
+	 * @return
+	 */
+
+	public WishList selectEachInfo(Connection con, int memberAuctionIds) {
+		
+		WishList selectedEachInfo = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectMemberWishList");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberAuctionIds);
+			
+			rset = pstmt.executeQuery();
+			
+			selectedEachInfo = new WishList();
+			
+			if(rset.next()) {
+				selectedEachInfo.setAuctionId(memberAuctionIds);
+				selectedEachInfo.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				selectedEachInfo.setAr1Brand(rset.getString("AR1_BRAND"));
+				selectedEachInfo.setAr1Model(rset.getString("AR1_MODEL"));
+				selectedEachInfo.setAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				selectedEachInfo.setAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return selectedEachInfo;
+	}
+
+
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 20
+	 * @ModifyDate    : 2019. 12. 20
+	 * @Description   : 받아온 WISHLIST_AUCTION_ID 상품에 대한 현재 최고입찰가격 정보를 리턴하는 메소드
+	 * @param
+	 * @return
+	 */
+	public int getEachCurrentPrice(Connection con, int memberAuctionIds) {
+		
+		int eachCurrentPrice = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("eachCurrentPrice");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, memberAuctionIds);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				eachCurrentPrice = rset.getInt(1);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rset);
+		}
+		
+		return eachCurrentPrice;
+	}
+	
+	
 
 }
 

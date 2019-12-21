@@ -97,8 +97,10 @@ public class ClosedMemberAuctionListServlet extends HttpServlet {
 		log.debug("경매마감된 판매상품id들 : " + memberClosedAuctionIds);
 		
 		//해당 페이지에 들어갈  리스트 5개를 담아올 서비스 메소드 호출
-		ArrayList<ClosedAuction> memberClosedAuctionList = new AuctionService().memberClosedAuctionList(loginMemberNo, currentPage, limit);
+		ArrayList<ClosedAuction> memberClosedAuctionList = new AuctionService().memberClosedAuctionList(memberClosedAuctionIds, currentPage, limit);
 
+		
+		System.out.println("memberClosedAuctionList : " + memberClosedAuctionList);
 
 
 		String page = "";

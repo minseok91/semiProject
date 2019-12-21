@@ -31,22 +31,43 @@ public class WishListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int loginMemberNo = Integer.parseInt(request.getParameter("loginMemberNo"));
-		String selected = request.getParameter("selected");
-		String view = "";
-		ArrayList<WishList> memberWishList = null;
 		
+		//로그인된 유저의 MEMBER_ID 받아서 인트 변수에 담기
+		int loginMemberNo = Integer.parseInt(request.getParameter("loginMemberNo"));
+		
+		
+		//검색 종류(전체/시계/가방)를 스트링 변수에 담기
+		String selected = request.getParameter("selected");
+		String selectedView = "";
 		
 		switch(selected) {
-		case "viewAll" : view = "all"; break;
-		case "viewWatches" : view = "W"; break;
-		case "viewBags" : view = "B"; break;
+		case "viewAll" : selectedView = "all"; break;
+		case "viewWatches" : selectedView = "watch"; break;
+		case "viewBags" : selectedView= "bag"; break;
 		}
 		
-		memberWishList = new WishListService().getMemberWishList(loginMemberNo, view);
+		
+		//로그인된 유저가 관심상품 등록한 목록 WISHLIST 테이블에서 selectedView값(전체/시계/가방)에 대한 WISHLIST_AUCTION_ID값 가져와서 ArrayList<Integer>에 담기
+		ArrayList<Integer> memberAuctionIds = new WishListService().getMemberAuctionId(loginMemberNo, selectedView);
+		System.out.println(selectedView+"에 대한 memberAuctionIds : " + memberAuctionIds);
+		
+		
+		//위에서 받아온 memberAuctionId에 해당하는 위시리스트 중 view값에 해당하는 리스트를  담아올 서비스 메소드로 이동
+		ArrayList<WishList> memberWishList = new WishListService().getMemberWishList(memberAuctionIds);
+		System.out.println("memberWishList 정보 : " + memberWishList);
+		
+		
+		
+		
+		
+		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		new Gson().toJson(memberWishList,response.getWriter());
+		
+		
+		
+		
 		
 	}
 

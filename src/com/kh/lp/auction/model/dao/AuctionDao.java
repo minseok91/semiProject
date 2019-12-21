@@ -19,6 +19,7 @@ import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.auction.model.vo.BiddingHistory;
+import com.kh.lp.auction.model.vo.ClosedAuction;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 import com.kh.lp.member.model.vo.Member;
@@ -525,6 +526,37 @@ public class AuctionDao {
 		}
 		
 		return selectedClosedAuctionIds;
+	}
+
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 19
+	 * @ModifyDate    : 2019. 12. 19
+	 * @Description   : 현재 로그인 되어있는 유저가 판매중인 경매마감상품 리스트 중 현재 페이지에 해당하는 리스트 5개 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	public ArrayList<ClosedAuction> selectClosedAuctionList(Connection con, int memberClosedAuctionIds, int currentPage,
+			int limit) {
+		
+		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ClosedAuction cAu = null;
+		
+		//현재  페이지에서의 리스트 시작번호
+		int startRow = (currentPage -1) * limit + 1;
+		//현재 페이지에서의 리스트 마지막번호
+		int endRow = (startRow + limit -1);
+		
+		
+		String query = prop.getProperty("selectMemberClosedAuctionList");
+		
+		
+		
+		
+
+		return selectedClosedAuctionList;
 	}
 }
 
