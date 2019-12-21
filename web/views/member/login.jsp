@@ -144,7 +144,7 @@ input[type=submit] {
 				<div id="research">
 					<div>
 						<label>회원 아이디를 잊으셨나요?</label>
-						<button onclick="fintId()">아이디 찾기</button>
+						<button onclick="findId()">아이디 찾기</button>
 					</div>
 					<div>
 						<label>비밀번호를 잊으셨나요?</label>

@@ -35,7 +35,6 @@ public class BagDetailServlet extends HttpServlet {
 		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		String img = request.getParameter("img");
 		ArrayList<Bid> list = new BidService().selectItemDetail(auctionId);
-		ArrayList<Bid> bidList = new BidService().selectListBidUser(auctionId);
 		Bag bag = new BidService().selectBagInfo(auctionId);
 		
 		String page = "";
@@ -43,7 +42,6 @@ public class BagDetailServlet extends HttpServlet {
 		if(list != null) {
 			page = "views/goods/bagDetail.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("bidList", bidList);
 			request.setAttribute("img", img);
 			request.setAttribute("auctionId", auctionId);
 			request.setAttribute("bag", bag);

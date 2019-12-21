@@ -128,28 +128,28 @@
     	font-weight: 100;
 	}
 	
-	#biddingUsers {
+#biddingUsers {
     	position: relative;
    		margin-top: 59px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th {
+	#biddingUsers>table>thead>tr>th {
 		background: #f2f2f2;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(1) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(1) {
 		width: 150px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(2) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(2) {
 		width: 200px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th:nth-of-type(3) {
+	#biddingUsers>table>thead>tr>th:nth-of-type(3) {
 		width: 100px;
 	}
 	
-	#biddingUsers>table>tbody>tr>th, #biddingUsers>table>tbody>tr>td {
+	#biddingUsers>table>thead>tr>th, #biddingUsers>table>tbody>tr>td {
 		border: 1px solid #d9d9d9;
 		padding: 5px;
 		font-size: 15px;
@@ -288,7 +288,7 @@
 						</div>
 						<div id="biddingUsers">
 						<label>입찰 이력</label>
-								<table>
+								<table id="tableBiddingArea">
 								</table>
 						</div>
 					</span> <!-- contents End -->
@@ -349,25 +349,58 @@
 				$('#title').attr('src', title);
 			});
 			
-			let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+			// 입찰이력불러오기 관련 ajax
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectBidUser.se",
+				type: "post",
+				data: {
+					auctionId: <%= auctionId %>,
+				},
+				success: function(data) {
+					const arr = data.split("#");
+					console.log(data);
+					
+					let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
+					for(i in arr) {
+						var arr2 = arr[i].split("::");
+						temp += "<tr>";
+						
+						for(j in arr2){
+							if(j == 0)
+								temp += "<td>"+ arr2[j] +"</td>";
+							else if(j == 1) 
+								temp += "<td>"+ arr2[j] +"</td>";
+							else if(j == 2)
+								temp += "<td>"+ arr2[j] +"</td>";
+						}
+						
+						temp += "</tr>";
+					}
+
+					temp+="</tbody>";
+					$("#tableBiddingArea").append(temp);
+					
+					// 입찰리스트에서 최댓값 추출
+					let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(1).text();
+					console.log($('#maxPrice').text());
+					$('#maxPrice').text(numberFormat(maxPrice)+'원');
+					
+					// 최댓값기준 입찰단위
+					let unit = maxPrice*0.05;
+					$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+					
+					// 최소입찰금액
+					let minPrice = maxPrice*1.05;
+					$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+				},
+				error: function(data) {
+					console.log('실패');
+				}
+			})
 			
-			<% for(Bid b : bagBiddingUser) { %>
-				temp+="<tr><td><%= b.getBidUserId() %></td><td>"+numberFormat(<%= b.getBidPrice() %>)+"</td><td hidden><%= b.getBidPrice() %></td><td><%= b.getBidAuctionStartTime() %></td></tr>"
-			<% } %>
-				temp+="</tbody>";
-				$("#biddingUsers > table").append(temp);
-				
-			// 입찰리스트에서 최댓값 추출
-			let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(2).text();
-			$('#maxPrice').text(numberFormat(maxPrice)+'원');
-			
-			// 최댓값기준 입찰단위
-			let unit = maxPrice*0.05;
-			$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
-			
-			// 최소입찰금액
-			let minPrice = maxPrice*1.05;
-			$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+			function numberFormat(inputNumber) {
+				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
 			
 			// 위시리스트 추가
 			$('#wish').click(function() {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 
+import com.kh.lp.admin.board.model.vo.Board;
 import com.kh.lp.appraisal.model.vo.Bag;
 import com.kh.lp.appraisal.model.vo.Watch;
 import com.kh.lp.bidding.model.vo.Bid;
@@ -37,44 +38,44 @@ public class BidDao {
 	}
 
 	// 시계리스트 추출(페이징 아님)
-	public ArrayList<Bid> watchSelectList(Connection con) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		ArrayList<Bid> list = null;
-		
-		String query = prop.getProperty("selectWatchList");
-		
-		try {
-			stmt = con.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			list = new ArrayList<>();
-			
-			while(rset.next()) {
-				Bid b = new Bid();
-				
-				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
-				b.setBidId(rset.getInt("BIDDING_ID"));
-				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
-				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
-				b.setBidBrand(rset.getString("AR1_BRAND"));
-				b.setBidModel(rset.getString("AR1_MODEL"));
-				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
-				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
-				
-				list.add(b);
-			}
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return list;
-	}
+//	public ArrayList<Bid> watchSelectList(Connection con) {
+//		Statement stmt = null;
+//		ResultSet rset = null;
+//		ArrayList<Bid> list = null;
+//		
+//		String query = prop.getProperty("selectWatchList");
+//		
+//		try {
+//			stmt = con.createStatement();
+//			rset = stmt.executeQuery(query);
+//			
+//			list = new ArrayList<>();
+//			
+//			while(rset.next()) {
+//				Bid b = new Bid();
+//				
+//				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+//				b.setBidId(rset.getInt("BIDDING_ID"));
+//				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+//				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+//				b.setBidBrand(rset.getString("AR1_BRAND"));
+//				b.setBidModel(rset.getString("AR1_MODEL"));
+//				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+//				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+//				
+//				list.add(b);
+//			}
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(stmt);
+//		}
+//		
+//		return list;
+//	}
 
 	public ArrayList<Bid> selectItemDetail(Connection con, int num) {
 		PreparedStatement pstmt = null;
@@ -279,36 +280,6 @@ public class BidDao {
 		
 		
 		return maxBiddingPrice;
-	}
-
-	// 횟수확인
-	public int checkWish(Connection con, Bid b) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result = 0;
-		
-		String query = prop.getProperty("checkWish");
-		
-		try {
-			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, b.getBidAuctionId());
-			pstmt.setInt(2, b.getBidMemberNo());
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) 
-				result=rset.getInt(1); // COUNT값 가져옴
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		log.debug(result);
-		
-		return result;
 	}
 
 	// 필터처리 후 데이터 삽입
@@ -610,7 +581,7 @@ public class BidDao {
 		ResultSet rset = null;
 		ArrayList<Bid> list = null;
 		
-		String query = prop.getProperty("selectSixBagList");
+		String query = prop.getProperty("selectSixWatchList");
 		
 		try {
 			stmt = con.createStatement();
@@ -650,7 +621,7 @@ public class BidDao {
 		ResultSet rset = null;
 		ArrayList<Bid> list = null;
 		
-		String query = prop.getProperty("selectSixWatchList");
+		String query = prop.getProperty("selectSixBagList");
 		
 		try {
 			stmt = con.createStatement();
@@ -682,6 +653,77 @@ public class BidDao {
 		}
 		
 		return list;
+	}
+
+	// 시계상품불러오기(페이징.ver)
+	public ArrayList<Bid> watchSelectList(Connection con, int currentPage, int limit) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Bid> list = null;
+		
+		String query = prop.getProperty("selectWatchList");
+		
+		int startRow = (currentPage - 1) * limit + 1;
+		int endRow =  startRow + limit -1;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Bid>();
+			
+			while(rset.next()) {
+				Bid b = new Bid();
+				
+				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
+				b.setBidId(rset.getInt("BIDDING_ID"));
+				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
+				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
+				b.setBidBrand(rset.getString("AR1_BRAND"));
+				b.setBidModel(rset.getString("AR1_MODEL"));
+				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
+				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				
+				list.add(b);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int listCount(Connection con) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("listCount");
+		
+		try {
+			stmt = con.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+			close(rset);
+		}
+		
+		return result;
 	}
 }
 

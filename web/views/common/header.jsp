@@ -90,7 +90,7 @@
                 	100% Authenticity Guaranteed
             	</p>
 				<p id="logo" style="display: inline-block; margin-bottom: 10px;">
-					<a href="<%=request.getContextPath() %>"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
+					<a href="<%=request.getContextPath() %>/index.jsp"><img src="<%= request.getContextPath() %>/img/LauXion_logo.png" alt="" id="logo"></a>
 				</p>
 				<p id="headerlogin" style="display: inline-block;">
 					<% if(loginMember == null) { %>
