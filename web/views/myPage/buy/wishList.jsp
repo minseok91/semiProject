@@ -254,7 +254,7 @@ td>.content {
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a id=selectMenu value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a id=selectMenu value="../../wishList.wi">▶   위시리스트</a></dd>
 				<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
@@ -290,7 +290,7 @@ td>.content {
 				<button id="wishDelete">위시리스트 삭제</button>
 				
 				<select id="viewOptions" name="viewOptions">
-					<option value="viewAll" >전체</option>
+					<option value="viewAll" selected >전체</option>
 					<option value="viewWatches">시계</option>
 					<option value="viewBags">가방</option>
 				</select>

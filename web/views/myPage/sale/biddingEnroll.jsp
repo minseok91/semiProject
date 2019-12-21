@@ -195,7 +195,7 @@ input[type=date] {
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
 				<dt>§  구매정보</dt>
-				<dd><a value="buy/wishList">▶   위시리스트</a></dd>
+				<dd><a value="../../wishList.wi">▶   위시리스트</a></dd>
 				<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
 				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
 				
