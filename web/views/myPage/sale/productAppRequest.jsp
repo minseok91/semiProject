@@ -199,8 +199,11 @@ Upload images from <strong class="txtocher">SELECT FILE</strong> on the upload p
 					<p class="titArea">판매개시를 하면 출품작업은 완료됩니다.</p>
 					<p class="exArea">
 					[판매 시작]을 클릭해 고객님의 상품 출품 등록을 완료해주세요. 출품이 완료되면 경매가 시작됩니다. 경매가 끝날 때까지 기다려주세요.					</p>
-
+	
+	
+	
 					<button id="pay" class="btn btn-contens">판매 시작</button>
+					<p class="btnArea"><a href="productRegist.jsp" class="btn btn_contens">판매시작</a></p>
 				</div>
 				<div class="imgArea"><img src="/image/tp2/users-guide/sell/en/start_selling_640.jpg" width="350" height="350" class="bLine" alt="판매개시를 하면 출품작업은 완료됩니다."></div>
 			
@@ -219,39 +222,6 @@ Upload images from <strong class="txtocher">SELECT FILE</strong> on the upload p
 
 	<script>
 		$(function() {
-			var IMP = window.IMP; // 생략가능
-			IMP.init('imp39236513'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
-
-			$('#pay').click(function() {
-				IMP.request_pay({
-					pg : 'inicis', // version 1.1.0부터 지원.
-					pay_method : 'card',
-					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : '<%= loginMember.getMemberId() %>', // 감정결제 : MT1, 낙찰결제 : MT3
-					amount : 500,
-					buyer_email : '<%=loginMember.getMemberEmail()%>',
-					buyer_name : '<%=loginMember.getMemberName()%>',
-					buyer_tel : '<%=loginMember.getMemberPhone()%>',
-				}, function(rsp) {
-					if ( rsp.success ) {
-						var msg = '결제가 완료되었습니다.';
-						const impId = rsp.imp_uid; // 고유ID
-						const merId = rsp.merchant_uid; //상점 거래ID
-						const amount = rsp.paid_amount; //결제 금액
-						const applyNum = rsp.apply_num; //카드 승인번호
-						const method = rsp.pay_method; //결제 수단
-						const status = rsp.status; // 상태
-						const address = rsp.buyer_addr;
-						
-						
- 						const URL = "<%=request.getContextPath()%>/appmoney.in?impId="+ impId + "&merId="+merId+"&amount="+amount+"&memberNo=<%= loginMember.getMemberNo() %>";
-						console.log(URL);
-						location.href=URL; 
-					} else {
-						alert('결제가 취소되었습니다.');
-					}
-				});
-			})
 			
 			$('a').click(function() {
 				let values=$(this).attr('value');

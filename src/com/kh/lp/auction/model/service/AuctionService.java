@@ -14,9 +14,8 @@ import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.auction.model.vo.BiddingHistory;
 import com.kh.lp.auction.model.vo.ClosedAuction;
-import com.kh.lp.bidding.model.dao.BidDao;
-import com.kh.lp.bidding.model.vo.BiddingList;
 import com.kh.lp.member.model.vo.Member;
+import com.kh.lp.win.model.vo.Win;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -118,13 +117,10 @@ Connection con = getConnection();
 		
 		System.out.println("입찰이력 : " + bhList);
 		HashMap<String, Object> list = new AuctionDao().selectOneBid(con, appId);
-//		if(isWatch) {
-//			//시계일때
-//			list = new AuctionDao().selectOne(con, appId);
-//		} else {
-//			//가방일때
-//			list = new AuctionDao().selectOne(con, appId);
-//		}
+		//낙찰자 정보 가져오기
+		//Win winner = new AuctionDao().getWinner(con, appId);
+		//후순위 낙찰자 정보 가져오기
+		//Win 2ndWinner = new AuctionDao().get2ndWinner(con, appId);
 		list.put("memberId", memberId.getMemberId());
 		list.put("bhList", bhList);
 		

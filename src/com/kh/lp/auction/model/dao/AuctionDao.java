@@ -23,6 +23,7 @@ import com.kh.lp.auction.model.vo.ClosedAuction;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
 import com.kh.lp.member.model.vo.Member;
+import com.kh.lp.win.model.vo.Win;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -66,8 +67,8 @@ public class AuctionDao {
 				AuctionList al = new AuctionList();
 				al.setAuctionCount(rset.getInt("AUCTION_COUNT"));
 				al.setAuctionId(rset.getInt("AUCTION_ID"));
-				al.setAuctionType(rset.getString("AUCTION_TYPE"));
-				
+				al.setAuctionType(rset.getString("AUCTION_STATUS"));
+				al.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 //				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
 //				au.setAuctionId(rset.getInt("AUCTION_ID"));
 //				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
@@ -191,6 +192,7 @@ public class AuctionDao {
 			AR1 ar1 = new AR1();
 			Watch w = new Watch();
 			Bag b = new Bag();
+			Member m = new Member();
 			while(rset.next()) {
 				Attachment at = new Attachment();
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
@@ -227,8 +229,14 @@ public class AuctionDao {
 				b.setBagStrap(rset.getString("BAG_STRAP"));
 				b.setGender(rset.getString("BAG_GENDER"));
 				
+				m.setMemberName(rset.getString("MEMBER_ID"));
+						
+						
+				
+				
 			
 			}
+			list.put("memberId", m.getMemberName());
 			list.put("b", b);
 			list.put("w", w);
 			list.put("ar1", ar1);
@@ -366,10 +374,13 @@ public class AuctionDao {
 			AR1 ar1 = new AR1();
 			Watch w = new Watch();
 			Bag b = new Bag();
+			Win win = new Win();
+			String memberId = "";
 			while(rset.next()) {
 				Attachment at = new Attachment();
 				at.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				atList.add(at);
+				
 				
 				au.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
 				au.setAuctionAppDate(rset.getDate("AUCTION_APP_DATE"));
@@ -402,8 +413,19 @@ public class AuctionDao {
 				b.setBagStrap(rset.getString("BAG_STRAP"));
 				b.setGender(rset.getString("BAG_GENDER"));
 				
+				win.setWinsecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				win.setWinPrice(rset.getInt("WIN_PRICE"));
+				win.setWinnerName(rset.getString("WINNER"));
+				win.setWinner2ndName(rset.getString("2ND"));
+				win.setWinAuctionId(rset.getInt("WIN_AUCTION_ID"));
+				win.setWinStatus(rset.getString("WIN_STATUS"));
+				
+				memberId = rset.getString("MEMBER_ID");
+				
 			
 			}
+			list.put("memberId", memberId);
+			list.put("win", win);
 			list.put("b", b);
 			list.put("w", w);
 			list.put("ar1", ar1);
@@ -647,7 +669,37 @@ public class AuctionDao {
 		return memberClosedAuctionCount;
 		
 	}
-	
+
+	public Win getWinner(Connection con, String appId) {
+		PreparedStatement pstmt = null;
+		Win winner = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("getWinner");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(appId));
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				winner.setWinPrice(rset.getInt(""));
+				winner.setWinnerName(rset.getString(""));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		return winner;
+	}
 }
 
 
