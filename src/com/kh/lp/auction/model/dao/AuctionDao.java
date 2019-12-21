@@ -170,10 +170,31 @@ public class AuctionDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
-  
+	
+	public int insertEndAuctionHistory(Connection con, Auction requestAuction, String typeCode) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertEndAuctionHistory");
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, typeCode);
+			pstmt.setInt(2, requestAuction.getAuctionId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public HashMap<String, Object> selectOne(Connection con, String appId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -699,6 +720,129 @@ public class AuctionDao {
 		
 		
 		return winner;
+	}
+
+
+	public ArrayList<ArrayList<Object>> serverSelectList(Connection con) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ArrayList<Object>> list = null;
+		Auction ac = null;
+		Member m = null;
+		String query = prop.getProperty("serverSelectList");
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				ArrayList<Object> list2 = new ArrayList<>();
+				
+				ac = new Auction();
+				m = new Member();
+				ac.setAuctionId(rset.getInt(1));
+				ac.setAuctionStartPrice(rset.getInt(2));
+				m.setMemberId(rset.getString(3));
+				ac.setAuctionPeriod(rset.getInt(4));
+				
+				list2.add(ac);
+				list2.add(m);
+				
+				list.add(list2);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+
+	public int failAuction(Connection con, Auction requestAuction) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("failAuction");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int winAuction(Connection con, Auction requestAuction) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("winAuction");
+		int result = 0;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public ArrayList<Win> selectWinner(Connection con, Auction requestAuction) {
+		PreparedStatement pstmt = null;
+		String query = prop.getProperty("selectWinner");
+		ResultSet rset = null;
+		ArrayList<Win> list = null;
+		Win w = null;
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionId());
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			while(rset.next()) {
+				w = new Win();
+				w.setWinMemberNo(rset.getInt("BIDDING_MEMBER_NO"));
+				w.setWinPrice(rset.getInt("BIDDING_PRICE"));
+				
+				list.add(w);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+	public int insertWinner(Connection con, Auction requestAuction, ArrayList<Win> list) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = prop.getProperty("insertWinner");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, requestAuction.getAuctionId());
+			pstmt.setInt(2, list.get(0).getWinMemberNo());
+			pstmt.setInt(3, list.get(0).getWinPrice());
+			pstmt.setInt(4, list.get(1).getWinMemberNo());
+			pstmt.setInt(5, list.get(1).getWinPrice());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
 

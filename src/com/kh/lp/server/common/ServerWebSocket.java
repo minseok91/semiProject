@@ -1,6 +1,7 @@
-package com.kh.lp.common;
+package com.kh.lp.server.common;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,14 +17,17 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.kh.lp.auction.model.service.AuctionService;
+import com.kh.lp.auction.model.vo.Auction;
+import com.kh.lp.member.model.vo.Member;
+
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-@ServerEndpoint(value="/endTime/{memberId}")
-//@ServerendPoint를 통해 value값 /endTime/사용자아이디로 접속하게되면 클래스가 실행
-public class EndTimeWebsocket {
+@ServerEndpoint(value="/serverWeb/{memberId}")
+public class ServerWebSocket {
 	private static Map<String, Session> clients = Collections.synchronizedMap(new HashMap<String, Session>());
-	
+		
 	//클라이언트가 웹소켓에 접속 시 서버측에서 실행하는 메소드
 	//@PathParam 은 웹소켓에서 사용하는 @PathVariables
 	@OnOpen
@@ -36,7 +40,13 @@ public class EndTimeWebsocket {
 	//클라이언트가 웹소켓으로부터 메세지를 보냈을 때 서버측에서 실행하는 메소드
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
-		log.info(msg);
+		if(session.equals(clients.get("serverAdministrator"))) {
+			try {
+				clients.get("serverAdministrator").getBasicRemote().sendText(msg);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		Timer t = new Timer();
 		TimerTask task = new TimerTask() {
 			
@@ -46,9 +56,7 @@ public class EndTimeWebsocket {
 				String arr[] = msg.split(",");
 				for(int i = 0; i < arr.length; i++) {
 					int sec = Integer.parseInt(arr[i]);
-					if(sec > 0) {
-						sec -= 1;
-					}
+					sec -= 1;
 					log.info(sec);
 					if(i == arr.length - 1) {
 						sendMsg += sec;
@@ -89,7 +97,7 @@ public class EndTimeWebsocket {
 			}
 		}
 	}
-	
+		
 	//클라이언트와 서버로부터 에러 발생 시 서버측에서 실행하는 메소드
 	@OnError
 	public void handleError(Throwable t) {
