@@ -633,6 +633,7 @@ public class AuctionDao {
 				}
 				
 				
+				
 				selectedClosedAuctionList.add(cau);
 				
 			}

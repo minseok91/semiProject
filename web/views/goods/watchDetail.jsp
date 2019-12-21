@@ -260,7 +260,7 @@
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
-								<button id="insertBid" onclick="send()" disabled>입찰</button>
+								<button id="insertBid" onclick="watchBiddingSend()" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
@@ -367,7 +367,7 @@
 				});
 			});
 			
-			getWebsocket2();
+			watchGetWebSocket();
 			
 			// 입찰이력불러오기 관련 ajax
 			$.ajax({
@@ -424,34 +424,34 @@
 			
 			
 			
-			function getWebsocket2() {	//입찰웹소켓
-				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
-				biddingWebSocket = new WebSocket(url);
+			function watchGetWebSocket() {	//입찰웹소켓
+				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
+				watchBiddingWebSocket = new WebSocket(url);
 				
-				biddingWebSocket.onopen = function(event) {
-					onOpen(event);
+				watchBiddingWebSocket.onopen = function(event) {
+					watchBiddingOnOpen(event);
 				};
 				
-				biddingWebSocket.onmessage = function(event) {
-					onMessage(event);
+				watchBiddingWebSocket.onmessage = function(event) {
+					watchBiddingOnMessage(event);
 				};
 				
-				biddingWebSocket.onclose = function(event) {
-					onClose(event);
+				watchBiddingWebSocket.onclose = function(event) {
+					watchBiddingOnClose(event);
 				};
 				
-				biddingWebSocket.onerror = function(event) {
-					onError(event);
+				watchBiddingWebSocket.onerror = function(event) {
+					watchBiddingOnError(event);
 				};
 			};
 			
 			
-			function onOpen(event) {
+			function watchBiddingOnOpen(event) {
 				console.log("웹소켓 접속 완료");
 				$("#insertBid").attr("disabled", false);
 			};
 			
-			function onMessage(event) {
+			function watchBiddingOnMessage(event) {
 				var arr = event.data.split("::");		//0: 멤버번호, 1:옥션번호, 2: 비딩가격
 				for(i in arr) {
 					console.log(arr[i]);
@@ -466,16 +466,16 @@
 				}
 			};
 			
-			function onClose(event) {
+			function watchBiddingOnClose(event) {
 				$("#insertBid").attr("disabled", true);
 			};
 			
-			function onError(event) {
+			function watchBiddingOnError(event) {
 				alert(event.data);
 				$("#insertBid").attr("disabled", true);
 			};
 			
-			function send(msg) {
+			function watchBiddingSend(msg) {
 				var memberNo = "<%= loginMember.getMemberNo() %>";
 				var auctionId = "<%= auctionId %>";
 				var biddingPrice = $("#minPrice").val();
@@ -485,12 +485,10 @@
 				} else {
 					var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
 					$("#minPrice").val("");
-					biddingWebSocket.send(sendMsg);
+					watchBiddingWebSocket.send(sendMsg);
 					alert("성공적으로 입찰했습니다.");
 				}
 			};
-			
-			
 	</script>
 </body>
 </html>

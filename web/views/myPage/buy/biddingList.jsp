@@ -112,6 +112,7 @@
     text-align: center;
     position: absolute;
     width: auto;
+    height: 1000px;
     margin-top: 75px;
     left: 28%;
 }

@@ -551,7 +551,7 @@ public class QNADao {
 				selectedQnaDetail.setQnaContent(rset.getString("QNA_CONTENT"));
 				selectedQnaDetail.setQnaDate(rset.getDate("QNA_DATE"));
 				selectedQnaDetail.setQnaStatus(rset.getString("QNA_STATUS"));
-				selectedQnaDetail.setQnaReply(rset.getString("QNA_REPLY_COMMENT"));
+				selectedQnaDetail.setQnaReply(rset.getString("QNA_REPLY_DETAIL"));
 				selectedQnaDetail.setQnaReplyDate(rset.getDate("QNA_REPLY_DATE"));
 				
 			}
