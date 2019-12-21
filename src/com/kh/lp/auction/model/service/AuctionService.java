@@ -159,20 +159,17 @@ Connection con = getConnection();
 	 * @param
 	 * @return
 	 */
-	public ArrayList<ClosedAuction> memberClosedAuctionList(int loginMemberNo, int currentPage, int limit) {
+	public ArrayList<ClosedAuction> memberClosedAuctionList(int memberClosedAuctionIds, int currentPage, int limit) {
 		
 		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
 		
 		Connection con = getConnection();
 		
-		selectedClosedAuctionList = new ArrayList<>();
-
-		
-
+		selectedClosedAuctionList = new AuctionDao().selectClosedAuctionList(con, memberClosedAuctionIds, currentPage, limit);
 
 		close(con);
 		
-		return null;
+		return selectedClosedAuctionList;
 	}
 
 

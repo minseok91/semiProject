@@ -15,9 +15,10 @@ public class WishList {
 	private int auctionId;
 	private String attachmentRename;
 	private String ar1Brand;
-	private String ar2Model;
-	private Date auctionStartDate;
+	private String ar1Model;
+	private Date auctionStartTime;
 	private int auctionPeriod;
+	private int auctionCurrentPrice;
 	
 	
 }
