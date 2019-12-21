@@ -391,7 +391,7 @@
 			
 			
 			function getWebsocket2() {	//입찰웹소켓
-				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
+				url = "ws://192.168.30.144:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
 				ws = new WebSocket(url);
 				
 				ws.onopen = function(event) {
@@ -429,7 +429,6 @@
 					// 최소입찰금액
 					$('#minPrice').attr('placeholder', numberFormat(arr[i]*1.05)+'원 이상 입력하세요.');
 					
-					$("#tableBiddingArea > tbody").empty();
 				}
 			};
 			

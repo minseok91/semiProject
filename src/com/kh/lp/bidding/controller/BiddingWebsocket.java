@@ -64,13 +64,14 @@ public class BiddingWebsocket {
 			}
 		} else {
 			synchronized(clients) {
-				sendMsg = "입찰 실패";
+				sendMsg = "입찰 실패했습니다. 새로고침 후 다시 진행해주세요";
 				String memberId = session.getId();
 				Set<String> keys = clients.keySet();
 				for(String key : keys) {
 					if(memberId.equals(clients.get(key).getId())) {
 						try {
 							clients.get(key).getBasicRemote().sendText(sendMsg);
+							handleClose(session);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

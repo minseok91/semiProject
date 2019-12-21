@@ -18,6 +18,9 @@ import com.kh.lp.bidding.model.dao.BidDao;
 import com.kh.lp.bidding.model.vo.BiddingList;
 import com.kh.lp.member.model.vo.Member;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class AuctionService {
 
 	public ArrayList<AuctionList> AuPaging(int currentPage, int limit) {
@@ -58,8 +61,13 @@ public class AuctionService {
 			if(auctionHistoryResult > 0) {
 				int biddingResult = new AuctionDao().insertBiddingHistory(con, requestAuction);
 				if(biddingResult > 0) {
+					log.debug(biddingResult);
 					commit(con);
+				} else {
+					rollBack(con);
 				}
+			} else {
+				rollBack(con);
 			}
 		} else {
 			rollBack(con);
