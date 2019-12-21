@@ -14,9 +14,8 @@ import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.auction.model.vo.AuctionList;
 import com.kh.lp.auction.model.vo.BiddingHistory;
 import com.kh.lp.auction.model.vo.ClosedAuction;
-import com.kh.lp.bidding.model.dao.BidDao;
-import com.kh.lp.bidding.model.vo.BiddingList;
 import com.kh.lp.member.model.vo.Member;
+import com.kh.lp.win.model.vo.Win;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -180,7 +179,55 @@ Connection con = getConnection();
 		return selectedClosedAuctionList;
 	}
 
+	public ArrayList<ArrayList<Object>> serverSelectList() {
+		Connection con = getConnection();
+		ArrayList<ArrayList<Object>> list = new AuctionDao().serverSelectList(con);
+		
+		close(con);
+		return list;
+	}
 
+
+	public int endAuction(Auction requestAuction) {
+		Connection con = getConnection();
+		int result = 0;
+		if(requestAuction.getAuctionBiddingCount() == 0) {
+			result = new AuctionDao().failAuction(con, requestAuction);
+			if(result > 0) {
+				commit(con);
+				int insertEndAuctionHistory = new AuctionDao().insertEndAuctionHistory(con, requestAuction, "AHT4");
+				if(insertEndAuctionHistory > 0) {
+					commit(con);
+				} else {
+					rollBack(con);
+				}
+			} else {
+				rollBack(con);
+			}
+		} else {
+			result = new AuctionDao().winAuction(con, requestAuction);
+			if(result > 0) {
+				commit(con);
+				int insertEndAuctionHistory = new AuctionDao().insertEndAuctionHistory(con, requestAuction, "AHT3");
+				if(insertEndAuctionHistory > 0) {
+					ArrayList<Win> list = new AuctionDao().selectWinner(con, requestAuction);
+					if(list != null) {
+						int insertWinner = new AuctionDao().insertWinner(con, requestAuction, list);
+						if(insertWinner > 0) {
+							commit(con);
+						} else {
+							rollBack(con);
+						}
+					}
+				} else {
+					rollBack(con);
+				}
+			} else {
+				rollBack(con);
+			}
+		}
+		return result;
+	}
 }
 
 

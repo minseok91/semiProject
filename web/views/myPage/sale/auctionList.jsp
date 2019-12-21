@@ -194,6 +194,7 @@ td>a>img {
 							<th>경매번호</th>
 							<th>상품사진</th>
 							<th>브랜드/모델명</th>
+							<th>시작가</th>
 							<th>현재 입찰가</th>
 							<th>입찰인원</th>
 							<th>남은 시간</th>
@@ -235,6 +236,7 @@ td>a>img {
 			},
 			success: function(data) {
 				console.log(data);
+				$("#tableBodyArea").empty();
 				var arr = data.split("#");
 				for(i in arr) {
 					temp = "";
@@ -246,11 +248,15 @@ td>a>img {
 							}else {
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/noImage.png'></a></td>";
 							}
-						}else if(j == 3){
-							
+						}else if(j == 5){
+							temp += "<td><a class='resLink'>" + arr2[j] + "명</a></td>"
 						} else if(j == 6) {
 							tempTime = arr2[j];
-							temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td>";
+							if(arr2[j] <= 0) {
+								temp += "<td class='time'><input type='hidden' value='" + 0 + "'><label>" + changeTime(0) + "</label></td>";
+							} else {
+								temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td>";
+							}
 						} else {
 							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
 						}
@@ -294,67 +300,84 @@ td>a>img {
 		console.log("웹소켓 실행합니다");
 		var length = $("table>tbody>tr").length;
 		//보조메소드 = 자체제작메소드
-		var url = "ws://192.168.30.144:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
+		var url = "ws://localhost:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
 		//new를 통해 웹소켓을 불러온다.
-		ws = new WebSocket(url);
+		endTimeWebSocket = new WebSocket(url);
 		
 		//웹소켓 연결될 때 실행되는 메소드
-		ws.onopen = function(event) {
-			onOpen(event);
+		endTimeWebSocket.onopen = function(event) {
+			endTimeOnOpen(event);
 		};
 		
 		//웹소켓으로부터 메세지를 받을 때 실행되는 메소드
-		ws.onmessage = function(event) {
-			onMessage(event);
+		endTimeWebSocket.onmessage = function(event) {
+			endTimeOnMessage(event);
 		};
 		
 		//서버에서 에러가 발생할 경우 동작할 메소드
-		ws.onerror = function(event) {
-			
+		endTimeWebSocket.onerror = function(event) {
+			endTimeOnError(event);
 		};
 
 		//서버와의 연결이 종료될 경우 동작하는 메소드
-		ws.onclose = function(event) {
-			
+		endTimeWebSocket.onclose = function(event) {
+			endTimeOnClose(event);
 		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 연결 되었을 때 동작할 메소드
-		function onOpen(event) {
+		function endTimeOnOpen(event) {
 			for(var i = 0; i < length; i++) {
-				timeArray[i] = $("table>tbody>tr").eq(i).children().eq(5).children().eq(0).val();
+				timeArray[i] = $("table>tbody>tr").eq(i).children().eq(6).children().eq(0).val();
 				console.log(timeArray[i]);
 			}
-				send(timeArray);
+				endTimeSend(timeArray);
 		};
 		
 		//웹소켓 보조 메소드 - 메세지 받을 때 동작할 메소드
-		function onMessage(event) {
+		function endTimeOnMessage(event) {
 			console.log(event.data);
 			var rarr = event.data.split(",");
 			for(var i = 0; i < length; i++) {
 				if(rarr[i] == 0) {
-					console.log
+					$.ajax({
+						url: "<%= request.getContextPath() %>/endAuction.au",
+						type: "post",
+						data: {
+							auctionId: $("table>tbody>tr").eq(i).children().eq(0).children().text(),
+							biddingCount: $("table>tbody>tr").eq(i).children().eq(5).children().text()
+						},
+						success: function(data) {
+							if(data == "success"){
+								doAuction();
+							} else if(data == "fail"){
+								console.log("업데이트 실패");
+							}
+						},
+						error: function(data) {
+							console.log("ajax 실패");
+						}
+					});
 				} else {
 					console.log(rarr[i]);
-					console.log($("table>tbody>tr").eq(i).children().eq(5).children().text());
-					$("table>tbody>tr").eq(i).children().eq(5).children().text(changeTime(rarr[i]));
+					console.log($("table>tbody>tr").eq(i).children().eq(6).children().text());
+					$("table>tbody>tr").eq(i).children().eq(6).children().text(changeTime(rarr[i]));
 				}
 			}
-			send(event.data);
+			endTimeSend(event.data);
 		};
 		
 		//웹소켓 보조 메소드 - 웹소켓에 메세지 보내는 메소드
-		function send(msg) {
-			ws.send(msg);
+		function endTimeSend(msg) {
+			endTimeWebSocket.send(msg);
 		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 에러 관련 메소드
-		function onError(event) {
+		function endTimeOnError(event) {
 			alert(event.data);
 		};
 		
 		//웹소켓 보조 메소드 - 웹소켓 닫혔을 때 관련 메소드
-		function onClose(event) {
+		function endTimeOnClose(event) {
 			alert(event);
 		};
 	}//---getWebsocket() endPoint---

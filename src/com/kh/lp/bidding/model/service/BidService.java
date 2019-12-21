@@ -183,6 +183,7 @@ public class BidService {
 		Connection con = getConnection();
 		int result = 0;
 		int biddingCount = new BidDao().selectCount(con, requestBidding);
+		log.debug(biddingCount);
 		if(biddingCount < 3) {
 			result = new BidDao().insertBiddingHistory(con, requestBidding);
 			if(result > 0) {

@@ -533,7 +533,8 @@ public class BidDao {
 			pstmt.setInt(1, requestBidding.getBiddingAuctionId());
 			pstmt.setInt(2, requestBidding.getBiddingMemberNo());
 			pstmt.setInt(3, requestBidding.getBiddingMemberNo());
-			pstmt.setInt(4, requestBidding.getBiddingPrice());
+			pstmt.setInt(4, requestBidding.getBiddingAuctionId());
+			pstmt.setInt(5, requestBidding.getBiddingPrice());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -562,6 +563,7 @@ public class BidDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, requestBidding.getBiddingMemberNo());
+			pstmt.setInt(2, requestBidding.getBiddingAuctionId());
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
