@@ -39,8 +39,9 @@ public class ClosedMemberAuctionListServlet extends HttpServlet {
 		
 		//로그인돼있는 회원 Member객체에 담기
 		Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
+		
 		int loginMemberNo = loginMember.getMemberNo();
-
+		
 
 
 		//----------------------------------------------페이징 처리 로직------------------------------------------------//
@@ -67,8 +68,8 @@ public class ClosedMemberAuctionListServlet extends HttpServlet {
 		//페이징은 한 번에 5개씩 보여주기
 		pagingSize = 5;
 
-		//현재 로그인된 회원의 전체 문의 리스트 갯수 가져오는 service메소드 불러오기
-		int listCount = new QNAService().memberQnaCount(loginMemberNo);
+		//현재 로그인된 회원의 마감된 경매 갯수를 불러오는 service메소드 불러오기
+		int listCount = new AuctionService().memberClosedAuctionCount(loginMemberNo);
 
 		//총 페이징 갯수 계산(=맨 마지막 페이지 번호)
 		maxPage = (int)((double)listCount/limit+0.9);
@@ -82,6 +83,9 @@ public class ClosedMemberAuctionListServlet extends HttpServlet {
 		if(endPage >= maxPage) {
 			endPage = maxPage;
 		}
+		
+		System.out.println("listCount : " + listCount);
+		System.out.println("maxPage : " + maxPage);
 
 
 		//PageInfo 객체에 페이지 정보 저장
@@ -90,17 +94,10 @@ public class ClosedMemberAuctionListServlet extends HttpServlet {
 		//--------------------------------------------------------------------------------------------------------//
 
 		
-		//로그인된 유저의 경매마감된 판매상품 AUCTION_ID 불러와서 ArrayList<Integer>에 담기
-		ArrayList<Integer> memberClosedAuctionIds = new AuctionService().memberClosedAuctionIds(loginMemberNo);
 		
+		ArrayList<ClosedAuction> memberClosedAuctionList = new AuctionService().memberClosedAuctionList(loginMemberNo, currentPage, limit);
 		
-		log.debug("경매마감된 판매상품id들 : " + memberClosedAuctionIds);
-		
-		//해당 페이지에 들어갈  리스트 5개를 담아올 서비스 메소드 호출
-		ArrayList<ClosedAuction> memberClosedAuctionList = new AuctionService().memberClosedAuctionList(memberClosedAuctionIds, currentPage, limit);
-
-		
-		System.out.println("memberClosedAuctionList : " + memberClosedAuctionList);
+		System.out.println("내 경매마감상품 조회! " + memberClosedAuctionList);
 
 
 		String page = "";
