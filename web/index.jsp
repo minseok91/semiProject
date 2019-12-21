@@ -110,7 +110,7 @@ td>.content {
 	<script type="text/javascript">
 		$(function() {
 			const lp = "<%= request.getContextPath() %>";
-			$.post("<%= request.getContextPath() %>/watchsix.se", function(response) {
+			$.get("<%= request.getContextPath() %>/watchsix.se", function(response) {
 				console.log(response);
 				const arr = response.split("#");
 				let temp="";
@@ -135,7 +135,7 @@ td>.content {
 					$("#watch").append(temp);
 				});
 			
-				$.post("<%= request.getContextPath() %>/bagsix.se", function(response) {
+				$.get("<%= request.getContextPath() %>/bagsix.se", function(response) {
 					console.log(response);
 					const arr = response.split("#");
 					let temp="";
