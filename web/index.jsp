@@ -160,13 +160,6 @@ td>.content {
 						$("#bag").append(temp);
 				})
 			});
-	
-		function detail() {
-			const num = document.getElementById('num');
-			
-			location.href="<%= request.getContextPath() %>"/views/goods/watchList.jsp;
-			<%-- location.href="<%= request.getContextPath() %>"/[서블릿링크]?num=num; --%>
-		} 
 	</script>
 </body>
 </html>
