@@ -218,10 +218,10 @@
 			 <% for(ClosedAuction cau : memberClosedAuctionList){%>
 				<tr>
 					<td><%=cau.getAuctionId() %></td>
-					<td><img src="<%= request.getContextPath() %>/img/userItemPic/<%= cau.getAttachmentRename() %>"></td>
+					<td><img src="<%= request.getContextPath() %>/img/appraisal/<%= cau.getAttachmentRename() %>"></td>
 					<td><%=cau.getAr1Brand() %> /<br><%=cau.getAr1Model() %></td>
 					<td><%=cau.getCurrentPrice() %></td>
-					<td><%=cau.getMoneyStatus().equals("paid")?"결제":"미결제" %></td>
+					<td><%=cau.getMoneyStatus().equals("not paid")?"미결제":"결제" %></td>
 					<td><%=cau.getAuctionCount()==2?"재경매":"첫경매" %></td>
 				</tr>
 			<%} %>   
