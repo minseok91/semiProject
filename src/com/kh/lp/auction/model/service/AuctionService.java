@@ -131,49 +131,48 @@ Connection con = getConnection();
 
 	
 	
-	/**
-	 * @Author         : 오수민
-	 * @CreateDate    : 2019. 12. 19
-	 * @ModifyDate    : 2019. 12. 19
-	 * @Description   : 로그인된 유저의 경매마감된 판매상품 AUCTION_ID 불러와서 ArrayList<Integer>에 담는 메소드
-	 * @param
-	 * @return
-	 */
-	
-	public ArrayList<Integer> memberClosedAuctionIds(int loginMemberNo) {
-		
-		ArrayList<Integer> selectedClosedAuctionIds = null;
-		
-		Connection con = getConnection();
-		
-		selectedClosedAuctionIds = new AuctionDao().selectClosedAuctionIds(con, loginMemberNo);
-		
-		close(con);
-		
-		return selectedClosedAuctionIds;
-	}
-	
-	
 	
 	/**
 	 * @Author         : 오수민
 	 * @CreateDate    : 2019. 12. 19
-	 * @ModifyDate    : 2019. 12. 19
+	 * @ModifyDate    : 2019. 12. 20
 	 * @Description   : 현재 로그인 되어있는 유저가 판매중인 경매마감상품 리스트 중 현재 페이지에 해당하는 리스트 5개 불러오는 메소드
 	 * @param
 	 * @return
 	 */
-	public ArrayList<ClosedAuction> memberClosedAuctionList(int memberClosedAuctionIds, int currentPage, int limit) {
+	public ArrayList<ClosedAuction> memberClosedAuctionList(int loginMemberNo, int currentPage, int limit) {
 		
 		ArrayList<ClosedAuction> selectedClosedAuctionList = null;
 		
 		Connection con = getConnection();
 		
-		selectedClosedAuctionList = new AuctionDao().selectClosedAuctionList(con, memberClosedAuctionIds, currentPage, limit);
+		selectedClosedAuctionList = new AuctionDao().selectClosedAuctionList(con, loginMemberNo, currentPage, limit);
 
 		close(con);
 		
 		return selectedClosedAuctionList;
+	}
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 21
+	 * @ModifyDate    : 2019. 12. 22
+	 * @Description   : 현재 로그인된 회원의 마감된 경매 갯수를 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+
+	public int memberClosedAuctionCount(int loginMemberNo) {
+		
+		int memberClosedAuctionCount;
+		
+		Connection con = getConnection();
+		
+		memberClosedAuctionCount = new AuctionDao().memberClosedAuctionCount(con, loginMemberNo);
+		
+		close(con);
+		
+		return memberClosedAuctionCount;
 	}
 
 
