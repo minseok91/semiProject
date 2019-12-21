@@ -46,7 +46,9 @@ public class EndTimeWebsocket {
 				String arr[] = msg.split(",");
 				for(int i = 0; i < arr.length; i++) {
 					int sec = Integer.parseInt(arr[i]);
-					sec -= 1;
+					if(sec > 0) {
+						sec -= 1;
+					}
 					log.info(sec);
 					if(i == arr.length - 1) {
 						sendMsg += sec;

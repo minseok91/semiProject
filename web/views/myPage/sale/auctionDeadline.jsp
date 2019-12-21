@@ -10,7 +10,20 @@
  */
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.lp.auction.model.vo.*, java.util.*, com.kh.lp.common.*"%>
+    
+<%
+	ArrayList<ClosedAuction> memberClosedAuctionList = (ArrayList<ClosedAuction>)(request.getAttribute("memberClosedAuctionList"));
+	PageInfo pInfo = (PageInfo)request.getAttribute("pInfo");
+	int startPage = pInfo.getStartPage();
+	int currentPage = pInfo.getCurrentPage();
+	int endPage = pInfo.getEndPage();
+	int limit = pInfo.getLimit();
+	int listCount = pInfo.getListCount();
+	int maxPage = pInfo.getMaxPage();
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -150,6 +163,8 @@
 	<% if(loginMember != null) { %>
 	<div class="container">
 	<div class="contents">
+	
+	
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
 			<dl>
@@ -189,40 +204,62 @@
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
 			<table>
+			<thead>
 				<tr>
 					<th>경매번호</th>
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
-					<th>최종 낙찰가</th>
+					<th>낙찰가</th>
 					<th>정산 상태</th>
-					<th>재경매 여부</th>
+					<th>경매 회차</th>
 				</tr>
+			</thead>
+			<tbody>
+			 <% for(ClosedAuction cau : memberClosedAuctionList){%>
 				<tr>
-					<td>1</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>1,600,000</td>
-					<td>결제</td>
-					<td>N</td>
+					<td><%=cau.getAuctionId() %></td>
+					<td><img src="<%= request.getContextPath() %>/img/userItemPic/<%= cau.getAttachmentRename() %>"></td>
+					<td><%=cau.getAr1Brand() %> /<br><%=cau.getAr1Model() %></td>
+					<td><%=cau.getCurrentPrice() %></td>
+					<td><%=cau.getMoneyStatus().equals("paid")?"결제":"미결제" %></td>
+					<td><%=cau.getAuctionCount()==2?"재경매":"첫경매" %></td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>0</td>
-					<td>미결제</td>
-					<td>Y</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
-					<td>0</td>
-					<td>미결제</td>
-					<td>N</td>
-				</tr>
+			<%} %>   
+			</tbody>
+				
 			</table>
 		</div> <!-- menuStatus End -->
+		
+		
+		<div class="pagingArea" align="center">	
+		
+		  <button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
+		<%if(currentPage==1) {%>
+			<button disabled><</button>
+		<%}else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage-1%>'"><</button>
+		<%} %>
+		
+		<% for(int p = startPage; p<=endPage; p++) {
+			if(p==currentPage){%>
+				<button disabled><%= p %></button>
+			<%}else { %>
+				<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=p%>'"><%=p %></button>
+			<%}
+		}%>
+		<% if(currentPage >= maxPage) { %>
+			<button disabled>></button>
+		<%} else { %>
+			<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage+1%>'">></button>
+		<%} %>
+		
+		<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=maxPage%>'">>></button>
+		
+		
+
+		</div> <!-- pagingArea End -->
+		
+		
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {

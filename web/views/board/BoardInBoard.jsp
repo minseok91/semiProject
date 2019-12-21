@@ -164,11 +164,7 @@
 	padding: 10px;
 	
 }
-#freeBoardTable th  p{
-	margin-top: 18px;
-	margin-bottom: 0px;
-	margin-left: 410px;
-}
+
 #boardCount_div {
 	width: 100%;
 	margin-left: 40px;
@@ -202,15 +198,24 @@
 .pagingArea {
 	text-align: center;
 }
-
+ #table p {
+	width: fit-content;
+	margin: 0 auto;
+}
+ #search {
+	float: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+#search:nth-child(1) {
+	margin-right: 21px;
+}
 </style>
 <title>LauXion</title>
-<link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
 	<%@ include file="../common/header.jsp" %>
 	<%@ include file="../common/nav.jsp" %>
-	<% if(loginMember != null) { %>
 		<div class="container">
 		<div class="contents">
 		<div id="myPageMenu">
@@ -238,7 +243,16 @@
 				}%> &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>자유롭게 쓰는 자유 게시판입니다.</p>
+				<p><% if(type.equals("BT1")) { %>
+						자유롭게 쓰는 자유 게시판입니다.
+					<% } else if(type.equals("BT2")) { %>
+						 관리자에게 문의 하는 문의 게시판입니다.
+					<% } else if(type.equals("BT3")) { %>
+						 구매자가 구매한 상품을 리뷰하는 게시판입니다.
+					<% } else { %>
+						회원님들이 많이 물어보는 FAQ 게시판입니다.
+					<% } %>
+				</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div id="table_conntents">
@@ -246,6 +260,11 @@
 				<p><span>총 </span><strong> <%= listCount %> </strong><span> 건</span></p>
 			</div>
 			<div>
+			<div>
+			    <button id="search" class="searchBtn">검색</button>
+				<input type="text" id="search" name="searchBox">
+				
+			</div>
 				<table id="table">
 					<tr>
 						<th>번호</th>
@@ -257,19 +276,29 @@
 					<% for(int i=0; i<list.size(); i++) { %>
 						<tr>
 							<td>
-								<%= list.get(i).get("RNUM") %>
+								<p><%= list.get(i).get("BoardId") %></p>
 							</td>
 							<td>
-								<%= list.get(i).get("BoardTitle") %>
+								<p><%= list.get(i).get("BoardTitle") %></p>
 							</td>
 							<td>
+							<p>
+								<% if(Integer.parseInt(list.get(i).get("BoardMemberNo").toString()) == 1) { %>
+									관리자
+								<% } else { %>
 								<%= list.get(i).get("BoardMemberName") %>
+								<% } %>
+							</p>
 							</td>
 							<td>
+							<p>
 								<%= list.get(i).get("BoardDate") %>
+							</p>
 							</td>
 							<td>
+							<p>
 								<%= list.get(i).get("BoardCount") %>
+							</p>
 							</td>
 						</tr>
 					<% } %>
@@ -298,12 +327,13 @@
 		</div>
 		</div>
 	</div>
-	<% } %>
 	<%@ include file="../common/footer.jsp" %>
 	<script>
 	var boardtpye = '<%=type%>'
-		$("#table_conntents td").click(function(e){
-			console.log(e.target.parentNode.children[1].value);
+		$("#table  p").click(function(e){
+			var boardId = e.target.parentNode.parentNode.children[0].innerText;
+			console.log(e.target.parentNode.parentNode.children[0].innerText);
+			location.href = "<%=request.getContextPath()%>/BoardSelectOne2?boardId="+boardId;
 		})
 		$("#menu dd").mouseover(function(e) {
 			e.target.style.color = "black";
@@ -336,9 +366,6 @@
 					e.target.style.color = "darkgray";
 				}
 			}
-			
-			
-			
 		})
 		$(function(){
 			console.log(boardtpye);
@@ -372,11 +399,28 @@
 				location.href="<%= request.getContextPath()%>/BoardSelect.bo?type=BT4";
 			})
 		}
-		$("#insertBoard").click(function(){
-			location.href="<%= request.getContextPath()%>/views/board/BoardInsert.jsp";
+		 $("#insertBoard").click(function(){
+			console.log();
+			 if('<%=loginMember%>' == 'null'){
+				alert("로그인해야 이용할 수 있습니다."/* +login */); 
+			} else {
+				location.href="<%=request.getContextPath()%>/views/board/BoardInsert.jsp";
+			}
+		}) 
+		$("#table  td").mouseover(function(e) {
+			$("p").css({"cursor":"pointer"});
 		})
-		
-		
+		$(".searchBtn").click(function() {
+			 console.log($("input[name='searchBox']")[0].value);
+			 var 
+			 $.ajax({
+				 url: "",
+				 data : {
+					 
+				 }
+				 
+			 })
+		 })
 		
 	</script>
 </body>

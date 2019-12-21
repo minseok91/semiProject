@@ -293,18 +293,17 @@ System.out.println("memberId : " + memberId );
 							재경매
 						<% } %>
 						</label>
-						<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
+						<img id="titleImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(0).getAttachmentRename() %>" alt="" >
 					</div>
 					<div id="detailImg">
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
-							<% for(int i = 1 ; i < atList.size(); i++){ %>
-								<td>
-									<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(i).getAttachmentRename() %>" alt="" >
-								</td>
-							<% } %>
-								
+								<% for(int i = 1 ; i < atList.size(); i++){ %>
+									<td>
+										<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(i).getAttachmentRename() %>" alt="" >
+									</td>
+								<% } %>
 						</table>
 					</div> <!-- detailImg End -->
 				</span> <!-- imgBox End -->
@@ -313,7 +312,7 @@ System.out.println("memberId : " + memberId );
 						<label><%=ar1.getAr1Brand() %> <%=ar1.getAr1Model() %>(감정번호 : <%=ar1.getAr1Id() %>)</label><br>
 						<label id="aucResult">감정완료 날짜 : <%=au.getAuctionAppDate() %></label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>판매자ID</label>
+						<label>판매자ID : <%=memberId %></label>
 						<button id="appDoc">보증서보기</button>
 					</div>
 					<div class="goods">
@@ -361,11 +360,11 @@ System.out.println("memberId : " + memberId );
 						<table>
 							<tr>
 								<td>보증서 유무</td>
-								<td><%=w.getWatchGuaranteeYn() %></td>
+								<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
 							</tr>
 							<tr>
 								<td>오리지널 박스 유무</td>
-								<td><%= w.getWatchBoxYn() %></td>
+								<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
 							</tr>
 							<tr>
 								<td>재질</td>
@@ -421,6 +420,13 @@ System.out.println("memberId : " + memberId );
 	
 	
 	$(function(){
+		const title = $('#titleImg').attr('src');
+		$('td img').mouseover(function() {
+			$('#titleImg').attr('src', $(this).attr('src'));
+		}).mouseout(function() {
+			$('#titleImg').attr('src', title);
+		});
+		
 		$("#appDoc").click(function(){
 			$('#myModal').show();
 			

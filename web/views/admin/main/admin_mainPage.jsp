@@ -162,6 +162,10 @@
 					</table>
 				</div>
 			</div>
+	 <% } else { %>
+	 		<h3 align="center">로그인이 안되어있습니다.</h3>
+	 		<h4 align="center"><a href="<%= request.getContextPath()%>/views/admin/main/admin_login.jsp">로그인 하러 가기</a></h4>
+	 		
 	 <% } %>
 </body>
 </html>

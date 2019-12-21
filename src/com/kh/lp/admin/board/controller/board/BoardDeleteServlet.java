@@ -34,16 +34,21 @@ public class BoardDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String type = request.getParameter("type");
+		String pageaddress = request.getParameter("pageaddress");
 		
 		System.out.println("게시판 삭제 servlet : " + boardId);
 		int result = new BoardService().deleteBoard(boardId); 
 		String page = ""; 
 		if(result > 0) { 
 			//타입을 구분하여 삭제후 해당 게시판으로 이동한다.
-			if(type.equals("BT4")) {
-				page = "selectFAQ.bo";
-			} else {
-				page = "selectAll.bo";
+			if(pageaddress.equals(null)) {
+				if(type.equals("BT4")) {
+					page = "selectFAQ.bo";
+				} else {
+					page = "selectAll.bo";
+				}
+			} else if(pageaddress.equals("BT1")) {
+				page = "BoardAllSelect.bo";
 			}
 			response.sendRedirect(page);
 		} else { 

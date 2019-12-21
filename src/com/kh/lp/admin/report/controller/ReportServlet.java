@@ -48,7 +48,6 @@ public class ReportServlet extends HttpServlet {
 		limit = 10;
 		
 		int listCount = new ReportService().listReportCount(userId);
-		System.out.println(listCount);
 		maxPage = (int)((double)listCount/limit+0.9);
 		startPage = (int)(((double)currentPage/limit+0.9)-1)*10 + 1;
 		
@@ -60,7 +59,6 @@ public class ReportServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, limit,maxPage,startPage,endPage);
 		ArrayList<Report> reportList = new ReportService().selectList(currentPage, limit, userId);
-		System.out.println(reportList);
 		String page = "";
 		if(reportList != null) {
 			page = "views/admin/QNAAndReport/Report/admin_reportHistory.jsp";

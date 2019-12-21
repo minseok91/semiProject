@@ -20,4 +20,6 @@ public class Win {
 	private Date winDate; // 테스트
 	private String winBrand;
 	private String winModel;
+	private String winnerName;
+	private String winner2ndName;
 }

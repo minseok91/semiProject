@@ -33,13 +33,19 @@ public class ReplyDao {
 	 * @param con
 	 * @return
 	 */
-	public ArrayList<Reply> selectAll(int boardId, Connection con) {
+	public ArrayList<Reply> selectAll(int boardId, Connection con, String user) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Reply> rList = null;
 		Reply r = null;
+		String query = null;
+		if(user == null) {
+			 query = admin_prop.getProperty("selectAll");
+		} else if(user == "member") {
+			 query = admin_prop.getProperty("selectAllMember");	
+		}
 		
-		String query = admin_prop.getProperty("selectAll");
+		
 		
 		try {
 			pstmt = con.prepareStatement(query);

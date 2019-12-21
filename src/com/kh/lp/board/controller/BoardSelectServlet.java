@@ -32,8 +32,13 @@ public class BoardSelectServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
 		
+		String type = request.getParameter("type");
+		if(type == null) {
+			type = request.getAttribute("type").toString();
+		}
+		
+		System.out.println("검색하는 서블릿 : "+type);
 		int currentPage;
 		int limit;
 		int startPage;
@@ -61,7 +66,7 @@ public class BoardSelectServlet extends HttpServlet {
 		ArrayList<HashMap<String, Object>> list = new BoardService().selectBoard(currentPage,limit, type);
 		
 		if(list != null) {
-			page = "views/board/freeBoard.jsp";
+			page = "views/board/BoardInBoard.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("type", type);
 			request.setAttribute("pi", pi);

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.admin.member.model.vo.Member;
+import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.admin.qnaAndReport.model.service.QNAService;
 import com.kh.lp.admin.qnaAndReport.model.vo.QNA;
 import com.kh.lp.common.PageInfo;
@@ -74,6 +74,7 @@ public class QNASelectServlet extends HttpServlet {
 		} else {
 			//에러 페이지
 		}
+		System.out.println(pi);
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

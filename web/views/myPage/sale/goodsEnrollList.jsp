@@ -384,7 +384,6 @@ td>a>img {
 							} else {
 								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
 							}
-							
 						}
 						temp += "<td name='time" + i + "'>00 : 00 : 00</td>";
 						$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");

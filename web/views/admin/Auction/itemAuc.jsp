@@ -199,7 +199,7 @@
 						<% 
 						for(AuctionList al : list) { %>
 							<tr>
-								<td><%= al.getAuctionId() %></td>
+								<td><%= al.getAuctionAr1Id() %></td>
 								<td></td>
 								<td><%= al.getAuctionCount() %></td>
 								<td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td>
@@ -220,6 +220,8 @@
 										낙찰 상품 결제 완료</td><td><button class="payed">상세보기</button>
 										<% } else if(/* al.getAuctionCount() == 1 && */ al.getAuctionType().equals("6") ) {%>
 										낙찰 상품 미결제 유찰</td><td><button class="noPayed">상세보기</button>
+										<% } else if(/* al.getAuctionCount() == 1 && */ al.getAuctionType().equals("0") ) {%>
+										경매 준비</td><td><button class="ready">상세보기</button>
 										<%} else { %> 
 											이건 아무것도 없는 것이다 
 			 							<%} 

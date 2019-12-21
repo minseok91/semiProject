@@ -425,22 +425,22 @@
 			
 			
 			function getWebsocket2() {	//입찰웹소켓
-				url = "ws://192.168.30.144:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
-				ws = new WebSocket(url);
+				url = "ws://localhost:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
+				biddingWebSocket = new WebSocket(url);
 				
-				ws.onopen = function(event) {
+				biddingWebSocket.onopen = function(event) {
 					onOpen(event);
 				};
 				
-				ws.onmessage = function(event) {
+				biddingWebSocket.onmessage = function(event) {
 					onMessage(event);
 				};
 				
-				ws.onclose = function(event) {
+				biddingWebSocket.onclose = function(event) {
 					onClose(event);
 				};
 				
-				ws.onerror = function(event) {
+				biddingWebSocket.onerror = function(event) {
 					onError(event);
 				};
 			};
@@ -480,10 +480,14 @@
 				var auctionId = "<%= auctionId %>";
 				var biddingPrice = $("#minPrice").val();
 				
-				var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
-				$("#minPrice").val("");
-				ws.send(sendMsg);
-				alert("성공적으로 입찰했습니다.");
+				if(Number(biddingPrice) < Number($("#maxPrice").val()) * 1.05){
+					alert("최소입력금액보다 낮습니다.")
+				} else {
+					var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
+					$("#minPrice").val("");
+					biddingWebSocket.send(sendMsg);
+					alert("성공적으로 입찰했습니다.");
+				}
 			};
 			
 			
