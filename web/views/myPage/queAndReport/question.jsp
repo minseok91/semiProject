@@ -165,7 +165,7 @@
 				<dl>
 					<dt>§ 구매정보</dt>
 					<dd>
-						<a value="buy/wishList">▶ 위시리스트</a>
+						<a value="../../wishList.wi">▶ 위시리스트</a>
 					</dd>
 					<dd>
 						<a value="../../biddingList.bi">▶ 입찰리스트</a>
