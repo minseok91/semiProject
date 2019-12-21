@@ -169,7 +169,7 @@ td>img {
 				<dt>§  결제/배송조회</dt>
 				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
 				<dd><a value="delivery/apprDeli" id="selectMenu">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
+				<dd><a value="delivery/sellDeli">▶  경매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
 				<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>
@@ -198,7 +198,6 @@ td>img {
 					<th>상품사진</th>
 					<th>브랜드/모델명</th>
 					<th>배송상태</th>
-					<th>비고</th>
 				</tr>
 				</thead>
 				<tbody id="tableBodyArea"></tbody>
@@ -219,6 +218,45 @@ td>img {
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
 			})
+			
+			$.ajax({
+				url: "<%= request.getContextPath() %>/apprDeli.se",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>
+				},
+				success: function(data) {
+					console.log(data);
+					const arr = data.split("#");
+					const lp = "<%= request.getContextPath() %>";
+					let temp = "";		
+					for(i in arr) {
+						var arr2 = arr[i].split("::");
+						
+						for(j in arr2){
+							console.log(j);
+							var brandAndModel = arr2[3].split("/");
+							if(j === '0') {
+								temp += "<tr>";
+								temp += "<td>"+ arr2[j] +"</td>";
+							}
+							else if(j === '1') 
+								temp += "<td>"+ arr2[j] +"</td>";
+							else if(j === '2') 
+								temp += "<td><img src="+ lp +"/img/userItemPic/"+ arr2[j] +"></td>"; 
+							else if(j === '3')
+								temp += "<td>"+ brandAndModel[0] +"<br>"+ brandAndModel[1] +"</td>";
+							else if(j === '4') {
+								temp += "<td>"+ arr2[j] +"</td>";
+								temp += "</tr>";
+							}
+						}
+						
+					}
+					
+					$('#tableBodyArea').append(temp);
+				}
+			});
 		});
 	</script>
 </body>

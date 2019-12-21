@@ -173,7 +173,7 @@ td>input{
 				<dt>§  결제/배송조회</dt>
 				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
 				<dd><a value="delivery/apprDeli">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  구매 상품 배송 조회</a></dd>
+				<dd><a value="delivery/sellDeli">▶  경매 상품 배송 조회</a></dd>
 				
 				<dt>§  문의 및 신고</dt>
 				<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>

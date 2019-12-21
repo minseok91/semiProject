@@ -14,8 +14,12 @@ import java.util.Properties;
 
 import com.kh.lp.common.Attachment;
 import com.kh.lp.item.model.vo.Item;
+import com.kh.lp.item.model.vo.ItemDeli;
 import com.kh.lp.member.model.vo.Member;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public class ItemDao {
 	Properties prop = new Properties();
 	
@@ -332,6 +336,157 @@ public class ItemDao {
 			close(pstmt);
 		}
 		return at;
+	}
+
+	// 마이페이지 - 감정상품 배송조회 리스트
+	public ArrayList<ItemDeli> itemApprDeliSelectAll(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ItemDeli> list = null;
+		int itemId = 0;
+		int status = 0; 		// 배송상태 -> 2라면 회원주택 -> 회사이므로 배송상태를 보여줘야함
+								// 			2가 아니라면 무조건 배송완료
+		String deliStatus = ""; // 배송중 or 배송완료
+		String appResult = ""; // 진품가품여부
+		String deliType = "";
+		
+		String query = prop.getProperty("itemApprDeliSelectAll");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberNo);
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<ItemDeli>();
+			
+			while(rset.next()) {
+				ItemDeli id = new ItemDeli(); 
+				itemId = rset.getInt(1);
+				status = rset.getInt(2);
+				
+				if(status == 2) {			// 아직 배송중일 때 -> 해당 itemId를 기준으로 객체 이식
+					deliStatus = "배송중";
+					deliType = "상품감정신청";
+					id = onlyItemInfo(con, itemId, deliStatus, deliType);
+					
+				} else if(status == 3) {	// 최소한 받은 상태 -> 배송완료
+					deliStatus = "배송완료";
+					deliType = "상품감정신청";
+					id = onlyItemInfo(con, itemId, deliStatus, deliType);
+					
+				} else { 					// 감정결과가 나옴
+					appResult = selectAppResult(con, itemId);
+					log.debug(appResult);
+					if(appResult.equals("AR2")) {
+						deliStatus = "배송중";
+						deliType = "가품으로 인한 배송";
+						id = onlyItemInfo(con, itemId, deliStatus, deliType);
+					} else {
+						deliStatus = "배송완료";
+						deliType = "상품감정신청";
+						id = onlyItemInfo(con, itemId, deliStatus, deliType);
+					}
+				}
+				
+				list.add(id);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	// 해당 itemId를 기준으로 객체 이식
+	public ItemDeli onlyItemInfo(Connection con, int itemId, String deliStatus, String deliType) {
+		ItemDeli id = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("onlyItemInfo");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			
+			rset = pstmt.executeQuery();
+			
+			id = new ItemDeli();
+			
+			if(rset.next()) {
+				id.setItemNo(rset.getInt("ITEM_ID"));
+				id.setItemAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
+				id.setItemBrandAndModel(rset.getString("ITEM_BRAND_MODEL"));
+				id.setItemCategory(deliType);
+				id.setItemDeli(deliStatus);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return id;
+	}
+	
+	public String selectAppResult(Connection con, int itemId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String appResult = "";
+		
+		String sql = prop.getProperty("fakeStatus");
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, itemId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				appResult = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return appResult;
+	}
+
+	public int listCount(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String sql = prop.getProperty("listCount");
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return count;
 	}
 
 }

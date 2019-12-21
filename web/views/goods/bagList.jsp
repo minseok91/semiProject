@@ -15,7 +15,6 @@
 	      width: 1080px;
 	      margin: 0 auto;
 	      padding: 6px 0px 0;
-	      border: 1px solid black;
 	}
 	.contents{
 	      height:650px;
@@ -79,7 +78,7 @@
 	}
 	
 	input[type=submit] {
-	   width: 54px;
+	   	width: 54px;
 	    background: #211f24;
 	    color: #cca071;
 	    border: 1px solid #a07342;
@@ -216,7 +215,7 @@
 	      </div> <!-- list End -->
       </div> <!-- contents End -->
    </div> <!-- container End -->
-   <%@ include file="../common/footer.jsp" %>
+	<%@ include file="../common/footer.jsp" %>
    
    <script type="text/javascript">
 		$(function() {
@@ -234,5 +233,6 @@
 			});
 		})
 	</script>
+
 </body>
 </html>
