@@ -1,5 +1,6 @@
 <%@page import="com.kh.lp.appraisal.model.vo.Watch"%>
 <%@page import="com.kh.lp.bidding.model.vo.Bid"%>
+<%@page import="com.kh.lp.auction.model.vo.Auction"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -94,7 +95,6 @@
 	}
 	
 	#price {
-		margin-top: 50px;
 	    display: grid;
 	    width: 326px;
 	}
@@ -141,7 +141,7 @@
 	}
 	
 	#biddingApply {
-		margin-top: 100px;
+		margin-top: 50px;
 		margin-left: 85px;
 	}
 	
@@ -188,6 +188,9 @@
 		justify-content: center;
 		border-bottom: 1px solid #3e2d1a;
 	}
+	#endTime {
+		font-size: 30px;
+	}
 	
 	#detailContent {
 		position: relative;
@@ -217,6 +220,7 @@
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
+		Auction ac = (Auction) request.getAttribute("auction");
 		String msg = (String) request.getAttribute("msg");
 	%>
 		<div class="container">
@@ -248,7 +252,12 @@
 						<label><%= watchDetailInfo.get(0).getBidBrand() +" "+ watchDetailInfo.get(0).getBidModel() %></label>
 						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
 					</div>
+					<div id="timeArea">
+							<input type="hidden" id="endHiddenTime" name="endHiddenTime" value=""/>
+							<label for="" id="endTime" name="endTime"></label>
+					</div>  <!-- timeArea end -->
 					<div id=set>
+						
 						<div id="price">
 							<label>현재 가격</label>
 							<label id="maxPrice"></label>
@@ -256,7 +265,7 @@
 								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
 							<% } %>
 							</div>
-							<% if(loginMember != null) { %>
+							<% if(loginMember != null && !loginMember.getMemberId().equals(watchDetailInfo.get(0).getBidUserId())) { %>
 							<div id="biddingApply">
 								<label id="unit"></label><br>
 								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
@@ -268,7 +277,14 @@
 					<div id="biddingUsers">
 					<label>입찰 이력</label>
 							<table id="tableBiddingArea">
-							</table>
+								<thead id="tableBiddingHeadArea">
+									<tr>
+										<th>입찰자</th>
+										<th>입찰 금액</th>
+										<th>입찰 시간</th>
+									</tr>
+								</thead>
+							</table>  <!-- tableBiddingArea end -->
 						</div>
 				</span> <!-- contents End -->
 			</span> <!-- part1 End -->
@@ -338,6 +354,10 @@
 				$('#title').attr('src', title);
 			});
 			
+			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
+			$("#endTime").text(changeTime(tempTime));
+			$("#endHiddenTime").val(tempTime);
+			
 			// 위시리스트 추가
 			$('#wish').click(function() {
 				$.ajax({
@@ -368,61 +388,88 @@
 			});
 			
 			watchGetWebSocket();
+			endTimeWatchDetailGetWebSocket();
+			updateBiddingInfo();
 			
-			// 입찰이력불러오기 관련 ajax
-			$.ajax({
-				url: "<%= request.getContextPath() %>/selectBidUser.se",
-				type: "post",
-				data: {
-					auctionId: <%= auctionId %>,
-				},
-				success: function(data) {
-					const arr = data.split("#");
-					console.log(data);
-					
-					let temp="<thead><tr><th>입찰자</th><th>입찰 금액</th><th>입찰 시간</th></tr></thead><tbody>";
-					for(i in arr) {
-						var arr2 = arr[i].split("::");
-						temp += "<tr>";
-						
-						for(j in arr2){
-							if(j == 0)
-								temp += "<td>"+ arr2[j] +"</td>";
-							else if(j == 1) 
-								temp += "<td>"+ arr2[j] +"</td>";
-							else if(j == 2)
-								temp += "<td>"+ arr2[j] +"</td>";
-						}
-						
-						temp += "</tr>";
-					}
-
-					temp+="</tbody>";
-					$("#tableBiddingArea").append(temp);
-					
-					// 입찰리스트에서 최댓값 추출
-					let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(1).text();
-					$('#maxPrice').text(numberFormat(maxPrice)+'원');
-					
-					// 최댓값기준 입찰단위
-					let unit = maxPrice*0.05;
-					$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
-					
-					// 최소입찰금액
-					let minPrice = maxPrice*1.05;
-					$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
-				},
-				error: function(data) {
-					console.log('실패');
-				}
-			})
 		});
-			
+		
+			function updateBiddingInfo() {
+				// 입찰이력불러오기 관련 ajax
+				$.ajax({
+					url: "<%= request.getContextPath() %>/selectBidUser.se",
+					type: "post",
+					data: {
+						auctionId: <%= auctionId %>,
+					},
+					success: function(data) {
+						const arr = data.split("#");
+						console.log(data);
+						
+						let temp="<tbody>";
+						for(i in arr) {
+							var arr2 = arr[i].split("::");
+							temp += "<tr>";
+							
+							for(j in arr2){
+								if(j == 0)
+									temp += "<td>"+ arr2[j] +"</td>";
+								else if(j == 1) 
+									temp += "<td>"+ arr2[j] +"</td>";
+								else if(j == 2)
+									temp += "<td>"+ arr2[j] +"</td>";
+								else if(j == 3)
+									temp += "<td>" + arr2[j] + "</td>";	
+							}
+							
+							temp += "</tr>";
+						}
+
+						temp+="</tbody>";
+						$("#tableBiddingArea>tbody").empty();
+						$("#tableBiddingArea").append(temp);
+						
+						// 입찰리스트에서 최댓값 추출
+						let maxPrice = $("#biddingUsers > table > tbody > tr:nth-of-type(1)").children().eq(1).text();
+						$('#maxPrice').text(numberFormat(maxPrice)+'원');
+						
+						// 최댓값기준 입찰단위
+						let unit = maxPrice*0.05;
+						$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+						
+						// 최소입찰금액
+						let minPrice = maxPrice*1.05;
+						$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+						
+						console.log($("#tableBiddingArea > tbody").children().eq(0).children().eq(0).text());
+						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
+							$("#insertBid").hide();
+							$("#minPrice").val("최고 입찰자 입니다.").css({"text-align":"center"});
+						}
+					},
+					error: function(data) {
+						console.log('실패');
+					}
+				});
+			}
+		
+		
 			function numberFormat(inputNumber) {
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			};
+			
+			function checkBiddingCount() {
+				$.ajax({
+					url: "",
+					type: "",
+					data: {},
+					success: function(data) {
+						
+					},
+					error: function(data) {
+						
+					}
+				});
 			}
-			
-			
 			
 			function watchGetWebSocket() {	//입찰웹소켓
 				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
@@ -452,18 +499,7 @@
 			};
 			
 			function watchBiddingOnMessage(event) {
-				var arr = event.data.split("::");		//0: 멤버번호, 1:옥션번호, 2: 비딩가격
-				for(i in arr) {
-					console.log(arr[i]);
-					$('#maxPrice').text(numberFormat(arr[i])+'원');
-					
-					// 최댓값기준 입찰단위
-					$('#unit').text('입찰 단위 : ' + numberFormat(arr[i]*0.05)+'원');
-					
-					// 최소입찰금액
-					$('#minPrice').attr('placeholder', numberFormat(arr[i]*1.05)+'원 이상 입력하세요.');
-					
-				}
+				updateBiddingInfo();
 			};
 			
 			function watchBiddingOnClose(event) {
@@ -489,6 +525,79 @@
 					alert("성공적으로 입찰했습니다.");
 				}
 			};
+			
+			function endTimeWatchDetailGetWebSocket() {
+				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
+				watchTimeWebSocket = new WebSocket(url);
+				
+				watchTimeWebSocket.onopen = function(event) {
+					watchTimeOnOpen(event);
+				};
+				
+				watchTimeWebSocket.onmessage = function(event) {
+					watchTimeOnMessage(event);
+				};
+				
+				watchTimeWebSocket.onclose = function(evnet) {
+					watchTimeOnClose(event);
+				};
+				
+				watchTimeWebSocket.onerror = function(event) {
+					watchTimeOnError(event);
+				};
+			};
+			
+			function watchTimeOnOpen(event) {
+				console.log("watchTimeWebSocket 실행");
+				console.log($("#endHiddenTime").val());
+				watchTimeSend($("#endHiddenTime").val());
+			};
+			
+			function watchTimeOnMessage(event) {
+				console.log(event.data);
+				var temp = Number(event.data);
+				if(temp <= 0) {
+					// 경매 완료 처리
+					$("emdTime").text(changeTime(0));
+				} else {
+					$("#endTime").text(changeTime(temp));
+					watchTimeSend(temp);
+				}
+			};
+			
+			function watchTimeOnClose(event) {
+				
+			};
+			
+			function watchTimeOnError(event) {
+				
+			};
+			
+			function watchTimeSend(msg) {
+				watchTimeWebSocket.send(msg);
+			};
+			
+			function changeTime(time) {
+				var second = time;
+				
+				var day = leadingZeros(Math.floor(second / (60 * 60 * 24)), 2);
+				var hour = leadingZeros(Math.floor((second - day * 60 * 60 * 24) / (60 * 60)), 2);
+				var min = leadingZeros(Math.floor((second - day * 60 * 60 * 24 - hour * 3600) / 60), 2);
+				var sec = leadingZeros(second % 60, 2);
+				
+				return day + "일" + hour + "시간" + min + "분" + sec + "초";
+			}//---changeTime() endPoint---
+			
+			function leadingZeros(date, num) {
+				 var zero = '';
+				 date = date.toString();
+				
+				 if (date.length < num) {
+				  for (i = 0; i < num - date.length; i++)
+				   zero += '0';
+				 }
+				 return zero + date;
+			}
 	</script>
 </body>
 </html>

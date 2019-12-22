@@ -845,6 +845,31 @@ public class AuctionDao {
 		}
 		return result;
 	}
+
+
+	public Auction selectAuctionOne(Connection con, int auctionId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Auction ac = null;
+		
+		String query = prop.getProperty("selectAuctionOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, auctionId);
+			rset = pstmt.executeQuery();
+			ac = new Auction();
+			if(rset.next()) {
+				ac.setAuctionPeriod(rset.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return ac;
+	}
 }
 
 
