@@ -16,6 +16,7 @@ import com.kh.lp.auction.model.vo.BiddingHistory;
 import com.kh.lp.auction.model.vo.ClosedAuction;
 import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.win.model.vo.Win;
+import com.kh.lp.wishlist.model.dao.WishListDao;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -224,6 +225,8 @@ Connection con = getConnection();
 		}
 		return result;
 	}
+	
+
 }
 
 

@@ -29,6 +29,42 @@ public class WishListDao {
 	}
 
 	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 22
+	 * @ModifyDate    : 2019. 12. 22
+	 * @Description   : 현재 로그인된 회원의 위시리스트 갯수를 불러오는 메소드
+	 * @param
+	 * @return
+	 */
+	
+	public int memberWishListCount(Connection con, int loginMemberNo) {
+		
+		int memberWishListCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("memberWishListCount");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberWishListCount = rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return memberWishListCount;
+	}
 	
 	/**
 	 * @Author         : 오수민
@@ -39,11 +75,18 @@ public class WishListDao {
 	 * @return
 	 */
 	
-	public ArrayList<Integer> selectMemberAuctionId(Connection con, int loginMemberNo, String selectedView) {
+	public ArrayList<Integer> selectMemberAuctionId(Connection con, int loginMemberNo, String selectedView, int currentPage, int limit) {
 		
 		ArrayList<Integer> selectedMemberAuctionId = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+
+		
+		//현재  페이지에서의 리스트 시작번호
+		int startRow = (currentPage -1) * limit + 1;
+		//현재 페이지에서의 리스트 마지막번호
+		int endRow = (startRow + limit -1);
+		
 		
 		String query = prop.getProperty(selectedView + "AuctionIds");
 		
@@ -51,13 +94,15 @@ public class WishListDao {
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, loginMemberNo);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			rset = pstmt.executeQuery();	
 			
 			selectedMemberAuctionId = new ArrayList<>();
 			
 			while(rset.next()) {
-				selectedMemberAuctionId.add(rset.getInt(1));
+				selectedMemberAuctionId.add(rset.getInt("WISHLIST_AUCTION_ID"));
 			}
 			
 			
@@ -68,6 +113,7 @@ public class WishListDao {
 			close(rset);
 		}
 		
+		System.out.println("selectedMemberAuctionId : " + selectedMemberAuctionId);
 		
 		return selectedMemberAuctionId;
 	}
@@ -82,7 +128,7 @@ public class WishListDao {
 	 * @return
 	 */
 
-	public WishList selectEachInfo(Connection con, int memberAuctionIds) {
+	public WishList selectEachInfo(Connection con, int memberAuctionIds, int loginMemberNo) {
 		
 		WishList selectedEachInfo = null;
 		PreparedStatement pstmt = null;
@@ -94,18 +140,18 @@ public class WishListDao {
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, memberAuctionIds);
+			pstmt.setInt(2, loginMemberNo);
 			
 			rset = pstmt.executeQuery();
 			
 			selectedEachInfo = new WishList();
 			
-			if(rset.next()) {
+			while(rset.next()) {
 				selectedEachInfo.setAuctionId(memberAuctionIds);
 				selectedEachInfo.setAttachmentRename(rset.getString("ATTACHMENT_RENAME"));
 				selectedEachInfo.setAr1Brand(rset.getString("AR1_BRAND"));
 				selectedEachInfo.setAr1Model(rset.getString("AR1_MODEL"));
-				selectedEachInfo.setAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
-				selectedEachInfo.setAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
+				selectedEachInfo.setAuctionEndDate(rset.getDate("AUCTION_END_DATE"));
 			}
 			
 		} catch (SQLException e) {

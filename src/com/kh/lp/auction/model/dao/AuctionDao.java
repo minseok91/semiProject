@@ -845,6 +845,8 @@ public class AuctionDao {
 		}
 		return result;
 	}
+
+
 }
 
 

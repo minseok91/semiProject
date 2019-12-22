@@ -11,16 +11,25 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import = "com.kh.lp.wishlist.model.vo.*, java.util.*, com.kh.lp.common.*"%>
+    
 <%
-//	ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list");
-/* 	PageInfo pi = (PageInfo) request.getAttribute("pi");
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage(); */
+	
+    ArrayList<WishList> memberWishList = (ArrayList<WishList>)(request.getAttribute("memberWishList"));
+    System.out.println("memberWishList : " + memberWishList);
+    PageInfo pInfo = (PageInfo) request.getAttribute("pInfo");
+    System.out.println("pInfo : " + pInfo);
+    int startPage = pInfo.getStartPage();
+    int currentPage = pInfo.getCurrentPage();
+    int endPage = pInfo.getEndPage();
+    int limit = pInfo.getLimit();
+    int listCount = pInfo.getListCount();
+    int maxPage = pInfo.getMaxPage();
+    int n=0;
 %>
+    
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -187,6 +196,13 @@
 	margin-right: auto;
 }
 
+.noImg{
+	width: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	height: 165px;
+}
+
 #img>img {
 	width: 100px;
 	height: 100px;
@@ -313,7 +329,9 @@ td>.content {
 			</div>
 			<div class="list">
 			<table>
-			<% for(int i=0; i<3; i++) { %> <!-- 리스트 전체 / 4 + 1 -->
+			
+			
+			<%-- <% for(int i=0; i<3; i++) { %> <!-- 리스트 전체 / 4 + 1 -->
 				<tr>
 				<% for(int j=0; j<4; j++) { %> <!-- 4 고정 -->
 					<td>
@@ -328,7 +346,45 @@ td>.content {
 					</td>
 				<% } %>
 				</tr>
-				<% } %>
+			<% } %> --%>
+			
+				
+			
+				
+				<%for(int i=0; i<3; i++) {%>
+				<tr>
+					<%for(int j=0; j<4; j++) { %>
+					<td>
+						<%if(n<memberWishList.size()) {%>
+							<input type="hidden" value=""><!-- value에 해당상품번호 이식 ??????????? -->
+							<input type="checkbox" class="wish">
+							<div id="img">
+								<div class="price"><%=memberWishList.get(n).getAuctionCurrentPrice() %></div>
+								<img src="<%=request.getContextPath()%>/img/appraisal/<%=memberWishList.get(n).getAttachmentRename() %>" alt="">
+							</div>
+							<span class="content"><%=memberWishList.get(n).getAr1Brand() %> <%=memberWishList.get(n).getAr1Model() %></span>
+							<div class="time"><%=memberWishList.get(n).getAuctionEndDate() %></div>
+							<%
+								n++; 
+							%>
+						<%}else {%>
+							<div id="img">
+								<div class="price"></div>
+								<div class="noImg"></div>
+							</div>
+							<span class="content"></span>
+							<div class="time"></div>
+						<%} %>
+					
+					
+					</td>
+					<%} %>
+				</tr>
+				
+				
+			<%} %>
+				
+				
 			</table>
 		</div> <!-- watchList End -->
 		
