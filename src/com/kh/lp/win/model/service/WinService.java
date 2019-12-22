@@ -45,4 +45,15 @@ public class WinService {
 		close(con);
 		return result;
 	}
+
+	// 낙찰리스트 추출
+	public ArrayList<Win> winSelectAll(int memberNo) {
+		Connection con = getConnection();
+		
+		ArrayList<Win> list = new WinDao().winSelectAll(con, memberNo);
+		
+		close(con);
+		
+		return list;
+	}
 }

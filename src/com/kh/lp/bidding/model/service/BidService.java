@@ -116,7 +116,7 @@ public class BidService {
 		return selectedBiddingList;
 	}
 
-	// 입찰 등록
+	// 위시리스트 등록
 	public String insertWish(Bid b) {
 		Connection con = getConnection();
 		int result = 0;
@@ -132,10 +132,13 @@ public class BidService {
 		else {
 			status = new BidDao().checkWishStatus(b, con); // 있다면 일단 상태를 먼저 확인
 			log.debug(status);
-			if(status.equals("Y"))
+			if(status.equals("Y")) {
 				result = new BidDao().changeWishN(b, con); // 상태가 Y라면 N으로 변경
-			else 
+				log.debug(result+yn);
+			} else {
 				result = new BidDao().changeWishY(b, con); // 상태가 N이라면 Y로 변경
+				log.debug(result+yn);
+			}
 		}
 		
 		if(result > 0) 
@@ -144,6 +147,8 @@ public class BidService {
 			rollBack(con);
 		
 		close(con);
+		
+		log.debug(result+yn);
 		
 		return result+yn;
 	}
@@ -233,6 +238,17 @@ public class BidService {
 		Connection con = getConnection();
 		
 		int result = new BidDao().listCount(con);
+		
+		close(con);
+		
+		return result;
+	}
+
+	// 특정상품에 대한 위시등록 확인
+	public String wishStatus(int memberNo, int auctionId) {
+		Connection con = getConnection();
+		
+		String result = new BidDao().wishStatus(con, memberNo, auctionId);
 		
 		close(con);
 		

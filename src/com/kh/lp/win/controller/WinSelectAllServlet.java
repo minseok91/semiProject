@@ -1,7 +1,8 @@
-package com.kh.lp.bidding.controller;
+package com.kh.lp.win.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,66 +10,58 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.bidding.model.service.BidService;
-import com.kh.lp.bidding.model.vo.Bid;
+import com.kh.lp.win.model.service.WinService;
+import com.kh.lp.win.model.vo.Win;
 
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class BiddingItemServlet
+ * Servlet implementation class WinSelectAllServlet
  */
+@WebServlet("/selectWin.se")
 @Log4j2
-@WebServlet("/wish.in")
-// 위시리스트 넣기(BIDDING_HISTORY에 넣음)
-public class WishInsertServlet extends HttpServlet {
+public class WinSelectAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WishInsertServlet() {
+    public WinSelectAllServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 낙찰리스트 추출
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
-		log.debug(auctionId);
-		log.debug(memberNo);
-		
-		Bid b = new Bid();
-		b.setBidAuctionId(auctionId);
-		b.setBidMemberNo(memberNo);
-		
-		String result = new BidService().insertWish(b);
+		ArrayList<Win> list = new WinService().winSelectAll(memberNo);
+		log.debug(list);
 		
 		String msg = "";
 		
 		PrintWriter out = response.getWriter();
 		
-		log.debug(result);
-		
-		if(result.length() == 1) {
-			msg = "successWishY";
-			log.debug(msg);
-			out.append(msg);
-		} else if(result.charAt(0) != '0' && result.charAt(1) == 'Y') {
-			msg = "successWishN";
-			log.debug(msg);
-			out.append(msg);
-		} else if(result.charAt(0) != '0' && result.charAt(1) == 'N') {
-			msg = "successWishY";
+		if(list != null) {
+			for(int n = 0; n < list.size(); n++) {
+				Win w = list.get(n);
+				if(n == list.size() - 1)
+					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
+						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
+						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "::" + w.getWinBrand() + "::" + w.getWinModel();
+				else 
+					msg += w.getWinAuctionId() + "::" + w.getWinMemberNo() + "::" + w.getWinPrice()
+						+ "::" + w.getWinSecondMemberNo() + "::" + w.getWinsecondPrice() + "::" + w.getWinStatus()
+						+ "::" + w.getAttRename() + "::" + w.getWinDate() + "::" + w.getWinBrand() + "::" + w.getWinModel() + "#";
+			}
 			log.debug(msg);
 			out.append(msg);
 		} else {
-			msg = "fail";
-			log.debug(msg);
-			out.append(msg);
+			log.debug("실패");
+			out.append("fail");
 		}
 		
 		out.flush();
