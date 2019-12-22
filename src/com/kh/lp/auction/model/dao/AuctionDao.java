@@ -850,7 +850,6 @@ public class AuctionDao {
 		return result;
 	}
 
-
 	public Auction selectAuctionOne(Connection con, int auctionId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

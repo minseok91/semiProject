@@ -14,7 +14,28 @@ import com.kh.lp.wishlist.model.vo.WishList;
 public class WishListService {
 
 	
+
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 22
+	 * @ModifyDate    : 2019. 12. 22
+	 * @Description   : 현재 로그인된 회원의 위시리스트 갯수를 불러오는 메소드
+	 * @param
+	 * @return
+	 */
 	
+	public int memberWishListCount(int loginMemberNo) {
+		
+		int memberWishListCount = 0;
+		
+		Connection con = getConnection();
+		
+		memberWishListCount = new WishListDao().memberWishListCount(con, loginMemberNo);
+		
+		close(con);
+		
+		return memberWishListCount;
+	}
 	
 	
 	/**
@@ -26,7 +47,7 @@ public class WishListService {
 	 * @param
 	 * @return
 	 */
-	public ArrayList<WishList> getMemberWishList(int loginMemberNo, String selectedView) {
+	public ArrayList<WishList> getMemberWishList(int loginMemberNo, String selectedView, int currentPage, int limit) {
 		
 		ArrayList<Integer> memberAuctionIds = null;
 		ArrayList<WishList> memberWishList = null;
@@ -34,7 +55,7 @@ public class WishListService {
 		
 		
 		//로그인된 유저가 관심상품 등록한 목록 WISHLIST 테이블에서 selectedView값(전체/시계/가방)에 대한 WISHLIST_AUCTION_ID값 가져와서 ArrayList<Integer>에 담기
-		memberAuctionIds = new WishListDao().selectMemberAuctionId(con, loginMemberNo, selectedView);
+		memberAuctionIds = new WishListDao().selectMemberAuctionId(con, loginMemberNo, selectedView, currentPage, limit);
 		
 		
 		//각 memberAuctionId에 해당하는 위시리스트 정보들을 받아서 생성된 WishList객체에 담아온 후에 가격정보를 담아와서 setter로 추가 후 memberWishList에 추가
@@ -42,7 +63,7 @@ public class WishListService {
 		
 		for(int i=0; i<memberAuctionIds.size(); i++) {
 			
-			WishList eachInfo = new WishListDao().selectEachInfo(con, memberAuctionIds.get(i));
+			WishList eachInfo = new WishListDao().selectEachInfo(con, memberAuctionIds.get(i), loginMemberNo);
 			int eachCurrentPrice = new WishListDao().getEachCurrentPrice(con, memberAuctionIds.get(i));
 			
 			eachInfo.setAuctionCurrentPrice(eachCurrentPrice);
