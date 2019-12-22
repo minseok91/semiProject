@@ -47,6 +47,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 10%;
+		margin-bottom: 10%;
 		padding: 6px 0px 0;
 	}
 	.contents{

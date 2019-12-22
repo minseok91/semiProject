@@ -85,12 +85,10 @@ html, body {
 }
 
 #search_Box {
-	margin-top: 1px;
-	font-family: sans-serif;
-	font-size: 15px;
-	width: 150px;
+	width: 300px;
+	height: 100%;
 	border: none;
-	float: right;
+	margin-top: 10px;
 }
 
 #search_Box tr td:nth-of-type(1) {
