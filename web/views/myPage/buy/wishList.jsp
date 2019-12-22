@@ -196,6 +196,7 @@
 	margin-right: auto;
 }
 
+
 .noImg{
 	width: 100px;
 	margin-left: auto;
@@ -256,6 +257,8 @@ td>.content {
 	background: none;
 	margin: 0 3px;
 }
+
+
 
 </style>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon"/>
@@ -354,10 +357,10 @@ td>.content {
 				<%for(int i=0; i<3; i++) {%>
 				<tr>
 					<%for(int j=0; j<4; j++) { %>
-					<td>
 						<%if(n<memberWishList.size()) {%>
+						<td>
 							<input type="hidden" value=""><!-- value에 해당상품번호 이식 ??????????? -->
-							<input type="checkbox" class="wish">
+							<input type="checkbox" class="wish" name="check<%=memberWishList.get(n).getAuctionId()%>">
 							<div id="img">
 								<div class="price"><%=memberWishList.get(n).getAuctionCurrentPrice() %></div>
 								<img src="<%=request.getContextPath()%>/img/appraisal/<%=memberWishList.get(n).getAttachmentRename() %>" alt="">
@@ -367,17 +370,21 @@ td>.content {
 							<%
 								n++; 
 							%>
-						<%}else {%>
-							<div id="img">
+						</td>
+						<%} else {%>
+						<td hidden>
+							<div disable>
+							<div id="img" >
 								<div class="price"></div>
 								<div class="noImg"></div>
 							</div>
 							<span class="content"></span>
 							<div class="time"></div>
+							</div>
 						<%} %>
 					
 					
-					</td>
+						</td>
 					<%} %>
 				</tr>
 				
@@ -414,6 +421,9 @@ td>.content {
 			
 			// 체크한항목 제거
 			$('#wishDelete').click(function () {
+				
+				
+				
 				
 			})
 		});
