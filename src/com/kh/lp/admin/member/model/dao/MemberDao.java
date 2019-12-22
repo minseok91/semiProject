@@ -134,7 +134,7 @@ public class MemberDao {
 	 * @param con
 	 * @return
 	 */
-	public Member selectOne(String userId, Connection con) {
+	public Member selectOne(int memberNo, Connection con) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member user = null;
@@ -143,7 +143,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(userId));
+			pstmt.setInt(1, memberNo);
 			
 			rset = pstmt.executeQuery();
 			

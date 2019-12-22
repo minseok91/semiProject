@@ -44,13 +44,14 @@
 	
 	.container {
 		width: 1080px;
-		margin: 0 auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10%;
 		padding: 6px 0px 0;
 	}
 	.contents{
 		height:660px;
 		width:inherit;
-		margin-top: 5%;
 		border: 1px solid;
 		border-radius: 10px; 
 	}

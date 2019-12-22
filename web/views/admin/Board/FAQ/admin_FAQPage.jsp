@@ -198,7 +198,7 @@ html, body {
 			</div>
 			<div>
 				<div id="NoticeNumber">
-					 <p>총 게시판 글 :</p><h4><%= list.size() %> 개</h4>
+					 <p>총 게시판 글 :</p><h4><%= listCount %> 개</h4>
 				</div>
 				<table id="table">
 					<tr>

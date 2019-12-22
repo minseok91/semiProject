@@ -76,6 +76,9 @@
 		padding-top: 30px;
 		padding-right: 40px;
 	}
+	#appraisal > li:hover {
+		color: white;
+	}
 	#notice {
 		margin-bottom: 0;
 		margin-top: 0;
@@ -84,7 +87,7 @@
 	#notice > li{
 		float: left;
 		display: none;
-		color: rgb(33, 31, 34);
+		color: #e2ceb8;
 		padding-top: 30px;
 		padding-right: 40px;
 	}
@@ -96,7 +99,7 @@
 	#appraisal > li{
 		float: left;
 		display: none;
-		color: rgb(33, 31, 34);
+		color: #e2ceb8;
 		padding-top: 30px;
 		padding-right: 40px;
 	}
@@ -108,9 +111,12 @@
 	#shipment > li{
 		float: left;
 		display: none;
-		color: rgb(33, 31, 34);
+		color: #e2ceb8;
 		padding-top: 30px;
 		padding-right: 40px;
+	}
+	#shipment > li:hover{
+		color: white;
 	}
 	#header_box > ul > li > a {
 		text-decoration: none;
@@ -122,19 +128,21 @@
 		color: rgb(33, 31, 34);
 	}
 	#usermit > li > a:hover {
-	color: #e2ceb8;
-	text-decoration: underline;
+	color: white;
 	}
 	#notice > li:hover {
-	color: #e2ceb8;
-	text-decoration: underline;
+	color: white;
+	/* text-decoration: underline; */
 	}
 	#header_box > ul > li > a {
 		color: #e2ceb8;
 	}
 	#notice, #usermit, #appraisal , #shipment {
-		width: 301px;
+		width: fit-content;
 		margin: 0 auto;
+	}
+	#usermit > li:hover {
+	color: white;
 	}
 </style>
 </head>
@@ -142,12 +150,12 @@
 		<div id="header_box">
 			<ul>
 				<li id="mainPage" class="cursor">메인 화면</li>
-				<li>회원 정보</li>
+				<li id="memberInfo">회원 정보</li>
 				<li id="goods_li">상품 관리</li>
 				<li id="auctionManagement">경매 관리</li>
 				<li id="shipManagement">배송 관리</li>
 				<li id="">매출 관리</li>
-				<li>게시판 관리</li>
+				<li id="boardManagement">게시판 관리</li>
 				<li id="inquiryAndReport">문의 및 신고</li>
 			</ul>
 		</div>  <!-- header_box end -->
@@ -232,7 +240,7 @@
 		location.href="<%= request.getContextPath()%>/QNASelect.qr";
 	})
 	$("#goods_li").click(function(){
-		location.href="<%= request.getContextPath()%>/views/admin/admin_appraisalProducts.jsp";
+		location.href="<%= request.getContextPath()%>/selectAll.it";
 	})
 	$("#userInfo").click(function(){
 		location.href="<%= request.getContextPath()%>/memberInfo.me";
@@ -243,15 +251,23 @@
 	$("#auctionManagement").click(function(){
 		location.href="<%=request.getContextPath()%>/selectAll.au";
 	})
-	
+	$("#memberInfo").click(function(){
+		location.href="<%= request.getContextPath()%>/memberInfo.me";
+	})
 	$("#shipment_yet").click(function(){
+		location.href="<%=request.getContextPath()%>/selectAll.sm";
+	})
+	$("#shipManagement").click(function() {
 		location.href="<%=request.getContextPath()%>/selectAll.sm";
 	})
 	$("#shipment_list").click(function(){
 		location.href="<%=request.getContextPath()%>/selectAll.sh";
 	})
- 	$(".cursor").mouseover(function(){
-		$(".cursor").css('cursor','pointer');
+	$("#boardManagement").click(function() {
+		location.href="<%= request.getContextPath()%>/selectAll.bo";
+	})
+ 	$("li").mouseover(function(){
+		$("li").css('cursor','pointer');
 	});
 	</script>
 </html>
