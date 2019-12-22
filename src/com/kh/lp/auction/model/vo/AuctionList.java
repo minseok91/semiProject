@@ -15,5 +15,8 @@ public class AuctionList {
 	private String auctionType;
 	private int auctionCount;
 	private int auctionAr1Id;
+	private String type;
+	private String model;
+	private String brand;
 
 }

@@ -278,6 +278,7 @@ System.out.println("memberId : " + memberId );
 </style>
 </head>
 <body>
+<%@ include file="../common/headerPage.jsp" %>
 	<section>
 		<div id="container">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->

@@ -203,6 +203,9 @@ public class AppraisalDao {
 				app.setItemMemberNo(rset.getInt("ITEM_MEMBER_NO"));
 				app.setItemType(rset.getString("ITEM_TYPE"));
 				app.setMemberName(rset.getString("MEMBER_NAME"));
+				app.setMemberId(rset.getString("MEMBER_ID"));
+				app.setModel(rset.getString("AR1_MODEL"));
+				app.setBrand(rset.getString("AR1_BRAND"));
 				
 				list.add(app);
 			}

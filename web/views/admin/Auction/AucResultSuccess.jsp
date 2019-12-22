@@ -258,6 +258,7 @@ System.out.println("win : " + win );
 </style>
 </head>
 <body>
+<%@ include file="../common/headerPage.jsp" %>
 	<section>
 		<div id="container">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
@@ -434,15 +435,14 @@ System.out.println("win : " + win );
 									<th>입찰 금액</th>
 									<th>입찰 시간</th>
 								</tr>
-								<%int i = 1; for(BiddingHistory bh :bhList ){ %>
+								<% for(int i = 0; i <bhList.size() - 1; i++){ %>
 								<tr>
-									<td><%=i%> 순위 </td>
-									<td><%=bh.getBiddingMemberId() %></td>
-									<td><%=bh.getBiddingPrice() %></td>
-									<td><%=bh.getBiddingDate() %> <%=bh.getBiddingTime() %></td>
+									<td><%=i + 1%> 순위 </td>
+									<td><%=bhList.get(i).getBiddingMemberId() %></td>
+									<td><%=bhList.get(i).getBiddingPrice() %></td>
+									<td><%=bhList.get(i).getBiddingDate() %> <%=bhList.get(i).getBiddingTime() %></td>
 								</tr>
-								
-								<%i++; } %>
+								<% } %>
 							</table>
 					</div>
 				</p>

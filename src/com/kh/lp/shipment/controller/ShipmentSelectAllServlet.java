@@ -62,7 +62,7 @@ public class ShipmentSelectAllServlet extends HttpServlet {
 		
 		String page = "";
 		if(list != null) {
-			page = "views/admin/delivery/deliveryList.jsp";
+			page = "views/admin/delivery/newdelivery.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {

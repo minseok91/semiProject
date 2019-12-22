@@ -69,6 +69,10 @@ public class AuctionDao {
 				al.setAuctionId(rset.getInt("AUCTION_ID"));
 				al.setAuctionType(rset.getString("AUCTION_STATUS"));
 				al.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
+				al.setType(rset.getString("AR1_WATCH_BAG"));
+				al.setModel(rset.getString("AR1_MODEL"));
+				al.setBrand(rset.getString("AR1_BRAND"));
+				
 //				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
 //				au.setAuctionId(rset.getInt("AUCTION_ID"));
 //				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));

@@ -140,6 +140,7 @@ public class ItemDao {
 				item.setItemPurDate(rset.getString("ITEM_PUR_DATE"));
 				item.setItemType(rset.getString("ITEM_TYPE"));
 				item.setItemWarrantyYn(rset.getString("ITEM_WARRANTY_YN"));
+				item.setMemberId(rset.getString("MEMBER_ID"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

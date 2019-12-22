@@ -164,7 +164,7 @@
 					<thead id="tableHead">
 						<tr>
 							<th>No.</th>
-							<th>상품ID</th>
+							<th>브랜드 / 모델명</th>
 							<th>상품종류</th>
 							<th>판매자ID</th>
 							<th>감정완료날짜</th>
@@ -175,9 +175,9 @@
 						<% for(AppCom ac :list) { %>
 					<tr>
 						<td><%= ac.getItemId() %></td>
-						<td><%= ac.getItemId() %></td>
+						<td><%= ac.getBrand() %> / <%=ac.getModel() %></td>
 						<td><%= ac.getItemType().equals("W")?"시계" :"가방" %></td>
-						<td><%= ac.getItemMemberNo() %></td>
+						<td><%= ac.getMemberId() %></td>
 						<td><%= ac.getItemAppDate() %></td>
 						<td><%= ac.getAppResult().equals("AR1")?"진품":"가품"%></td>
 					</tr>
