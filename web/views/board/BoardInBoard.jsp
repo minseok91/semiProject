@@ -412,7 +412,7 @@
 		})
 		$(".searchBtn").click(function() {
 			 console.log($("input[name='searchBox']")[0].value);
-			 var 
+			 var  a;
 			 $.ajax({
 				 url: "",
 				 data : {

@@ -221,7 +221,7 @@ html, body {
 					</tr>
 					 <% for(int i=0; i<list.size(); i++) { %>
 					<tr>
-						<td><%= list.get(i).getBoardNo() %>
+						<td><%= list.get(i).getBoardId() %>
 							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
 							<input type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
 						</td>
@@ -411,7 +411,7 @@ html, body {
 											if(e.target.innerHTML == "수정"){
 												location.href="<%=request.getContextPath()%>/selectOne.bo?boardId="+boardId+"&MemberName="+MemberName
 											} else if(e.target.innerHTML == "삭제") {
-												location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId+"&type=a"
+												location.href="<%=request.getContextPath()%>/deleteBoard.bo?boardId="+boardId+"&type=a&pageaddress=null";
 											} else {
 												var boardId= e.target.parentNode.children[0].children[0].value;
 												var MemberName = e.target.parentNode.children[0].children[1].value;

@@ -35,7 +35,8 @@ public class BoardUpdateServlet extends HttpServlet {
 		String type = request.getParameter("category");
 		String content = request.getParameter("content");
 		int memberNo = 0;
-
+		String pageAddress = request.getParameter("pageAddress");
+		
 		if(request.getParameter("memberNo") != null) {
 			memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		}
@@ -63,7 +64,11 @@ public class BoardUpdateServlet extends HttpServlet {
 
 		String page = ""; 
 		if(updateBoard > 0) { 
-			page = "BoardSelectOne2?boardId="+boardId;
+			if(pageAddress == null) {
+				page = "BoardSelectOne2?boardId="+boardId;
+			} else {
+				page = "selectFAQ.bo";
+			}
 		} else {
 
 		}

@@ -35,9 +35,10 @@ public class BoardSelectOneServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String user = "member";
+	
 		HashMap<String, Object> list = new BoardService().selectBoardOne(boardId);
 		ArrayList<Reply> reply = new ReplyService().selectAll(boardId,user);
-		
+		int countUpdate = new BoardService().updateBoardCount(boardId);
 		
 		
 		String page = "";

@@ -216,5 +216,26 @@ public class BoardDao {
 		
 		return hm;
 	}
+	public int updateBoardCount(int boardId, Connection con) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, boardId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }
