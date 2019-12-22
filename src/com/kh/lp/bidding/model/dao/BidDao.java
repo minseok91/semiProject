@@ -37,46 +37,6 @@ public class BidDao {
 		}
 	}
 
-	// 시계리스트 추출(페이징 아님)
-//	public ArrayList<Bid> watchSelectList(Connection con) {
-//		Statement stmt = null;
-//		ResultSet rset = null;
-//		ArrayList<Bid> list = null;
-//		
-//		String query = prop.getProperty("selectWatchList");
-//		
-//		try {
-//			stmt = con.createStatement();
-//			rset = stmt.executeQuery(query);
-//			
-//			list = new ArrayList<>();
-//			
-//			while(rset.next()) {
-//				Bid b = new Bid();
-//				
-//				b.setBidAuctionId(rset.getInt("AUCTION_ID"));
-//				b.setBidId(rset.getInt("BIDDING_ID"));
-//				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
-//				b.setBidAttachment(rset.getString("ATTACHMENT_RENAME"));
-//				b.setBidBrand(rset.getString("AR1_BRAND"));
-//				b.setBidModel(rset.getString("AR1_MODEL"));
-//				b.setBidAuctionStartTime(rset.getDate("AUCTION_START_TIME"));
-//				b.setBidAuctionPeriod(rset.getInt("AUCTION_PERIOD"));
-//				
-//				list.add(b);
-//			}
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(stmt);
-//		}
-//		
-//		return list;
-//	}
-
 	public ArrayList<Bid> selectItemDetail(Connection con, int num) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -133,6 +93,7 @@ public class BidDao {
 				// 아이디 가리기
 				String user = rset.getString("MEMBER_ID").substring(0, 3)+"******";
 				b.setBidUserId(user);
+				b.setBidMemberNo(rset.getInt("MEMBER_NO"));
 				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
 				b.setBidInsertTime(rset.getDate("BIDDING_TIME")); // 입찰시간
 				
@@ -723,6 +684,37 @@ public class BidDao {
 		}finally {
 			close(stmt);
 			close(rset);
+		}
+		
+		return result;
+	}
+
+	// 특정상품에 대한 위시등록 확인
+	public String wishStatus(Connection con, int memberNo, int auctionId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = "";
+		
+		String sql = prop.getProperty("wishStatus");
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, auctionId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString(1);
+			}
+			
+			log.debug(result);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return result;

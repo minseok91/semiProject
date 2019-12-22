@@ -1,4 +1,4 @@
-<%--
+%--
 /**
  * <pre>
  * @Author      : Kewon
@@ -225,15 +225,17 @@ td>a>img {
 				let values=$(this).attr('value');
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+				//ㅁㄴㅇㅁㅇㄴㅁㄴㅇ
 			});
 
 			$.ajax({
-				url: "<%= request.getContextPath() %>/selectWin.wi",
+				url: "<%= request.getContextPath() %>/selectWin.se",
 				type: "post",
 				data: {
 					memberNo: <%= loginMember.getMemberNo() %>
 				},
 				success: function(data){
+					console.log(data)
 					var arr = data.split("#");
 					for(i in arr){
 						console.log(arr[i]);

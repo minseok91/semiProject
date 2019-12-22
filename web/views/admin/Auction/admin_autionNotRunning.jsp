@@ -234,6 +234,25 @@ System.out.println("memberId : " + memberId );
 	#goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
+	.goods {
+		margin-left: 90px;
+	}
+
+	.goods>table>tbody>tr>td {
+		border: 1px solid #d9d9d9;
+		padding: 10px;
+	}
+	
+	.goods>table>tbody>tr>td:nth-of-type(1) {
+		background: #f2f2f2;
+	}
+	.goods label {
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	padding-left: 10px;
+    	margin-bottom: 10px;
+	}
 	#aucResult{
 		color:brown;
 	}

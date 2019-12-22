@@ -9,8 +9,7 @@
  * </pre>
  */
 --%>
-<%@page import="com.kh.lp.common.PageInfo,java.util.ArrayList
-,com.kh.lp.report.model.vo.*"%>
+<%@page import="com.kh.lp.common.PageInfo,java.util.ArrayList ,com.kh.lp.admin.report.model.vo.*"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

@@ -314,7 +314,10 @@ html, body {
 							location.href="<%=request.getContextPath()%>/QNAandReportDetail.qr?qnaId="+boardId+"&status="+boardStatus+"&boardType="+boardType;
 							console.log(e);
 						});
-						
+						$("#table td ,button").mouseover(function(e) {
+							$("td").css({"cursor":"pointer"})
+							$("button").css({"cursor":"pointer"})
+						})
 				}, error:function(error, status) {
 					console.log("전송 실패!");
 				}
@@ -331,7 +334,10 @@ html, body {
 			});
 		}
 	})
-	
+		$("#table td ,button").mouseover(function(e) {
+			$("td").css({"cursor":"pointer"})
+			$("button").css({"cursor":"pointer"})
+		})
 	
 	</script>
 	<script>

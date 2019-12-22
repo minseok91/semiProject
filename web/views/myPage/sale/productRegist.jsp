@@ -125,7 +125,10 @@
 	#regist{
 	
 	}
-	
+	#titleImg{
+		width:inherit;
+		height:inherit;
+	}
 	
 	.itemPic{
 		display:inline-block;
@@ -179,8 +182,6 @@
 	#detailLabel, #detailText {
 		height: 65px;
 	}
-	
-	#
 	
 	#detailLabel {
 		height: 30px;
@@ -243,7 +244,7 @@
 		<div class="contentArea">
 			<div id="picArea">
 			<p>※상품 사진은 상품 식별이 가능하도록 찍어주세요.</p>
-				<div class="itemPic"  ><img  src="" id="titleImg"></div>
+				<div class="itemPic"  ><img src="" id="titleImg"></div>
 				
 				<input type="file" name="itemPic" onchange="loadImg(this ,1)">
 				

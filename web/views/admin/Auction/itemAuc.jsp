@@ -154,41 +154,41 @@
 		<div class="contents">
 			<div id="headArea">
 			<br /><br />
-				<div id="headSearchArea" align="left">
-					<table id="tableSearchArea">
-						<tr>
-							<td>아이디 검색 &nbsp;:&nbsp;</td>
-							<td>
-								<input type="text" id="idSearch">
-								&nbsp;
-								<button id="idSearchBtn" class="btn2">검색</button>
-							</td>
-						</tr>
-					</table>  <!-- tableSearchArea end -->
-				</div>  <!-- headSearchArea end -->
-				<div id="headBoardArea" align="right">
-					<table id="tableSelectArea">
-						<tr>
-							<td>검색판명 선택</td>
-							<td>
-								<select id="selectBoard">
-									<option> -- 선택 -- </option>
-									<option> 자유 게시판 </option>
-									<option> 건의 게시판 </option>
-									<option> 리뷰 게시판 </option>
-								</select>
-							</td>
-						</tr>
-					</table>  <!-- selectArea end -->
-				</div>  <!-- headBoardArea end -->
-			</div>  <!-- headArea end -->
+			<div id="headSearchArea" align="left">
+				<table id="tableSearchArea">
+					<tr>
+						<td>아이디 검색 &nbsp;:&nbsp;</td>
+						<td>
+							<input type="text" id="idSearch">
+							&nbsp;
+							<button id="idSearchBtn" class="btn2">검색</button>
+						</td>
+					</tr>
+				</table>  <!-- tableSearchArea end -->
+			</div>  <!-- headSearchArea end -->
+			<div id="headBoardArea" align="right">
+				<table id="tableSelectArea">
+					<tr>
+						<td>검색판명 선택</td>
+						<td>
+							<select id="selectBoard">
+								<option> -- 선택 -- </option>
+								<option> 자유 게시판 </option>
+								<option> 건의 게시판 </option>
+								<option> 리뷰 게시판 </option>
+							</select>
+						</td>
+					</tr>
+				</table>  <!-- selectArea end -->
+			</div>  <!-- headBoardArea end -->
+		</div>  <!-- headArea end -->
 			<div id="boardArea" align="center">
 				<table id="tableBoardArea">
 				<!-- 리스트번호,상품번호,상품종류,회원아이디.신청받은날짜.배송받은날짜,처리기한 -->
 					<thead id="tableHead">
 						<tr>
 							<th>No.</th>
-							<th>상품ID</th>
+							<th>브랜드 / 모델명</th>
 							<th>상품종류</th>
 							<!-- <th>판매자ID</th> -->
 							<th>경매상태</th>
@@ -200,9 +200,9 @@
 						for(AuctionList al : list) { %>
 							<tr>
 								<td><%= al.getAuctionAr1Id() %></td>
-								<td></td>
-								<td><%= al.getAuctionCount() %></td>
-								<td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td>
+								<td><%=al.getBrand() %> / <%=al.getModel() %></td>
+								<td><%=al.getType().equals("W")?"시계":"가방" %></td>
+								<%-- <td><%= al.getAuctionType() == null ? 0 : al.getAuctionType() %></td> --%>
 								<td><%if(al.getAuctionType() == null) { %>
 										<% if(al.getAuctionCount() == 0) { %>
 						 		경매 준비</td><td><button class="ready">상세보기</button>
@@ -232,7 +232,7 @@
 					</tbody>
 				</table>  <!-- tableBoardArea end -->
 			</div>  <!-- boardArea end -->
-				<table id="table">
+				<%-- <table id="table">
 					<!-- <tr>
 						<th>No.</th>
 						<th>상품ID</th>
@@ -285,16 +285,16 @@
  							} %>
 						</td>
 						
-						<%-- <td><%= au.getAuStartPrice() %></td>
+						<td><%= au.getAuStartPrice() %></td>
 						<td><%= au.getAuStartTime() %></td>
 						<td><%= au.getCount() %></td>
-						<td><%= au.getAuAppId() %></td> --%>
+						<td><%= au.getAuAppId() %></td>
 						<td>
 							<button class="insertApp">정보입력</button>
 						</td>
 					</tr>
 					<% } %>
-				</table>
+				</table> --%>
 			</div>
 			<div class="pagingArea" align="center">
 			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.au?currentPage=1'"><<</button>

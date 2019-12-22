@@ -44,7 +44,6 @@ public class WishInsertServlet extends HttpServlet {
 		Bid b = new Bid();
 		b.setBidAuctionId(auctionId);
 		b.setBidMemberNo(memberNo);
-		String yh = "";
 		
 		String result = new BidService().insertWish(b);
 		
@@ -52,12 +51,18 @@ public class WishInsertServlet extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		if(result.charAt(0) != 0 && result.charAt(1) == 'Y') {
+		log.debug(result);
+		
+		if(result.length() == 1) {
 			msg = "successWishY";
 			log.debug(msg);
 			out.append(msg);
-		} else if(result.charAt(0) != 0 && result.charAt(1) == 'N') {
+		} else if(result.charAt(0) != '0' && result.charAt(1) == 'Y') {
 			msg = "successWishN";
+			log.debug(msg);
+			out.append(msg);
+		} else if(result.charAt(0) != '0' && result.charAt(1) == 'N') {
+			msg = "successWishY";
 			log.debug(msg);
 			out.append(msg);
 		} else {

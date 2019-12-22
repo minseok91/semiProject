@@ -2,7 +2,6 @@ package com.kh.lp.bidding.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.appraisal.controller.AppraisalSelectItemResultServlet;
 import com.kh.lp.appraisal.model.vo.Watch;
+import com.kh.lp.auction.model.service.AuctionService;
+import com.kh.lp.auction.model.vo.Auction;
 import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bid;
 
@@ -41,7 +41,7 @@ public class WatchDetailServlet extends HttpServlet {
 		String img = request.getParameter("img");
 		ArrayList<Bid> list = new BidService().selectItemDetail(auctionId);
 		Watch watch = new BidService().selectWatchInfo(auctionId);
-		
+		Auction ac = new AuctionService().selectAuctionOne(auctionId);
 		String page = "";
 		
 		if(list != null) {
@@ -50,6 +50,7 @@ public class WatchDetailServlet extends HttpServlet {
 			request.setAttribute("img", img);
 			request.setAttribute("auctionId", auctionId);
 			request.setAttribute("watch", watch);
+			request.setAttribute("auction", ac);
 		} else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "잘못된 경로로 접근했습니다.");

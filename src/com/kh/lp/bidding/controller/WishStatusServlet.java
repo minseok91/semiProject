@@ -1,7 +1,7 @@
-package com.kh.lp.admin.member.controller;
+package com.kh.lp.bidding.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,50 +9,44 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.admin.member.model.service.MemberService;
-import com.kh.lp.member.model.vo.Member;
+import com.kh.lp.bidding.model.service.BidService;
+
+import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class admin_blackListDetailServlet
+ * Servlet implementation class WishStatusServlet
  */
-@WebServlet("/blackDetail.me")
-public class BlackListDetailServlet extends HttpServlet {
+@WebServlet("/wishstatus.se")
+@Log4j2
+public class WishStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BlackListDetailServlet() {
+    public WishStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 특정상품에 대한 위시등록 확인
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		
+		String result = new BidService().wishStatus(memberNo, auctionId);
 		
-		Member user = new MemberService().selectOne(userId);
+		log.debug(result);
 		
-		ArrayList<Object> list = new ArrayList<>();
+		PrintWriter out = response.getWriter();
 		
-		list.add(user);
-		list.add(0);
-		list.add(0);
-		list.add(0);
+		if(result.equals(""))
+			result = "null";
 		
-		String page = "";
-		if(user != null) {
-			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("userInfo","2");
-		} else {
-			//에러 페이지
-		}
-		request.getRequestDispatcher(page).forward(request, response);
-		
+		out.append(result);
 	}
 
 	/**
