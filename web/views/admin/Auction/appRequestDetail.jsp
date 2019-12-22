@@ -39,6 +39,7 @@
 			margin-top: 5%;
 			border: 1px solid;
 			border-radius: 10px; 
+			margin-bottom: 10%;
 			
 		}
 		.contentsArea {

@@ -142,7 +142,7 @@ html, body {
 			<div>
 				<table id="table">
 					<tr>
-						<th>No.</th>
+						<th>회원 번호</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>휴대폰번호</th>

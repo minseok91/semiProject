@@ -66,11 +66,14 @@ html, body {
 	border-collapse: collapse;
 }
 
-#table tr th {
+#table th {
 	border-top: 1px solid;
-	background: #EAEAEA;
-	color: black;
-	border-top: 2px solid #CCCCCC;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
+	border-bottom: 1px solid #211f22;
 }
 
 #table tr th, #table tr td {
@@ -109,8 +112,10 @@ html, body {
 }
 
 #nextPage {
-	width: 100%;
-	height: 15%;
+	width: 80%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #nextPageBox {
@@ -142,22 +147,21 @@ html, body {
 }
 
 #idSearch {
-	margin-top: 1px;
-	width: 130px;
-	height: 25px;
-	border: none;
-	box-shadow: 2px 2px 6px 1px gray;
+	font-family: sans-serif;
+    font-size: 15px;
+    width: 150px;
+    border: none;
+	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
 }
 
 #idSearchBtn {
-	width: 65px;
-	height: 31px;
-	margin-left: 2%;
-	float: right;
-	background: rgb(33, 31, 34);
-	border: 2px solid rgb(160, 115, 66);
-	color: rgb(160, 115, 66);
-	margin-top: 2px;
+	border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
 }
 
 #NoticeNumber>p {
@@ -178,6 +182,16 @@ html, body {
 #insertBoard {
 	float: right;
 	margin-right: 31px;
+}
+#nextPageBox button {
+	background: none;
+	border: none;
+	border: 1px solid white;
+	background: white;
+	color: black;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
 }
 </style>
 <body>
@@ -243,17 +257,20 @@ html, body {
 					
 					
 					<% for(int p = startPage ; p <= endPage; p++){ 
+						if(p == currentPage) {
 					%>			
-								<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=p%>'"><%=p %></button>	
-					<% }
-						%>
-					
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=p%>'" style="font-weight: bold;"><%=p %></button>	
+						<% } else { %>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=p%>'"><%=p %></button>	
+						<% } %>
+						
+					<% } %>					
 					<% if(currentPage >= maxPage){ %>
 						<button disabled> > </button>
 					<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
-						<button onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=maxPage%>'">>></button>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectFAQ.bo?currentPage=<%=maxPage%>'">>></button>
 				</div>
 			</div>
 			 

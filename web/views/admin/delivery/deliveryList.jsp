@@ -48,6 +48,7 @@
 		margin-left: auto;
 		margin-right:auto;
 		padding: 6px 0px 0;
+		margin-bottom: 10%;
 	}
 	.contents{
 		height:660px;

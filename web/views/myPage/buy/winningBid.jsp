@@ -124,11 +124,11 @@
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
 	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 15px;
+	/* padding: 15px; */
 	font-size: 15px;
 	text-align: center;
 }
-.container>.contents>#contentArea>#tableArea> {
+.container>.contents>#contentArea>#tableArea {
 	width: 200px;
 }
 td>a>img {
@@ -136,10 +136,27 @@ td>a>img {
 	height: 100px;
 }
 
-.contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+#tableArea th  {
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	border-top: 1px solid #211f22;
+	height: 33px;
 }
+ #tableArea {
+ 	margin-left: -20px;
+ 	width: 920px;
+ }
+ .pay {
+ 	border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
+ }
 </style>
 <meta charset="UTF-8">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -193,7 +210,7 @@ td>a>img {
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table id="tableArea" border="1">
+			<table id="tableArea">
 				<thead id="tableHeadArea">
 					<tr>
 						<th>경매번호</th>
