@@ -225,6 +225,7 @@ td>a>img {
 				let values=$(this).attr('value');
 				console.log(values);
 				location.href='<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+				//ㅁㄴㅇㅁㅇㄴㅁㄴㅇ
 			});
 
 			$.ajax({
