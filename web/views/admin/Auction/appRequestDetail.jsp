@@ -406,6 +406,7 @@
                   <img width="120" height="100" id="contentImg2">
                   <img width="120" height="100" id="contentImg3">
                   <img width="120" height="100" id="contentImg4">
+                  <div>감정서 사진</div>
                   <img width="120" height="100" id="contentImg5">
                   <div id="c-type">
                   

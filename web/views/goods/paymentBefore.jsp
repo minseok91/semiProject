@@ -175,6 +175,7 @@
 		String price = (String) request.getAttribute("price");
 		String brand = (String) request.getAttribute("brand");
 		String model = (String) request.getAttribute("model");
+		System.out.println("model :" + model);
 	%>
 	<%@ include file="../common/nav.jsp" %>
 	<% if(loginMember != null) { %>
@@ -305,7 +306,7 @@
 					pg : 'inicis', // version 1.1.0부터 지원.
 					pay_method : 'card',
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : '<%= loginMember.getMemberId() %>', // 감정결제 : MT1, 낙찰결제 : MT3
+					name : '<%= brand %> <%= model %>', // 감정결제 : MT1, 낙찰결제 : MT3// 아이템 네임이빈다!!
 					amount : end,
 					buyer_email : '<%=loginMember.getMemberEmail()%>',
 					buyer_name : '<%=loginMember.getMemberName()%>',
@@ -322,10 +323,19 @@
 						const method = rsp.pay_method; //결제 수단
 						const status = rsp.status; // 상태
 						const address = rsp.buyer_addr;
+						const auctionId = <%= auctionId %>;
 						
-						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId+"&amount="+amount+"&memberNo=<%= loginMember.getMemberNo() %>&address="+address;
+						const URL = "<%=request.getContextPath()%>/test.t?impId="+ impId + "&merId="+merId+"&amount="+amount+"&memberNo=<%= loginMember.getMemberNo() %>&address="+address + "&applyNum=" +applyNum +"&auctionId=" + auctionId;
 						
-						location.href=URL;
+						console.log("auctionId :" +auctionId);
+						console.log("impId :" +impId);
+						console.log("merId :" +merId);
+						console.log("amount :" +amount);
+						console.log("applyNum :" +applyNum);
+						console.log("address :" +address);
+						console.log("status :" +status);
+						
+						 location.href=URL;
 					} else {
 						alert('결제가 취소되었습니다.');
 					}
