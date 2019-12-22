@@ -89,6 +89,10 @@
 		margin-left: 54%;
 	}
 	
+	#timeArea > label:nth-of-type(2) {
+		font-weight: 100;
+		font-size: 2.5em;
+		color: #555;
 	/* 최고입찰가와 입찰가 입력 컨테이너를 묶음 */
 	#set {
 		display: flex;
@@ -110,6 +114,7 @@
 	#price>label:nth-of-type(2) {
 		font-size: 3.5rem;
     	font-weight: 100;
+    	color: #555;
 	}
 	
 	#biddingUsers {
@@ -353,6 +358,23 @@
 			}).mouseout(function() {
 				$('#title').attr('src', title);
 			});
+			
+			// 위시등록여부
+			$.ajax({
+				url: "<%= request.getContextPath() %>/wishstatus.se",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>,
+					auctionId: <%= auctionId %>,
+				},
+				success: function(data) {
+					console.log(data);
+					if(data === 'null' || data === 'N')
+						$('#wish').text('♡');
+					else 
+						$('#wish').text('♥');
+				}
+			})
 			
 			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
 			$("#endTime").text(changeTime(tempTime));

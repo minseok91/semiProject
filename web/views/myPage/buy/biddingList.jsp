@@ -89,7 +89,6 @@
 	width: 920px;
 	display: inline-block;
 	margin-left: 10px;
-	border-bottom: 1px solid #000;
 	margin-bottom: 10px;
 }
 

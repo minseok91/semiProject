@@ -331,29 +331,8 @@ td>.content {
 				<input type="checkbox" id="checkAll" name="checkAll">
 			</div>
 			<div class="list">
-			<table>
-			
-			
-			<%-- <% for(int i=0; i<3; i++) { %> <!-- 리스트 전체 / 4 + 1 -->
-				<tr>
-				<% for(int j=0; j<4; j++) { %> <!-- 4 고정 -->
-					<td>
-						<input type="hidden" value=""> <!-- value에 해당상품번호 이식 -->
-						<input type="checkbox" class="wish">
-						<div id="img">
-                        	<div class="price">￦720,000</div>
-                        	<img src="<%= request.getContextPath() %>/img/watch1.jpg" alt="" >
-                        </div>
-                        <span class="content">Omega Speedmaster Black Dial</span>
-                        <div class="time">3 days 13 : 42</div>
-					</td>
-				<% } %>
-				</tr>
-			<% } %> --%>
-			
-				
-			
-				
+< 			<table>
+
 				<%for(int i=0; i<3; i++) {%>
 				<tr>
 					<%for(int j=0; j<4; j++) { %>

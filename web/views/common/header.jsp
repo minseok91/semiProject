@@ -53,7 +53,7 @@
 	.container>#th1 #logo {
 		position: absolute;
     	left: 50%;
-    	margin-top: -15px;
+    	margin-top: -18px;
     	transform: translateX(-50%);
 	}
 	
