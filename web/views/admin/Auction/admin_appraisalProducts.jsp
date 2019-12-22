@@ -29,14 +29,13 @@ html, body {
 }
 .container {
 	width: 1080px;
-	
+	margin-top: 10%;
 	margin-left: auto;
 	margin-right: auto;
 }
 .contents {
 	width: 100%;
 	height: 650px;
-	margin-top: 10%;
 	border: 1px solid;
 	border-radius: 10px; 
 	

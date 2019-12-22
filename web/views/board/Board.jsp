@@ -280,7 +280,13 @@
 		$("#table_conntents  td  p").click(function(e){
 			var boardId = e.target.children[0].value;
 			console.log(boardId);
-		    location.href = "<%=request.getContextPath()%>/BoardSelectOne2?boardId="+boardId;
+			var loginMember = <%=loginMember%>
+			<% if(loginMember == null) { %>
+				alert("비회원은 게시판 상세 보기가 불가능합니다.")
+			<% } else { %>
+			 location.href = "<%=request.getContextPath()%>/BoardSelectOne2?boardId="+boardId;
+			<% } %>
+		   
 		})
 		$("#menu dd").mouseover(function(e) {
 			e.target.style.color = "black";

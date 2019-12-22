@@ -45,13 +45,14 @@
 	
 	.container {
 		width: 1080px;
-		margin: 0 auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 10%;
 		padding: 6px 0px 0;
 	}
 	.contents{
 		height:660px;
 		width:inherit;
-		margin-top: 5%;
 		border: 1px solid;
 		border-radius: 10px; 
 	}
@@ -169,7 +170,7 @@
 			<div id="headBoardArea" align="right">
 				<table id="tableSelectArea">
 					<tr>
-						<td>검색판명 선택</td>
+						<!-- <td>검색판명 선택</td>
 						<td>
 							<select id="selectBoard">
 								<option> -- 선택 -- </option>
@@ -177,7 +178,7 @@
 								<option> 건의 게시판 </option>
 								<option> 리뷰 게시판 </option>
 							</select>
-						</td>
+						</td> -->
 					</tr>
 				</table>  <!-- selectArea end -->
 			</div>  <!-- headBoardArea end -->

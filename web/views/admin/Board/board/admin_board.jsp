@@ -68,11 +68,14 @@ html, body {
 	border-collapse: collapse;
 }
 
-#table tr th {
+#table th {
 	border-top: 1px solid;
-	background: #EAEAEA;
-	color: black;
-	border-top: 2px solid #CCCCCC;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
+	border-bottom: 1px solid #211f22;
 }
 
 #table tr th, #table tr td {
@@ -82,10 +85,11 @@ html, body {
 }
 
 #search_Box {
-	width: 300px;
-	height: 100%;
+	margin-top: 1px;
+	font-family: sans-serif;
+	font-size: 15px;
+	width: 150px;
 	border: none;
-	margin-top: 10px;
 	float: right;
 }
 
@@ -113,8 +117,10 @@ html, body {
 }
 
 #nextPage {
-	width: 100%;
-	height: 15%;
+	width: 80%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #nextPageBox {
@@ -183,6 +189,14 @@ html, body {
 #insertBoard {
 	float: right;
 	margin-right: 31px;
+}
+.btn {
+	border: 1px solid white;
+	background: white;
+	color: black;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
 }
 </style>
 <body>
@@ -256,32 +270,27 @@ html, body {
 			<button id="insertBoard">글쓰기</button>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button
-						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
 					<% if(currentPage <= 1){ %>
-					<button disabled><</button>
+					<button class="btn" disabled><</button>
 					<% } else { %>
-					<button
-						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
 					<% } %>
-
-
 					<% for(int p = startPage ; p <= endPage; p++){ 
-		%>
-					<button
-						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>
-					<% 
-		} %>
-
+						if(p == currentPage) {
+						%>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'" style="font-weight: bold;"><%=p %></button>
+						<% } else { %>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>
+						<% } %>
+					<% } %>
 					<% if(currentPage >= maxPage){ %>
-					<button disabled>></button>
+					<button class="btn" disabled>></button>
 					<% } else { %>
-					<button
-						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'">
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'">
 						></button>
 					<% } %>
-					<button
-						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
 				</div>
 			</div>
 

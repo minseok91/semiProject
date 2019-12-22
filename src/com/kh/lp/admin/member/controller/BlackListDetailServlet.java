@@ -31,7 +31,7 @@ public class BlackListDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		int userId = Integer.parseInt(request.getParameter("memberNo"));
 		
 		
 		Member user = new MemberService().selectOne(userId);
