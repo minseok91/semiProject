@@ -9,13 +9,24 @@
  * </pre>
  */
 --%>
+<%@page import="lombok.extern.log4j.Log4j2"%>
 <%@page import="com.kh.lp.admin.report.model.vo.Report"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*, java.util.*"%>
 <%
-	Member member = (Member) request.getAttribute("user");
+	//회원정보, 구매이력갯수, 신고이력 갯수 담아서 가져오는 ArrayList
+	ArrayList<Object> list = (ArrayList<Object>)request.getAttribute("list");
+	//회원 정보 꺼내온 것
+	Member MemberList = (Member)list.get(0);
+	// 구매 이력 갯수 조회
+	int purchaseCount = Integer.parseInt(list.get(1).toString());
+	//회원 신고이력갯수 꺼내온 것 
+	int ReportCount = Integer.parseInt(list.get(2).toString());
+	//일반회원조회, 블랙회원 조회 구별
 	int userInfo = Integer.parseInt((String)request.getAttribute("userInfo"));
-	System.out.println(userInfo);
+	//판매 이력 갯수 조회
+	int salesCount = Integer.parseInt(list.get(3).toString());
+	System.out.println(list);
 %>
 <!DOCTYPE html>
 <html>
@@ -108,40 +119,40 @@ td:nth-of-type(2) {
 	<div id="container" class="container">
 		<div id="contents" class="contents">
 			<div class="infoBox">
-				<h3 align="center"><%=member.getMemberName()%>님의 회원정보</h3>
+				<h3 align="center"><%=MemberList.getMemberName()%>님의 회원정보</h3>
 				<table id="infoTable">
 					<tr>
 						<td>아이디</td>
-						<td><%=member.getMemberId()%></td>
+						<td><%=MemberList.getMemberId()%></td>
 					</tr>
 					<tr>
 						<td>이름</td>
-						<td><%=member.getMemberName()%></td>
+						<td><%=MemberList.getMemberName()%></td>
 					</tr>
 					<tr>
 						<td>번호</td>
-						<td><%=member.getMemberPhone()%></td>
+						<td><%=MemberList.getMemberPhone()%></td>
 					</tr>
 					<tr>
 						<td>주소</td>
-						<td><%=member.getMemberAddress()%></td>
+						<td><%=MemberList.getMemberAddress()%></td>
 					</tr>
 					<tr>
 						<td>이메일</td>
-						<td><%=member.getMemberEmail()%></td>
+						<td><%=MemberList.getMemberEmail()%></td>
 					</tr>
-					<% if(userInfo == 1){ %>
+					<% if( userInfo == 1){ %>
 						<tr>
 						<td>판매상품이력</td>
-						<td id="salesHistory"><%-- <%= user.getSaleshistory() %> --%>건</td>
+						<td id="salesHistory"><%= salesCount %>건</td>
 					</tr>
 					<tr>
 						<td>구매상품이력</td>
-						<td id="purchaseHistory"><%-- <%= user.getPurchasehistory() %> --%>건</td>
+						<td id="purchaseHistory"><%=purchaseCount%>건</td>
 					</tr>
 					<tr>
 						<td>신고 이력</td>
-						<td id="reportHistory"><%= request.getAttribute("resportCount") %>건</td>
+						 <td id="reportHistory"><%= ReportCount %>건</td>
 					</tr>
 					<%} else {%>
 						<tr>
@@ -172,13 +183,13 @@ td:nth-of-type(2) {
 	<script>
 		$("#salesHistory").click(function(){
 			/* 판매이력servlet으로 가는 코드 */
-			location.href = "<%=request.getContextPath()%>/userSalesHistory.me?userId=<%=member.getMemberId()%>";
+			location.href = "<%=request.getContextPath()%>/userSalesHistory.me?userId=<%=MemberList.getMemberId()%>";
 		}).mouseover(function(){
 			$("#salesHistory").css({'cursor':'pointer'})
 		})
 		$("#purchaseHistory").click(function(){
 			/* 구매이력servlet으로 가는 코드 */
-			location.href = "<%=request.getContextPath()%>/userpurchaseHistory.me?userId=<%=member.getMemberId()%>";
+			<%-- location.href = "<%=request.getContextPath()%>/userpurchaseHistory.me?userId=<%=MemberList.getMemberId()%>"; --%>
 		}).mouseover(function(){
 			$("#purchaseHistory").css({'cursor':'pointer'})
 		})
@@ -189,7 +200,7 @@ td:nth-of-type(2) {
 		})
 		//유저 신고 이력
 		$("#reportHistory").click(function() {
-			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=member.getMemberId()%>";
+			location.href = "<%= request.getContextPath()%>/userReport.me?userId=<%=MemberList.getMemberId()%>";
 		})
 		$("#back").click(function() {
 			window.history.back();
@@ -198,9 +209,9 @@ td:nth-of-type(2) {
 			var text = $("#textarea").val();
 			console.log(text);
 			 if(e.target.innerHTML == '탈퇴') {
-				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS3&text="+text;
+				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=MemberList.getMemberId()%>&MemberNo=<%=MemberList.getMemberNo()%>&type=MS3&text="+text;
 			} else if(e.target.innerHTML == '해제'){
-				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=member.getMemberId()%>&MemberNo=<%=member.getMemberNo()%>&type=MS1&text="+text;
+				location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userid=<%=MemberList.getMemberId()%>&MemberNo=<%=MemberList.getMemberNo()%>&type=MS1&text="+text;
 			} 
 		})
 	</script>

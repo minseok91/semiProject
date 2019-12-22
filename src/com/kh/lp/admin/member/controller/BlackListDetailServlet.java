@@ -1,6 +1,8 @@
 package com.kh.lp.admin.member.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,14 +33,20 @@ public class BlackListDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
 		
-		System.out.println(userId);
 		
 		Member user = new MemberService().selectOne(userId);
+		
+		ArrayList<Object> list = new ArrayList<>();
+		
+		list.add(user);
+		list.add(0);
+		list.add(0);
+		list.add(0);
 		
 		String page = "";
 		if(user != null) {
 			page = "views/admin/Member/member/admin_memberDetailPage.jsp";
-			request.setAttribute("user", user);
+			request.setAttribute("list", list);
 			request.setAttribute("userInfo","2");
 		} else {
 			//에러 페이지

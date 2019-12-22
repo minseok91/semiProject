@@ -193,7 +193,11 @@ margin-top: 27px;
 							<td><input type="text" name="title" value="<%=list.get("boardTitle")%>" readonly></td>
 						</tr>
 						<tr>
-							<td>게시판 종류</td>
+							<% if(list.get("boardIntoType").toString().substring(0,2).equals("QH")) { %>
+								<td>게시판 종류</td>
+							<% } else { %>
+  								<td>신고 종류</td>
+							<% } %>
 							<td><% switch(list.get("boardIntoType").toString()) { 
 								case "QHT1" : %><input type="text" name="title" value="문의 접수" readonly><% 
 								;break;
@@ -219,6 +223,16 @@ margin-top: 27px;
 							</td>
 						</tr>
 						<tr>
+							<% if(!list.get("boardIntoType").toString().substring(0, 2).equals("QH")) { %>
+								<td>
+									피신고자
+								</td>
+								<td>
+									<input type="text" value="<%=list.get("reported")%>"readonly>
+								</td>
+							<% } %>
+						</tr>
+						<tr>
 							<td>작성일</td>
 							<td id="today"><input type="text" id="today" name="date" value="<%= list.get("boardDate") %>"readonly></td>
 						</tr>
@@ -226,9 +240,6 @@ margin-top: 27px;
 							<td>내용</td>
 							<td><textarea id="boardContents" name="content" readonly><%= list.get("boardContent") %></textarea></td>
 						</tr>
-					<%-- 	<% if() { %>
-						
-						<% } %> --%>
 						<% if(list.get("boardIntoType").toString().substring(0, 2).equals("QH")) { %>
 							<tr>
 							<td colspan="2">댓글</td>

@@ -382,7 +382,10 @@ input[type="text"]:focus {
 						<tr>
 							<td colspan="2" id="comment_bottom"><textarea rows=""
 									cols="" id="comment_text"></textarea>
-								<button id="comment_btn">작성하기</button></td>
+								<% if(!loginMember.getMemberStatus().equals("MS2")) { %>
+									<button id="comment_btn">작성하기</button>
+								<% } %>
+								</td>
 						</tr>
 						<% } %>
 					
