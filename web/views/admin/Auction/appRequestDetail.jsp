@@ -215,7 +215,7 @@
 								</tr>
 								<tr>
 									<td>판매자</td>
-									<td><%= item.getItemMemberNo() %></td>
+									<td><%= item.getMemberId() %></td>
 								</tr>
 								<tr>
 									<td>구입 시기</td>
@@ -227,7 +227,7 @@
 								</tr>
 								<tr>
 									<td>보증서 유무</td>
-									<td><%=item.getItemWarrantyYn() %></td>
+									<td><%=item.getItemWarrantyYn().equals("Y")?"유":"무" %></td>
 								</tr>
 								<tr>
 									<td>배송 받은 날짜</td>
@@ -399,12 +399,14 @@
                   <input type="file" id="thumbnailImg3" name="thumbnailImg3" onchange="loadImg(this ,3)">
                   <input type="file" id="thumbnailImg4" name="thumbnailImg4" onchange="loadImg(this ,4)">
                   <input type="file" id="thumbnailImg5" name="thumbnailImg5" onchange="loadImg(this ,5)">
+                   <input type="file" id="thumbnailImg6" name="thumbnailImg6" onchange="loadImg(this ,6)">
             </div>
                   <img width="120" height="100" id="titleImg">
                   <img width="120" height="100" id="contentImg1">
                   <img width="120" height="100" id="contentImg2">
                   <img width="120" height="100" id="contentImg3">
                   <img width="120" height="100" id="contentImg4">
+                  <img width="120" height="100" id="contentImg5">
                   <div id="c-type">
                   
                   
@@ -471,6 +473,7 @@
                case 3 : $("#contentImg2").attr("src", e.target.result); break;
                case 4 : $("#contentImg3").attr("src", e.target.result); break;
                case 5 : $("#contentImg4").attr("src", e.target.result); break;
+               case 6 : $("#contentImg5").attr("src", e.target.result); break;
                }
             };
             reader.readAsDataURL(value.files[0]);
@@ -495,6 +498,9 @@
   		})
   		$("#contentImg4").click(function(){
   			$("#thumbnailImg5").click();
+  		})
+  		$("#contentImg5").click(function(){
+  			$("#thumbnailImg6").click();
   		})
     	  
     	  

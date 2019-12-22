@@ -10,12 +10,22 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.*,  com.kh.lp.auction.model.vo.*, com.kh.lp.common.*" %>
+    pageEncoding="UTF-8"  import="java.util.*,com.kh.lp.auction.model.vo.*,com.kh.lp.common.*, com.kh.lp.appraisal.model.vo.*" %>
     
 <% HashMap<String,Object> list = (HashMap<String,Object>) request.getAttribute("list"); 
-ArrayList<Attachment> atList = (ArrayList<Attachment>) list.get("attach");
+ArrayList<com.kh.lp.common.Attachment> atList = (ArrayList<com.kh.lp.common.Attachment>) list.get("attach");
 System.out.println("atList : " + atList );
 Auction au = (Auction) list.get("auction");
+AR1 ar1 = (AR1) list.get("ar1");
+System.out.println("ar1 : " + ar1 );
+Watch w = (Watch) list.get("w");
+System.out.println("w : " + w );
+Bag b = (Bag) list.get("b");
+System.out.println("b : " + b );
+ArrayList<BiddingHistory> bhList  = (ArrayList<BiddingHistory>) list.get("bhList");
+System.out.println("bhList : " + bhList );
+String memberId = (String) list.get("memberId");
+System.out.println("memberId : " + memberId );
 %>
 <!DOCTYPE html>
 <html>
@@ -217,6 +227,18 @@ Auction au = (Auction) list.get("auction");
 	#goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
+	.goods {
+		margin-left: 90px;
+	}
+
+	.goods>table>tbody>tr>td {
+		border: 1px solid #d9d9d9;
+		padding: 10px;
+	}
+	
+	.goods>table>tbody>tr>td:nth-of-type(1) {
+		background: #f2f2f2;
+	}
 	#aucResult{
 		color:brown;
 	}
@@ -248,6 +270,7 @@ Auction au = (Auction) list.get("auction");
 </style>
 </head>
 <body>
+<%@ include file="../common/headerPage.jsp" %>
 	<section>
 		<div id="container">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
@@ -334,39 +357,75 @@ Auction au = (Auction) list.get("auction");
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
 				<div id="detailContent">
-					<label>상품 상세</label>
-					<pre>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque obcaecati at ut aliquid, dolor, quasi nemo ipsa porro pariatur possimus maiores omnis sunt eaque odio sequi fuga sint? Assumenda voluptatem voluptates voluptate vero impedit esse totam voluptatibus, illum incidunt accusantium excepturi placeat nisi error et. Aperiam praesentium nobis quasi!</pre>
-				</div>
-				
+				<label>상품 상세</label>
+					<div class="goods">
 				<div id="goods">
 					<label>상품 정보</label>
+					<table >
+						<tr>
+							<td>브랜드</td>
+							<td><%=ar1.getAr1Brand() %></td>
+						</tr>
+						<tr>
+							<td>모델명</td>
+							<td><%=ar1.getAr1Model() %></td>
+						</tr>
+						<tr>
+							<td>감정가</td>
+							<td><%=ar1.getAr1Price() %></td>
+						</tr>
+						<tr>
+							<td>등급</td>
+							<td><%= ar1.getAr1Condition() %></td>
+						</tr>
+					</table>
+					</div>
+				</div>
+				<% if(ar1.getAr1BagDetail() > 0){ %>
+				<div id="bagDetail" class="goods">
+					<label>상품 정보 상세</label>
 					<table>
 						<tr>
-							<td>보증서 유무</td>
-							<td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis.</td>
+							<td>끈 높이</td>
+							<td><%=b.getBagStrap() %></td>
 						</tr>
 						<tr>
-							<td>시리얼 넘버</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td>사이즈</td>
+							<td><%=b.getBagSize() %></td>
 						</tr>
 						<tr>
-							<td>오리지널 박스 유무</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>케이스 크기</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>재질</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
-						</tr>
-						<tr>
-							<td>무브먼트 종류</td>
-							<td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit.</td>
+							<td>성별</td>
+							<td><%=b.getGender() %></td>
 						</tr>
 					</table>
 				</div>
+				<% } else{%>
+				<div id="watchDetail" class="goods">
+					<label>상품 정보 상세</label>
+					<table>
+						<tr>
+							<td>보증서 유무</td>
+							<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
+						</tr>
+						<tr>
+							<td>오리지널 박스 유무</td>
+							<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
+						</tr>
+						<tr>
+							<td>재질</td>
+							<td><%=w.getWatchMaterial() %></td>
+						</tr>
+						<tr>
+							<td>무브먼트 종류</td>
+							<td><%=w.getWatchMovement() %></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><%=w.getWatchChronograph() %></td>
+						</tr>
+					</table>
+				</div>
+				<% } %>
 			</div> <!-- part2 End -->
 		</div> <!-- container End -->
 	</section>
