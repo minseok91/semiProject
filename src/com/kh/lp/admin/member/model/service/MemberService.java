@@ -61,10 +61,10 @@ public class MemberService {
 	 * @param userId
 	 * @return
 	 */
-	public Member selectOne(String userId) {
+	public Member selectOne(int memberNo) {
 		Connection con = getConnection();
 		
-		Member user = new MemberDao().selectOne(userId, con);
+		Member user = new MemberDao().selectOne(memberNo, con);
 		
 		close(con);
 		

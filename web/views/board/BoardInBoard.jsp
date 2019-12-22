@@ -377,7 +377,7 @@
 					}
 				%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=1&type=BT1'"><<</button>
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=1&type=<%=type%>'"><<</button>
 				<%
 					if (currentPage == 1) {
 				%>
@@ -386,7 +386,7 @@
 					} else {
 				%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage - 1%>&type=BT1'"><</button>
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage - 1%>&type=<%=type%>'"><</button>
 				<%
 					}
 				%>
@@ -394,7 +394,7 @@
 					for (int i = startPage; i <= endPage; i++) {
 				%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=i%>&type=BT1'"><%=i%></button>
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=i%>&type=<%=type%>'"><%=i%></button>
 				<%
 					}
 				%>
@@ -406,12 +406,12 @@
 					} else {
 				%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage + 1%>&type=BT1'">></button>
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage + 1%>&type=<%=type%>'">></button>
 				<%
 					}
 				%>
 				<button
-					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=maxPage%>&type=BT1'">>></button>
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=maxPage%>&type=<%=type%>'">>></button>
 			</div>
 		</div>
 	</div>

@@ -41,7 +41,7 @@ public class MemberInformationDetailServlet extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
 		
-		Member user = new MemberService().selectOne(memberId);
+		Member user = new MemberService().selectOne(memberNo);
 		/* 판매 상품, 구매상품 조회 할 수 없어서 주석 처리함
 		 * int salesHistoryCount = new MemberService().selectsalesHistoryCount();
 		 * 

@@ -69,9 +69,12 @@ html, body {
 }
 #table th {
 	border-top: 1px solid;
-	background: #EAEAEA;
-	color: black;
-	border-top: 2px solid #CCCCCC;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
+	border-bottom: 1px solid #211f22;
 }
 #table th, td {
 	border-bottom: 1px solid #CCCCCC;
@@ -88,20 +91,23 @@ html, body {
 	margin-top: 70px;
 } 
 #searchBoxBtn {
-	width: 65px;
-	height: 31px;
+	height: 24px;
 	margin-left: 2%;
 	float: right;
 	background: rgb(33, 31, 34);
-	border: 2px solid rgb(160, 115, 66);
-	color: rgb(160, 115, 66);
+	border: 1px solid #a07342;
+	color: #e2ceb8;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: bold;
 }
 #searchBox {
 	margin-top: 1px;
-	width: 130px;
-	height: 25px;
+	font-family: sans-serif;
+	font-size: 15px;
+	width: 150px;
 	border: none;
-	box-shadow: 2px 2px 6px 1px gray;
+	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
 	float: right;
 }
 #nextPageBox {
@@ -114,6 +120,15 @@ html, body {
 	background: none;
 	border: none;
 }
+.btn {
+	border: 1px solid white;
+	background: white;
+	color: black;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
+}
+
 </style>
 <body>
 	<%@ include file="../../common/headerPage.jsp" %>
@@ -149,21 +164,27 @@ html, body {
 			</div>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
 					<% if(currentPage <= 1){ %>
 						<button  disabled> < </button>
 					<% } else { %>
-						<button  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage-1%>'"><</button>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage-1%>'"><</button>
 					<% } %>
-					<% for(int p=1; p<=MaxPage; p++) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
+					<% for(int p=1; p<=MaxPage; p++) { 
+						if(p == currentPage) {
+					%>
+					<button class="btn"  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'" style="font-weight: bold;"><%= p %></button>
+					<% } else { %>
+					<button class="btn"  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+						
 					<% } %>
 					<% if(currentPage >= MaxPage){ %>
 						<button  disabled> > </button>
 					<% } else { %>
-						<button  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage + 1 %>'"> > </button>
+						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
+					<button class="btn" onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
 			</div>
 		</div>
@@ -175,7 +196,7 @@ html, body {
 			var memberId = e.target.parentElement.children[1].innerHTML;
 			var memberNo = e.target.parentElement.children[0].innerHTML;
 			console.log(memberNo)
-		      location.href="<%=request.getContextPath()%>/memberInfoDetail.me?memberId="+memberId+"&memberNo="+memberNo;
+		       location.href="<%=request.getContextPath()%>/memberInfoDetail.me?memberId="+memberId+"&memberNo="+memberNo; 
 		})
 		$("#table td ,button").mouseover(function(e) {
 			$("td").css({"cursor":"pointer"})
