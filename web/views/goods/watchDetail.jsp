@@ -39,7 +39,7 @@
 		padding: 0;
 		font-weight: lighter;
 		transform: translateX(0%);
-		margin-left: 19px;
+		margin-left: 10px;
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -250,7 +250,7 @@
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
-		Auction ac = (Auction) request.getAttribute("auction");
+		Auction ac = (Auction) request.getAttribute("auction");		//시간만 가져오는 옥션
 		String msg = (String) request.getAttribute("msg");
 	%>
 		<div class="container">
@@ -260,7 +260,7 @@
 				<span class="imgBox">
 					<div class="title">
 					<% if(loginMember != null) { %>
-						<a id="wish"></a>
+						<a id="wish">ㅁ</a>
 					<% } %>
 						<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 					</div>
@@ -289,7 +289,7 @@
 					</div>  <!-- timeArea end -->
 					<div id=set>
 						<div id="price">
-							<label>현재 가격</label>
+							<label id="nowPriceLabel">현재 가격</label>
 							<label id="maxPrice"></label>
 							<% if(loginMember == null) { %>
 								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
@@ -390,27 +390,9 @@
 				$('#title').attr('src', title);
 			});
 			
-			// 위시등록여부
-			$.ajax({
-				url: "<%= request.getContextPath() %>/wishstatus.se",
-				type: "post",
-				data: {
-					memberNo: <%= loginMember.getMemberNo() %>,
-					auctionId: <%= auctionId %>,
-				},
-				success: function(data) {
-					console.log(data);
-					if(data === 'null' || data === 'N')
-						$('#wish').text('♡');
-					else 
-						$('#wish').text('♥');
-				}
-			})
-
 			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
 			$("#endTime").text(changeTime(tempTime));
 			$("#endHiddenTime").val(tempTime);
-
 			
 			// 위시리스트 추가
 			$('#wish').click(function() {
@@ -422,7 +404,6 @@
 						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
-						console.log(data);
 						if(data === 'successWishY') {
 							alert('위시리스트에 추가했습니다.');
 							$('#wish').text('♥');
@@ -512,19 +493,6 @@
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			};
 			
-			function checkBiddingCount() {
-				$.ajax({
-					url: "",
-					type: "",
-					data: {},
-					success: function(data) {
-						
-					},
-					error: function(data) {
-						
-					}
-				});
-			}
 			
 			function watchGetWebSocket() {	//입찰웹소켓
 				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
@@ -605,8 +573,14 @@
 			function watchTimeOnOpen(event) {
 				console.log("watchTimeWebSocket 실행");
 				console.log($("#endHiddenTime").val());
-				watchTimeSend($("#endHiddenTime").val());
+				if($("#endHiddenTime").val() <= 0) {
+					endAuction();
+				} else {
+					watchTimeSend($("#endHiddenTime").val());
+				}
 			};
+			
+			
 			
 			function watchTimeOnMessage(event) {
 				console.log(event.data);
@@ -614,6 +588,32 @@
 				if(temp <= 0) {
 					// 경매 완료 처리
 					$("emdTime").text(changeTime(0));
+					$.ajax({
+						url: "<%= request.getContextPath() %>/biddingCount.bid",
+						type: "post",
+						data: {
+							auctionId: <%= auctionId %>
+						},
+						success: function(data) {
+							$.ajax({
+								url: "<%= request.getContextPath() %>/endAuction.au",
+								type: "post",
+								data2 : {
+									auctionId: <%= auctionId %>,
+									biddingCount: data
+								},
+								success: function(data2){
+									endAuction();
+								},
+								error: function(data2){
+									console.log("ajax에러");
+								}
+							});
+						},
+						error: function(data) {
+							console.log("ajax에러");
+						}
+					});
 				} else {
 					$("#endTime").text(changeTime(temp));
 					watchTimeSend(temp);
@@ -652,7 +652,13 @@
 				   zero += '0';
 				 }
 				 return zero + date;
-			}
+			};
+			
+			function endAuction() {
+				$("#endTime").text("경매종료").css({"color":"red"});
+				$("#nowPriceLabel").text("낙찰가");
+				$("#biddingApply").css({"display":"none"});
+			};
 	</script>
 </body>
 </html>

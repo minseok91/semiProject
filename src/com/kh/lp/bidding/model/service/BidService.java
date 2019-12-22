@@ -255,6 +255,13 @@ public class BidService {
 		return result;
 	}
 
+	public int selectBidCount(int auctionId) {
+		Connection con = getConnection();
+		int result = new BidDao().selectBidCount(con, auctionId);
+		close(con);
+		return result;
+	}
+
 }
 
 
