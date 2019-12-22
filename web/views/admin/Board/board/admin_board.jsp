@@ -10,7 +10,8 @@
  */
 --%>
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*, com.kh.lp.admin.board.model.vo.*
+	pageEncoding="UTF-8"
+	import="java.util.*, com.kh.lp.admin.board.model.vo.*
 	, com.kh.lp.common.*"%>
 <%  ArrayList<Board> list = (ArrayList<Board>) request.getAttribute("list"); 
 	PageInfo pi = (PageInfo) request.getAttribute("pi");
@@ -26,7 +27,8 @@
 <head>
 <meta content="text/html;">
 <title>게시판 관리</title>
-<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
+<link rel="icon" type="image/png" sizes="32x32"
+	href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 </head>
 <style>
 html, body {
@@ -173,9 +175,11 @@ html, body {
 	margin-top: 17px;
 	float: left;
 }
+
 #boardType {
 	height: 32px;
 }
+
 #insertBoard {
 	float: right;
 	margin-right: 31px;
@@ -193,20 +197,19 @@ html, body {
 								<option value="BT1">자유 게시판</option>
 								<option value="BT2">건의 게시판</option>
 								<option value="BT3">리뷰 게시판</option>
-						</select>
-						</td>
-						<td>
-							 <input type="text" id="idSearch">
-						</td>
+						</select></td>
+						<td><input type="text" id="idSearch"></td>
 						<td>
 							<button id="idSearchBtn">검색</button>
-							</td>
+						</td>
 					</tr>
 				</table>
 			</div>
 			<div>
 				<div id="NoticeNumber">
-					<p>총 게시판 글 :</p><h4><%= listCount %>건</h4>
+					<p>총 게시판 글 :</p>
+					<h4><%= listCount %>건
+					</h4>
 				</div>
 				<table id="table">
 					<tr>
@@ -219,22 +222,25 @@ html, body {
 						<th>조회수</th>
 						<th>기능</th>
 					</tr>
-					 <% for(int i=0; i<list.size(); i++) { %>
+					<% for(int i=0; i<list.size(); i++) { %>
 					<tr>
-						<td><%= list.get(i).getBoardId() %>
-							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
-							<input type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
+						<td><%= list.get(i).getBoardId() %> <input type="hidden"
+							value="<%= list.get(i).getBoardId()%>"> <input
+							type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
 						</td>
 						<td><%= list.get(i).getBoardTitle() %></td>
 						<td><%= list.get(i).getBoardMemberName() %></td>
 						<td><%= list.get(i).getBoardDate() %></td>
 						<td><%= list.get(i).getBoardModifyDate() %></td>
 						<% switch(list.get(i).getBoardType()) { 
-						case "BT1" : %><td>자유게시판</td><%
+						case "BT1" : %><td>자유게시판</td>
+						<%
 						; break;
-						case "BT2" : %><td>문의게시판</td><%
+						case "BT2" : %><td>문의게시판</td>
+						<%
 						; break;
-						case "BT3" : %><td>리뷰게시판</td><%
+						case "BT3" : %><td>리뷰게시판</td>
+						<%
 						; break;
 						}%>
 						<td><%= list.get(i).getBoardCount() %></td>
@@ -242,7 +248,7 @@ html, body {
 							<button id="deleteBtn">삭제</button>
 						</td>
 					</tr>
-			<% } %> 
+					<% } %>
 
 				</table>
 
@@ -250,29 +256,35 @@ html, body {
 			<button id="insertBoard">글쓰기</button>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
-		<% if(currentPage <= 1){ %>
-			<button disabled> < </button>
-		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
-		<% } %>
-		
-		
-		<% for(int p = startPage ; p <= endPage; p++){ 
-		%>			
-					<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>	
-		<% 
+					<button
+						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=1'"><<</button>
+					<% if(currentPage <= 1){ %>
+					<button disabled><</button>
+					<% } else { %>
+					<button
+						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage-1%>'"><</button>
+					<% } %>
+
+
+					<% for(int p = startPage ; p <= endPage; p++){ 
+		%>
+					<button
+						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=p%>'"><%=p %></button>
+					<% 
 		} %>
-		
-		<% if(currentPage >= maxPage){ %>
-			<button disabled> > </button>
-		<% } else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'"> > </button>
-		<% } %>
-			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
+
+					<% if(currentPage >= maxPage){ %>
+					<button disabled>></button>
+					<% } else { %>
+					<button
+						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=currentPage + 1 %>'">
+						></button>
+					<% } %>
+					<button
+						onclick="location.href='<%=request.getContextPath()%>/selectAll.bo?currentPage=<%=maxPage%>'">>></button>
 				</div>
 			</div>
-			 
+
 			<!--  pagingArea End game -->
 		</div>
 	</div>
@@ -399,7 +411,7 @@ html, body {
 										}
 										for(var i=0; i<data[0].length; i++){
 											var $tr = $("<tr>");
-											var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='updateBtn'>수정</button> <button id='deleteBtn'>삭제</button></td>");
+											var $noTd = $("<td>"+data[0][i].Rnum+"<input type='hidden' value='"+data[0][i].BoardId+"'><input type='hidden' value='"+data[0][i].MemberName+"'></td><td>"+data[0][i].BoardTitle+"</td><td>"+data[0][i].MemberName+"</td><td>"+data[0][i].BoardDate+"</td><td>"+data[0][i].BoardModifyDate+"</td><td>"+type+"</td><td>"+data[0][i].BoardCount+"</td><td><button id='deleteBtn'>삭제</button></td>");
 											
 											$tr.append($noTd);
 											$tableBody.append($tr);
@@ -415,23 +427,30 @@ html, body {
 											} else {
 												var boardId= e.target.parentNode.children[0].children[0].value;
 												var MemberName = e.target.parentNode.children[0].children[1].value;
-												location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+boardId+"&MemberName="+MemberName;
-												
+												location.href="<%=request.getContextPath()%>/boardDetial.bo?boardId="+ boardId+ "&MemberName="+ MemberName;
+
 											}
-											
-											
+										})
+										$("#table td ,button").mouseover(function(e) {
+											$("td").css({"cursor" : "pointer"})
+											$("button").css({"cursor" : "pointer"})
 										})
 									}
 								})
 							})
 						}
-						
 					})
 				}
-				
 			})
 		})
-		
+		$("#table td ,button").mouseover(function(e) {
+			$("td").css({
+				"cursor" : "pointer"
+			})
+			$("button").css({
+				"cursor" : "pointer"
+			})
+		})
 	</script>
 </body>
 </html>

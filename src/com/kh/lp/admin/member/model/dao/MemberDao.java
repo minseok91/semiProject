@@ -143,7 +143,7 @@ public class MemberDao {
 		
 		try {
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, userId);
+			pstmt.setInt(1, Integer.parseInt(userId));
 			
 			rset = pstmt.executeQuery();
 			

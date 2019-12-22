@@ -227,6 +227,18 @@ System.out.println("memberId : " + memberId );
 	#goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
 	}
+	.goods {
+		margin-left: 90px;
+	}
+
+	.goods>table>tbody>tr>td {
+		border: 1px solid #d9d9d9;
+		padding: 10px;
+	}
+	
+	.goods>table>tbody>tr>td:nth-of-type(1) {
+		background: #f2f2f2;
+	}
 	#aucResult{
 		color:brown;
 	}
@@ -258,6 +270,7 @@ System.out.println("memberId : " + memberId );
 </style>
 </head>
 <body>
+<%@ include file="../common/headerPage.jsp" %>
 	<section>
 		<div id="container">
 			<!-- 사진, 상품명, 입찰가, 등록칸 -->
@@ -308,46 +321,14 @@ System.out.println("memberId : " + memberId );
 									<th>입찰 금액</th>
 									<th>입찰 시간</th>
 								</tr>
-								<%int i = 1; for(BiddingHistory bh :bhList ){ %>
+								<% for(int i = 0; i <bhList.size() - 1; i++){ %>
 								<tr>
-									<td><%=i%> 순위 </td>
-									<td><%=bh.getBiddingMemberId() %></td>
-									<td><%=bh.getBiddingPrice() %></td>
-									<td><%=bh.getBiddingDate() %> <%=bh.getBiddingTime() %></td>
+									<td><%=i + 1%> 순위 </td>
+									<td><%=bhList.get(i).getBiddingMemberId() %></td>
+									<td><%=bhList.get(i).getBiddingPrice() %></td>
+									<td><%=bhList.get(i).getBiddingDate() %> <%=bhList.get(i).getBiddingTime() %></td>
 								</tr>
-								
-								<%i++; } %>
-								<!-- <tr>
-									<th>1순위</th>
-									<td>yang****</td>
-									<td>1,600,000원</td>
-									<td>20분 전</td>
-								</tr>
-								<tr>
-									<th>2순위</th>
-									<td>mins***</td>
-									<td>1,520,000원</td>
-									<td>1시간 전</td>
-								</tr>
-								<tr>
-									<th>3순위</th>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<th>4순위</th>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr>
-								<tr>
-									<th>5순위</th>
-									<td>gurw**</td>
-									<td>1,400,000원</td>
-									<td>3시간 전</td>
-								</tr> -->
-								
+								<% } %>
 							</table>
 						</div>
 				</span> <!-- contents End -->
@@ -357,8 +338,7 @@ System.out.println("memberId : " + memberId );
 			<div id="part2">
 				<div id="detailContent">
 				<label>상품 상세</label>
-					<div class="goods">
-				<div id="goods">
+				<div class="goods">
 					<label>상품 정보</label>
 					<table >
 						<tr>

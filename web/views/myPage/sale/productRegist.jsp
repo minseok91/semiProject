@@ -125,7 +125,10 @@
 	#regist{
 	
 	}
-	
+	#titleImg{
+		width:inherit;
+		height:inherit;
+	}
 	
 	.itemPic{
 		display:inline-block;
@@ -179,8 +182,6 @@
 	#detailLabel, #detailText {
 		height: 65px;
 	}
-	
-	#
 	
 	#detailLabel {
 		height: 30px;

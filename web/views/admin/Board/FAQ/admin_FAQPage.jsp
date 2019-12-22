@@ -212,7 +212,7 @@ html, body {
 					</tr>
 					<% for(int i=0; i<list.size(); i++) { %>
 					<tr>
-						<td><%= list.get(i).getBoardId() %>
+						<td><%= list.get(i).getBoardId	() %>
 							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
 							<input type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
 						</td>
@@ -269,7 +269,10 @@ html, body {
 		$("#insertBoard").click(function(){
 			location.href="<%=request.getContextPath()%>/views/admin/Board/FAQ/admin_InsertFAQPage.jsp";
 		})
-		
+			$("#table td ,button").mouseover(function(e) {
+			$("td").css({"cursor":"pointer"})
+			$("button").css({"cursor":"pointer"})
+		})
 	</script>
 </body>
 </html>

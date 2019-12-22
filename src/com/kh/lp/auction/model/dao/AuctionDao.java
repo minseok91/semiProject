@@ -69,6 +69,10 @@ public class AuctionDao {
 				al.setAuctionId(rset.getInt("AUCTION_ID"));
 				al.setAuctionType(rset.getString("AUCTION_STATUS"));
 				al.setAuctionAr1Id(rset.getInt("AUCTION_AR1_ID"));
+				al.setType(rset.getString("AR1_WATCH_BAG"));
+				al.setModel(rset.getString("AR1_MODEL"));
+				al.setBrand(rset.getString("AR1_BRAND"));
+				
 //				au.setAuAppId(rset.getInt("AUCTION_APP_ID"));
 //				au.setAuctionId(rset.getInt("AUCTION_ID"));
 //				au.setAuPeriod(rset.getInt("AUCTION_PERIOD"));
@@ -844,6 +848,31 @@ public class AuctionDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+
+	public Auction selectAuctionOne(Connection con, int auctionId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Auction ac = null;
+		
+		String query = prop.getProperty("selectAuctionOne");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, auctionId);
+			rset = pstmt.executeQuery();
+			ac = new Auction();
+			if(rset.next()) {
+				ac.setAuctionPeriod(rset.getInt(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return ac;
 	}
 }
 

@@ -93,6 +93,7 @@ public class BidDao {
 				// 아이디 가리기
 				String user = rset.getString("MEMBER_ID").substring(0, 3)+"******";
 				b.setBidUserId(user);
+				b.setBidMemberNo(rset.getInt("MEMBER_NO"));
 				b.setBidPrice(rset.getInt("BIDDING_PRICE"));
 				b.setBidInsertTime(rset.getDate("BIDDING_TIME")); // 입찰시간
 				

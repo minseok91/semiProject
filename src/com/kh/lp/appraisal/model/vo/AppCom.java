@@ -16,4 +16,7 @@ public class AppCom implements java.io.Serializable {
 	private String memberName;
 	private Date itemAppDate;
 	private String appResult;
+	private String memberId;
+	private String brand;
+	private String model;
 }
