@@ -10,69 +10,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.lp.bidding.model.service.BidService;
-import com.kh.lp.bidding.model.vo.Bid;
 
 import lombok.extern.log4j.Log4j2;
 
 /**
- * Servlet implementation class BiddingItemServlet
+ * Servlet implementation class WishStatusServlet
  */
+@WebServlet("/wishstatus.se")
 @Log4j2
-@WebServlet("/wish.in")
-// 위시리스트 넣기(BIDDING_HISTORY에 넣음)
-public class WishInsertServlet extends HttpServlet {
+public class WishStatusServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WishInsertServlet() {
+    public WishStatusServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 특정상품에 대한 위시등록 확인
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		
-		log.debug(auctionId);
-		log.debug(memberNo);
-		
-		Bid b = new Bid();
-		b.setBidAuctionId(auctionId);
-		b.setBidMemberNo(memberNo);
-		
-		String result = new BidService().insertWish(b);
-		
-		String msg = "";
-		
-		PrintWriter out = response.getWriter();
+		String result = new BidService().wishStatus(memberNo, auctionId);
 		
 		log.debug(result);
 		
-		if(result.length() == 1) {
-			msg = "successWishY";
-			log.debug(msg);
-			out.append(msg);
-		} else if(result.charAt(0) != '0' && result.charAt(1) == 'Y') {
-			msg = "successWishN";
-			log.debug(msg);
-			out.append(msg);
-		} else if(result.charAt(0) != '0' && result.charAt(1) == 'N') {
-			msg = "successWishY";
-			log.debug(msg);
-			out.append(msg);
-		} else {
-			msg = "fail";
-			log.debug(msg);
-			out.append(msg);
-		}
+		PrintWriter out = response.getWriter();
 		
-		out.flush();
-		out.close();
+		if(result.equals(""))
+			result = "null";
+		
+		out.append(result);
 	}
 
 	/**

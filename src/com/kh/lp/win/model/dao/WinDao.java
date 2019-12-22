@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.lp.appraisal.model.vo.AR1;
+import com.kh.lp.bidding.model.vo.Bid;
 import com.kh.lp.common.Attachment;
 import com.kh.lp.win.model.vo.Win;
 
@@ -153,6 +154,62 @@ public class WinDao {
 		}
 		
 		return listCount;
+	}
+	
+	// 낙찰리스트 추출
+	public ArrayList<Win> winSelectAll(Connection con, int memberNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Win> list = null;
+		Win w = null;
+		String status = "";
+		
+		String query = prop.getProperty("winSelect");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, memberNo);
+			
+			rset = pstmt.executeQuery();
+			list = new ArrayList<>();
+			
+			while(rset.next()) {
+				w = new Win();
+				
+				w.setWinAuctionId(rset.getInt("WIN_AUCTION_ID"));
+				w.setAttRename(rset.getString("ATTACHMENT_RENAME"));
+				w.setWinBrand(rset.getString("AR1_BRAND"));
+				w.setWinModel(rset.getString("AR1_MODEL"));
+				w.setWinMemberNo(rset.getInt("WIN_MEMBER_NO"));
+				w.setWinPrice(rset.getInt("WIN_PRICE"));
+				w.setWinSecondMemberNo(rset.getInt("WIN_SECOND_MEMBER_NO"));
+				w.setWinsecondPrice(rset.getInt("WIN_SECOND_PRICE"));
+				w.setWinDate(rset.getDate("WIN_DATE"));
+				
+				if(w.getWinMemberNo() == memberNo)
+					status = "낙찰";
+				else if(w.getWinSecondMemberNo() == memberNo)
+					status = "차순위입찰";
+				else
+					status = "낙찰실패";
+				
+				w.setWinStatus(status);
+				
+				list.add(w);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		log.debug(list);
+		return list;
 	}
 
 }

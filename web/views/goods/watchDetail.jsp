@@ -41,7 +41,7 @@
 		padding: 0;
 		font-weight: lighter;
 		transform: translateX(0%);
-		margin-left: 10px;
+		margin-left: 19px;
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -230,7 +230,7 @@
 				<span class="imgBox">
 					<div class="title">
 					<% if(loginMember != null) { %>
-						<a id="wish">ㅁ</a>
+						<a id="wish"></a>
 					<% } %>
 						<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 					</div>
@@ -354,9 +354,27 @@
 				$('#title').attr('src', title);
 			});
 			
+			// 위시등록여부
+			$.ajax({
+				url: "<%= request.getContextPath() %>/wishstatus.se",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>,
+					auctionId: <%= auctionId %>,
+				},
+				success: function(data) {
+					console.log(data);
+					if(data === 'null' || data === 'N')
+						$('#wish').text('♡');
+					else 
+						$('#wish').text('♥');
+				}
+			})
+
 			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
 			$("#endTime").text(changeTime(tempTime));
 			$("#endHiddenTime").val(tempTime);
+
 			
 			// 위시리스트 추가
 			$('#wish').click(function() {
@@ -368,6 +386,7 @@
 						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
+						console.log(data);
 						if(data === 'successWishY') {
 							alert('위시리스트에 추가했습니다.');
 							$('#wish').text('♥');
