@@ -56,9 +56,9 @@ public class SelectListBidUser extends HttpServlet {
 			for(int n = 0; n < bidList.size(); n++) {
 				Bid b = bidList.get(n);
 				if(n == bidList.size() - 1)
-					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime();
+					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime() + "::" + b.getBidMemberNo();
 				else 
-					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime() + "#";
+					msg += b.getBidUserId() + "::" + b.getBidPrice() + "::" + b.getBidInsertTime() + "::" + b.getBidMemberNo() + "#";
 			}
 			log.debug(msg);
 			out.append(msg);

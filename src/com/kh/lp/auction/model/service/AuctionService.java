@@ -224,6 +224,14 @@ Connection con = getConnection();
 		}
 		return result;
 	}
+
+	public Auction selectAuctionOne(int auctionId) {
+		Connection con = getConnection();
+		Auction ac = new AuctionDao().selectAuctionOne(con, auctionId);
+		
+		close(con);
+		return ac;
+	}
 }
 
 
