@@ -150,59 +150,59 @@ td>img {
 	<%@ include file="../../common/header.jsp" %>
 	<%@ include file="../../common/nav.jsp" %>
 	<div class="container">
-	<div class="contents">
-		<% if(loginMember != null) { %>
-		<div id="myPageMenu">
-			<h3 id="h3" align="center">마이페이지</h3>
-			<dl>
-				<dt>§  구매정보</dt>
-				<dd><a value="../../wishList.wi">▶   위시리스트</a></dd>
-				<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
-				<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
-				
-				<dt>§  판매정보</dt>
-				<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
-				<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
-				<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
-				<dd><a value="../../closedMemberAuctionList.au">▶  경매 마감 상품 관리</a></dd>
-				
-				<dt>§  결제/배송조회</dt>
-				<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
-				<dd><a value="delivery/apprDeli" id="selectMenu">▶  감정 상품 배송 조회</a></dd>
-				<dd><a value="delivery/sellDeli">▶  경매 상품 배송 조회</a></dd>
-				
-				<dt>§  문의 및 신고</dt>
-				<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>
-				<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
-				
-				<dt>§  회원정보</dt>
-				<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
-				<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
-				
-			</dl>
-		</div>  <!-- myPageMenu end -->
-		<div class="menuStatus">
-			<div class="status1">
-				<h3>&nbsp;&nbsp;<&nbsp;감정 상품 배송 조회 &nbsp;>&nbsp;</h3>
-			</div>  <!-- status1 end -->
-			<div class="status2">
-				<p>회원님께서 감정 신청하신 상품의 배송 상태를 조회할 수 있는 공간입니다.</p>
-			</div>  <!-- status2 end -->
-		</div>  <!-- menuStatus end -->
-		<div class="contentArea">
-			<table id="tableArea" border="1">
-				<thead id="tableHeadArea">
-					<tr>
-					<th>카테고리</th>
-					<th>상품번호</th>
-					<th>상품사진</th>
-					<th>브랜드/모델명</th>
-					<th>배송상태</th>
-				</tr>
-				</thead>
-				<tbody id="tableBodyArea"></tbody>
-			</table> <!-- tableArea End -->
-		</div> <!-- menuStatus End -->
+		<div class="contents">
+			<% if(loginMember != null) { %>
+			<div id="myPageMenu">
+				<h3 id="h3" align="center">마이페이지</h3>
+				<dl>
+					<dt>§  구매정보</dt>
+					<dd><a value="../../wishList.wi">▶   위시리스트</a></dd>
+					<dd><a value="../../biddingList.bi">▶   입찰리스트</a></dd>
+					<dd><a value="buy/winningBid">▶   낙찰리스트</a></dd>
+					
+					<dt>§  판매정보</dt>
+					<dd><a value="sale/productAppRequest">▶  상품감정 신청</a></dd>
+					<dd><a value="sale/goodsEnrollList">▶  등록상품 관리</a></dd>
+					<dd><a value="sale/auctionList">▶  경매 진행 상품 관리</a></dd>
+					<dd><a value="../../closedMemberAuctionList.au">▶  경매 마감 상품 관리</a></dd>
+					
+					<dt>§  결제/배송조회</dt>
+					<dd><a value="delivery/paymentList">▶  결제 내역</a></dd>
+					<dd><a value="delivery/apprDeli" id="selectMenu">▶  감정 상품 배송 조회</a></dd>
+					<dd><a value="delivery/sellDeli">▶  경매 상품 배송 조회</a></dd>
+					
+					<dt>§  문의 및 신고</dt>
+					<dd><a value="../../qnaList.qr">▶  문의 내역</a></dd>
+					<dd><a value="queAndReport/reportList">▶  신고 내역</a></dd>
+					
+					<dt>§  회원정보</dt>
+					<dd><a value="memberChange/userInfoChange">▶  회원정보 변경</a></dd>
+					<dd><a value="memberChange/userDelete">▶  회원 탈퇴</a></dd>
+					
+				</dl>
+			</div>  <!-- myPageMenu end -->
+			<div class="menuStatus">
+				<div class="status1">
+					<h3>&nbsp;&nbsp;<&nbsp;감정 상품 배송 조회 &nbsp;>&nbsp;</h3>
+				</div>  <!-- status1 end -->
+				<div class="status2">
+					<p>회원님께서 감정 신청하신 상품의 배송 상태를 조회할 수 있는 공간입니다.</p>
+				</div>  <!-- status2 end -->
+			</div>  <!-- menuStatus end -->
+			<div class="contentArea">
+				<table id="tableArea" border="1">
+					<thead id="tableHeadArea">
+						<tr>
+							<th>카테고리</th>
+							<th>상품번호</th>
+							<th>상품사진</th>
+							<th>브랜드/모델명</th>
+							<th>배송상태</th>
+						</tr>
+					</thead>
+					<tbody id="tableBodyArea"></tbody>
+				</table> <!-- tableArea End -->
+			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {

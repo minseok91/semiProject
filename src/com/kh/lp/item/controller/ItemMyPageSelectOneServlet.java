@@ -1,4 +1,4 @@
-package com.kh.lp.bidding.controller;
+package com.kh.lp.item.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,22 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.lp.bidding.model.service.BidService;
-
-import lombok.extern.log4j.Log4j2;
+import com.kh.lp.item.model.service.ItemService;
 
 /**
- * Servlet implementation class BiddingCountServlet
+ * Servlet implementation class ItemMyPageSelectOneServlet
  */
-@Log4j2
-@WebServlet("/biddingCount.bid")
-public class BiddingCountServlet extends HttpServlet {
+@WebServlet("/selectItemOne.it")
+public class ItemMyPageSelectOneServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BiddingCountServlet() {
+    public ItemMyPageSelectOneServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,12 +32,21 @@ public class BiddingCountServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
-		int result = new BidService().selectBidCount(auctionId, memberNo);
+		int itemId = Integer.parseInt(request.getParameter("itemId"));
+		
+		String itemType = new ItemService().selectItemType(itemId, memberNo);
 		PrintWriter out = response.getWriter();
-		log.debug(result);
-		out.append(String.valueOf(result));
+		
+		if(itemType != null) {
+			if(itemType.equals("W")) {
+				out.append("");
+			} else if(itemType.equals("B")) {
+				out.append("");
+			}
+		} else {
+			out.append("");
+		}
 		out.flush();
 		out.close();
 	}

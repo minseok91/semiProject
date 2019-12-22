@@ -490,6 +490,33 @@ public class ItemDao {
 		return count;
 	}
 
+	public String selectItemType(Connection con, int memberNo, int itemId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String result = null;
+		
+		String query = prop.getProperty("selectItemType");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, itemId);
+			pstmt.setInt(2, memberNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getString("ITEM_TYPE");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }
 
 

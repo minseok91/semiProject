@@ -255,9 +255,9 @@ public class BidService {
 		return result;
 	}
 
-	public int selectBidCount(int auctionId) {
+	public int selectBidCount(int auctionId, int memberNo) {
 		Connection con = getConnection();
-		int result = new BidDao().selectBidCount(con, auctionId);
+		int result = new BidDao().selectBidCount(con, auctionId, memberNo);
 		close(con);
 		return result;
 	}
