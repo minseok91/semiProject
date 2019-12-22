@@ -37,9 +37,11 @@ public class BoardDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		String MemberName = request.getParameter("MemberName");
+		String type = null;
+		
 		
 		Board list = new BoardService().selectOne(boardId);
-		ArrayList<Reply> Rlist = new ReplyService().selectAll(boardId);
+		ArrayList<Reply> Rlist = new ReplyService().selectAll(boardId, type);
 		System.out.println(Rlist);
 		String page = "";
 		if(list != null) {

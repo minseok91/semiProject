@@ -360,13 +360,13 @@ input[type="text"]:focus {
 					}
 					console.log(e.target.parentNode.parentNode);
 					//e.target.parentNode.parentNode.remove();
-					e.target.parentNode.parentNode.appen("<div id='comment'>삭제된 댓글입니다.<hr></div>")
+					e.target.parentNode.parentNode.append("<div id='comment'>삭제된 댓글입니다.<hr></div>");
 					
 				}
 			}) 	
 		       
 		    });
-		})
+		
 	</script>
 </body>
 </html>

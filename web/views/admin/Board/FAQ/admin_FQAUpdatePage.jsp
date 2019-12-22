@@ -174,6 +174,7 @@ margin-top: 27px;
 			<div id="infoBox">
 				<form action="<%=request.getContextPath()%>/updateBoard.bo" method="post" onsubmit="return ok()">
 					<h3 align="center">게시판 상세</h3>
+					<input type="hidden" name="pageAddress" value="admin">
 					<table id="infoTable">
 						<tr>
 							<td>제목</td>

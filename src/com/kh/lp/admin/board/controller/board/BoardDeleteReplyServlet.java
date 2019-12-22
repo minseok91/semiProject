@@ -41,8 +41,9 @@ public class BoardDeleteReplyServlet extends HttpServlet {
 		int boardReply = Integer.parseInt(request.getParameter("replyId"));
 		int boardId = Integer.parseInt(request.getParameter("boardId"));
 		int deleteBoardReply = new ReplyService().deleteBoardReply(boardReply);
+		String type = null;
 		
-		ArrayList<Reply> list = new ReplyService().selectAll(boardId);
+		ArrayList<Reply> list = new ReplyService().selectAll(boardId, type);
 		
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

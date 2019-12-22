@@ -41,7 +41,7 @@ public class BoardDeleteServlet extends HttpServlet {
 		String page = ""; 
 		if(result > 0) { 
 			//타입을 구분하여 삭제후 해당 게시판으로 이동한다.
-			if(pageaddress.equals(null)) {
+			if(pageaddress == (null)) {
 				if(type.equals("BT4")) {
 					page = "selectFAQ.bo";
 				} else {

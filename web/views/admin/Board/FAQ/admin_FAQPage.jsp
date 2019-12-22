@@ -212,7 +212,7 @@ html, body {
 					</tr>
 					<% for(int i=0; i<list.size(); i++) { %>
 					<tr>
-						<td><%= list.get(i).getBoardNo() %>
+						<td><%= list.get(i).getBoardId() %>
 							<input type="hidden" value="<%= list.get(i).getBoardId()%>">
 							<input type="hidden" value="<%= list.get(i).getBoardMemberName()%>">
 						</td>

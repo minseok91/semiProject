@@ -131,7 +131,6 @@
 					</tr>
 					 <% for(int i=0; i<blackList.size(); i++) {%>
 						<tr>
-							<td></td>
 							<td><%= blackList.get(i).getMemberNo()%></td>
 							<td><%= blackList.get(i).getMemberId()%></td>
 							<td><%= blackList.get(i).getMemberName()%></td>

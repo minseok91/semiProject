@@ -90,4 +90,18 @@ public class BoardService {
 		return list;
 	}
 
+	public int updateBoardCount(int boardId) {
+		Connection con = getConnection();
+		
+		int result = new BoardDao().updateBoardCount(boardId, con);
+		
+		if(result > 0) {
+			commit(con);
+		} else {
+			rollBack(con);
+		}
+		
+		return result;
+	}
+
 }
