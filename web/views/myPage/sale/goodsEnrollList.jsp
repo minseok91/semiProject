@@ -280,7 +280,7 @@ td>a>img {
 							<th style="width: 171px;">브랜드/모델명</th>
 							<th>감정가</th>
 							<th>경매 진행</th>
-							<th>남은 시간</th>
+							<th>비고</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -383,13 +383,13 @@ td>a>img {
 								}
 							} else if(j == 4) {
 								if(arr2[j] == "진품1" || arr2[j] == "진품2") {
-									temp += "<td>경매<br>진행 중</td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>경매<br>진행 중</td><td><button class='btn' onclick='itemDetail(this)' style='padding-top: 3px;'>상세보기</button></td>";
 								} else if(arr2[j] == "진품0") {
-									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td><td></td>";
 								} else if(arr2[j] == "가품0") {
-									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td><td></td>";
 								} else {
-									temp += "<td>감정 중</td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>감정 중</td><td></td>";
 								}
 							} else if(j == 5) {
 								
@@ -426,6 +426,28 @@ td>a>img {
 		$("#modalEndBtn").click(function(){
 			$("#modal1").hide();
 		});
+		
+		function itemDetail(value) {
+			var tr = $(value).parent().parent();
+			var td = $(tr).children();
+			var itemId = td.eq(0).text();
+			var memberNo = <%= loginMember.getMemberNo() %>;
+			
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectItemOne.it",
+				type: "post",
+				data: {
+					memberNo: memberNo,
+					itemId: itemId
+				},
+				success: function(data) {
+					
+				},
+				error: function(data) {
+					
+				}
+			});
+		};
 		
 		function doAuction(){
 			var itemPrice = $("#itemPrice").val();

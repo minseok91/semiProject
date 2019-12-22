@@ -146,6 +146,13 @@ public class ItemService {
 		return listCount;
 	}
 
+	public String selectItemType(int itemId, int memberNo) {
+		Connection con = getConnection();
+		String result = new ItemDao().selectItemType(con, memberNo, itemId);
+		close(con);
+		return result;
+	}
+
 }
 
 
