@@ -1,13 +1,9 @@
-%--
-/**
- * <pre>
+<%--
  * @Author      : Kewon
  * @CreateDate  : 2019. 12. 6. 오후 2:29:54
  * @ModifyDate  : 2019. 12. 6. 오후 2:29:54
  * @fileName    : winningBid
  * @Description : 마이페이지의 낙찰리스트
- * </pre>
- */
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -199,7 +195,7 @@ td>a>img {
 			<table id="tableArea" border="1">
 				<thead id="tableHeadArea">
 					<tr>
-						<th>상품번호</th>
+						<th>경매번호</th>
 						<th>상품사진</th>
 						<th>브랜드/모델명</th>
 						<th>낙찰가</th>
