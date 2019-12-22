@@ -281,13 +281,19 @@ td>a>img {
 						const fullName=$(this).parents('tr').children().eq(3).text(); // 브랜드명+모델명
 						const price=$(this).parents('tr').children().eq(5).text(); // 가격
 						const brand=$(this).parents('tr').children().eq(9).text(); // 브랜드명
-						const model=$(this).parents('tr').children().eq(10).text(); // 모델명
-
-						console.log(image);
+	 					var model =  fullName.split(brand)[0];
 						
+						/* const model=$(this).parents('tr').children().eq(10).text(); // 모델명 */
+						console.log("\'"); 
+						console.log(image);
+						console.log("fullName : " + fullName);
+						console.log(typeof(fullName))
+						console.log(brand);
+						console.log(typeof(brand));
+						console.log(model);
 						const URL = "<%= request.getContextPath() %>/paymentBefore.pay?auctionId="+num+"&image="+image+"&price="+price+"&brand="+brand+"&model="+model;
 						
-						location.href= URL;
+						 location.href= URL; 
 					});
 				},
 				error: function(data){

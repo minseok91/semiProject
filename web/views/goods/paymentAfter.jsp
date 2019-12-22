@@ -11,9 +11,11 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.lp.money.model.vo.*" %>
 <%
-	int amount = Integer.parseInt(String.valueOf(request.getAttribute("amount")));
+	/* int amount = Integer.parseInt(String.valueOf(request.getAttribute("amount"))); */
+	Money money = (Money) request.getAttribute("money");
+	System.out.println("money :" + money);
 %>
 <!DOCTYPE html>
 <html>
@@ -245,7 +247,7 @@
 			</table>
 			<div id="endPrice">
 				<label>총 결제 금액 : </label>
-				<input type="text" value="<%= amount %>" disabled>
+				<input type="text" value="<%= money.getAmount() %>" disabled>
 			</div>
 		</div> <!-- buyInfo End -->
 		<button id="payment">메인으로 돌아가기</button>

@@ -1,11 +1,16 @@
 package com.kh.lp.money.model.service;
 
-import static com.kh.lp.common.JDBCTemplate.*;
+import static com.kh.lp.common.JDBCTemplate.close;
+import static com.kh.lp.common.JDBCTemplate.commit;
+import static com.kh.lp.common.JDBCTemplate.getConnection;
+import static com.kh.lp.common.JDBCTemplate.rollBack;
 
 import java.sql.Connection;
 
 import com.kh.lp.money.model.dao.MoneyDao;
 import com.kh.lp.money.model.vo.Money;
+import com.kh.lp.money.model.vo.MoneyDetail;
+import com.kh.lp.win.model.vo.Win;
 
 public class MoneyService {
 
@@ -59,6 +64,37 @@ public class MoneyService {
 		close(con);
 		
 		return list;
+	}
+
+	public int insertPayment(Money money) {
+		Connection con = getConnection();
+		int result = 0;
+		Win win = new MoneyDao().getWinner(con , money.getAuctionId());
+		int insertMoney = new MoneyDao().insertMoney(con, money, win);
+		if(insertMoney > 0) {
+			int insertMoneyHistory = new MoneyDao().insertMoneyHistory(con, money);
+			if(insertMoneyHistory > 0) {
+				commit(con);
+				result = 1;
+			} else {
+				rollBack(con);
+			}
+		} else {
+			rollBack(con);
+		}
+		close(con);
+		
+		return result;
+	}
+
+	public MoneyDetail getMoneyDetail(int auctionId) {
+		Connection con = getConnection();
+		
+		MoneyDetail md = new MoneyDao().getMoneyDetail(con, auctionId);
+		
+		close(con);
+		
+		return md;
 	}
 	
 	

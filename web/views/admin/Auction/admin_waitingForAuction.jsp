@@ -275,6 +275,9 @@ System.out.println("memberId : " + memberId );
             border: 1px solid #888;
             width: 30%; /* Could be more or less, depending on screen size */                          
         }
+        #appImg{
+        	width:350px;
+        }
 </style>
 </head>
 <body>
@@ -300,7 +303,7 @@ System.out.println("memberId : " + memberId );
 						<table>
 						<!-- 사진 갯수에 따라서 조율가능 -->
 							<tr>
-								<% for(int i = 1 ; i < atList.size(); i++){ %>
+								<% for(int i = 1 ; i < atList.size() - 1; i++){ %>
 									<td>
 										<img src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(i).getAttachmentRename() %>" alt="" >
 									</td>
@@ -397,12 +400,9 @@ System.out.println("memberId : " + memberId );
                 <p style="text-align: center;"><span style="font-size: 14pt;"><b><span style="font-size: 24pt;">감정서보기</span></b></span></p>
                 <p style="text-align: center; line-height: 1.5;">
 					<div id="deliNum">
-						<label>상품ID</label>
-						<input type="text" id="delPName" value="">
 						<br>
-						<label>운송장번호</label>
-						<input type="text" >
-						<button >입력하기</button>
+						<img src="" >
+						<img id="appImg" src="<%= request.getContextPath() %>/img/appraisal/<%=atList.get(atList.size()-1).getAttachmentRename() %>" alt="" >
 					</div>
                 <p><br /></p>
             <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
