@@ -110,7 +110,10 @@ html, body {
 	margin-left: auto;
 	margin-right: auto;
 }
-
+#nextPageBox button {
+	background: none;
+	border: none;
+}
 </style>
 <body>
 	<%@ include file="../../common/headerPage.jsp" %>
@@ -147,8 +150,18 @@ html, body {
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
 					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=1'"><<</button>
+					<% if(currentPage <= 1){ %>
+						<button  disabled> < </button>
+					<% } else { %>
+						<button  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage-1%>'"><</button>
+					<% } %>
 					<% for(int p=1; p<=MaxPage; p++) { %>
 						<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=p%>'"><%= p %></button>
+					<% } %>
+					<% if(currentPage >= MaxPage){ %>
+						<button  disabled> > </button>
+					<% } else { %>
+						<button  onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
 					<button onclick="location.href='<%=request.getContextPath()%>/memberInfo.me?currentPage=<%=MaxPage%>'">>></button>
 				</div>
@@ -159,9 +172,14 @@ html, body {
 	$(function(){
 		
 		$("td").click(function(e) {
-			var userId = e.target.parentElement.children[1].innerHTML;
-			console.log(userId)
-		    location.href="<%=request.getContextPath()%>/memberInfoDetail.me?userId="+userId;
+			var memberId = e.target.parentElement.children[1].innerHTML;
+			var memberNo = e.target.parentElement.children[0].innerHTML;
+			console.log(memberNo)
+		      location.href="<%=request.getContextPath()%>/memberInfoDetail.me?memberId="+memberId+"&memberNo="+memberNo;
+		})
+		$("#table td ,button").mouseover(function(e) {
+			$("td").css({"cursor":"pointer"})
+			$("button").css({"cursor":"pointer"})
 		})
 	});
 	</script>

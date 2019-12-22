@@ -108,6 +108,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+#nextPageBox button {
+	background: none;
+	border: none;
+}
 </style>
 <body>
 	<%@ include file="../../common/headerPage.jsp" %>
@@ -148,41 +152,35 @@
 			</div>
 			<div id="nextPage">
 				<div id="nextPageBox" align="center">
-					<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=1'"><<</button>
+					<button  onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=1'"><<</button>
 					<% if(currentPage <= 1){ %>
-						<button disabled> < </button>
+						<button  disabled> < </button>
 					<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me??currentPage=<%=currentPage-1%>'"><</button>
+						<button  onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=currentPage-1%>'"><</button>
 					<% } %>
 					<% for(int p= startPage; p<=endPage; p++) { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=p%>'"><%= p %></button>
+						<button  onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=p%>'"><%= p %></button>
 					<% } %>
 					<% if(currentPage >= MaxPage){ %>
-						<button disabled> > </button>
+						<button  disabled> > </button>
 					<% } else { %>
-						<button onclick="location.href='<%=request.getContextPath()%>/blackList.me??currentPage=<%=currentPage + 1 %>'"> > </button>
+						<button  onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=currentPage + 1 %>'"> > </button>
 					<% } %>
-					<button onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=endPage%>'">>></button>
+					<button  onclick="location.href='<%=request.getContextPath()%>/blackList.me?currentPage=<%=endPage%>'">>></button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script>
 	$("td").click(function(e) {
-			var userId = e.target.parentElement.children[1].innerHTML;
-				if(e.target.innerHTML == '탈퇴'){
-					var userId = e.target.attributes.value.value;
-					location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userId="+userId+"&type=MS3";
-					console.log(e.target.innerHTML);
-				} else if(e.target.innerHTML == '해제'){
-					var userId = e.target.attributes.value.value;
-					location.href="<%=request.getContextPath()%>/memberTypeUpdate.me?userId="+userId+"&type=MS1";
-					console.log(e.target.innerHTML);
-				} else {
-					console.log(e.target.parentElement.children[1].innerHTML);
+			var userId = (e.target.parentElement.children[0].innerHTML);
+					console.log(e.target.parentElement.children[0].innerHTML);
 					  location.href="<%=request.getContextPath()%>/blackDetail.me?userId="+userId
-				}
 			})
+	$("#table td ,button").mouseover(function(e) {
+			$("td").css({"cursor":"pointer"})
+			$("button").css({"cursor":"pointer"})
+		})
 	</script>
 </body>
 </html>
