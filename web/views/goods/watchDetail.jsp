@@ -112,6 +112,7 @@
 	#timeArea > label:nth-of-type(2) {
 		font-weight: 100;
 		font-size: 2.5em;
+		color: #555;
 	}
 	
 	#price {
@@ -130,6 +131,7 @@
 	#price>label:nth-of-type(2) {
 		font-size: 3.5rem;
     	font-weight: 100;
+    	color: #555;
 	}
 	
 	#biddingUsers {
@@ -260,7 +262,7 @@
 				<span class="imgBox">
 					<div class="title">
 					<% if(loginMember != null) { %>
-						<a id="wish">ㅁ</a>
+						<a id="wish"></a>
 					<% } %>
 						<img id="title" src="<%= request.getContextPath() %>/img/appraisal/<%= img %>" alt="" >
 					</div>
@@ -389,6 +391,23 @@
 			}).mouseout(function() {
 				$('#title').attr('src', title);
 			});
+			
+			// 위시등록여부
+			$.ajax({
+				url: "<%= request.getContextPath() %>/wishstatus.se",
+				type: "post",
+				data: {
+					memberNo: <%= loginMember.getMemberNo() %>,
+					auctionId: <%= auctionId %>,
+				},
+				success: function(data) {
+					console.log(data);
+					if(data === 'null' || data === 'N')
+						$('#wish').text('♡');
+					else 
+						$('#wish').text('♥');
+				}
+			})
 			
 			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
 			$("#endTime").text(changeTime(tempTime));

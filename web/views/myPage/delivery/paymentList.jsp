@@ -106,7 +106,7 @@
 .contentArea {
     text-align: center;
     position: absolute;
-    width: auto;
+    width: 58%;
     margin-top: 75px;
     left: 28%;
 }
@@ -115,7 +115,7 @@
 @media(min-width: 1919px) {
 	.contentArea {
 		left: 32%;
-		width: 49%;
+		width: 48%;
 	}
 }
 
@@ -124,15 +124,10 @@
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
-	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 15px;
-	font-size: 15px;
-	text-align: center;
+    text-align: center;
 }
-.container>.contents>#contentArea>#tableArea> {
-	width: 200px;
-}
+
 td>img {
 	width: 100px;
 	height: 100px;
@@ -207,14 +202,11 @@ td>img {
 				<tr>
 					<td>1</td>
 					<td><img src="<%= request.getContextPath() %>/img/bag1.jpg"></td>
-					<td>구찌 GG마몽 미니 토트겸 숄더백 (442622)</td>
+					<td>구찌 <br> GG마몽 미니 <br> 토트겸 숄더백</td>
 					<td>2019/12/18</td>
-					<td>상품구매	</td>
+					<td>상품구매</td>
 					<td>1,600,000</td>
-					<td id="finish">
-						결제완료<br>
-						<button id="refund">환불하기</button>
-					</td>
+					<td id="finish">결제완료</td>
 				</tr>
 				</tbody>
 			</table> <!-- tableArea End -->
