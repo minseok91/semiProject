@@ -720,7 +720,7 @@ public class BidDao {
 		return result;
 	}
 
-	public int selectBidCount(Connection con, int auctionId) {
+	public int selectBidCount(Connection con, int auctionId, int memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
@@ -729,6 +729,7 @@ public class BidDao {
 		try {
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, auctionId);
+			pstmt.setInt(2, memberNo);
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {

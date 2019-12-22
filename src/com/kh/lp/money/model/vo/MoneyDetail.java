@@ -7,15 +7,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Money {
-	private String impId;
-	private int memberNo;
-	private String merId;
-	private int amount;
-	private String address;
-	private String applyNum;
+
+public class MoneyDetail {
 	private int auctionId;
-	private String name;
+	private String memberName;
+	private String phone;
+	private String address;
+	private String brand;
+	private String model;
+	private int price;
+	private int priceFee;
 	
-	
+
 }

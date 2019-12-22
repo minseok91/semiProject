@@ -48,6 +48,7 @@
 		margin-left: auto;
 		margin-right: auto;
 		margin-top: 10%;
+		margin-bottom: 10%;
 		padding: 6px 0px 0;
 	}
 	.contents{
@@ -55,6 +56,7 @@
 		width:inherit;
 		border: 1px solid;
 		border-radius: 10px; 
+		
 	}
 	
 	#headArea {
@@ -279,7 +281,6 @@
 			<button onclick="location.href='<%=request.getContextPath()%>/selectAll.sh?currentPage=<%=maxPage%>'">>></button>
 		</div>  <!--  pagingArea End game -->
 		</div>
-	</div>
 		<!-- The Modal -->
     <div id="myModal" class="modal">
  

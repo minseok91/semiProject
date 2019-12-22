@@ -130,15 +130,21 @@
 		width: 59%;
 	}
 }
-
+.btn {
+	border:1px solid #a07342;
+	background:#211f22;
+	color:#e2ceb8;
+	height:26px;
+	border-radius:5px;
+}
 .contentArea>table {
 	width: 81%;
 }
 
-.contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
+.contentArea>table>theady>tr>th, .contentArea>table>tbody>tr>td {
+	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
+	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
@@ -148,9 +154,11 @@
 	height: 100px;
 }
 
-.contentArea>table>tbody>tr>th  {
+.contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
+	text-align: center;
+	font-size: 15px;
 }
 
 </style>
@@ -203,8 +211,8 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table>
-			<thead>
+			<table id="itemTableArea">
+			<thead id="itemTableHeadArea">
 				<tr>
 					<th>경매번호</th>
 					<th>상품사진</th>
@@ -214,7 +222,7 @@
 					<th>경매 회차</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="itemTableBodyArea">
 			 <% for(ClosedAuction cau : memberClosedAuctionList){%>
 				<tr>
 					<td><%=cau.getAuctionId() %></td>
@@ -226,7 +234,6 @@
 				</tr>
 			<%} %>   
 			</tbody>
-				
 			</table>
 		</div> <!-- menuStatus End -->
 		

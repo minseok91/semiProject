@@ -32,6 +32,7 @@ html, body {
 	margin-top: 10%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 10%;
 }
 .contents {
 	width: 100%;

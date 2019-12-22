@@ -16,18 +16,20 @@
 		padding: 6px 0px 0;
 	}
 	.contents{
+		height:650px;
 		width:inherit;
 	}
 	
 	#part1 {
 		display: flex;
-		margin-top: 2%;
+		padding-top: 10%;
+		height: 612px;
 	}
 
 	.title>img {
 		border: 1px solid #d9d9d9;
-		width: 430px;
-		height: 430px;
+		width: 330px;
+		height: 330px;
 		margin-left: 10px;
 	}
 	
@@ -63,14 +65,14 @@
 	
 	#detailImg>table>tbody>tr>td>img {
 		border: 1px solid #d9d9d9;
-		width: 100px;
-    	height: 100px;
+		width: 75px;
+    	height: 75px;
 	}
 	
 	.contents {
-		width: 56%;
+		width: 100%;
 		display: inline;
-		margin-left: 50px;
+		margin-left: 75px;
 	}
 	
 	.contents>#head {
@@ -81,38 +83,19 @@
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 20px;
 		margin: 0;
-		padding-left: 7px;
 	}
 	
 	.contents>#head>label:nth-of-type(2) {
-    	position: relative;
-    	left: 45%;
-    	padding: 0 5px;
-	}
-	
-	/* 1920px 전용(작업용) */
-	@media(min-width: 1919px) {
-		#head>label:nth-of-type(2) {
-			right: 387px;
-		}
-	}
-	
-	#timeArea {
-		display: grid;
-	}
-	
-	#timeArea > label:nth-of-type(1) {
-		font-size: 20px;
-    	color: #3e2d1a;
-    	border-left: 5px solid #3e2d1a;
-    	margin-top: 50px;
-    	padding-left: 10px;
+		margin-left: 54%;
 	}
 	
 	#timeArea > label:nth-of-type(2) {
 		font-weight: 100;
 		font-size: 2.5em;
 		color: #555;
+	/* 최고입찰가와 입찰가 입력 컨테이너를 묶음 */
+	#set {
+		display: flex;
 	}
 	
 	#price {
@@ -136,9 +119,7 @@
 	
 	#biddingUsers {
     	position: relative;
-    	overflow-y: auto;
-   		left: 6.5%;
-   		height: 430px;
+   		margin-top: 59px;
 	}
 	
 	#biddingUsers>table>thead>tr>th {
@@ -146,15 +127,15 @@
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(1) {
-		width: 160px;
+		width: 150px;
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(2) {
-		width: 160px;
+		width: 200px;
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(3) {
-		width: 280px;
+		width: 100px;
 	}
 	
 	#biddingUsers>table>thead>tr>th, #biddingUsers>table>tbody>tr>td {
@@ -166,6 +147,7 @@
 	
 	#biddingApply {
 		margin-top: 50px;
+		margin-left: 85px;
 	}
 	
 	#biddingApply>label {
@@ -203,27 +185,25 @@
 		color: #ff0000;
 	}
 	
-	#rowLine {
-		margin: 34px 0;
-    	border-bottom: 1px solid #3e2d1a;
-	}
-	
 	#part2 {
 		display: flex;
-		padding-bottom: 150px;
+		margin: 50px 0;
+		margin-left: -94px;
+		padding-bottom: 50px;
+		justify-content: center;
+		border-bottom: 1px solid #3e2d1a;
 	}
-	
-	#dcAndbu {
-		position: relative;
-    	left: 1%;
-	}
-	
 	#endTime {
 		font-size: 30px;
 	}
 	
 	#detailContent {
-		margin-bottom: 27px;
+		position: relative;
+		right: 16%;
+	}
+	
+	#goods {
+		margin-left: 90px;
 	}
 
 	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
@@ -233,14 +213,7 @@
 	
 	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
-		width: 152px;
 	}
-
-	#detailContent>table>tbody>tr>td:nth-of-type(2), #goods>table>tbody>tr>td:nth-of-type(2) {
-		width: 277px;
-	} 
-	
-	
 </style>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
@@ -285,11 +258,11 @@
 						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
 					</div>
 					<div id="timeArea">
-							<label>남은 시간</label>
 							<input type="hidden" id="endHiddenTime" name="endHiddenTime" value=""/>
 							<label for="" id="endTime" name="endTime"></label>
 					</div>  <!-- timeArea end -->
 					<div id=set>
+						
 						<div id="price">
 							<label id="nowPriceLabel">현재 가격</label>
 							<label id="maxPrice"></label>
@@ -300,22 +273,31 @@
 							<% if(loginMember != null && !loginMember.getMemberId().equals(watchDetailInfo.get(0).getBidUserId())) { %>
 							<div id="biddingApply">
 								<label id="unit"></label><br>
-								<input type="text" name="bidding" id="minPrice" size="32" placeholder="">
+								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
 								<button id="insertBid" onclick="watchBiddingSend()" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
 					</div>
+					<div id="biddingUsers">
+					<label>입찰 이력</label>
+							<table id="tableBiddingArea">
+								<thead id="tableBiddingHeadArea">
+									<tr>
+										<th>입찰자</th>
+										<th>입찰 금액</th>
+										<th>입찰 시간</th>
+									</tr>
+								</thead>
+							</table>  <!-- tableBiddingArea end -->
+						</div>
 				</span> <!-- contents End -->
 			</span> <!-- part1 End -->
-			
-			<div id="rowLine"></div>
 
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
-			<div id="dcAndbu">
 				<div id="detailContent">
-				<label>상품 정보</label>
+				<label>경매 정보</label>
 					<table>
 					<% if(watchDetailInfo.size() > 0) { %>
 						<tr>
@@ -339,7 +321,7 @@
 				</div>
 				
 				<div id="goods">
-					<label>상품 상세 정보</label>
+					<label>상품 정보</label>
 					<table>
 						<tr>
 							<td>보증서 유무</td>
@@ -362,21 +344,6 @@
 							<td><%= w.getWatchChronograph() %></td>
 						</tr>
 					</table>
-				</div>
-				
-				</div>
-				
-				<div id="biddingUsers">
-					<label>입찰 이력</label>
-					<table id="tableBiddingArea">
-						<thead id="tableBiddingHeadArea">
-							<tr>
-								<th>입찰자</th>
-								<th>입찰 금액</th>
-								<th>입찰 시간</th>
-							</tr>
-						</thead>
-					</table>  <!-- tableBiddingArea end -->
 				</div>
 			</div> <!-- part2 End -->
 			</div>
@@ -467,11 +434,11 @@
 							
 							for(j in arr2){
 								if(j == 0)
-									temp += "<td>"+ arr2[j] +"</td>";
+									temp += "<td>" + arr2[j] + "</td>";
 								else if(j == 1) 
-									temp += "<td>"+ numberFormat(arr2[j]) +"</td>";
+									temp += "<td>" + arr2[j] + "</td>";
 								else if(j == 2)
-									temp += "<td>"+ arr2[j] +"</td>";
+									temp += "<td>" + arr2[j] + "</td>";
 								else if(j == 3)
 									temp += "<td>" + arr2[j] + "</td>";	
 							}
@@ -498,7 +465,10 @@
 						console.log($("#tableBiddingArea > tbody").children().eq(0).children().eq(0).text());
 						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
 							$("#insertBid").hide();
-							$("#minPrice").val("최고 입찰자 입니다.").css({"text-align":"center"});
+							$("#minPrice").val("최고가 입찰자 입니다.").css({"text-align":"center"});
+						} else {
+							$("#insertBid").show();
+							$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
 						}
 					},
 					error: function(data) {
@@ -563,8 +533,26 @@
 				} else {
 					var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
 					$("#minPrice").val("");
-					watchBiddingWebSocket.send(sendMsg);
-					alert("성공적으로 입찰했습니다.");
+					$.ajax({
+						url: "<%= request.getContextPath() %>/biddingCount.bid",
+						type: "post",
+						data: {
+							auctionId: <%= auctionId %>,
+							memberNo: <%= loginMember.getMemberNo() %>
+						},
+						success: function(data) {
+							var result = Number(data);
+							if(data < 3) {
+								watchBiddingWebSocket.send(sendMsg);
+								alert("성공적으로 입찰했습니다.");
+							} else {
+								alert("한 경매에 3번 넘게 입찰 할 수 없습니다.");
+							}
+						},
+						error: function(data) {
+							alert("입찰에 실패했습니다. 새로고침 후 다시 시도해주세요");
+						}
+					});
 				}
 			};
 			
@@ -611,7 +599,8 @@
 						url: "<%= request.getContextPath() %>/biddingCount.bid",
 						type: "post",
 						data: {
-							auctionId: <%= auctionId %>
+							auctionId: <%= auctionId %>,
+							memberNo: <%= loginMember.getMemberNo() %>
 						},
 						success: function(data) {
 							$.ajax({

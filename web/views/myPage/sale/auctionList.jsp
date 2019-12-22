@@ -140,6 +140,13 @@ td>a>img {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
 }
+.btn {
+	border:1px solid #a07342;
+	background:#211f22;
+	color:#e2ceb8;
+	height:26px;
+	border-radius:5px;
+}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -242,24 +249,38 @@ td>a>img {
 					temp = "<tr>";
 					var arr2 = arr[i].split("::");			//  0: 경매번호, 1: 사진, 2: 브랜드/모델명, 3: 현재입찰가, 4: 입찰인원, 5: 남은 시간, 6: 상세보기
 					for(j in arr2) {
-						if(j == 1){
+						if(j == 0) {
+							temp += "<td>" + arr2[j] + "</td>"
+						}
+						if(j == 1) {
 							if(arr2[j] != "null"){
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
 							}else {
 								temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/noImage.png'></a></td>";
 							}
-						}else if(j == 5){
+						}
+						if(j == 2) {
+							temp += "<td>" + arr2[j] + "</td>"
+						}
+						if(j == 3) {
+							temp += "<td>" + arr2[j] + "</td>"
+						}
+						if(j == 4) {
+							temp += "<td>" + arr2[j] + "</td>"
+						}
+						if(j == 5) {
 							temp += "<td><a class='resLink'>" + arr2[j] + "명</a></td>"
-						} else if(j == 6) {
+						}
+						if(j == 6) {
 							tempTime = arr2[j];
 							if(arr2[j] <= 0) {
 								temp += "<td class='time'><input type='hidden' value='" + 0 + "'><label>" + changeTime(0) + "</label></td><td><button>상세보기</button></td>";
 							} else {
-								temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td><td><button>상세보기</button></td>";
+								temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td><td><button class='btn' onclick='itemDetail(this)' style='padding-top: 3px;'>상세보기</button></td>";
 							}
 						} 
 					}
-					$("#tableArea > #tableBodyArea:last").append(temp + "</tr>");
+					$("#tableArea > #tableBodyArea:last").append("" + temp + "</tr>");
 				}
 				endTimeGetWebsocket();
 			},

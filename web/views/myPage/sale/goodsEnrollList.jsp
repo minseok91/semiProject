@@ -114,11 +114,11 @@
 
 .contentArea {
     text-align: center;
-    position: absolute;
-    width: auto;
+    width: 920px;
     height: 700px;
     margin-top: 75px;
     left: 28%; 
+    margin-left: 220px;	
 }
 
 /* 1920px 전용(작업용) */
@@ -130,13 +130,12 @@
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
-	width: 152px;
+	width: 150px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 15px;
 	font-size: 15px;
 	text-align: center;
 }
-.container>.contents>#contentArea>#tableArea> {
+.container>.contents>#contentArea>#tableArea {
 	width: 200px;
 }
 td>a>img {
@@ -145,8 +144,12 @@ td>a>img {
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	border-top: 1px solid #211f22;
+	height: 33px;
 }
 .btn {
 	border:1px solid #a07342;
@@ -214,6 +217,12 @@ td>a>img {
 		color: black;
 		text-decoration: none;
 	}
+	 #tableHeadArea {
+	 	position: absolute;
+	 }
+	 ::-webkit-scrollbar { 
+		display:none; 
+	}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -262,19 +271,22 @@ td>a>img {
 					<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
-			<div class="contentArea" style="overflow:scroll">
-				<table id="tableArea" border="1">
+			<div class="contentArea" style="overflow:scroll;">
+				<table id="tableArea">
 					<thead id="tableHeadArea">
-						<tr>
+						<tr id="tableHead">
 							<th>상품번호</th>
 							<th>상품사진</th>
-							<th>브랜드/모델명</th>
+							<th style="width: 171px;">브랜드/모델명</th>
 							<th>감정가</th>
 							<th>경매 진행</th>
-							<th>남은 시간</th>
+							<th>비고</th>
 						</tr>
 					</thead>
-					<tbody id="tableBodyArea"></tbody>
+					<tbody>
+					
+					</tbody>
+				<!-- 	<tbody id="tableBodyArea"></tbody> -->
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
@@ -283,7 +295,7 @@ td>a>img {
 	<!-- modal -->
 	<div id="modal1" class="modalContainer">
 		<div class="modalContents">
-			<div id="contentsArea">
+			<div id="contentsArea" style="">
 				<h2 align="center">경매 시작 전 정보 입력</h2>
 				<form id="modalForm" action="" method="post" onsubmit="return doAuction()">
 					<table id="modalTableArea" align="center">
@@ -371,13 +383,13 @@ td>a>img {
 								}
 							} else if(j == 4) {
 								if(arr2[j] == "진품1" || arr2[j] == "진품2") {
-									temp += "<td>경매<br>진행 중</td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>경매<br>진행 중</td><td><button class='btn' onclick='itemDetail(this)' style='padding-top: 3px;'>상세보기</button></td>";
 								} else if(arr2[j] == "진품0") {
-									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td><button class='btn' id='startBtn' onclick='startAuction(this)' style='padding-top: 3px;'>경매시작</button><br><br><button class='btn' onclick='endAuction()' style='padding-top: 3px;'>경매취소</button></td><td></td>";
 								} else if(arr2[j] == "가품0") {
-									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>가품<br><br><button class='btn' id='deliveryBtn' onclick='doDelivery(this)' style='padding-top: 3px;'>운송장확인</button></td><td></td>";
 								} else {
-									temp += "<td>감정 중</td><td name='time" + i + "'>00 : 00 : 00</td>";
+									temp += "<td>감정 중</td><td></td>";
 								}
 							} else if(j == 5) {
 								
@@ -414,6 +426,28 @@ td>a>img {
 		$("#modalEndBtn").click(function(){
 			$("#modal1").hide();
 		});
+		
+		function itemDetail(value) {
+			var tr = $(value).parent().parent();
+			var td = $(tr).children();
+			var itemId = td.eq(0).text();
+			var memberNo = <%= loginMember.getMemberNo() %>;
+			
+			$.ajax({
+				url: "<%= request.getContextPath() %>/selectItemOne.it",
+				type: "post",
+				data: {
+					memberNo: memberNo,
+					itemId: itemId
+				},
+				success: function(data) {
+					
+				},
+				error: function(data) {
+					
+				}
+			});
+		};
 		
 		function doAuction(){
 			var itemPrice = $("#itemPrice").val();

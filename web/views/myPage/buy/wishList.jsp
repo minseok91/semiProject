@@ -196,6 +196,7 @@
 	margin-right: auto;
 }
 
+
 .noImg{
 	width: 100px;
 	margin-left: auto;
@@ -256,6 +257,8 @@ td>.content {
 	background: none;
 	margin: 0 3px;
 }
+
+
 
 </style>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon"/>
@@ -328,32 +331,39 @@ td>.content {
 				<input type="checkbox" id="checkAll" name="checkAll">
 			</div>
 			<div class="list">
-<%-- 			<table>
+< 			<table>
 
 				<%for(int i=0; i<3; i++) {%>
 				<tr>
 					<%for(int j=0; j<4; j++) { %>
-					<td> --%>
-					
-			<table>
-			<% int j=0; %>
-        	<% for(int i=0; i<memberWishList.size() / 4 + 1; i++) { %> <!-- 리스트 전체 / 5 + 1 -->
-
-            <tr>
-               <% for(; j<memberWishList.size(); j++) { %>
-               <% if(j != (i+1)*4) { %>
-				<td>
+						<%if(n<memberWishList.size()) {%>
+						<td>
 							<input type="hidden" value=""><!-- value에 해당상품번호 이식 ??????????? -->
-							<input type="checkbox" class="wish">
+							<input type="checkbox" class="wish" name="check<%=memberWishList.get(n).getAuctionId()%>">
 							<div id="img">
 								<div class="price"><%=memberWishList.get(n).getAuctionCurrentPrice() %></div>
 								<img src="<%=request.getContextPath()%>/img/appraisal/<%=memberWishList.get(n).getAttachmentRename() %>" alt="">
 							</div>
 							<span class="content"><%=memberWishList.get(n).getAr1Brand() %> <%=memberWishList.get(n).getAr1Model() %></span>
 							<div class="time"><%=memberWishList.get(n).getAuctionEndDate() %></div>
-						<%}else break; %>
-
-					</td>
+							<%
+								n++; 
+							%>
+						</td>
+						<%} else {%>
+						<td hidden>
+							<div disable>
+							<div id="img" >
+								<div class="price"></div>
+								<div class="noImg"></div>
+							</div>
+							<span class="content"></span>
+							<div class="time"></div>
+							</div>
+						<%} %>
+					
+					
+						</td>
 					<%} %>
 				</tr>
 				
@@ -390,6 +400,9 @@ td>.content {
 			
 			// 체크한항목 제거
 			$('#wishDelete').click(function () {
+				
+				
+				
 				
 			})
 		});

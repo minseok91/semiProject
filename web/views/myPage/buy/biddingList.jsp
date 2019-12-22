@@ -127,12 +127,8 @@
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
 	width: 152px;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 15px;
 	font-size: 15px;
 	text-align: center;
-}
-.container>.contents>#contentArea>#tableArea> {
-	width: 200px;
 }
 td>img {
 	width: 100px;
@@ -140,9 +136,32 @@ td>img {
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
 }
+ #tableArea {
+ 	border: none;
+	width: 920px;
+	margin-left: -23px;
+	border-collapse: none;
+}
+ #tableArea td {
+	border-right: none;
+	border-left: none;
+ }
+ #detailView {
+ 	border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
+ }
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -192,12 +211,12 @@ td>img {
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-				<table id="tableArea" border="1">
+				<table id="tableArea">
 					<thead id="tableHeadArea">
 						<tr>
 							<th>상품번호</th>
 							<th>상품사진</th>
-							<th>브랜드/모델명</th>
+							<th style="width: 171px;">브랜드/모델명</th>
 							<th>최고 입찰가</th>
 							<th>내 입찰가</th>
 							<th>남은 시간</th>
@@ -217,7 +236,7 @@ td>img {
 							<td><%=bl.getBiddingMaxPrice()%></td>
 							<td><%=bl.getBiddingMemberPrice()%></td>
 							<td>23시간 35분 전</td>
-							<td><button>상세보기</button></td>
+							<td><button id="detailView">상세보기</button></td>
 						</tr>
 						<%
 							}
