@@ -239,7 +239,7 @@ td>a>img {
 				$("#tableBodyArea").empty();
 				var arr = data.split("#");
 				for(i in arr) {
-					temp = "";
+					temp = "<tr>";
 					var arr2 = arr[i].split("::");			//  0: 경매번호, 1: 사진, 2: 브랜드/모델명, 3: 현재입찰가, 4: 입찰인원, 5: 남은 시간, 6: 상세보기
 					for(j in arr2) {
 						if(j == 1){
@@ -253,16 +253,13 @@ td>a>img {
 						} else if(j == 6) {
 							tempTime = arr2[j];
 							if(arr2[j] <= 0) {
-								temp += "<td class='time'><input type='hidden' value='" + 0 + "'><label>" + changeTime(0) + "</label></td>";
+								temp += "<td class='time'><input type='hidden' value='" + 0 + "'><label>" + changeTime(0) + "</label></td><td><button>상세보기</button></td>";
 							} else {
-								temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td>";
+								temp += "<td class='time'><input type='hidden' value='" + arr2[j] + "'><label>" + changeTime(arr2[j]) + "</label></td><td><button>상세보기</button></td>";
 							}
-						} else {
-							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
-						}
+						} 
 					}
-					temp += "<td><button>상세보기</button></td>";
-					$("#tableArea > #tableBodyArea:last").append("<tr>" + temp + "</tr>");
+					$("#tableArea > #tableBodyArea:last").append(temp + "</tr>");
 				}
 				endTimeGetWebsocket();
 			},

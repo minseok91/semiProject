@@ -719,6 +719,29 @@ public class BidDao {
 		
 		return result;
 	}
+
+	public int selectBidCount(Connection con, int auctionId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		String query = prop.getProperty("selectBidCount");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, auctionId);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 }
 
 
