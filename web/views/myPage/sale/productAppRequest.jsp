@@ -144,7 +144,7 @@
 				<h3>&nbsp;&nbsp;<&nbsp;상품감정 신청 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>감정하고 싶은 상품을 등록해주세요.</p>
+				<p>럭션에서는 보증된 상품만 판매하실 수 있습니다. 럭션의 전문가들이 직접 세심하게 살펴 감정해드립니다. <br>감정 비용은 25,000원입니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">

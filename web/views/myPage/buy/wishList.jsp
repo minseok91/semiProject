@@ -308,7 +308,7 @@ td>.content {
 				<h3>&nbsp;&nbsp;<&nbsp;위시리스트 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 찜하신 상품 리스트를 볼 수 있는 공간입니다.</p>
+				<p>회원님께서 관심 상품 등록하신 상품 리스트를 볼 수 있는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 			<div id="deleteAndSearch">
 				<button id="wishDelete">위시리스트 삭제</button>

@@ -11,7 +11,8 @@
 <title></title>
 <style>
 	footer {
-   		position: relative;
+   		position: apsolute;
+   		bottom: 0;
     	width: 100%;
     	height: 138px;
     	vertical-align: middle;
