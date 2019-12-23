@@ -159,6 +159,7 @@ td>a>img {
 </style>
 <meta charset="UTF-8">
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 <title>LauXion</title>
 </head>
 <body>

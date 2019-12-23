@@ -183,8 +183,13 @@ td>img {
 .btn3:hover {
 	cursor: pointer;
 }
+.pagingArea {
+	width: 920px;
+	text-align: center;
+}
 </style>
 <meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 <title>LauXion</title>
 </head>
 <body>
@@ -264,11 +269,7 @@ td>img {
 				</tbody>
 			</table> <!-- tableArea End -->
 			<br><br>
-		</div> <!-- contentArea End -->
-	</div> <!-- contents End -->
-	
-	</div><!-- container End -->
-	<div class="pagingArea" align="center">	
+			<div class="pagingArea" align="center">	
 		
 		  <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=1'"><<</button>
 		<%if(currentPage==1) {%>
@@ -294,6 +295,10 @@ td>img {
 		<button class="btn3" style="float: right;"><a href="views/myPage/queAndReport/question.jsp">문의하기</a></button>		
 
 		</div> <!-- pagingArea End -->
+		</div> <!-- contentArea End -->
+	</div> <!-- contents End -->
+	
+	</div><!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);

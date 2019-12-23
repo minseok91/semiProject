@@ -166,7 +166,7 @@
 	height: 33px;
 	text-align: center;
 }
-.btn {
+.btn2 {
 	background: none;
 	border: none;
 	border: 1px solid white;

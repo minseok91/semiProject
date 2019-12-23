@@ -118,7 +118,9 @@
 	background: none;
 	border: none;
 }
+
 </style>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 <body>
 	<%@ include file="../../common/headerPage.jsp" %>
 		<div id="container" class="container">
@@ -131,7 +133,7 @@
 			<div>
 				<table id="table">
 					<tr>
-						<th>No.</th>
+						<th>회원번호</th>
 						<th>아이디</th>
 						<th>이름</th>
 						<th>휴대폰번호</th>

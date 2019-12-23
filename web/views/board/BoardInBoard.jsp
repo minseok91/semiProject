@@ -231,7 +231,31 @@
 #search:nth-child(1) {
 	margin-right: 21px;
 }
+.btn2 {
+	background: none;
+	border: none;
+	border: 1px solid white;
+	background: white;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
+}
+#insertBoard, #search {
+height: 24px;
+	margin-left: 2%;
+	float: right;
+	background: rgb(33, 31, 34);
+	border: 1px solid #a07342;
+	color: #e2ceb8;
+	border-radius: 4px;
+	font-size: 16px;
+	font-weight: bold;
+}
+#searchBox {
+ float: right;
+}
 </style>
+<link rel="icon" type="image/png" sizes="32x32" href="<%= request.getContextPath() %>/views/admin/image/loginimg(2).png">
 <title>LauXion</title>
 </head>
 <body>
@@ -313,7 +337,7 @@
 				<div>
 					<div>
 						<button id="search" class="searchBtn">검색</button>
-						<input type="text" id="search" name="searchBox">
+						<input type="text" id="searchBox" name="searchBox">
 
 					</div>
 					<table id="table">
@@ -376,41 +400,45 @@
 						}
 					}
 				%>
-				<button
+				<button class="btn2"
 					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=1&type=<%=type%>'"><<</button>
 				<%
 					if (currentPage == 1) {
 				%>
-				<button disabled><</button>
+				<button class="btn2" disabled><</button>
 				<%
 					} else {
 				%>
-				<button
+				<button class="btn2"
 					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage - 1%>&type=<%=type%>'"><</button>
 				<%
 					}
 				%>
 				<%
 					for (int i = startPage; i <= endPage; i++) {
-				%>
-				<button
+					if(i == currentPage) {%>
+					<button class="btn2"
+					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=i%>&type=<%=type%>'" style="font-weight: bold;"><%=i%></button>
+					<%} else { %>
+				<button class="btn2"
 					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=i%>&type=<%=type%>'"><%=i%></button>
 				<%
+						}
 					}
 				%>
 				<%
 					if (currentPage >= maxPage) {
 				%>
-				<button disabled>></button>
+				<button class="btn2" disabled>></button>
 				<%
 					} else {
 				%>
-				<button
+				<button class="btn2"
 					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=currentPage + 1%>&type=<%=type%>'">></button>
 				<%
 					}
 				%>
-				<button
+				<button class="btn2"
 					onclick="location.href='<%=request.getContextPath()%>/BoardSelect.bo?currentPage=<%=maxPage%>&type=<%=type%>'">>></button>
 			</div>
 		</div>
@@ -491,7 +519,7 @@
 			 if('<%=loginMember%>' == 'null'){
 				alert("로그인해야 이용할 수 있습니다."); 
 			} else if('<%=loginMember%>' != 'null') {
-				<%-- location.href="<%=request.getContextPath()%>/views/board/BoardInsert.jsp"; --%>
+				 location.href="<%=request.getContextPath()%>/views/board/BoardInsert.jsp";
 			}
 		}) 
 		$("#table  td").mouseover(function(e) {

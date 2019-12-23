@@ -225,7 +225,7 @@ html, body {
 				</div>
 				<table id="table">
 					<tr>
-						<th>No.</th>
+						<th>게시판번호</th>
 						<th>제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
@@ -332,7 +332,7 @@ html, body {
 							$tableBody.html('');
 							
 							var $trh = $("<tr>");
-							var $Th = $("<th>No.</th><th>제목</th><th>작성자</th><th>작성일</th><th>수정일</th><th>게시판종류</th><th>조회수</th><th>기능</th>");
+							var $Th = $("<th>글 번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>수정일</th><th>게시판종류</th><th>조회수</th><th>기능</th>");
 							$trh.append($Th);
 							$tableBody.append($trh);
 							$Number.append(data[1].listCount+"건");
