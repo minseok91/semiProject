@@ -222,7 +222,7 @@
 	});
 	
 	$("#mainPage").click(function(){
-		location.href="<%= request.getContextPath()%>/views/admin/main/admin_mainPage.jsp";
+		location.href="<%= request.getContextPath()%>/select.ma";
 	})
 	$("#notice_li").click(function(){
 		location.href="<%= request.getContextPath()%>/selectAll.bo";
