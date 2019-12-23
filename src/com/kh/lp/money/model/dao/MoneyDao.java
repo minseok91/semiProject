@@ -206,13 +206,13 @@ public class MoneyDao {
 			md = new MoneyDetail();
 			if(rset.next()) {
 				md.setAuctionId(auctionId);
-				md.setAddress(rset.getString(""));
-				md.setBrand(rset.getString(""));
-				md.setMemberName(rset.getString(""));
-				md.setModel(rset.getString(""));
-				md.setPhone(rset.getString(""));
-				md.setPrice(rset.getInt(""));
-				md.setPriceFee(rset.getInt(""));
+				md.setAddress(rset.getString("MEMBER_ADDRESS"));
+				md.setPhone(rset.getString("MEMBER_PHONE"));
+				md.setMemberName(rset.getString("MEMBER_NAME"));
+				md.setBrand(rset.getString("AR1_BRAND"));
+				md.setModel(rset.getString("AR1_MODEL"));
+				md.setPrice(rset.getInt("WIN_PRICE"));
+				md.setPriceFee(rset.getInt("WIN_PRICE") * 0.15);
 				
 			}
 		} catch (SQLException e) {

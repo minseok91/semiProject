@@ -68,16 +68,27 @@ html, body {
 	border-collapse: collapse;
 }
 #table tr th {
-	border-top: 1px solid;
-	background: #EAEAEA;
-	color: black;
-	border-top: 2px solid #CCCCCC;
+	background: #e2ceb8;
+		color: #211f22;
+		font-size: 1.2em;
+		height: 32px;
+		border-top: 1px solid #211f22;
+ 		border-bottom: 1px solid #211f22;
 }
-#table tr th,#table tr td {
+#tableBoardArea>#tableHead>tr>th {
+		
+	}
+#table tr td {
+	border-top: 1px solid #CCCCCC;
+ 	border-bottom: 1px solid #CCCCCC;
+	padding-top: 5px;
+	text-align:center;
+	height: 32px;
+}
+/* #table tr th,#table tr td {
 	border-bottom: 1px solid #CCCCCC;
 	text-align: center;
-	padding-top: 5px;
-} 
+}  */
 #search_Box {
 	width: 300px;
 	height: 100%;
@@ -109,18 +120,7 @@ html, body {
 	margin-top: -14px;
 }
 
-#nextPage {
-	width: 100%;
-	height: 15%;
-} 
 
-
-#nextPageBox {
-	width: 80%;
-	height: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
 #updateBtn {
 	border: none;
 	background: rgb(160, 115, 66);
@@ -173,6 +173,19 @@ html, body {
 #boardType {
 	width: 70px;
 	height: 30px;
+}
+#nextPage {
+	width: 80%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#nextPageBox {
+	width: 80%;
+	height: 100%;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

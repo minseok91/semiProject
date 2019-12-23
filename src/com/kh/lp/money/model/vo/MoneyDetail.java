@@ -16,7 +16,7 @@ public class MoneyDetail {
 	private String brand;
 	private String model;
 	private int price;
-	private int priceFee;
+	private double priceFee;
 	
 
 }
