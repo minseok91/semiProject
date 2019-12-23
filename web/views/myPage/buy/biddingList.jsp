@@ -206,7 +206,7 @@ td>img {
 			</div>  <!-- status1 end -->
 			<div class="status2">
 				<p>회원님께서 입찰하신 상품 리스트를 볼 수 있는 공간입니다.</p>
-				<p>다섯 상품만 입찰이 가능합니다.</p>
+				<p>최대 5개 상품에 대해 동시 입찰하실 수 있습니다.</p>
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
