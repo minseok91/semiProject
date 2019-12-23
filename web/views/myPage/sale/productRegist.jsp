@@ -102,6 +102,9 @@
 	height: 970px;
 	display: inline-block;
 	margin-left: 10px;
+	border-top: 1px solid #000;
+    padding-top: 20px;
+    margin-top: 30px;
 }
 
 #picArea {
@@ -110,6 +113,12 @@
 	display: inline-block;
 	float: left;
 	text-align: center;
+}
+
+#picArea > p {
+	margin-left: 18px;
+    font-size: 12px;
+    width: 278px;
 }
 
 #infoArea {
@@ -134,7 +143,7 @@
 }
 
 #watchBrand, #bagBrand {
-	width: 100px;
+	width: 250px;
 }
 
 .titles, .inputs {
@@ -156,6 +165,11 @@
     left: 105px;
 }
 
+input[type=text], textarea {
+	border: none;
+	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
+}
+
 .row {
 	margin-top: 25px;
 }
@@ -174,9 +188,30 @@
 	height: 30px;
 }
 
-#regist {
+#btnArea {
 	float: right;
+	margin-top: 20px;
 }
+
+#regist {
+	border: 1px solid #a97e50;
+	background: #211f24;
+	color: #a97e50;
+	border-radius: 2px;
+	padding: 3px 17px;
+}
+
+#cancel {
+	border: 1px solid #aaa;
+	border-radius: 2px;
+	padding: 3px 30px;
+}
+
+.inputs:nth-of-type(1), .inputs:nth-of-type(5) {
+	margin-left: 20px;
+}
+
+/*  */
 </style>
 </head>
 <body>
@@ -259,13 +294,13 @@
 			<div class="contentArea">
 				<div id="picArea">
 					<p>
-						※상품 사진은 상품 식별이<br> 가능하도록 찍어주세요.
+						※상품 사진은 상품 식별이 가능하도록 찍어주세요.
 					</p>
 					<div class="itemPic">
 						<img id="titleImg">
 					</div>
 
-					<input type="file" name="itemPic" onchange="loadImg(this ,1)">
+					<input type="file" name="itemPic" style="margin-left: 20px;" onchange="loadImg(this ,1)">
 
 				</div>
 				<div id="infoArea">
@@ -275,11 +310,11 @@
 						</div>
 						<div class="inputs">
 							<div id="watch">
-								<input type="radio" id="watchChk" name="type" checked> <label
+								<input type="radio" id="watchChk" name="type" value="W" checked> <label
 									for="watchChk">시계</label>
 							</div>
 							<div id="bag" style="margin-left: 109px;">
-								<input type="radio" id="bagChk" name="type"> <label
+								<input type="radio" id="bagChk" name="type" value="B"> <label
 									for="bagChk">가방</label>
 							</div>
 						</div>
@@ -289,20 +324,17 @@
 							<label>브랜드</label>
 						</div>
 						<div class="inputs">
-							<input name="watchBrand" id="watchBrand" class="brandSelect">
+							<input type="text" name="watchBrand" id="watchBrand" class="brandSelect">
 
-							<input name="bagBrand" id="bagBrand" class="brandSelect" hidden>
+							<input type="text" name="bagBrand" id="bagBrand" class="brandSelect" hidden>
 						</div>
 					</div>
-
-
-
 					<div class="row">
 						<div class="titles">
 							<label>모델명</label>
 						</div>
 						<div class="inputs">
-							<input name="model" type="text">
+							<input name="model" type="text" style="width: 250px;">
 						</div>
 					</div>
 
@@ -332,8 +364,8 @@
 								<option value="2017년">2017</option>
 								<option value="2018년" selected>2018</option>
 								<option value="2019년">2019</option>
-							</select> <label>년</label>&nbsp; <select name="purMonth" id="purMonth"
-								class="purDate">
+							</select> <label style="font-size: 20px;">년</label>&nbsp; <select name="purMonth" id="purMonth"
+								class="purDate" style="margin-left: 22px;">
 								<option value="1월">1</option>
 								<option value="2월">2</option>
 								<option value="3월">3</option>
@@ -346,7 +378,7 @@
 								<option value="10월">10</option>
 								<option value="11월">11</option>
 								<option value="12월">12</option>
-							</select> <label>월</label>
+							</select> <label style="font-size: 20px;">월</label>
 						</div>
 					</div>
 					<div class="row">
@@ -354,12 +386,12 @@
 							<label>보증서 유무</label>
 						</div>
 						<div class="inputs">
-							<div id="watch">
-								<input type="radio" id="exist" name="type" checked> <label
+							<div id="exist">
+								<input type="radio" id="exist" name="warr" value="yes" checked> <label
 									for="exist">유</label>
 							</div>
-							<div id="bag" style="margin-left: 109px;">
-								<input type="radio" id="none" name="type"> <label
+							<div id="none" style="margin-left: 109px;">
+								<input type="radio" id="none" name="warr" value="no"> <label
 									for="none">무</label>
 							</div>
 						</div>
@@ -368,15 +400,18 @@
 				</div>
 				<div class="row6">
 						<div class="titles" id="detailLabel"
-							style="vertical-align: middle; line-height: 0px;">
-							<label>상세설명</label>
+							style="">
+							<label style="font-weight: lighter;font-size: 15px;">상품 상세 설명</label>
 						</div>
-						<div class="inputs" id="detailText">
+						<div class="inputs" id="detailText" style="position: relative; width: 775px; left: 4%;">
 							<textarea name="itemDetail"
-								style="width: 500px; height: 65px; resize: none;"></textarea>
+								style="width: inherit; height: 65px; resize: none;"></textarea>
 						</div>
 				</div>
-				<button id="regist">등록하기</button>
+				<div id="btnArea">	
+					<button id="cancel">취소</button>
+					<button id="regist">감정 신청</button>
+				</div>
 			</div>
 			<!-- contentArea end -->
 		</form>
