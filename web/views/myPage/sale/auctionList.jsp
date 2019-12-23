@@ -213,7 +213,7 @@ td>a>img {
 							<th>상세보기</th>
 						</tr>
 					</thead>
-					<!-- <tbody id="tableBodyArea"></tbody> -->
+					<tbody id="tableBodyArea"></tbody>
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
@@ -255,7 +255,7 @@ td>a>img {
 					var arr2 = arr[i].split("::");			//  0: 경매번호, 1: 사진, 2: 브랜드/모델명, 3: 현재입찰가, 4: 입찰인원, 5: 남은 시간, 6: 상세보기
 					for(j in arr2) {
 						if(j == 0) {
-							temp += "<td>" + arr2[j] + "</td>"
+							temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>"
 						}
 						if(j == 1) {
 							if(arr2[j] != "null"){
@@ -361,7 +361,9 @@ td>a>img {
 			console.log(event.data);
 			var rarr = event.data.split(",");
 			for(var i = 0; i < length; i++) {
-				if(rarr[i] == 0) {
+				if(rarr[i] <= 0) {
+					console.log($("table>tbody>tr").eq(i).children().eq(0).children().text());
+					console.log($("table>tbody>tr").eq(i).children().eq(5).children().text());
 					$.ajax({
 						url: "<%= request.getContextPath() %>/endAuction.au",
 						type: "post",
@@ -377,7 +379,7 @@ td>a>img {
 							}
 						},
 						error: function(data) {
-							console.log("ajax 실패");
+							console.log("ajax 실패 메세지 블럭");
 						}
 					});
 				} else {

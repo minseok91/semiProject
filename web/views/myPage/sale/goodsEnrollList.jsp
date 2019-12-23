@@ -283,10 +283,8 @@ td>a>img {
 							<th>비고</th>
 						</tr>
 					</thead>
-					<tbody>
-					
-					</tbody>
-				<!-- 	<tbody id="tableBodyArea"></tbody> -->
+
+				<tbody id="tableBodyArea"></tbody>
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
