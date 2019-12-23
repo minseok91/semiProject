@@ -110,13 +110,14 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+    margin-left: 220px;
+   /*  left: 28%; */
 }
 
 /* 1920px 전용(작업용) */
 @media(min-width: 1919px) {
 	.contentArea {
-		left: 32%;
+		/* left: 32%; */
 		width: 59%;
 	}
 }

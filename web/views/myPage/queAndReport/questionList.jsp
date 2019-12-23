@@ -116,14 +116,15 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+   /*  left: 28%; */
+   margin-left: 220px;
     height: 500px;
 }
 
 /* 1920px 전용(작업용) */
 @media(min-width: 1919px) {
 	.contentArea {
-		left: 32%;
+		/* left: 32%; */
 		width: 59%;
 	}
 }
@@ -139,7 +140,7 @@
 	font-size: 15px;
 	text-align: center;
 }
-.container>.contents>#contentArea>#tableArea> {
+.container>.contents>#contentArea>#tableArea {
 	width: 200px;
 }
 td>img {
