@@ -169,6 +169,8 @@ td>.content {
 						temp += "<div hidden>"+ arr2[3] +"</div>";
 						temp += "</td>";
 						}
+					
+					$("#bag").append(temp);
 						
 					$('td').css('cursor', 'pointer').click(function() {
 						<% if(loginMember == null) { %>
@@ -184,7 +186,7 @@ td>.content {
 						
 					});	
 					
-						$("#bag").append(temp);
+						
 				})
 			});
 	</script>
