@@ -18,6 +18,8 @@ import com.kh.lp.item.model.vo.Item;
 import com.kh.lp.member.model.vo.Member;
 import com.oreilly.servlet.MultipartRequest;
 
+import lombok.extern.log4j.Log4j2;
+
 /**
  * @Author         : 오수민
  * @CreateDate    : 2019. 12. 16
@@ -28,6 +30,7 @@ import com.oreilly.servlet.MultipartRequest;
  */
 
 @WebServlet("/itemRegister.it")
+@Log4j2
 public class ItemRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -60,7 +63,13 @@ public class ItemRegisterServlet extends HttpServlet {
 			//스트링에 값들 저장
 			String itemPicOriginName = multiRequest.getOriginalFileName("itemPic");
 			String itemPicRename = multiRequest.getFilesystemName("itemPic");
-			String itemType = multiRequest.getParameter("itemType");
+			String itemTypeArr[] = multiRequest.getParameterValues("type");
+			String itemType = "";
+			for(int i=0; i<itemTypeArr.length; i++) {
+				itemType = itemTypeArr[i];
+			}
+			
+			//String itemType = multiRequest.getParameter("type");
 
 
 			String watchBrand = multiRequest.getParameter("watchBrand");
@@ -75,7 +84,20 @@ public class ItemRegisterServlet extends HttpServlet {
 			String purYear = multiRequest.getParameter("purYear");
 			String purMonth = multiRequest.getParameter("purMonth");
 			String purDate = purYear+ " " + purMonth;
-			String warrYN = multiRequest.getParameter("warrYN");
+			
+			String warr[] = multiRequest.getParameterValues("warr");
+			String warrYN = "";
+			for(int i=0; i<warr.length; i++) {
+				warrYN = warr[i];
+				log.debug(warrYN);
+			}
+			
+			// String warrYN = multiRequest.getParameter("warr");
+			log.debug(warrYN);
+			if(warrYN.equals("yes"))
+				warrYN = "Y";
+			else
+				warrYN = "N";
 			String itemDetail = multiRequest.getParameter("itemDetail");
 
 
