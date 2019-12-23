@@ -119,7 +119,7 @@ td>.content {
 					var arr2 = arr[i].split("::");
 					
          			temp += "<td>"
-					temp += "<div id='img'><div class='price'>"+ arr2[2] +"</div><img src='"+ lp +"/img/appraisal/"+ arr2[3] +"'></div>";
+					temp += "<div id='img'><div class='price'>"+ numberFormat(arr2[2]) +"</div><img src='"+ lp +"/img/appraisal/"+ arr2[3] +"'></div>";
 					if(arr2[4].length+arr2[5].length < 10)
 						temp += "<span class='content'>"+arr2[4] + "<br>" + arr2[5]+"</span>";
 					else 
@@ -159,7 +159,7 @@ td>.content {
 						
 	         			temp += "<td>"
 						
-						temp += "<div id='img'><div class='price'>"+ arr2[2] +"</div><img src='"+ lp +"/img/appraisal/"+ arr2[3] +"'></div>";
+						temp += "<div id='img'><div class='price'>"+ numberFormat(arr2[2]) +"</div><img src='"+ lp +"/img/appraisal/"+ arr2[3] +"'></div>";
 						if(arr2[4].length+arr2[5].length < 10)
 							temp += "<span class='content'>"+arr2[4] + "<br>" + arr2[5]+"</span>";
 						else 
@@ -189,6 +189,10 @@ td>.content {
 						
 				})
 			});
+		
+		function numberFormat(inputNumber) {
+			return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
 	</script>
 </body>
 </html>

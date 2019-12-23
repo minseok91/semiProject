@@ -113,7 +113,7 @@
     width: auto;
     height: 1000px;
     margin-top: 75px;
-    left: 30%;
+    left: 28%;
 }
 
 /* 1920px 전용(작업용) */

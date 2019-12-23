@@ -306,7 +306,7 @@
 					pg : 'inicis', // version 1.1.0부터 지원.
 					pay_method : 'card',
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : '<%= brand %> <%= model %>', // 감정결제 : MT1, 낙찰결제 : MT3// 아이템 네임이빈다!!
+					name : '<%= brand %> / <%= model %>', // 감정결제 : MT1, 낙찰결제 : MT3// 아이템 네임이빈다!!
 					amount : end,
 					buyer_email : '<%=loginMember.getMemberEmail()%>',
 					buyer_name : '<%=loginMember.getMemberName()%>',
