@@ -53,8 +53,9 @@
 	
 	.container>#th1 #left {
 		position: absolute;
-    	left: 400px;
+    	left: 250px;
     	top: 40%;
+		font-family: 'Nanum Myeongjo', serif;
 	}
 	
 	.container>#th1 #logo {
@@ -67,7 +68,7 @@
 	.container>#th1 #headerlogin {
 		position: absolute;
     	display: inline-block;
-    	right: 370px;
+    	right: 230px;
     	top: 45%;
 	}
 	
@@ -77,7 +78,7 @@
     	margin: 10px;
     	padding: 10px;
     	text-decoration: none;
-    	
+    	font-family: 'Nanum Myeongjo', serif;
 	}
 	
 	header .container #headerlogin a:hover {

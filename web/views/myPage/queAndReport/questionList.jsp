@@ -116,7 +116,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 30%;
+    left: 28%;
     height: 500px;
     z-index: 2;
 }

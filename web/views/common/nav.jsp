@@ -43,6 +43,7 @@
 
 	#menubar>li>a>div{
     	padding-top: 4px;
+    	font-family: 'Nanum Myeongjo', serif;
 	} 
 
 	#menubar>li:nth-of-type(n+3)>a>div{
