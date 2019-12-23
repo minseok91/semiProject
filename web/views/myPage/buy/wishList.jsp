@@ -258,6 +258,10 @@ td>.content {
 	margin: 0 3px;
 }
 
+#hidden {
+	box-shadow:none;
+}
+
 
 
 
@@ -352,7 +356,7 @@ td>.content {
 							%>
 						</td>
 						<%} else {%>
-						<td hidden>
+						<td id="hidden">
 							<div disable>
 							<div id="img" >
 								<div class="price"></div>
@@ -374,6 +378,31 @@ td>.content {
 				
 			</table>
 		</div> <!-- watchList End -->
+		
+		<div id="pagingArea">
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=1'"><<</button>
+		<%if(currentPage==1) {%>
+			<button class="btn2" disabled><</button>
+		<%}else { %>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=currentPage-1%>'"><</button>
+		<%} %>
+			<% for(int p = startPage; p<=endPage; p++) {
+			if(p==currentPage){%>
+				<button class="btn2" disabled style="color: black"><%= p %></button>
+			<%}else { %>
+				<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=p%>'"><%=p %></button>
+			<%}
+		}%>
+		<% if(currentPage >= maxPage) { %>
+			<button class="btn2" disabled>></button>
+		<%} else { %>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=currentPage+1%>'">></button>
+		<%} %>
+		
+		<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=maxPage%>'">>></button>
+		</div>
+		
+		
 		
 		</div>  <!-- contentArea end -->
 		</div> <!-- contents End -->
