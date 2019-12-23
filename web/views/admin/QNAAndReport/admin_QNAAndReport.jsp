@@ -217,7 +217,7 @@ html, body {
 			</div>
 				<table id="table">
 					<tr>
-						<th>번호</th>
+						<th>글 번호</th>
 						<th>회원 아이디</th>
 						<th>문의제목</th>
 						<th>작성일</th>

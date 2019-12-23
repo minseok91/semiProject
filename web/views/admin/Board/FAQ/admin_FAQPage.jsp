@@ -216,9 +216,9 @@ html, body {
 				</div>
 				<table id="table">
 					<tr>
-						<th>No.</th>
+						<th>번호</th>
 						<th>작성자</th>
-						<th>제목</th>
+						<th style="width: 200px;">제목</th>
 						<th>작성일</th>
 						<th>수정일</th>
 						<th>게시판 종류</th>
