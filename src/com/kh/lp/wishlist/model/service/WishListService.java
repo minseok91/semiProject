@@ -24,13 +24,13 @@ public class WishListService {
 	 * @return
 	 */
 	
-	public int memberWishListCount(int loginMemberNo) {
+	public int memberWishListCount(int loginMemberNo, String selectedView) {
 		
 		int memberWishListCount = 0;
 		
 		Connection con = getConnection();
 		
-		memberWishListCount = new WishListDao().memberWishListCount(con, loginMemberNo);
+		memberWishListCount = new WishListDao().memberWishListCount(con, loginMemberNo, selectedView);
 		
 		close(con);
 		
@@ -75,6 +75,45 @@ public class WishListService {
 		close(con);
 				
 		return memberWishList;
+	}
+
+
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 23
+	 * @ModifyDate    : 2019. 12. 23
+	 * @Description   : 위시리스트에서 삭제목록 받아와서 위시리스트 상태변경 처리하고 나머지 결과물을 다시 반환하는 메소드
+	 * @param
+	 * @return
+	 */
+	public int deleteWishList(int loginMemberNo, String[] deleteArr) {
+		
+		ArrayList<Integer> deleteCompleted;
+		boolean resultCheck = true;
+		int deleteResult=0;
+		
+		Connection con = getConnection();
+		
+		//가서 WISHLIST_STATUS를 'N'으로 바꾸기
+		deleteCompleted = new ArrayList<>();
+		for(int i=0; i<deleteArr.length; i++) {
+			int eachDeleteCompleted = new WishListDao().deleteWishList(con, loginMemberNo, deleteArr[i]);
+			deleteCompleted.add(eachDeleteCompleted);
+		}
+		
+		for(int i=0; i<deleteCompleted.size(); i++) {
+			if(deleteCompleted.get(i)!=1) {
+				resultCheck = false;
+			}
+		}
+		
+		if(resultCheck) {
+			deleteResult = 1;
+		}
+			
+		close(con);
+		
+		return deleteResult;
 	}
 	
 	

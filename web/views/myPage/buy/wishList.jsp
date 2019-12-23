@@ -260,6 +260,7 @@ td>.content {
 
 
 
+
 </style>
 <link rel="shortcut icon" href="<%=request.getContextPath()%>/img/favicon.ico" type="image/x-icon"/>
 </head>
@@ -308,7 +309,7 @@ td>.content {
 			<div id="deleteAndSearch">
 				<button id="wishDelete">위시리스트 삭제</button>
 				
-				<select id="viewOptions" name="viewOptions">
+				<select id="viewOptions" name="viewOptions" hidden>
 					<option value="viewAll" selected >전체</option>
 					<option value="viewWatches">시계</option>
 					<option value="viewBags">가방</option>
@@ -327,19 +328,19 @@ td>.content {
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
 			<div id="check">			
-				<label for="checkAll">전체 선택</label>
+				<label for="checkAll" >전체 선택</label>
 				<input type="checkbox" id="checkAll" name="checkAll">
 			</div>
 			<div class="list">
-< 			<table>
+ 			<table>
 
 				<%for(int i=0; i<3; i++) {%>
 				<tr>
 					<%for(int j=0; j<4; j++) { %>
 						<%if(n<memberWishList.size()) {%>
 						<td>
-							<input type="hidden" value=""><!-- value에 해당상품번호 이식 ??????????? -->
-							<input type="checkbox" class="wish" name="check<%=memberWishList.get(n).getAuctionId()%>">
+							<input type="hidden" class="deleteCheck" value="<%=memberWishList.get(n).getAuctionId()%>"><!-- value에 해당상품번호 이식 ??????????? -->
+							<input type="checkbox" class="wish" name="check">
 							<div id="img">
 								<div class="price"><%=memberWishList.get(n).getAuctionCurrentPrice() %></div>
 								<img src="<%=request.getContextPath()%>/img/appraisal/<%=memberWishList.get(n).getAttachmentRename() %>" alt="">
@@ -400,10 +401,29 @@ td>.content {
 			
 			// 체크한항목 제거
 			$('#wishDelete').click(function () {
+				var selected = $('#viewOptions').val();
+				var deleteArr = [];
+				var loginMemberNo = <%= loginMember.getMemberNo() %>
+				$(".wish:checked").each(function(index) {
+					deleteArr[index] = $(this).parent().find(".deleteCheck").val();
+				});
 				
-				
-				
-				
+					console.log(deleteArr)
+				$.ajax({
+					url:"<%= request.getContextPath() %>/wishListDeleteAjax.wi",
+					type:"post",
+					data:{
+						deleteArr:deleteArr,
+						loginMemberNo:loginMemberNo,
+						selected:selected
+					},
+					success:function(data) {
+						location.reload();
+					},
+					error:function() {
+						console.log("실패")
+					}
+				});
 			})
 		});
 		

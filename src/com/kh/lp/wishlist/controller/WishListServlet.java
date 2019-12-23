@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.lp.auction.model.service.AuctionService;
 import com.kh.lp.common.PageInfo;
 import com.kh.lp.member.model.vo.Member;
 import com.kh.lp.wishlist.model.service.WishListService;
@@ -39,7 +37,8 @@ public class WishListServlet extends HttpServlet {
 		Member loginMember = (Member)(request.getSession().getAttribute("loginMember"));
 		int loginMemberNo = loginMember.getMemberNo();
 		
-		
+		//검색 종류(전체/시계/가방)를 스트링 변수에 담기 (메뉴에서 눌렀을때 ajax없이 바로 들어오는 서블렛이므로 무조건 all)
+		String selectedView = "all";
 
 		//----------------------------------------------페이징 처리 로직------------------------------------------------//
 
@@ -66,7 +65,7 @@ public class WishListServlet extends HttpServlet {
 		pagingSize = 5;
 
 		//현재 로그인된 회원의 위시리스트 갯수를 불러오는 메소드 소환
-		int listCount = new WishListService().memberWishListCount(loginMemberNo);
+		int listCount = new WishListService().memberWishListCount(loginMemberNo, selectedView);
 
 		//총 페이징 갯수 계산(=맨 마지막 페이지 번호)
 		maxPage = (int)((double)listCount/limit+0.9);
@@ -95,8 +94,7 @@ public class WishListServlet extends HttpServlet {
 		
 		
 		
-		//검색 종류(전체/시계/가방)를 스트링 변수에 담기 (메뉴에서 눌렀을때 ajax없이 바로 들어오는 서블렛이므로 무조건 all)
-		String selectedView = "all";
+		
 		
 		
 		//로그인되어있는 멤버의 위시리스트 중 view값(전체/시계/가방)에 해당하는 리스트를  담아올 서비스 메소드로 이동
