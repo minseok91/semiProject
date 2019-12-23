@@ -11,12 +11,12 @@
 .container {
 	margin: 0 auto;
 	padding-bottom: 10px;
+	margin-top: 30px;
 }
 
 .contents {
 	height: 650px;
 	width: inherit;
-	margin-top: 30px;
 }
 
 #myPageMenu {
@@ -98,24 +98,76 @@
 }
 
 .contentArea {
-	width: 920px;
 	height: 970px;
-	border: 1px solid black;
-	display: inline-block;
+	width: 715px;
 	margin-left: 10px;
 	text-align: center;
+	position: relative;
+    left: 1%;
+    margin-bottom: 50px;
 }
 
 #titleImg {
-	width: 300px;
-	height: 300px;
+	width: 350px;
+    height: 350px;
 }
+
+#part1 {
+	display: flex;
+}
+
+.title {
+	margin-left: 35px;
+    width: 130px;
+    border-left: 5px solid #3e2d1a;
+    padding-left: 8px;
+    font-size: 20px;
+}
+
+#info {
+	border-collapse: separate;
+	border-spacing: 21px 13px;
+}
+
+input[type=file] {
+	position: relative;
+    left: 30%;
+}
+
+td>div {
+	margin: 15px 0;
+}
+
+input[type=text], #warrYN {
+	font-size: 15px;
+	padding: 3px;
+}
+
+.purDate {
+	font-size: 15px;
+	padding: 3px;
+}
+
+input[type=text] {
+	text-align: center;
+}
+
+#regist {
+	background: #211f22;
+    color: #a07342;
+    border: 1px solid #a07342;
+    border-radius: 5px;
+    width: 140px;
+    height: 45px;
+    font-size: 16px;
+}
+
 </style>
 </head>
 <body>
 	<%@ include file="../../common/header.jsp"%>
 	<%@ include file="../../common/nav.jsp"%>
-	<%-- <% if(loginMember != null) { %> --%>
+	<% if(loginMember != null) { %>
 	<div class="container">
 		<div id="myPageMenu">
 			<h3 id="h3" align="center">마이페이지</h3>
@@ -189,6 +241,7 @@
 
 		<form action="<%=request.getContextPath()%>/itemRegister.it" method="post" encType="multipart/form-data">
 			<div class="contentArea">
+			<div id="part1">
 				<div id="picArea">
 					<p>※상품 사진은 상품 식별이 가능하도록 찍어주세요.</p>
 					<div class="itemPic">
@@ -196,44 +249,38 @@
 						<input type="file" name="itemPic" onchange="loadImg(this ,1)">
 					</div>
 				</div>
-				<div id="infoArea">
-					<div class="row1">
-						<label>종류</label>
-						<div id="type">
-							<div id="watch">
-								<label for="watchChk">시계</label>
-								<input type="radio" id="watchChk" name="type">
-							</div>
-							<div id="bag">
-								<label for="bagChk">가방</label>
-								<input type="radio" id="bagChk" name="type">
-							</div>
-						</div>
-					</div>
-					<div class="row2">
-						<label>브랜드</label>
-						<div class="inputs">
-							<input name="watchBrand" id="watchBrand" class="brandSelect">
-							<input name="bagBrand" id="bagBrand" class="brandSelect" hidden>
-						</div>
-					</div>
 
-
-
-					<div class="row3">
-						<div class="titles">
-							<label>모델명</label>
+				<table id="info">
+				<tr>
+					<td><label class="title">종류</label></td>
+					<td style="display: flex; justify-content: center;">
+						<div id="watch">
+							<input type="radio" id="watchChk" name="type" checked>
+							<label for="watchChk">시계</label>
 						</div>
-						<div class="inputs">
-							<input name="model" type="text">
+						<div id="bag" style="margin-left: 44px;">
+							<input type="radio" id="bagChk" name="type">
+							<label for="bagChk">가방</label>
 						</div>
-					</div>
-
-					<div class="row4">
-						<div class="titles">
-							<label>구매시기</label>
-						</div>
-						<div class="inputs">
+					</td>
+				</tr>
+					
+				<tr>
+					<td><label class="title">브랜드</label></td>
+					<td>
+						<input type="text" name="watchBrand" id="watchBrand" class="brandSelect">
+						<input type="text" name="bagBrand" id="bagBrand" class="brandSelect" hidden>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><label class="title">모델명</label></td>
+					<td><input name="model" type="text" size="30"></td>	
+				</tr>
+				
+				<tr>
+					<td><label class="title">구매시기</label></td>
+						<td>
 							<select name="purYear" id="purYear" class="purDate">
 								<option value="2000년">2000</option>
 								<option value="2001년">2001</option>
@@ -269,44 +316,67 @@
 								<option value="10월">10</option>
 								<option value="11월">11</option>
 								<option value="12월">12</option>
-							</select> <label>월</label>
-						</div>
-					</div>
-					<div class="row5">
-						<div class="titles">
-							<label>보증서 유무</label>
-						</div>
+							</select> 
+						<label>월</label>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><label class="title">보증서 유무</label></td>
+					<td>
 						<div class="inputs">
 							<select name="warrYN" id="warrYN" class="warranty">
 								<option value="Y">유</option>
 								<option value="N" selected>무</option>
-							</select> &nbsp;&nbsp;※보증서 '유'에 체크하셨다면 상품 배송 시 보증서를 함께 배송해주세요.
+							</select> <br>
+							<p style="color: #f00;">※보증서 '유'에 체크하셨다면 상품 배송 시 <br> 보증서를 함께 배송해주세요.</p>
 						</div>
-					</div>
+					</td>
+				</tr>
+				</table>
+				
+					</div> <!-- part1 End -->
 
-					<div class="row6">
-						<div class="titles" id="detailLabel"
-							style="vertical-align: middle; line-height: 0px;">
+						<div class="row6">
 							<label>상세설명</label>
+							<div class="inputs" id="detailText">
+								<textarea name="itemDetail" style="width: 500px; height: 65px; resize: none;"></textarea>
+							</div>
 						</div>
-						<div class="inputs" id="detailText">
-							<textarea name="itemDetail"
-								style="width: 500px; height: 65px; resize: none;"></textarea>
-						</div>
-					</div>
-				</div>
-				<button id="regist" align="center">등록하기</button>
+
+					<input type="button" id="regist" value="등록하기">
+
 			</div>
 			<!-- contentArea end -->
 		</form>
 	</div>
 	<!-- container end -->
-	<%-- <% } else {
+	 <% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
-	   } %> --%>
+	   } %> 
 
 	<script>
+
+	$(function() {
+		$('a').click(function() {
+			let values = $(this).attr('value');
+			console.log(values);
+			location.href = '<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
+		});
+
+		$('#bagChk').click(function() {
+			$('#watchBrand').attr('hidden', true);
+			$('#bagBrand').attr('hidden', false);
+		});
+		
+		$('#watchChk').click(function() {
+			$('#watchBrand').attr('hidden', false);
+			$('#bagBrand').attr('hidden', true);
+		});
+		
+	})
+	
 		function loadImg(value, num) {
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
@@ -332,15 +402,6 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
-
-		$(function() {
-			$('a').click(function() {
-				let values = $(this).attr('value');
-				console.log(values);
-				location.href = '<%= request.getContextPath() %>/views/myPage/'+values+'.jsp';
-			});
-			
-		});'
 	</script>
 	<%@ include file="../../common/footer.jsp"%>
 </body>

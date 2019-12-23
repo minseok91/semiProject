@@ -200,14 +200,6 @@ Upload images from <strong class="txtocher">SELECT FILE</strong> on the upload p
 					<p class="exArea">
 					[판매 시작]을 클릭해 고객님의 상품 출품 등록을 완료해주세요. 출품이 완료되면 경매가 시작됩니다. 경매가 끝날 때까지 기다려주세요.					</p>
 
-
-					<p class="btnArea"><a href="productRegist.jsp" class="btn btn_contens">판매시작</a></p>
-					<!-- <button id="pay" class="btn btn-contens">판매 시작</button> -->
-
-	
-	
-	
-					<button id="pay" class="btn btn-contens">판매 시작</button>
 					<p class="btnArea"><a href="productRegist.jsp" class="btn btn_contens">판매시작</a></p>
 
 				</div>
