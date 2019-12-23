@@ -216,7 +216,6 @@ System.out.println("memberId : " + memberId );
 	}
 	
 	#goods {
-		margin-left: 90px;
 	}
 
 	#goods>table>tbody>tr>td {
@@ -245,6 +244,26 @@ System.out.println("memberId : " + memberId );
 	#dealResult{
 		color:green;
 	}
+	#detailContent label{
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	padding-left: 10px;
+    	margin-bottom: 10px;
+	}
+	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
+		border: 1px solid #d9d9d9;
+		padding: 10px;
+	}
+	
+	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
+		background: #f2f2f2;
+		width: 152px;
+	}
+
+	#detailContent>table>tbody>tr>td:nth-of-type(2), #goods>table>tbody>tr>td:nth-of-type(2) {
+		width: 277px;
+	} 
 	/* The Modal (background) */
         .modal {
             display: none; /* Hidden by default */
@@ -267,6 +286,12 @@ System.out.println("memberId : " + memberId );
             border: 1px solid #888;
             width: 30%; /* Could be more or less, depending on screen size */                          
         }
+        #goods label {
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	padding-left: 10px;
+    	margin-bottom: 10px;
 </style>
 </head>
 <body>
@@ -281,7 +306,7 @@ System.out.println("memberId : " + memberId );
 							경매 준비
 							
 						<% } else if(au.getAuctionCount() == 1) {%>
-						경매중
+						유찰
 						<% } else if(au.getAuctionCount() == 2) {%>
 						재경매
 						<% } %>
@@ -303,13 +328,132 @@ System.out.println("memberId : " + memberId );
 				<span class="contents">
 					<div id="head">
 						<label>구찌 GG마몽 미니 토트겸 숄더백 (442622)</label><br>
-						<label>재경매까지 남은시간 : 20:00:14</label>
+						<!-- <label>재경매까지 남은시간 : 20:00:14</label> -->
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<label>판매자ID</label>
-						<button id="appDoc">보증서보기</button>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<label>판매자ID : <%=list.get("memberId") %></label>
+						
 					</div>
 					
-					<div id="biddingUsers">
+					<div id="dcAndbu">
+				<div id="detailContent">
+				<label>상품 정보</label>
+					<table>
+							<tr>
+								<td>브랜드</td>
+								<td><%=ar1.getAr1Brand() %></td>
+							</tr>
+							<tr>
+								<td>모델명</td>
+								<td><%=ar1.getAr1Model() %></td>
+							</tr>
+							<tr>
+								<td>감정가</td>
+								<td><%=ar1.getAr1Price() %></td>
+							</tr>
+							<tr>
+								<td>등급</td>
+								<td><%= ar1.getAr1Condition() %></td>
+							</tr>
+					</table>
+				</div>
+				
+				<div id="goods">
+					<label>상품 상세 정보</label>
+					<% if(ar1.getAr1WatchDetail() > 0){ %>
+					<table>
+						<tr>
+							<td>보증서 유무</td>
+							<td><%= w.getWatchGuaranteeYn() %></td>
+						</tr>
+						<tr>
+							<td>오리지널 박스 유무</td>
+							<td><%= w.getWatchBoxYn() %></td>
+						</tr>
+						<tr>
+							<td>재질</td>
+							<td><%= w.getWatchMaterial() %></td>
+						</tr>
+						<tr>
+							<td>무브먼트 종류</td>
+							<td><%= w.getWatchMovement() %></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><%= w.getWatchChronograph() %></td>
+						</tr>
+					</table>
+					<% } else{%>
+					<table>
+						<tr>
+							<td>끈 높이</td>
+							<td><%=b.getBagStrap() %></td>
+						</tr>
+						<tr>
+							<td>사이즈</td>
+							<td><%=b.getBagSize() %></td>
+						</tr>
+						<tr>
+							<td>성별</td>
+							<td><%=b.getGender() %></td>
+						</tr>
+					</table>
+					<% } %>
+				</div>
+				
+				<%-- </div>
+					<% if(ar1.getAr1BagDetail() > 0){ %>
+					<div id="bagDetail" class="goods">
+						<label>상품 정보 상세</label>
+							<table>
+								<tr>
+									<td>끈 높이</td>
+									<td><%=b.getBagStrap() %></td>
+								</tr>
+								<tr>
+									<td>사이즈</td>
+									<td><%=b.getBagSize() %></td>
+								</tr>
+								<tr>
+									<td>성별</td>
+									<td><%=b.getGender() %></td>
+								</tr>
+							</table>
+					</div>
+					<% } else{%>
+					<div id="watchDetail" class="goods">
+						<label>상품 정보 상세</label>
+						<table>
+							<tr>
+								<td>보증서 유무</td>
+								<td><%=w.getWatchGuaranteeYn().equals("Y")?"유":"무" %></td>
+							</tr>
+							<tr>
+								<td>오리지널 박스 유무</td>
+								<td><%= w.getWatchBoxYn().equals("Y")?"유":"무" %></td>
+							</tr>
+							<tr>
+								<td>재질</td>
+								<td><%=w.getWatchMaterial() %></td>
+							</tr>
+							<tr>
+								<td>무브먼트 종류</td>
+								<td><%=w.getWatchMovement() %></td>
+							</tr>
+							<tr>
+								<td>크로노그래프</td>
+								<td><%=w.getWatchChronograph() %></td>
+							</tr>
+						</table>
+					</div>
+				<% } %>
+				</div> --%>
+				
+			</div> <!-- part2 End -->
+					
+					 <div id="biddingUsers">
 							<table>
 								<tr>
 									<th>입찰자</th>
@@ -323,7 +467,7 @@ System.out.println("memberId : " + memberId );
 
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
-			<div id="part2">
+			<%-- <div id="part2">
 				<div id="detailContent">
 				<label>상품 상세</label>
 					<div class="goods">
@@ -395,7 +539,7 @@ System.out.println("memberId : " + memberId );
 				</div>
 				<% } %>
 			</div> <!-- part2 End -->
-		</div> <!-- container End -->
+		</div> <!-- container End --> --%>
 	</section>
 	<!-- The Modal -->
     <div id="myModal" class="modal">

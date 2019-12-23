@@ -215,6 +215,20 @@ System.out.println("memberId : " + memberId );
     	padding-left: 10px;
     	margin-bottom: 10px;
 	}
+	#detailContent label{
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	padding-left: 10px;
+    	margin-bottom: 10px;
+	}
+	#goods label{
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	padding-left: 10px;
+    	margin-bottom: 10px;
+	}
 	
 	#detailContent>pre {
 		text-align: left;
@@ -278,6 +292,33 @@ System.out.println("memberId : " + memberId );
         #appImg{
         	width:350px;
         }
+        
+        #dcAndbu {
+		position: relative;
+    	left: 1%;
+	}
+	
+	#endTime {
+		font-size: 30px;
+	}
+	
+	#detailContent {
+		margin-bottom: 27px;
+	}
+
+	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
+		border: 1px solid #d9d9d9;
+		padding: 10px;
+	}
+	
+	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
+		background: #f2f2f2;
+		width: 152px;
+	}
+
+	#detailContent>table>tbody>tr>td:nth-of-type(2), #goods>table>tbody>tr>td:nth-of-type(2) {
+		width: 277px;
+	} 
 </style>
 </head>
 <body>
@@ -317,9 +358,9 @@ System.out.println("memberId : " + memberId );
 						<label id="aucResult">감정완료 날짜 : <%=au.getAuctionAppDate() %></label>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<label>판매자ID : <%=memberId %></label>
-						<button id="appDoc">보증서보기</button>
+						<!-- <button id="appDoc">보증서보기</button> -->
 					</div>
-					<div class="goods">
+					<%-- <div class="goods">
 						<label>상품 정보</label>
 						<table >
 							<tr>
@@ -329,7 +370,7 @@ System.out.println("memberId : " + memberId );
 							<tr>
 								<td>모델명</td>
 								<td><%=ar1.getAr1Model() %></td>
-</tr>
+							</tr>
 							<tr>
 								<td>감정가</td>
 								<td><%=ar1.getAr1Price() %></td>
@@ -339,7 +380,75 @@ System.out.println("memberId : " + memberId );
 								<td><%= ar1.getAr1Condition() %></td>
 							</tr>
 						</table>
-					</div>
+					</div> --%>
+					<br>
+			<div id="dcAndbu">
+				<div id="detailContent">
+				<label>상품 정보</label>
+					<table>
+							<tr>
+								<td>브랜드</td>
+								<td><%=ar1.getAr1Brand() %></td>
+							</tr>
+							<tr>
+								<td>모델명</td>
+								<td><%=ar1.getAr1Model() %></td>
+							</tr>
+							<tr>
+								<td>감정가</td>
+								<td><%=ar1.getAr1Price() %></td>
+							</tr>
+							<tr>
+								<td>등급</td>
+								<td><%= ar1.getAr1Condition() %></td>
+							</tr>
+					</table>
+				</div>
+				
+				<div id="goods">
+					<label>상품 상세 정보</label>
+					<% if(ar1.getAr1WatchDetail() > 0){ %>
+					<table>
+						<tr>
+							<td>보증서 유무</td>
+							<td><%= w.getWatchGuaranteeYn() %></td>
+						</tr>
+						<tr>
+							<td>오리지널 박스 유무</td>
+							<td><%= w.getWatchBoxYn() %></td>
+						</tr>
+						<tr>
+							<td>재질</td>
+							<td><%= w.getWatchMaterial() %></td>
+						</tr>
+						<tr>
+							<td>무브먼트 종류</td>
+							<td><%= w.getWatchMovement() %></td>
+						</tr>
+						<tr>
+							<td>크로노그래프</td>
+							<td><%= w.getWatchChronograph() %></td>
+						</tr>
+					</table>
+					<% } else{%>
+					<table>
+						<tr>
+							<td>끈 높이</td>
+							<td><%=b.getBagStrap() %></td>
+						</tr>
+						<tr>
+							<td>사이즈</td>
+							<td><%=b.getBagSize() %></td>
+						</tr>
+						<tr>
+							<td>성별</td>
+							<td><%=b.getGender() %></td>
+						</tr>
+					</table>
+					<% } %>
+				</div>
+				
+				<%-- </div>
 					<% if(ar1.getAr1BagDetail() > 0){ %>
 					<div id="bagDetail" class="goods">
 						<label>상품 정보 상세</label>
@@ -385,7 +494,7 @@ System.out.println("memberId : " + memberId );
 						</table>
 					</div>
 				<% } %>
-				</div>
+				</div> --%>
 				
 			</div> <!-- part2 End -->
 				</span> <!-- contents End -->
