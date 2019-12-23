@@ -63,8 +63,8 @@ public class test extends HttpServlet {
 		int result = new MoneyService().insertPayment(money);
 		System.out.println("result : "+ result);
 		if(result > 0 ) {
-			request.setAttribute("money", money);
-			page = "views/goods/paymentAfter.jsp";
+//			request.setAttribute("money", money);
+			page = "/selectOne.mo?auctionId="+auctionId;
 			request.getRequestDispatcher(page).forward(request, response);
 		} else {
 			System.out.println("durls 에러입니다 ^^ ");

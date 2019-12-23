@@ -16,20 +16,25 @@
 
 	<script>
 		 let myChart = document.getElementById('myChart').getContext('2d');
-	
+	$(function(){
+		/* $.ajax({
+			url:,
+			
+		}) */
+	})
 		let massPopchart = new Chart(myChart, {
 			type: 'bar', // bar, horizontalbar, pie, line, doughnut
 			data:{
-				labels:['Boston','Worcester','Springfield','Lowell','Cambridge','New Bedford'],
+				labels:['7월','8월','9월','10월','11월','12월'],
 				datasets:[{
-					label:'Population',
+					label:'월',
 					data:[
-						617594,
-						181041,
-						153060,
-						106519,
-						105162,
-						95072
+						157594,
+						157041,
+						153560,
+						156519,
+						155162,
+						159072
 					]
 				}]
 			},

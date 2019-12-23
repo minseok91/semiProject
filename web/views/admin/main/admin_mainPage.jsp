@@ -95,6 +95,9 @@
 			border: 1px solid rgb(160, 115, 66);
 			border-radius: 5px; 
 		}
+		ul>li{
+		list-style:none;
+		}
 	</style>
 </head>
 <body>
@@ -123,7 +126,7 @@
 							<td colspan="1"> 
 							<div id="mission">
 									<div>
-									<label>오늘 할 일</label>
+									&nbsp;&nbsp;&nbsp;<label>감정 대기 물품</label>
 									</div>
 									<div>
 										 <ul>
@@ -131,7 +134,14 @@
 											<li><label for="checkBox2">경매 물품 확인하기</label></li>
 											<li><label for="checkBox3">경매 상황 확인하기</label></li>
 										</ul> 
+									&nbsp;&nbsp;&nbsp;<label> 경매 진행중 상품</label>	
+										<ul>
+											<li><label for="checkBox1">블랙리스트 확인하기</label></li>
+											<li><label for="checkBox2">경매 물품 확인하기</label></li>
+											<li><label for="checkBox3">경매 상황 확인하기</label></li>
+										</ul> 
 									</div>
+									
 								</div>
 						   </td>
 						</tr>
@@ -139,7 +149,7 @@
 							<td colspan="2">
 								<div id="question">
 								<div>
-									 <label>신고 및 문의 알람</label>
+									 &nbsp;&nbsp;&nbsp;<label>신고 및 문의 </label>
 									<ul>
 										<li><label>명품 감정 믿을 수 있는건가요?</label><button>삭제</button></li>
 										<li><label>명품 감정 믿을 수 있는건가요?</label><button>삭제</button></li>
@@ -150,7 +160,7 @@
 							</td>
 							<td colspan="2">
 								<div id="bbs">
-									<label>게시판 관리</label>
+									&nbsp;&nbsp;&nbsp;<label>게시판 관리</label>
 									<ol>
 										<li>오늘 아침에 치킨을 먹었어요</li>
 										<li>수원왕갈비통닭 레시피 알려주세요!!</li>

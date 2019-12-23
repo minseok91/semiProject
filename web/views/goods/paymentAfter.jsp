@@ -14,8 +14,13 @@
     pageEncoding="UTF-8" import="com.kh.lp.money.model.vo.*" %>
 <%
 	/* int amount = Integer.parseInt(String.valueOf(request.getAttribute("amount"))); */
-	Money money = (Money) request.getAttribute("money");
-	System.out.println("money :" + money);
+	MoneyDetail md = (MoneyDetail) request.getAttribute("md");
+	System.out.println("md :" + md);
+	String[] addr = md.getAddress().split("/");
+	String addNum = addr[0];
+	String addr1 = addr[1];
+	String addrDetail = addr[2];
+	double priceResult = md.getPrice() + md.getPriceFee();
 %>
 <!DOCTYPE html>
 <html>
@@ -196,18 +201,18 @@
 			<div id="write">
 				<div>
 					<p>이름 : </p>
-					<input type="text" name="name" id="name" disabled>
+					<input type="text" name="name" id="name" value="<%=md.getMemberName() %>" disabled>
 				</div>
 				<div>
 					<p>휴대폰번호 : </p>
-					<input type="tel" name="phone" id="phone" disabled>
+					<input type="tel" name="phone" id="phone" value="<%=md.getPhone() %>" disabled>
 				</div>
 				<div>
 					<p>주소 : </p>
 					<div id="address">
-						<input type="text" name="addr" id="addr" disabled>
-						<input type="text" name="addr" id="addr" disabled>
-						<input type="text" name="addr" id="addr" disabled>
+						<input type="text" name="addr" id="addr" value="<%=addNum %>" disabled>
+						<input type="text" name="addr" id="addr" value="<%=addr1 %>" disabled>
+						<input type="text" name="addr" id="addr" value="<%=addrDetail %>" disabled>
 					</div>
 				</div>
 			</div>
@@ -219,15 +224,15 @@
 			<div id="goodsContents">
 				<img src="<%= request.getContextPath() %>/img/bag1.jpg">
 				<div id="goodsTitle">
-					<label>상품 명 : </label>
-					<label>브랜드 명 : </label>
+					<!-- <label>상품 명 : </label> -->
+					<label>브랜드 명 :</label>
 					<label>모델 명 : </label>
 				</div>
 				
 				<div id="goodsTitle">
-					<input type="text" disabled>
-					<input type="text" disabled>
-					<input type="text" disabled>
+					<!-- <input type="text"  disabled> -->
+					<input type="text" value="<%=md.getBrand() %>" disabled>
+					<input type="text" value="<%=md.getModel() %>" disabled>
 				</div>
 			</div>
 		</div> <!-- goodsInfo -->
@@ -237,17 +242,17 @@
 			<table>
 				<tr>
 					<td><label>낙찰가 : </label></td>
-					<td><input type="text" disabled></td>
+					<td><input type="text" value="<%=md.getPrice() %>" disabled></td>
 				</tr>
 				
 				<tr>
 					<td><label>낙찰 수수료 : </label></td>
-					<td><input type="text" disabled></td>
+					<td><input type="text" value="<%=(int)md.getPriceFee() %>" disabled></td>
 				</tr>
 			</table>
 			<div id="endPrice">
 				<label>총 결제 금액 : </label>
-				<input type="text" value="<%= money.getAmount() %>" disabled>
+				<input type="text" value="<%= (int)priceResult %>" disabled>
 			</div>
 		</div> <!-- buyInfo End -->
 		<button id="payment">메인으로 돌아가기</button>
