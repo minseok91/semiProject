@@ -489,11 +489,11 @@
 						
 						// 최댓값기준 입찰단위
 						let unit = maxPrice*0.05;
-						$('#unit').text('입찰 단위 : ' + numberFormat(Number(unit))+'원');
+						$('#unit').text('입찰 단위 : 현재 가격의 5%');
 						
 						// 최소입찰금액
 						let minPrice = maxPrice*1.05;
-						$('#minPrice').attr('placeholder', numberFormat(Number(minPrice))+'원 이상 입력하세요.');
+						$('#minPrice').attr('placeholder', '현재 입찰가 + 5% 이상 입력하세요.');
 						
 						console.log($("#tableBiddingArea > tbody").children().eq(0).children().eq(0).text());
 						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
