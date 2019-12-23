@@ -80,6 +80,11 @@ public class WishListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
+		if(maxPage==0) {
+			endPage=1;
+			maxPage=1;
+		}
+		
 		
 		System.out.println("listCount : " + listCount);
 		System.out.println("maxPage : " + maxPage);
