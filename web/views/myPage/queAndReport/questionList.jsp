@@ -116,7 +116,9 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
+    height: 500px;
+    z-index: 2;
 }
 
 /* 1920px 전용(작업용) */
@@ -128,7 +130,7 @@
 }
 
 .contentArea>table {
-	width: 81%;
+	width: 920px;
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
@@ -147,15 +149,40 @@ td>img {
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	height: 33px;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
 }
 
 .detailLink {
 	cursor : pointer;
 }
-
-
+.btn2 {
+	background: none;
+	border: none;
+	border: 1px solid white;
+	background: white;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
+}
+.btn3 {
+		border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
+		z-index: 1;
+}
+.btn3:hover {
+	cursor: pointer;
+}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -207,7 +234,7 @@ td>img {
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table id="tableArea" border="1">
+			<table id="tableArea">
 				<thead id="tableHeadArea">
 					<tr>
 					<th>문의번호</th>
@@ -237,48 +264,36 @@ td>img {
 				</tbody>
 			</table> <!-- tableArea End -->
 			<br><br>
-			<button><a href="views/myPage/queAndReport/question.jsp">문의하기</a></button>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		<div class="pagingArea" align="center">	
+		</div> <!-- contentArea End -->
+	</div> <!-- contents End -->
+	
+	</div><!-- container End -->
+	<div class="pagingArea" align="center">	
 		
-		  <button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=1'"><<</button>
+		  <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=1'"><<</button>
 		<%if(currentPage==1) {%>
-			<button disabled><</button>
+			<button class="btn2" disabled><</button>
 		<%}else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage-1%>'"><</button>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage-1%>'"><</button>
 		<%} %>
-		
-		<% for(int p = startPage; p<=endPage; p++) {
+			<% for(int p = startPage; p<=endPage; p++) {
 			if(p==currentPage){%>
-				<button disabled><%= p %></button>
+				<button class="btn2" disabled style="color: black"><%= p %></button>
 			<%}else { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=p%>'"><%=p %></button>
+				<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=p%>'"><%=p %></button>
 			<%}
 		}%>
 		<% if(currentPage >= maxPage) { %>
-			<button disabled>></button>
+			<button class="btn2" disabled>></button>
 		<%} else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage+1%>'">></button>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=currentPage+1%>'">></button>
 		<%} %>
 		
-		<button onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=maxPage%>'">>></button>
+		<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/qnaList.qr.jsp?currentPage=<%=maxPage%>'">>></button>
 		
-		
+		<button class="btn3" style="float: right;"><a href="views/myPage/queAndReport/question.jsp">문의하기</a></button>		
 
 		</div> <!-- pagingArea End -->
-		</div> <!-- contentArea End -->
-		
-	</div> <!-- contents End -->
-	</div><!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
 		request.getRequestDispatcher("../../common/errorPage.jsp").forward(request, response);
@@ -305,6 +320,10 @@ td>img {
 			location.href='<%= request.getContextPath() %>/questionDetail.qr?qnaId=' + qnaId;
 			
 		});
+		$(document).click(function(e) {
+			console.log(e);
+			
+		})
 		
 	</script>
 </body>

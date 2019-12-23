@@ -116,7 +116,7 @@
 	position: absolute;
 	width: 72%;
 	margin-top: 75px;
-	left: 28%;
+	left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -128,9 +128,7 @@
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
-	width: auto;
 	border-bottom: 1px solid #d9d9d9;
-	padding: 5px;
 	font-size: 15px;
 	text-align: center;
 }
@@ -155,6 +153,10 @@
 .textArea {
 	background: #f6f6f6;
 }
+.contentArea {
+	width: 920px;
+}
+
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -227,7 +229,7 @@
 						<tr>
 							<th class="con">문의작성일시</th>
 							<td class="con">
-								<text class="border_popep textArea" style="width: 560px; height: 20px;" name="qnaDate" disabled>
+								<text class="border_popep textArea" style="width: 400px; height: 20px;" name="qnaDate" disabled>
 									<%=questionDetail.getQnaDate() %>
 								</text>
 							</td>
@@ -236,8 +238,7 @@
 						<tr>
 							<th class="con">문의내용</th>
 							<td class="con">
-								<textarea rows="10" cols="120" class="textArea" style="resize:none;" name="qnaContent" disabled>
-									<%=questionDetail.getQnaContent() %>
+								<textarea rows="10" cols="100" class="textArea" style="resize:none;" name="qnaContent" disabled><%=questionDetail.getQnaContent() %>
 								</textarea>
 							
 							</td>
@@ -246,16 +247,13 @@
 						<tr>
 							<th class="con">문의답변일시</th>
 							<td class="con">
-							<text class="border_popep textArea" style="width: 560px; height: 20px;" name="qnaReplyDate" disabled>
-								
+							<text class="border_popep textArea" style="width: 360px; height: 20px;" name="qnaReplyDate" disabled>
 								<%if(questionDetail.getQnaReply()==null) { 
 										switch(questionDetail.getQnaStatus()) {
 										case "QHT1" : %>문의 접수<%; break;
 										case "QHT2" : %>문의 확인<%; break;
-										}%>									
-	
-									<%}else { %>
-									<%=questionDetail.getQnaReplyDate() %>
+										}%>
+									<%}else { %><%=questionDetail.getQnaReplyDate() %>
 									<%;} %>
 							</text>
 							</td>
@@ -264,12 +262,7 @@
 						<tr>
 							<th class="con">문의답변</th>
 							<td class="con">
-								<textarea rows="10" cols="120" class="textArea" style="resize:none;" name="qnaReply" disabled>
-									
-									<%if(questionDetail.getQnaReply()==null) {%>
-										
-									<%}else {%>
-										<%=questionDetail.getQnaReply() %>
+								<textarea rows="10" cols="100" class="textArea" style="resize:none; text-align: left;" name="qnaReply" disabled><%if(questionDetail.getQnaReply()==null) {%><%}else {%><%=questionDetail.getQnaReply() %>
 									<%} %>
 									
 								</textarea>

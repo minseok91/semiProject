@@ -108,7 +108,7 @@
     position: absolute;
     width: 58%;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -120,7 +120,7 @@
 }
 
 .contentArea>table {
-	width: 100%;
+	width: 920px;
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
@@ -136,6 +136,16 @@ td>img {
 .contentArea>table>thead>tr>th  {
 	background: #f5efe7;
 	border-top: 1px solid #3e2d1a;
+	width: 152px;
+	border-bottom: 1px solid #d9d9d9;
+	font-size: 15px;
+	text-align: center;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
 }
 
 </style>
@@ -186,16 +196,16 @@ td>img {
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table id="tableArea" border="1">
+			<table id="tableArea">
 				<thead id="tableHeadArea">
 					<tr>
 					<th>경매번호</th>
 					<th>상품사진</th>
 					<th>상품명</th>
 					<th>결제일시</th>
-					<th>종류<br>(감정신청/상품구매)</th>
+					<th style="width: 266px;">종류<br>(감정신청/상품구매)</th>
 					<th>결제금액</th>
-					<th>상태<br>(결제완료/환불진행중/환불완료)</th>
+					<th style="width: 438px;">상태<br>(결제완료/환불진행중/환불완료)</th>
 				</tr>
 				</thead>
 				<tbody id="tableBodyArea">

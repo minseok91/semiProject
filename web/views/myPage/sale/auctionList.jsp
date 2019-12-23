@@ -108,7 +108,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -120,7 +120,7 @@
 }
 
 .contentArea>table {
-	width: 81%;
+	width: 920px;	
 }
 
 .contentArea>table>tbody>tr>th, .contentArea>table>tbody>tr>td {
@@ -137,8 +137,13 @@ td>a>img {
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	border-top: 1px solid #211f22;
+	height: 33px;
+	text-align: center;
 }
 .btn {
 	border:1px solid #a07342;
@@ -195,7 +200,7 @@ td>a>img {
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
 			<div class="contentArea">
-				<table id="tableArea" border="1">
+				<table id="tableArea">
 					<thead id="tableHeadArea">
 						<tr>
 							<th>경매번호</th>
@@ -208,7 +213,7 @@ td>a>img {
 							<th>상세보기</th>
 						</tr>
 					</thead>
-					<tbody id="tableBodyArea"></tbody>
+					<!-- <tbody id="tableBodyArea"></tbody> -->
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->

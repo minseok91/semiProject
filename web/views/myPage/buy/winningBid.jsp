@@ -104,7 +104,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 나때문에 하는거니 무시해도됨 */
@@ -145,7 +145,6 @@ td>a>img {
 	height: 33px;
 }
  #tableArea {
- 	margin-left: -20px;
  	width: 920px;
  }
  .pay {
