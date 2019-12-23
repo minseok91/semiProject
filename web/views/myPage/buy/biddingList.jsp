@@ -113,7 +113,7 @@
     width: auto;
     height: 1000px;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -146,7 +146,6 @@ td>img {
  #tableArea {
  	border: none;
 	width: 920px;
-	margin-left: -23px;
 	border-collapse: none;
 }
  #tableArea td {
@@ -154,7 +153,7 @@ td>img {
 	border-left: none;
  }
  #detailView {
- 	border:1px solid #a07342;
+ 		border:1px solid #a07342;
 		background:#211f22;
 		color:#e2ceb8;
 		height:24px;

@@ -108,7 +108,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -120,7 +120,7 @@
 }
 
 .contentArea>table {
-	width: 81%;
+	width: 920px;
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
@@ -130,7 +130,7 @@
 	font-size: 15px;
 	text-align: center;
 }
-.container>.contents>#contentArea>#tableArea> {
+.container>.contents>#contentArea>#tableArea {
 	width: 200px;
 }
 td>img {
@@ -139,8 +139,13 @@ td>img {
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	height: 33px;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
 }
 </style>
 <meta charset="UTF-8">
@@ -190,7 +195,7 @@ td>img {
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
 			<div class="contentArea">
-				<table id="tableArea" border="1">
+				<table id="tableArea">
 					<thead id="tableHeadArea">
 						<tr>
 							<th>카테고리</th>
@@ -200,7 +205,8 @@ td>img {
 							<th>배송상태</th>
 						</tr>
 					</thead>
-					<tbody id="tableBodyArea"></tbody>
+					<tbody id="tableBodyArea">
+					</tbody>
 				</table> <!-- tableArea End -->
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->

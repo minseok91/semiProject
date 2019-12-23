@@ -280,7 +280,7 @@
 		$("#table_conntents  td  p").click(function(e){
 			var boardId = e.target.children[0].value;
 			console.log(boardId);
-			var loginMember = <%=loginMember%>
+			var loginMember = '<%=loginMember%>'
 			<% if(loginMember == null) { %>
 				alert("비회원은 게시판 상세 보기가 불가능합니다.")
 			<% } else { %>

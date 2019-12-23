@@ -38,6 +38,9 @@
 	width:inherit;
 	margin-top: 30px;
 }
+.cotentsArea {
+	height: 600px;
+}
 
 #myPageMenu {
 	width: 200px;
@@ -120,7 +123,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 28%;
+    left: 30%;
 }
 
 /* 1920px 전용(작업용) */
@@ -138,7 +141,7 @@
 	border-radius:5px;
 }
 .contentArea>table {
-	width: 81%;
+	width: 920px;
 }
 
 .contentArea>table>theady>tr>th, .contentArea>table>tbody>tr>td {
@@ -155,12 +158,24 @@
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	border-top: 1px solid #211f22;
+	height: 33px;
 	text-align: center;
-	font-size: 15px;
 }
-
+.btn {
+	background: none;
+	border: none;
+	border: 1px solid white;
+	background: white;
+	color: black;
+	height: 23px;
+	border-radius: 5px;
+	font-size: 17px;
+}
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
@@ -236,38 +251,31 @@
 			</tbody>
 			</table>
 		</div> <!-- menuStatus End -->
-		
-		
+		</div> <!-- contents End -->
 		<div class="pagingArea" align="center">	
 		
-		  <button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
+		  <button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
 		<%if(currentPage==1) {%>
-			<button disabled><</button>
+			<button class="btn" disabled><</button>
 		<%}else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage-1%>'"><</button>
+			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage-1%>'"><</button>
 		<%} %>
 		
 		<% for(int p = startPage; p<=endPage; p++) {
 			if(p==currentPage){%>
-				<button disabled><%= p %></button>
+				<button class="btn" disabled style="font-weight: bold;"><%= p %></button>
 			<%}else { %>
-				<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=p%>'"><%=p %></button>
+				<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=p%>'"><%=p %></button>
 			<%}
 		}%>
 		<% if(currentPage >= maxPage) { %>
-			<button disabled>></button>
+			<button class="btn" disabled>></button>
 		<%} else { %>
-			<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage+1%>'">></button>
+			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage+1%>'">></button>
 		<%} %>
 		
-		<button onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=maxPage%>'">>></button>
-		
-		
-
+		<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=maxPage%>'">>></button>
 		</div> <!-- pagingArea End -->
-		
-		
-		</div> <!-- contents End -->
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
