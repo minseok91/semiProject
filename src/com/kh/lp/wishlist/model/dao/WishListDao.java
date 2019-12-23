@@ -38,13 +38,13 @@ public class WishListDao {
 	 * @return
 	 */
 	
-	public int memberWishListCount(Connection con, int loginMemberNo) {
+	public int memberWishListCount(Connection con, int loginMemberNo, String selectedView) {
 		
 		int memberWishListCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = prop.getProperty("memberWishListCount");
+		String query = prop.getProperty(selectedView + "MemberWishListCount");
 		
 		try {
 			
@@ -203,6 +203,47 @@ public class WishListDao {
 		
 		return eachCurrentPrice;
 	}
+
+
+	
+	/**
+	 * @Author         : 오수민
+	 * @CreateDate    : 2019. 12. 23
+	 * @ModifyDate    : 2019. 12. 23
+	 * @Description   : 위시리스트에서 삭제목록 받아와서 위시리스트 상태변경 처리하는 메소드
+	 * @param
+	 * @return
+	 */
+	public int deleteWishList(Connection con, int loginMemberNo, String deleteArr) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteWishList");
+		
+		try {
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, loginMemberNo);
+			pstmt.setString(2, deleteArr);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return result;
+		
+		
+		
+	}
+
+	
 	
 	
 
