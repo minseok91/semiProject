@@ -16,20 +16,18 @@
 		padding: 6px 0px 0;
 	}
 	.contents{
-		height:650px;
 		width:inherit;
 	}
 	
 	#part1 {
 		display: flex;
-		padding-top: 10%;
-		height: 612px;
+		margin-top: 2%;
 	}
 
 	.title>img {
 		border: 1px solid #d9d9d9;
-		width: 330px;
-		height: 330px;
+		width: 430px;
+		height: 430px;
 		margin-left: 10px;
 	}
 	
@@ -41,7 +39,7 @@
 		padding: 0;
 		font-weight: lighter;
 		transform: translateX(0%);
-		margin-left: 10px;
+		margin-left: 19px;
 		text-decoration: none;
 		cursor: pointer;
 	}
@@ -65,14 +63,14 @@
 	
 	#detailImg>table>tbody>tr>td>img {
 		border: 1px solid #d9d9d9;
-		width: 75px;
-    	height: 75px;
+		width: 100px;
+    	height: 100px;
 	}
 	
 	.contents {
-		width: 100%;
+		width: 56%;
 		display: inline;
-		margin-left: 75px;
+		margin-left: 50px;
 	}
 	
 	.contents>#head {
@@ -83,19 +81,37 @@
 		font-family: 'Nanum Myeongjo', serif;
 		font-size: 20px;
 		margin: 0;
+		padding-left: 7px;
 	}
 	
 	.contents>#head>label:nth-of-type(2) {
-		margin-left: 54%;
+    	position: relative;
+    	left: 45%;
+    	padding: 0 5px;
+	}
+	
+	/* 1920px 전용(작업용) */
+	@media(min-width: 1919px) {
+		#head>label:nth-of-type(2) {
+			right: 387px;
+		}
+	}
+	
+	#timeArea {
+		display: grid;
+	}
+	
+	#timeArea > label:nth-of-type(1) {
+		font-size: 20px;
+    	color: #3e2d1a;
+    	border-left: 5px solid #3e2d1a;
+    	margin-top: 50px;
+    	padding-left: 10px;
 	}
 	
 	#timeArea > label:nth-of-type(2) {
 		font-weight: 100;
 		font-size: 2.5em;
-		color: #555;
-	/* 최고입찰가와 입찰가 입력 컨테이너를 묶음 */
-	#set {
-		display: flex;
 	}
 	
 	#price {
@@ -114,12 +130,13 @@
 	#price>label:nth-of-type(2) {
 		font-size: 3.5rem;
     	font-weight: 100;
-    	color: #555;
 	}
 	
 	#biddingUsers {
     	position: relative;
-   		margin-top: 59px;
+    	overflow-y: auto;
+   		left: 6.5%;
+   		height: 430px;
 	}
 	
 	#biddingUsers>table>thead>tr>th {
@@ -127,15 +144,15 @@
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(1) {
-		width: 150px;
+		width: 160px;
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(2) {
-		width: 200px;
+		width: 160px;
 	}
 	
 	#biddingUsers>table>thead>tr>th:nth-of-type(3) {
-		width: 100px;
+		width: 280px;
 	}
 	
 	#biddingUsers>table>thead>tr>th, #biddingUsers>table>tbody>tr>td {
@@ -147,7 +164,6 @@
 	
 	#biddingApply {
 		margin-top: 50px;
-		margin-left: 85px;
 	}
 	
 	#biddingApply>label {
@@ -185,25 +201,27 @@
 		color: #ff0000;
 	}
 	
+	#rowLine {
+		margin: 34px 0;
+    	border-bottom: 1px solid #3e2d1a;
+	}
+	
 	#part2 {
 		display: flex;
-		margin: 50px 0;
-		margin-left: -94px;
-		padding-bottom: 50px;
-		justify-content: center;
-		border-bottom: 1px solid #3e2d1a;
+		padding-bottom: 150px;
 	}
+	
+	#dcAndbu {
+		position: relative;
+    	left: 1%;
+	}
+	
 	#endTime {
 		font-size: 30px;
 	}
 	
 	#detailContent {
-		position: relative;
-		right: 16%;
-	}
-	
-	#goods {
-		margin-left: 90px;
+		margin-bottom: 27px;
 	}
 
 	#detailContent>table>tbody>tr>td, #goods>table>tbody>tr>td {
@@ -213,7 +231,14 @@
 	
 	#detailContent>table>tbody>tr>td:nth-of-type(1), #goods>table>tbody>tr>td:nth-of-type(1) {
 		background: #f2f2f2;
+		width: 152px;
 	}
+
+	#detailContent>table>tbody>tr>td:nth-of-type(2), #goods>table>tbody>tr>td:nth-of-type(2) {
+		width: 277px;
+	} 
+	
+	
 </style>
 <link rel="shortcut icon" href="<%= request.getContextPath() %>/img/favicon.ico" type="image/x-icon"/>
 </head>
@@ -225,7 +250,7 @@
 		String img = (String) request.getAttribute("img");
 		int auctionId = (Integer) request.getAttribute("auctionId");
 		Watch w = (Watch) request.getAttribute("watch");
-		Auction ac = (Auction) request.getAttribute("auction");		//시간만 가져오는 옥션
+		Auction ac = (Auction) request.getAttribute("auction");
 		String msg = (String) request.getAttribute("msg");
 	%>
 		<div class="container">
@@ -258,13 +283,13 @@
 						<label>판매자 : <%= watchDetailInfo.get(0).getBidUserId() %></label>
 					</div>
 					<div id="timeArea">
+							<label>남은 시간</label>
 							<input type="hidden" id="endHiddenTime" name="endHiddenTime" value=""/>
 							<label for="" id="endTime" name="endTime"></label>
 					</div>  <!-- timeArea end -->
 					<div id=set>
-						
 						<div id="price">
-							<label id="nowPriceLabel">현재 가격</label>
+							<label>현재 가격</label>
 							<label id="maxPrice"></label>
 							<% if(loginMember == null) { %>
 								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
@@ -273,31 +298,22 @@
 							<% if(loginMember != null && !loginMember.getMemberId().equals(watchDetailInfo.get(0).getBidUserId())) { %>
 							<div id="biddingApply">
 								<label id="unit"></label><br>
-								<input type="text" name="bidding" id="minPrice" size="25" placeholder="">
+								<input type="text" name="bidding" id="minPrice" size="32" placeholder="">
 								<button id="insertBid" onclick="watchBiddingSend()" disabled>입찰</button>
 							<label>※경매 수수료 : 낙찰가의 15%</label>
 						</div>
 						<% } %>
 					</div>
-					<div id="biddingUsers">
-					<label>입찰 이력</label>
-							<table id="tableBiddingArea">
-								<thead id="tableBiddingHeadArea">
-									<tr>
-										<th>입찰자</th>
-										<th>입찰 금액</th>
-										<th>입찰 시간</th>
-									</tr>
-								</thead>
-							</table>  <!-- tableBiddingArea end -->
-						</div>
 				</span> <!-- contents End -->
 			</span> <!-- part1 End -->
+			
+			<div id="rowLine"></div>
 
 			<!-- 상품 상세정보(from 관리자), 상품정보 테이블형태 -->
 			<div id="part2">
+			<div id="dcAndbu">
 				<div id="detailContent">
-				<label>경매 정보</label>
+				<label>상품 정보</label>
 					<table>
 					<% if(watchDetailInfo.size() > 0) { %>
 						<tr>
@@ -321,7 +337,7 @@
 				</div>
 				
 				<div id="goods">
-					<label>상품 정보</label>
+					<label>상품 상세 정보</label>
 					<table>
 						<tr>
 							<td>보증서 유무</td>
@@ -344,6 +360,21 @@
 							<td><%= w.getWatchChronograph() %></td>
 						</tr>
 					</table>
+				</div>
+				
+				</div>
+				
+				<div id="biddingUsers">
+					<label>입찰 이력</label>
+					<table id="tableBiddingArea">
+						<thead id="tableBiddingHeadArea">
+							<tr>
+								<th>입찰자</th>
+								<th>입찰 금액</th>
+								<th>입찰 시간</th>
+							</tr>
+						</thead>
+					</table>  <!-- tableBiddingArea end -->
 				</div>
 			</div> <!-- part2 End -->
 			</div>
@@ -375,10 +406,11 @@
 						$('#wish').text('♥');
 				}
 			})
-			
+
 			var tempTime = Number("<%= ac.getAuctionPeriod() %>");
 			$("#endTime").text(changeTime(tempTime));
 			$("#endHiddenTime").val(tempTime);
+
 			
 			// 위시리스트 추가
 			$('#wish').click(function() {
@@ -390,6 +422,7 @@
 						auctionId: <%= auctionId %>,
 					},
 					success: function(data) {
+						console.log(data);
 						if(data === 'successWishY') {
 							alert('위시리스트에 추가했습니다.');
 							$('#wish').text('♥');
@@ -434,11 +467,11 @@
 							
 							for(j in arr2){
 								if(j == 0)
-									temp += "<td>" + arr2[j] + "</td>";
+									temp += "<td>"+ arr2[j] +"</td>";
 								else if(j == 1) 
-									temp += "<td>" + arr2[j] + "</td>";
+									temp += "<td>"+ numberFormat(arr2[j]) +"</td>";
 								else if(j == 2)
-									temp += "<td>" + arr2[j] + "</td>";
+									temp += "<td>"+ arr2[j] +"</td>";
 								else if(j == 3)
 									temp += "<td>" + arr2[j] + "</td>";	
 							}
@@ -465,10 +498,7 @@
 						console.log($("#tableBiddingArea > tbody").children().eq(0).children().eq(0).text());
 						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
 							$("#insertBid").hide();
-							$("#minPrice").val("최고가 입찰자 입니다.").css({"text-align":"center"});
-						} else {
-							$("#insertBid").show();
-							$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+							$("#minPrice").val("최고 입찰자 입니다.").css({"text-align":"center"});
 						}
 					},
 					error: function(data) {
@@ -482,6 +512,19 @@
 				return inputNumber.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			};
 			
+			function checkBiddingCount() {
+				$.ajax({
+					url: "",
+					type: "",
+					data: {},
+					success: function(data) {
+						
+					},
+					error: function(data) {
+						
+					}
+				});
+			}
 			
 			function watchGetWebSocket() {	//입찰웹소켓
 				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
@@ -533,26 +576,8 @@
 				} else {
 					var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
 					$("#minPrice").val("");
-					$.ajax({
-						url: "<%= request.getContextPath() %>/biddingCount.bid",
-						type: "post",
-						data: {
-							auctionId: <%= auctionId %>,
-							memberNo: <%= loginMember.getMemberNo() %>
-						},
-						success: function(data) {
-							var result = Number(data);
-							if(data < 3) {
-								watchBiddingWebSocket.send(sendMsg);
-								alert("성공적으로 입찰했습니다.");
-							} else {
-								alert("한 경매에 3번 넘게 입찰 할 수 없습니다.");
-							}
-						},
-						error: function(data) {
-							alert("입찰에 실패했습니다. 새로고침 후 다시 시도해주세요");
-						}
-					});
+					watchBiddingWebSocket.send(sendMsg);
+					alert("성공적으로 입찰했습니다.");
 				}
 			};
 			
@@ -580,14 +605,8 @@
 			function watchTimeOnOpen(event) {
 				console.log("watchTimeWebSocket 실행");
 				console.log($("#endHiddenTime").val());
-				if($("#endHiddenTime").val() <= 0) {
-					endAuction();
-				} else {
-					watchTimeSend($("#endHiddenTime").val());
-				}
+				watchTimeSend($("#endHiddenTime").val());
 			};
-			
-			
 			
 			function watchTimeOnMessage(event) {
 				console.log(event.data);
@@ -595,33 +614,6 @@
 				if(temp <= 0) {
 					// 경매 완료 처리
 					$("emdTime").text(changeTime(0));
-					$.ajax({
-						url: "<%= request.getContextPath() %>/biddingCount.bid",
-						type: "post",
-						data: {
-							auctionId: <%= auctionId %>,
-							memberNo: <%= loginMember.getMemberNo() %>
-						},
-						success: function(data) {
-							$.ajax({
-								url: "<%= request.getContextPath() %>/endAuction.au",
-								type: "post",
-								data2 : {
-									auctionId: <%= auctionId %>,
-									biddingCount: data
-								},
-								success: function(data2){
-									endAuction();
-								},
-								error: function(data2){
-									console.log("ajax에러");
-								}
-							});
-						},
-						error: function(data) {
-							console.log("ajax에러");
-						}
-					});
 				} else {
 					$("#endTime").text(changeTime(temp));
 					watchTimeSend(temp);
@@ -660,13 +652,7 @@
 				   zero += '0';
 				 }
 				 return zero + date;
-			};
-			
-			function endAuction() {
-				$("#endTime").text("경매종료").css({"color":"red"});
-				$("#nowPriceLabel").text("낙찰가");
-				$("#biddingApply").css({"display":"none"});
-			};
+			}
 	</script>
 </body>
 </html>
