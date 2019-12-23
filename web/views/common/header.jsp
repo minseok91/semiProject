@@ -1,7 +1,14 @@
+<%@page import="java.net.InetAddress"%>
+<%@page import="java.net.Inet4Address"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.lp.member.model.vo.*"%>
 <%
 	Member loginMember = (Member) session.getAttribute("loginMember");
+%>
+<%
+	InetAddress inet = InetAddress.getLocalHost();
+	String svrIP = inet.getHostAddress();
+	int svrPort = request.getServerPort();
 %>
 <!DOCTYPE html>
 <html>

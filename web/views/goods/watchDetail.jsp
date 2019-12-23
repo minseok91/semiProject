@@ -527,7 +527,7 @@
 			}
 			
 			function watchGetWebSocket() {	//입찰웹소켓
-				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
+				url = "ws://<%= svrIP %>:<%= svrPort %>/<%= request.getContextPath() %>/bidding/<%= loginMember.getMemberId() %>";
 				watchBiddingWebSocket = new WebSocket(url);
 				
 				watchBiddingWebSocket.onopen = function(event) {
@@ -582,7 +582,7 @@
 			};
 			
 			function endTimeWatchDetailGetWebSocket() {
-				url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
+				url = "ws://<%= svrIP %>:<%= svrPort %>/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
 				watchTimeWebSocket = new WebSocket(url);
 				
 				watchTimeWebSocket.onopen = function(event) {
