@@ -323,7 +323,7 @@ td>a>img {
 		console.log("endTimeGetWebSocket 실행합니다.");
 		var length = $("table>tbody>tr").length;
 		//보조메소드 = 자체제작메소드
-		var url = "ws://172.31.12.9:8010/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
+		var url = "ws://<%= svrIP %>:<%= svrPort %>/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
 		//new를 통해 웹소켓을 불러온다.
 		endTimeWebSocket = new WebSocket(url);
 		
