@@ -99,6 +99,9 @@ td>input{
     	border: none;
     	box-shadow: 0px 0px 5px 0px rgba(33,31,34,0.45);
 	}
+.status2 p {
+	font-size: 17px;
+}
 	label{
 		margin: 5px;
     	font-family: sans-serif;

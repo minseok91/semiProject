@@ -79,7 +79,9 @@
 	color: black;
 	text-decoration: underline;
 }
-
+.status2 p {
+	font-size: 17px;
+}
 .menuStatus {
 	width: 920px;
 	display: inline-block;

@@ -108,7 +108,10 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 30%;
+	margin-left: 220px;
+}
+.status2 p {
+	font-size: 17px;
 }
 
 /* 1920px 전용(작업용) */
@@ -205,8 +208,7 @@ td>img {
 							<th>배송상태</th>
 						</tr>
 					</thead>
-					<tbody id="tableBodyArea">
-					</tbody>
+					<tbody id="tableBodyArea"></tbody>
 				</table> <!-- tableArea End -->
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->

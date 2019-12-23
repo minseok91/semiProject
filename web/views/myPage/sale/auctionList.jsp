@@ -96,7 +96,9 @@
 	padding-left: 25px;
     padding-top: 18px;
 }
-
+.status2 p {
+	font-size: 17px;
+}
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
     color: #f00;
@@ -108,7 +110,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 30%;
+	margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -213,7 +215,7 @@ td>a>img {
 							<th>상세보기</th>
 						</tr>
 					</thead>
-					<!-- <tbody id="tableBodyArea"></tbody> -->
+					<tbody id="tableBodyArea"></tbody>
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->

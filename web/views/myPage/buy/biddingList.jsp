@@ -113,7 +113,7 @@
     width: auto;
     height: 1000px;
     margin-top: 75px;
-    left: 30%;
+    margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -160,6 +160,9 @@ td>img {
 		border-radius:4px;
 		font-size:16px;
 		font-weight: bold;
+ }
+ .status2 p {
+ 	font-size: 17px;
  }
 </style>
 <meta charset="UTF-8">

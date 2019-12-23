@@ -87,7 +87,7 @@
 .menuStatus>.status2 {
 	display: flex;
 	width: 920px;
-	height: 90px;
+	height: 126px;
 	background-color: lightgray;
 	padding-left: 25px;
     padding-top: 18px;
@@ -104,7 +104,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 30%;
+	margin-left: 220px;
 }
 
 /* 나때문에 하는거니 무시해도됨 */
@@ -155,6 +155,9 @@ td>a>img {
 		border-radius:4px;
 		font-size:16px;
 		font-weight: bold;
+ }
+ .status2 p {
+ 	font-size: 17px;
  }
 </style>
 <meta charset="UTF-8">

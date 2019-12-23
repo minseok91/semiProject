@@ -116,9 +116,8 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 30%;
     height: 500px;
-    z-index: 2;
+    margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -186,6 +185,12 @@ td>img {
 .pagingArea {
 	width: 920px;
 	text-align: center;
+}
+.btn3 a {
+	color:#e2ceb8;
+}
+.status2 p {
+	font-size: 17px;
 }
 </style>
 <meta charset="UTF-8">

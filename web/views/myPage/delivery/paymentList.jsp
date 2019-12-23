@@ -96,6 +96,9 @@
 	padding-left: 25px;
     padding-top: 18px;
 }
+.status2 p {
+	font-size: 17px;
+}
 
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
@@ -108,7 +111,7 @@
     position: absolute;
     width: 58%;
     margin-top: 75px;
-    left: 30%;
+	margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -203,9 +206,9 @@ td>img {
 					<th>상품사진</th>
 					<th>상품명</th>
 					<th>결제일시</th>
-					<th style="width: 266px;">종류<br>(감정신청/상품구매)</th>
+					<th style="width: 266px;">종류</th>
 					<th>결제금액</th>
-					<th style="width: 438px;">상태<br>(결제완료/환불진행중/환불완료)</th>
+					<th style="width: 438px;">상태</th>
 				</tr>
 				</thead>
 				<tbody id="tableBodyArea">

@@ -108,7 +108,7 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-    left: 30%;
+	margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -117,6 +117,9 @@
 		left: 32%;
 		width: 59%;
 	}
+}
+.status2 p {
+	font-size: 17px;
 }
 
 .contentArea>table {

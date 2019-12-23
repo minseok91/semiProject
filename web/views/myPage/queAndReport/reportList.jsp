@@ -89,7 +89,9 @@
 	color: black;
 	text-decoration: underline;
 }
-
+.status2 p {
+	font-size: 17px;
+}
 .container>.contents>.menuStatus {
 	width: 920px;
 	display: inline-block;
@@ -110,9 +112,9 @@
 .contentArea {
     text-align: center;
     position: absolute;
-    width: 72%;
+    width: 920px;
     margin-top: 75px;
-    left: 28%;
+    margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
@@ -124,7 +126,7 @@
 }
 
 .contentArea>table {
-    width: 81%;
+	width: 100%;
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
@@ -209,7 +211,6 @@
 				</tr>
 				</tbody>
 			</table>
-			<button>신고하기</button>
 		</div> <!-- contentArea End -->
 		<div class="pagingArea" align="center">	
 		<%-- <button onclick="location.href='<%=request.getContextPath() %>/selectList.bo?currentPage=1'"><</button>
@@ -238,6 +239,7 @@
 		</div> <!-- pagingArea End --> --%>
 		</div> <!-- contents End -->
 		</div>
+		<button style="float: right;">신고하기</button>
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");
