@@ -108,10 +108,11 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
-	margin-left: 220px;
+    left: 28%;
 }
 .status2 p {
 	font-size: 17px;
+    
 }
 
 /* 1920px 전용(작업용) */

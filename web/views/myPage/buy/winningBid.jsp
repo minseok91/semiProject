@@ -104,7 +104,7 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-	margin-left: 220px;
+    left: 28%;
 }
 
 /* 나때문에 하는거니 무시해도됨 */

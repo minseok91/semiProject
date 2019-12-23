@@ -39,7 +39,9 @@ public class EndAuctionServlet extends HttpServlet {
 		int auctionId = Integer.parseInt(request.getParameter("auctionId"));
 		String count = request.getParameter("biddingCount");
 		String[] biddingCount = count.split("명");
-		log.debug(auctionId);
+		log.debug("auctionId" + auctionId);
+		log.debug("biddingCount[0]" + biddingCount[0]);
+		
 		Auction requestAuction = new Auction();
 		requestAuction.setAuctionId(auctionId);
 		requestAuction.setAuctionBiddingCount(Integer.parseInt(biddingCount[0]));

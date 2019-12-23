@@ -99,6 +99,11 @@ public class WishListDeleteAjaxServlet extends HttpServlet {
     		if(endPage >= maxPage) {
     			endPage = maxPage;
     		}
+    		
+    		if(maxPage==0) {
+    			endPage=1;
+    			maxPage=1;
+    		}
 
 
     		System.out.println("listCount : " + listCount);

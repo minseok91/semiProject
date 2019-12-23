@@ -258,6 +258,10 @@ td>.content {
 	margin: 0 3px;
 }
 
+#hidden {
+	box-shadow:none;
+}
+
 
 
 
@@ -304,7 +308,7 @@ td>.content {
 				<h3>&nbsp;&nbsp;<&nbsp;위시리스트 &nbsp;>&nbsp;</h3>
 			</div>  <!-- status1 end -->
 			<div class="status2">
-				<p>회원님께서 찜하신 상품 리스트를 볼 수 있는 공간입니다.</p>
+				<p>회원님께서 관심 상품 등록하신 상품 리스트를 볼 수 있는 공간입니다.</p>
 			</div>  <!-- status2 end -->
 			<div id="deleteAndSearch">
 				<button id="wishDelete">위시리스트 삭제</button>
@@ -352,7 +356,7 @@ td>.content {
 							%>
 						</td>
 						<%} else {%>
-						<td hidden>
+						<td id="hidden">
 							<div disable>
 							<div id="img" >
 								<div class="price"></div>
@@ -374,6 +378,31 @@ td>.content {
 				
 			</table>
 		</div> <!-- watchList End -->
+		
+		<div id="pagingArea">
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=1'"><<</button>
+		<%if(currentPage==1) {%>
+			<button class="btn2" disabled><</button>
+		<%}else { %>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=currentPage-1%>'"><</button>
+		<%} %>
+			<% for(int p = startPage; p<=endPage; p++) {
+			if(p==currentPage){%>
+				<button class="btn2" disabled style="color: black"><%= p %></button>
+			<%}else { %>
+				<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=p%>'"><%=p %></button>
+			<%}
+		}%>
+		<% if(currentPage >= maxPage) { %>
+			<button class="btn2" disabled>></button>
+		<%} else { %>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=currentPage+1%>'">></button>
+		<%} %>
+		
+		<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/wishList.wi.jsp?currentPage=<%=maxPage%>'">>></button>
+		</div>
+		
+		
 		
 		</div>  <!-- contentArea end -->
 		</div> <!-- contents End -->

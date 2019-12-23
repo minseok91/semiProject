@@ -296,6 +296,7 @@ td>a>img {
 							<td style="width: 171px;"></td>
 						</tr>
 					</tbody>
+				<tbody id="tableBodyArea"></tbody>
 				</table>
 			</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->

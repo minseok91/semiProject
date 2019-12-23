@@ -116,8 +116,8 @@
     position: absolute;
     width: 72%;
     margin-top: 75px;
+    left: 28%;
     height: 500px;
-    margin-left: 220px;
 }
 
 /* 1920px 전용(작업용) */
