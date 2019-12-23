@@ -489,11 +489,11 @@
 						
 						// 최댓값기준 입찰단위
 						let unit = maxPrice*0.05;
-						$('#unit').text('입찰 단위 : ' + numberFormat(unit)+'원');
+						$('#unit').text('입찰 단위 : ' + numberFormat(Number(unit))+'원');
 						
 						// 최소입찰금액
 						let minPrice = maxPrice*1.05;
-						$('#minPrice').attr('placeholder', numberFormat(minPrice)+'원 이상 입력하세요.');
+						$('#minPrice').attr('placeholder', numberFormat(Number(minPrice))+'원 이상 입력하세요.');
 						
 						console.log($("#tableBiddingArea > tbody").children().eq(0).children().eq(0).text());
 						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
@@ -605,7 +605,11 @@
 			function watchTimeOnOpen(event) {
 				console.log("watchTimeWebSocket 실행");
 				console.log($("#endHiddenTime").val());
-				watchTimeSend($("#endHiddenTime").val());
+				if($("#endHiddenTime").val() <= 0) {
+					endAuction();
+				} else {
+					watchTimeSend($("#endHiddenTime").val());
+				}
 			};
 			
 			function watchTimeOnMessage(event) {
@@ -614,6 +618,33 @@
 				if(temp <= 0) {
 					// 경매 완료 처리
 					$("emdTime").text(changeTime(0));
+					$.ajax({
+						url: "<%= request.getContextPath() %>/biddingCount.bid",
+						type: "post",
+						data: {
+							auctionId: <%= auctionId %>,
+							memberNo: <%= loginMember.getMemberNo() %>
+						},
+						success: function(data) {
+							$.ajax({
+								url: "<%= request.getContextPath() %>/endAuction.au",
+								type: "post",
+								data2 : {
+									auctionId: <%= auctionId %>,
+									biddingCount: data
+								},
+								success: function(data2){
+									endAuction();
+								},
+								error: function(data2){
+									console.log("ajax에러");
+								}
+							});
+						},
+						error: function(data) {
+							console.log("ajax에러");
+						}
+					});
 				} else {
 					$("#endTime").text(changeTime(temp));
 					watchTimeSend(temp);
@@ -652,7 +683,12 @@
 				   zero += '0';
 				 }
 				 return zero + date;
-			}
+			};
+			function endAuction() {
+				$("#endTime").text("경매종료").css({"color":"red"});
+				$("#nowPriceLabel").text("낙찰가");
+				$("#biddingApply").css({"display":"none"});
+			};
 	</script>
 </body>
 </html>
