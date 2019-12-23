@@ -1,11 +1,15 @@
 package com.kh.lp.admin.main.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.kh.lp.admin.main.model.service.MainService;
 
 /**
  * Servlet implementation class MainSelectServlet
@@ -27,7 +31,20 @@ public class MainSelectServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		HashMap<String,Object> hamp = new 
+		HashMap<String,Object> hmap = new MainService().selectMain();
+		
+		
+		System.out.println("hmap :" + hmap);
+		String page = "";
+		if(hmap != null) {
+			page = "views/admin/main/admin_mainPage.jsp";
+			request.setAttribute("hmap", hmap);
+		} else {
+			page = "";
+			request.setAttribute("msg", "여기 메인 에러");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

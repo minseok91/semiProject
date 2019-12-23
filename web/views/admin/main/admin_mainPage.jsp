@@ -1,9 +1,31 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, com.kh.lp.item.model.vo.*, com.kh.lp.appraisal.model.vo.*, com.kh.lp.admin.qnaAndReport.model.vo.*, com.kh.lp.admin.board.model.vo.*" %>
+<% HashMap<String,Object> hmap = (HashMap<String,Object>) request.getAttribute("hmap"); 
+System.out.println("hmap :" + hmap);
+ArrayList<Item> itList = (ArrayList<Item>) hmap.get("item") ;
+ArrayList<AR1> auList = (ArrayList<AR1>) hmap.get("auction") ;
+ArrayList<QNA> qnaList = (ArrayList<QNA>) hmap.get("qna") ;
+ArrayList<Board> boList = (ArrayList<Board>) hmap.get("board") ;
+int itCount = (int) hmap.get("itemC");
+int auCount = (int) hmap.get("auctionC");
+int qnaCount = (int) hmap.get("qnaC");
+int boCount = (int) hmap.get("boardC");
+System.out.println("itList :" + itList);
+System.out.println("auList :" + auList);
+System.out.println("qnaList :" + qnaList);
+System.out.println("boList :" + boList);
+
+System.out.println("itCount :" + itCount);
+System.out.println("auCount :" + auCount);
+System.out.println("qnaCount :" + qnaCount);
+System.out.println("boCount :" + boCount);
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta content="text/html;">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="icon" type="image/png" sizes="32x32" href="image/loginimg(2).png">
 </head>
 <title>Insert title here</title>
@@ -95,9 +117,9 @@
 			border: 1px solid rgb(160, 115, 66);
 			border-radius: 5px; 
 		}
-		ul>li{
+		/* ul>li{
 		list-style:none;
-		}
+		} */
 	</style>
 </head>
 <body>
@@ -126,20 +148,27 @@
 							<td colspan="1"> 
 							<div id="mission">
 									<div>
-									&nbsp;&nbsp;&nbsp;<label>감정 대기 물품</label>
+									&nbsp;&nbsp;&nbsp;<label>감정 대기 물품</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="moreIt">more</label>
+											<ol>
+											<%for(Item it : itList) { %>
+												<li><%=it.getItemBrandModel() %></li>		
+											<% } %> 
+											</ol>
 									</div>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
+									<br>
 									<div>
-										 <ul>
-											<li><label for="checkBox1">블랙리스트 확인하기</label></li>
-											<li><label for="checkBox2">경매 물품 확인하기</label></li>
-											<li><label for="checkBox3">경매 상황 확인하기</label></li>
-										</ul> 
-									&nbsp;&nbsp;&nbsp;<label> 경매 진행중 상품</label>	
-										<ul>
-											<li><label for="checkBox1">블랙리스트 확인하기</label></li>
-											<li><label for="checkBox2">경매 물품 확인하기</label></li>
-											<li><label for="checkBox3">경매 상황 확인하기</label></li>
-										</ul> 
+									&nbsp;&nbsp;&nbsp;<label> 경매 진행중 상품</label>	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="moreAu">more</label>
+										<ol>
+											<%for(AR1 au : auList) { %>
+												<li><%=au.getAr1Brand() %> <%=au.getAr1Model() %></li>		
+											<% } %> 
+										</ol>
 									</div>
 									
 								</div>
@@ -149,22 +178,28 @@
 							<td colspan="2">
 								<div id="question">
 								<div>
-									 &nbsp;&nbsp;&nbsp;<label>신고 및 문의 </label>
-									<ul>
+									 &nbsp;&nbsp;&nbsp;<label>신고 및 문의 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="moreQNA">more</label>
+									<ol>
+										<!-- <li><label>명품 감정 믿을 수 있는건가요?</label><button>삭제</button></li>
 										<li><label>명품 감정 믿을 수 있는건가요?</label><button>삭제</button></li>
-										<li><label>명품 감정 믿을 수 있는건가요?</label><button>삭제</button></li>
-										<li><label>오늘 날씨 알려줘</label><button>삭제</button></li>
-									</ul>
+										<li><label>오늘 날씨 알려줘</label><button>삭제</button></li> -->
+										<% for(QNA qna : qnaList) {%>
+											<li><%=qna.getQnaTitle() %></li>
+										<%} %>
+									</ol>
 								</div>
 								</div>
 							</td>
 							<td colspan="2">
 								<div id="bbs">
-									&nbsp;&nbsp;&nbsp;<label>게시판 관리</label>
+									&nbsp;&nbsp;&nbsp;<label>게시판 관리</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label id="moreBo">more</label>
 									<ol>
-										<li>오늘 아침에 치킨을 먹었어요</li>
+										<!-- <li>오늘 아침에 치킨을 먹었어요</li>
 										<li>수원왕갈비통닭 레시피 알려주세요!!</li>
-										<li>오늘 집에가다가 500원 주웠어요</li>
+										<li>오늘 집에가다가 500원 주웠어요</li> -->
+										<% for(Board bo : boList) {%>
+											<li><%=bo.getBoardTitle()%></li>
+										<%} %>
 									</ol>
 								</div>
 							</td>
@@ -177,5 +212,39 @@
 	 		<h4 align="center"><a href="<%= request.getContextPath()%>/views/admin/main/admin_login.jsp">로그인 하러 가기</a></h4>
 	 		
 	 <% } %>
+	 <script>
+	 	$(function(){
+	 		$("#moreIt").mouseover(function(){
+	 			$("#moreIt").css('cursor','pointer');
+	 		});
+	 		
+	 		$("#moreAu").mouseover(function(){
+	 			$("#moreAu").css('cursor','pointer');
+	 		});
+	 		
+	 		$("#moreQNA").mouseover(function(){
+	 			$("#moreQNA").css('cursor','pointer');
+	 		});
+	 		
+	 		$("#moreBo").mouseover(function(){
+	 			$("#moreBo").css('cursor','pointer');
+	 		});
+	 		$("#moreIt").click(function(){
+	 			location.href="<%= request.getContextPath()%>/selectAll.it";
+	 		})
+	 		
+	 		$("#moreAu").click(function(){
+	 			location.href="<%=request.getContextPath()%>/selectAll.au";
+	 		})
+	 		
+	 		$("#moreQNA").click(function(){
+	 			location.href="<%= request.getContextPath()%>/QNASelect.qr";
+	 		})
+	 		
+	 		$("#moreBo").click(function(){
+	 			location.href="<%= request.getContextPath()%>/selectAll.bo";
+	 		})
+	 	})
+	 </script>
 </body>
 </html>
