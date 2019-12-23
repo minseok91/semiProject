@@ -111,6 +111,9 @@
 	padding-left: 25px;
     padding-top: 18px;
 }
+.status2 p {
+	font-size: 17px;
+}
 
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
@@ -254,27 +257,27 @@
 		</div> <!-- contents End -->
 		<div class="pagingArea" align="center">	
 		
-		  <button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
+		  <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
 		<%if(currentPage==1) {%>
-			<button class="btn" disabled><</button>
+			<button class="btn2" disabled><</button>
 		<%}else { %>
-			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage-1%>'"><</button>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage-1%>'"><</button>
 		<%} %>
 		
 		<% for(int p = startPage; p<=endPage; p++) {
 			if(p==currentPage){%>
-				<button class="btn" disabled style="font-weight: bold;"><%= p %></button>
+				<button class="btn2" disabled style="font-weight: bold;"><%= p %></button>
 			<%}else { %>
-				<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=p%>'"><%=p %></button>
+				<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=p%>'"><%=p %></button>
 			<%}
 		}%>
 		<% if(currentPage >= maxPage) { %>
-			<button class="btn" disabled>></button>
+			<button class="btn2" disabled>></button>
 		<%} else { %>
-			<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage+1%>'">></button>
+			<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=currentPage+1%>'">></button>
 		<%} %>
 		
-		<button class="btn" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=maxPage%>'">>></button>
+		<button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=<%=maxPage%>'">>></button>
 		</div> <!-- pagingArea End -->
 	</div> <!-- container End -->
 	<% } else {

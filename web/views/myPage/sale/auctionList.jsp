@@ -96,7 +96,9 @@
 	padding-left: 25px;
     padding-top: 18px;
 }
-
+.status2 p {
+	font-size: 17px;
+}
 .status2>p:nth-of-type(2) {
 	padding-left: 10px;
     color: #f00;

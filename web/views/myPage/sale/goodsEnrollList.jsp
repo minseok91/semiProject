@@ -101,10 +101,13 @@
 
 .container>.contents>.menuStatus>.status2 {
 	width: 920px;
-	height: 54px;
+	height: 60px;
 	background-color: lightgray;
 	padding-left: 25px;
     padding-top: 3px;
+}
+.status2 p {
+	font-size: 17px;
 }
 
 .status2>p:nth-of-type(2) {
@@ -114,7 +117,7 @@
 
 .contentArea {
     text-align: center;
-    width: 920px;
+    width: 922px;
     height: 700px;
     margin-top: 75px;
     left: 28%; 
@@ -218,10 +221,13 @@ td>a>img {
 		text-decoration: none;
 	}
 	 #tableHeadArea {
-	 	position: absolute;
+	 	 position: absolute;
 	 }
 	 ::-webkit-scrollbar { 
 		display:none; 
+	}
+	.tableBodyArea td:nth-child(3){
+		width: 171px;
 	}
 </style>
 <meta charset="UTF-8">
@@ -283,7 +289,13 @@ td>a>img {
 							<th>비고</th>
 						</tr>
 					</thead>
-
+					<tbody id="tableBodyArea">
+						<tr>
+							<td style="height: 33px;"></td>
+							<td></td>
+							<td style="width: 171px;"></td>
+						</tr>
+					</tbody>
 				<tbody id="tableBodyArea"></tbody>
 				</table>
 			</div> <!-- menuStatus End -->

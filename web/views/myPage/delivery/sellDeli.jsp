@@ -118,6 +118,9 @@
 		width: 59%;
 	}
 }
+.status2 p {
+	font-size: 17px;
+}
 
 .contentArea>table {
 	width: 920px;

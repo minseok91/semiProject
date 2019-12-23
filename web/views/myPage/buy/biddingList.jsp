@@ -161,6 +161,9 @@ td>img {
 		font-size:16px;
 		font-weight: bold;
  }
+ .status2 p {
+ 	font-size: 17px;
+ }
 </style>
 <meta charset="UTF-8">
 <title>LauXion</title>
