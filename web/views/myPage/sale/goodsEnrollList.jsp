@@ -465,8 +465,6 @@ td>a>img {
 		function doAuction(){
 			var itemPrice = $("#itemPrice").val();
 			var itemStartPrice = $("#itemStartPrice").val();
-			alert(itemPrice);
-			alert(itemStartPrice);
 			if(itemStartPrice > (itemPrice * 0.9)) {
 				alert("경매 시작가가 감정가의 90%보다 높습니다.");
 				return false;

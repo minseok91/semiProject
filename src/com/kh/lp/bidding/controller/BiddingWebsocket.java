@@ -1,12 +1,9 @@
 package com.kh.lp.bidding.controller;
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -14,30 +11,23 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-
 import com.kh.lp.bidding.model.service.BidService;
 import com.kh.lp.bidding.model.vo.Bidding;
-
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @ServerEndpoint(value="/bidding/{memberId}")
 public class BiddingWebsocket {
 	private static Map<String, Session> clients = Collections.synchronizedMap(new HashMap<String, Session>());
-	
 	@OnOpen
 	public void handleOpen(Session session, @PathParam("memberId") String memberId) {
 		clients.put(memberId, session);
 		log.debug("접속 : " + memberId + " : " + session);
 		log.debug("현재 접속자 수 : " + clients.size());
 	}
-	
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
 		log.info(msg);
-		
-		
-		
 		String arr[] = msg.split("::");
 		Bidding requestBidding = new Bidding();
 		requestBidding.setBiddingMemberNo(Integer.parseInt(arr[0]));

@@ -499,6 +499,10 @@
 						if($("#tableBiddingArea > tbody").children().eq(0).children().eq(3).text() == <%= loginMember.getMemberNo() %>) {
 							$("#insertBid").hide();
 							$("#minPrice").val("최고 입찰자 입니다.").css({"text-align":"center"});
+						} else {
+							$("#insertBid").show();
+							
+							$('#minPrice').val("").attr('placeholder', '현재 입찰가 + 5% 이상 입력하세요.');
 						}
 					},
 					error: function(data) {
@@ -567,6 +571,7 @@
 				$("#insertBid").attr("disabled", true);
 			};
 			
+			
 			function watchBiddingSend(msg) {
 				var memberNo = "<%= loginMember.getMemberNo() %>";
 				var auctionId = "<%= auctionId %>";
@@ -577,10 +582,29 @@
 				} else {
 					var sendMsg = memberNo + "::" + auctionId + "::" + biddingPrice;
 					$("#minPrice").val("");
-					watchBiddingWebSocket.send(sendMsg);
-					alert("성공적으로 입찰했습니다.");
+					$.ajax({
+						url: "<%= request.getContextPath() %>/biddingCount.bid",
+						type: "post",
+						data: {
+							auctionId: <%= auctionId %>,
+							memberNo: <%= loginMember.getMemberNo() %>
+						},
+						success: function(data) {
+							var result = Number(data);
+							if(data < 3) {
+								watchBiddingWebSocket.send(sendMsg);
+								alert("성공적으로 입찰했습니다.");
+							} else {
+								alert("한 경매에 3번 넘게 입찰 할 수 없습니다.");
+							}
+						},
+						error: function(data) {
+							alert("입찰에 실패했습니다. 새로고침 후 다시 시도해주세요");
+						}
+					});
 				}
 			};
+
 			
 			function endTimeWatchDetailGetWebSocket() {
 				url = "ws://<%= svrIP %>:<%= svrPort %>/<%= request.getContextPath() %>/endTime/<%= loginMember.getMemberId() %>";
