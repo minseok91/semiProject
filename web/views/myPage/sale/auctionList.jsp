@@ -198,7 +198,7 @@ td>a>img {
 					<h3>&nbsp;&nbsp;<&nbsp;경매 진행 상품 관리 &nbsp;>&nbsp;</h3>
 				</div>  <!-- status1 end -->
 				<div class="status2">
-					<p>회원님께서 등록하신 상품리스트 입니다.</p>
+					<p>경매 진행중인 회원님의 상품 리스트입니다.</p>
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
 			<div class="contentArea">

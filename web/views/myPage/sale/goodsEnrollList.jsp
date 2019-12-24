@@ -270,8 +270,7 @@ td>a>img {
 					<h3>&nbsp;&nbsp;<&nbsp;등록상품 관리 &nbsp;>&nbsp;</h3>
 				</div>  <!-- status1 end -->
 				<div class="status2">
-					<p>진품 보증 및 상품 감정이 완료되어 경매 진행이 가능한 상품 리스트 및 감정 결과를 볼 수 있는 공간입니다.</p>
-					<p>감정 완료 시점으로부터 7일 이내에 경매가 진행되지 않은 상품은 자동 반송 처리됩니다.</p>
+					<p>회원님께서 등록하신 모든 상품 리스트 및 현황을 볼 수 있는 공간입니다.</p>
 				</div>  <!-- status2 end -->
 			</div>  <!-- menuStatus end -->
 			<div class="contentArea" style="overflow:scroll;">
