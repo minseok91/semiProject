@@ -128,7 +128,6 @@
 @media(min-width: 1919px) {
 	.contentArea {
 		left: 32%;
-		width: 59%;
 	}
 }
 
@@ -220,9 +219,7 @@ td>a>img {
 		color: black;
 		text-decoration: none;
 	}
-	 #tableHeadArea {
-	 	 position: absolute;
-	 }
+
 	 ::-webkit-scrollbar { 
 		display:none; 
 	}
