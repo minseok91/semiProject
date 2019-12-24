@@ -256,7 +256,7 @@
 			</table>
 		</div> <!-- menuStatus End -->
 		</div> <!-- contents End -->
-		<div class="pagingArea" align="center">	
+		<div class="pagingArea" align="center" style="margin-top: 293px;">	
 		
 		  <button class="btn2" onclick="location.href='<%=request.getContextPath()%>/closedMemberAuctionList.au.jsp?currentPage=1'"><<</button>
 		<%if(currentPage==1) {%>
