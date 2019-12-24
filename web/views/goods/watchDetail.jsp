@@ -290,7 +290,7 @@
 					<div id=set>
 						<div id="price">
 							<label>현재 가격</label>
-							<label id="maxPrice"></label>
+							<label id="maxPrice"><%= ac.getAuctionStartPrice() %></label>
 							<% if(loginMember == null) { %>
 								<p>입찰을 하기 위해선 로그인을 해야합니다.</p>
 							<% } %>
@@ -551,6 +551,7 @@
 			function watchBiddingOnOpen(event) {
 				console.log("웹소켓 접속 완료");
 				$("#insertBid").attr("disabled", false);
+				
 			};
 			
 			function watchBiddingOnMessage(event) {

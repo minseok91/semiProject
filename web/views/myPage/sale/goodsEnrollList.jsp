@@ -375,19 +375,27 @@ td>a>img {
 						temp = "";
 						var arr2 = arr[i].split("::");		//0: 아이템번호, 1: 사진이름, 2: 브랜드, 3: 감정가, 4: 감정여부,  5: 경매카운트
 						for(j in arr2) {
+							if(j == 0) {
+								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
+							}
 							if(j == 1) {	//사진 여부
 								if(arr2[j] != "null"){
 									temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/" + arr2[j] + "'></a></td>";
 								}else {
 									temp += "<td><a class='resLink'><img src='<%= request.getContextPath() %>/img/appraisal/noImage.png'></a></td>";
 								}
-							} else if(j == 3) {		//감정가
+							}
+							if(j == 2) {
+								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
+							}
+							if(j == 3) {		//감정가
 								if(arr2[j] != 0) {
 									temp += "<td><a class='resLink'>" + numberFormat(arr2[j]) + "원</a></td>";
 								} else {
 									temp += "<td><a class='resLink'></a></td>";
 								}
-							} else if(j == 4) {
+							}
+							if(j == 4) {
 								if(arr2[j] == "진품1" || arr2[j] == "진품2") {
 									temp += "<td>경매<br>진행 중</td><td><button class='btn' onclick='itemDetail(this)' style='padding-top: 3px;'>상세보기</button></td>";
 								} else if(arr2[j] == "진품0") {
@@ -397,9 +405,8 @@ td>a>img {
 								} else {
 									temp += "<td>감정 중</td><td></td>";
 								}
-							} else if(j == 5) {
-								
-							} else {
+							}
+							if(j == 5) {
 								temp += "<td><a class='resLink'>" + arr2[j] + "</a></td>";
 							}
 						}
