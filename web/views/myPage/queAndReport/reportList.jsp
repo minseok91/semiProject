@@ -120,13 +120,13 @@
 /* 1920px 전용(작업용) */
 @media(min-width: 1919px) {
 	.contentArea {
-		left: 32%;
+	/* 	left: 32%; */
 		width: 59%;
 	}
 }
 
 .contentArea>table {
-	width: 100%;
+	width: 920px;
 }
 
 .contentArea>table>thead>tr>th, .contentArea>table>tbody>tr>td {
@@ -137,13 +137,27 @@
 	text-align: center;
 }
 
-.container>.contents>#contentArea>#tableArea> {
+.container>.contents>#contentArea>#tableArea {
 	width: 200px;
 }
 
 .contentArea>table>thead>tr>th  {
-	background: #f5efe7;
-	border-top: 1px solid #3e2d1a;
+	height: 33px;
+	border-top: 1px solid;
+	background: #E2CEB8;
+	color: #211f22;
+	font-size: 1.2em;
+	height: 32px;
+	border-top: 1px solid #211f22;
+}
+#reportBtn {
+border:1px solid #a07342;
+		background:#211f22;
+		color:#e2ceb8;
+		height:24px;
+		border-radius:4px;
+		font-size:16px;
+		font-weight: bold;
 }
 </style>
 <meta charset="UTF-8">
@@ -193,7 +207,7 @@
 			</div>  <!-- status2 end -->
 		</div>  <!-- menuStatus end -->
 		<div class="contentArea">
-			<table id="tableArea" border="1">
+			<table id="tableArea">
 				<thead id="tableHeadArea">
 					<tr>
 					<th>신고번호</th>
@@ -239,7 +253,7 @@
 		</div> <!-- pagingArea End --> --%>
 		</div> <!-- contents End -->
 		</div>
-		<button style="float: right;">신고하기</button>
+		<button id="reportBtn" style="float: right;">신고하기</button>
 	</div> <!-- container End -->
 	<% } else {
 		request.setAttribute("msg", "잘못된 경로로 접근했습니다.");

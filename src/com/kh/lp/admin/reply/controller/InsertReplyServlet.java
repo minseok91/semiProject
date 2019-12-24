@@ -40,7 +40,7 @@ public class InsertReplyServlet extends HttpServlet {
 		
 		int inserReply = new ReplyService().inserReply(boardId, comment, memberId);
 		// 관리자와 사용자를 구분 하기 위해 member를 넣어둠
-		ArrayList<Reply> list = new ReplyService().selectAll(boardId,"member");
+		ArrayList<Reply> list = new ReplyService().selectAll(boardId, user);
 		Reply r = list.get(list.size()-1);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

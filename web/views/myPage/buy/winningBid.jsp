@@ -104,7 +104,8 @@
     position: absolute;
     width: auto;
     margin-top: 75px;
-    left: 28%;
+  /*   left: 28%; */
+  	margin-left: 220px;
 }
 
 /* 나때문에 하는거니 무시해도됨 */
@@ -117,7 +118,7 @@
 /* 1920px 전용(작업용) */
 @media(min-width: 1919px) {
 	.contentArea {
-		left: 32%;
+		/* left: 32%; */
 	}
 }
 
