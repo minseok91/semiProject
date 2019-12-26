@@ -321,7 +321,7 @@ td>a>img {
 							<td><label for="">경매기간</label></td>
 							<td>
 								<select name="auctionDay" id="">
-									<option value="2">2</option>
+									<option value="1">2</option>
 									<option value="3">3</option>
 									<option value="4">4</option>
 									<option value="5">5</option>
